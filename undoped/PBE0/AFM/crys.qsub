@@ -9,4 +9,4 @@
 module load openmpi/1.4-gcc+ifort 
 module load intel/14.0
 cd ${PBS_O_WORKDIR}  
-mpiexec ../../../../CRYSTAL17/bin/Linux-ifort14_XE_emt64/v1.0.1/Pcrystal INPUT &> OUTPUT
+mpiexec ../../../../../CRYSTAL17/bin/Linux-ifort14_XE_emt64/v1.0.1/Pcrystal INPUT &> OUTPUT
