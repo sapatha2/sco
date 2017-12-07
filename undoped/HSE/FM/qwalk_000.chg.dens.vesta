@@ -7,7 +7,7 @@ TITLE
 QWalk plot output
 
 IMPORT_DENSITY 1
-+1.000000 qwalk_000.spin.dens.cube
++1.000000 qwalk_000.chg.dens.cube
 
 GROUP
 1 1 P 1
@@ -221,12 +221,12 @@ BONDP
 POLYP
  204 1  1.000 180 180 180
 ISURF
-  1   0       0.04 255 255   0 127 255
+  1   1        0.9 255 255   0 127 255
   0   0   0   0
 TEX3P
   1  0.00000E+00  1.00000E+00
 SECTP
-  1 -1.54727E-03  1.41052E+00  0.00000E+00
+  1  1.16889E-06  7.64320E+00  0.00000E+00
 HKLPP
  192 1  1.000 255   0 255
 UCOLP

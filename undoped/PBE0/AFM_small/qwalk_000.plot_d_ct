@@ -3,7 +3,7 @@ method {
   orbitals {
   cutoff_mo
     magnify 1
-    nmo 466
+    nmo 470
     orbfile qwalk_000.orb
     include qwalk.basis
     centers { useglobal }
@@ -15,7 +15,7 @@ method {
     431   432   433   434   435   436   437   438   439   440 
     441   442   443   444   445   446   447   448   449   450 
     451   452   453   454   455   456   457   458   459   460 
-    461   462   463   464   
+    461   462   463   464   465   467
   }
 }
 include qwalk_000.sys 
