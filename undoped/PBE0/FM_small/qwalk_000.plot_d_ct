@@ -1,0 +1,15 @@
+method {
+  plot
+  orbitals {
+  cutoff_mo
+    magnify 1
+    nmo 470
+    orbfile qwalk_000.orb
+    include qwalk.basis
+    centers { useglobal }
+  }
+  PLOTORBITALS { 
+    465 466 467
+  }
+}
+include qwalk_000.sys 
