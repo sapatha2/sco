@@ -1,0 +1,11 @@
+method { 
+  linear 
+  total_nstep 4000 
+  total_fit 4000 
+}
+include qwalk_000.sys
+trialfunc {
+  slater-jastrow
+  wf1 { include qwalk.jast2 }
+  wf2 { include qwalk_000.slater }
+}
