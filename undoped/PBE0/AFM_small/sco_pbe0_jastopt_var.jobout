@@ -1,0 +1,64 @@
+----------------------------------------
+Begin Torque Prologue (Mon Dec 18 10:13:58 2017)
+Job ID:           6815064.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_pbe0_jastopt_var
+Limits:           nodes=1,walltime=08:00:00,neednodes=1
+Job Queue:        wagner
+Account:          wagner
+Nodes:            golub052
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Mon Dec 18 10:57:12 2017)
+Job ID:           6815064.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_pbe0_jastopt_var
+Session:          12520
+Limits:           nodes=1,walltime=08:00:00,neednodes=1
+Resources:        cput=11:30:41,vmem=8799484kb,walltime=00:43:15,mem=5160444kb,energy_used=0
+Job Queue:        wagner
+Account:          wagner
+Nodes:            golub052
+End Torque Epilogue
+----------------------------------------
+----------------------------------------
+Begin Torque Prologue (Mon Dec 18 11:08:08 2017)
+Job ID:           6815159.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_pbe0_jastopt_var
+Limits:           nodes=1,walltime=02:00:00,neednodes=1
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub099
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Mon Dec 18 11:08:10 2017)
+Job ID:           6815159.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_pbe0_jastopt_var
+Session:          34460
+Limits:           nodes=1,walltime=02:00:00,neednodes=1
+Resources:        cput=00:00:00,vmem=0kb,walltime=00:00:02,mem=0kb,energy_used=0
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub099
+End Torque Epilogue
+----------------------------------------
+----------------------------------------
+Begin Torque Prologue (Mon Dec 18 11:14:24 2017)
+Job ID:           6815162.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_pbe0_jastopt_var
+Limits:           nodes=1,walltime=02:00:00,neednodes=1
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub099
+End Torque Prologue
+----------------------------------------
