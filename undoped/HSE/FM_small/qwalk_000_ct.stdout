@@ -1,0 +1,176 @@
+--------------------------------------------------------------------------
+[[43324,1],7]: A high-performance Open MPI point-to-point messaging module
+was unable to find any relevant network interfaces:
+
+Module: OpenFabrics (openib)
+  Host: golub050
+
+Another transport will be used instead, although this may result in
+lower performance.
+--------------------------------------------------------------------------
+0: output to qwalk_000_ct.linear.o
+9: cell volume 1430.02
+9: elsu 6.48894
+9: alpha 0.770542
+11: cell volume 1430.02
+11: elsu 6.48894
+11: alpha 0.770542
+12: cell volume 1430.02
+12: elsu 6.48894
+12: alpha 0.770542
+14: cell volume 1430.02
+14: elsu 6.48894
+14: alpha 0.770542
+15: cell volume 1430.02
+15: elsu 6.48894
+15: alpha 0.770542
+1: cell volume 1430.02
+1: elsu 6.48894
+1: alpha 0.770542
+2: cell volume 1430.02
+2: elsu 6.48894
+2: alpha 0.770542
+3: cell volume 1430.02
+3: elsu 6.48894
+3: alpha 0.770542
+4: cell volume 1430.02
+4: elsu 6.48894
+4: alpha 0.770542
+5: cell volume 1430.02
+5: elsu 6.48894
+5: alpha 0.770542
+6: cell volume 1430.02
+6: elsu 6.48894
+6: alpha 0.770542
+7: cell volume 1430.02
+7: elsu 6.48894
+7: alpha 0.770542
+8: cell volume 1430.02
+8: elsu 6.48894
+8: alpha 0.770542
+10: cell volume 1430.02
+10: elsu 6.48894
+10: alpha 0.770542
+13: cell volume 1430.02
+13: elsu 6.48894
+13: alpha 0.770542
+cutoff 9.59706
+ total centers 271
+0: cell volume 1430.02
+**Warning** atom 4 is out of the simulation cell.  Putting it inside.
+**Warning** atom 5 is out of the simulation cell.  Putting it inside.
+**Warning** atom 6 is out of the simulation cell.  Putting it inside.
+**Warning** atom 8 is out of the simulation cell.  Putting it inside.
+**Warning** atom 10 is out of the simulation cell.  Putting it inside.
+**Warning** atom 12 is out of the simulation cell.  Putting it inside.
+**Warning** atom 13 is out of the simulation cell.  Putting it inside.
+0: elsu 6.48894
+0: alpha 0.770542
+12: real space ion-ion 0.0258213
+12: reciprocal space ion 377.807
+3: real space ion-ion 0.0258213
+14: real space ion-ion 0.0258213
+2: real space ion-ion 0.0258213
+5: real space ion-ion 0.0258213
+15: real space ion-ion 0.0258213
+1: real space ion-ion 0.0258213
+6: real space ion-ion 0.0258213
+8: real space ion-ion 0.0258213
+3: reciprocal space ion 377.807
+14: reciprocal space ion 377.807
+2: reciprocal space ion 377.807
+6: reciprocal space ion 377.807
+5: reciprocal space ion 377.807
+15: reciprocal space ion 377.807
+1: reciprocal space ion 377.807
+8: reciprocal space ion 377.807
+11: real space ion-ion 0.0258213
+10: real space ion-ion 0.0258213
+13: real space ion-ion 0.0258213
+10: reciprocal space ion 377.807
+11: reciprocal space ion 377.807
+13: reciprocal space ion 377.807
+9: real space ion-ion 0.0258213
+4: real space ion-ion 0.0258213
+4: reciprocal space ion 377.807
+9: reciprocal space ion 377.807
+7: real space ion-ion 0.0258213
+Ewald sum using 2491 reciprocal points
+7: reciprocal space ion 377.807
+0: real space ion-ion 0.0258213
+0: reciprocal space ion 377.807
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 0 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 6 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 3 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 12 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 4 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 14 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 15 terminating 
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 9 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 11 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 2 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 8 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 10 terminating 
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 7 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 1 terminating 
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 5 terminating 
+Caught qmc_error
+Caught qmc_error
+Caught qmc_error
+Error   Second spin channel contains an orbital higher than requested NMO's.
+Node 13 terminating 
+Caught qmc_error
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 8 in communicator MPI_COMM_WORLD 
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpiexec has exited due to process rank 9 with PID 17319 on
+node golub050 exiting improperly. There are two reasons this could occur:
+
+1. this process did not call "init" before exiting, but others in
+the job did. This can cause a job to hang indefinitely while it waits
+for all processes to call "init". By rule, if one process calls "init",
+then ALL processes must call "init" prior to termination.
+
+2. this process called "init", but exited without calling "finalize".
+By rule, all processes that call "init" MUST call "finalize" prior to
+exiting or it will be considered an "abnormal termination"
+
+This may have caused other processes in the application to be
+terminated by signals sent by mpiexec (as reported here).
+--------------------------------------------------------------------------
+[golub050:17309] 15 more processes have sent help message help-mpi-btl-base.txt / btl:no-nics
+[golub050:17309] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[golub050:17309] 15 more processes have sent help message help-mpi-api.txt / mpi-abort
