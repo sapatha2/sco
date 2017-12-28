@@ -1,10 +1,10 @@
 #PBS -q wagner 
 #PBS -l nodes=1,flags=allprocs
 #PBS -l walltime=96:00:00
-#PBS -N sco_hseafm_jastopt
+#PBS -N sco_hse_jastopt
 #PBS -j oe
-#PBS -o sco_pbe0_jastopt.jobout  
-#PBS -e sco_pbe0_jastopt.err 
+#PBS -o sco_hse_jastopt.jobout  
+#PBS -e sco_hse_jastopt.err 
 
 module load openmpi/1.6.5-gcc-4.7.1
 module load intel/14.0

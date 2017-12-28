@@ -815,3 +815,840 @@ iteration # 2  dispersion= 5.77898
   average gradient: 6376.87 tolerance 0.0001
 iteration # 3  dispersion= 5.73081
   average gradient: 4229.64 tolerance 0.0001
+iteration # 4  dispersion= 5.63038
+  average gradient: 165.185 tolerance 0.0001
+iteration # 5  dispersion= 5.60782
+  average gradient: 12340.5 tolerance 0.0001
+iteration # 6  dispersion= 5.42268
+  average gradient: 10468.1 tolerance 0.0001
+iteration # 7  dispersion= 5.29452
+  average gradient: 4850.76 tolerance 0.0001
+iteration # 8  dispersion= 5.2617
+  average gradient: 14472.9 tolerance 0.0001
+iteration # 9  dispersion= 5.00234
+  average gradient: 316.887 tolerance 0.0001
+iteration # 10  dispersion= 4.97878
+  average gradient: 2164.59 tolerance 0.0001
+Optimization finished.  New wave function is in qwalk_000_ct.var.wfout
+Wall time for this method: 598 seconds.
+Total wall time so far: 1222 seconds.
+     System 
+Periodic system 
+Lattice vectors:
+0 : 14.8451   0   0   
+1 : 0   14.8451   0   
+2 : 0   0   6.48894   
+reciprocal vectors(multiplied by 2*pi) : 
+0 : 0.423249    0    0    
+1 : 0    0.423249    0    
+2 : 0    0    0.968291    
+total number of points in reciprocal ewald sum: 2491
+Self e-i 64.471
+Self e-e -89.62
+Self i-i -792.146
+xc correction 0.262267 Warning: not added to E_total!
+ion sum of ewald 377.833
+
+Atomic positions 
+ Label          Charge            x               y               z   
+    sr               2               0               0         3.24447
+    sr               2               0         7.42256         3.24447
+    sr               2         7.42256               0         3.24447
+    sr               2         7.42256         7.42256         3.24447
+    cu              19         11.1338         11.1338               0
+    cu              19         11.1338         3.71128               0
+    cu              19         3.71128         11.1338               0
+    cu              19         3.71128         3.71128               0
+     o               6               0         11.1338               0
+     o               6               0         3.71128               0
+     o               6         7.42256         11.1338               0
+     o               6         7.42256         3.71128               0
+     o               6         11.1338               0               0
+     o               6         11.1338         7.42256               0
+     o               6         3.71128               0               0
+     o               6         3.71128         7.42256               0
+ionic polarization 861.017  861.017  25.9558  
+
+
+     Wavefunction 
+Jastrow2 function
+Group 0
+  Separate spin two-body
+    Coefficients frozen
+    Like coefficients 0.25  0  
+    Unlike Coefficients 0  0.5  
+
+  Electron-electron basis
+    Cutoff cusp
+    Gamma 24   Cusp 1
+    Cutoff cusp
+    Gamma 24   Cusp 1
+
+Group 1
+  One-body terms 
+    Atom   Coefficients 
+    sr  -0.0144869  -0.011579  -0.00495614  
+    o  0.25792  0.148387  -0.0893003  
+    cu  1.44252  0.164676  -0.0499755  
+
+  Two-body terms 
+    Coefficients -0.0886521  -0.0798063  -0.043561  
+  Electron-ion basis
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  
+    cutoff distance : 3.24447
+
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  
+    cutoff distance : 3.24447
+
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  
+    cutoff distance : 3.24447
+
+
+  Electron-electron basis
+    Poly_pade function
+    beta : 0.5  6.4296  35.799  
+    cutoff distance : 3.24447
+
+
+Slater Determinant
+1 determinant
+State: 
+spin up:
+  1 2 3 4 5 6 7 8 9 10 
+  11 12 13 14 15 16 17 18 19 20 
+  21 22 23 24 25 26 27 28 29 30 
+  31 32 33 34 35 36 37 38 39 40 
+  41 42 43 44 45 46 47 48 49 50 
+  51 52 53 54 55 56 57 58 59 60 
+  61 62 63 64 65 67 
+spin down: 
+  401 402 403 404 405 406 407 408 409 410 
+  411 412 413 414 415 416 417 418 419 420 
+  421 422 423 424 425 426 427 428 429 430 
+  431 432 433 434 435 436 437 438 439 440 
+  441 442 443 444 445 446 447 448 449 450 
+  451 452 453 454 455 456 457 458 459 460 
+  461 462 463 464 465 466 
+Molecular Orbital object : Cutoff MO 
+Number of molecular orbitals: 466
+Basis functions: 
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+
+
+Pseudopotential 
+atom sr
+Integration points 12
+Cutoff for static calculation 4.05
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     146.872         0   1.28683
+  Expansion 1
+       coeff         n  exponent
+     140.026         0  0.956745
+  Expansion 2
+       coeff         n  exponent
+     24.4455         0   1.94832
+  Expansion 3
+       coeff         n  exponent
+           2        -1   4.38394
+     8.76788         1    3.1965
+    -14.2552         0  0.989915
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     146.872         0   1.28683
+  Expansion 1
+       coeff         n  exponent
+     140.026         0  0.956745
+  Expansion 2
+       coeff         n  exponent
+     24.4455         0   1.94832
+  Expansion 3
+       coeff         n  exponent
+           2        -1   4.38394
+     8.76788         1    3.1965
+    -14.2552         0  0.989915
+atom cu
+Integration points 12
+Cutoff for static calculation 1.1
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     127.351         0   12.3657
+  Expansion 1
+       coeff         n  exponent
+     71.2298         0   11.1607
+  Expansion 2
+       coeff         n  exponent
+          19        -1    6.2515
+     118.778         1   6.72725
+      -105.9         0   6.61025
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     127.351         0   12.3657
+  Expansion 1
+       coeff         n  exponent
+     71.2298         0   11.1607
+  Expansion 2
+       coeff         n  exponent
+          19        -1    6.2515
+     118.778         1   6.72725
+      -105.9         0   6.61025
+atom o
+Integration points 6
+Cutoff for static calculation 1.25
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     38.4191         0   8.71924
+  Expansion 1
+       coeff         n  exponent
+           6        -1   9.29794
+     55.7876         1   8.86492
+    -38.8198         0   8.62926
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     38.4191         0   8.71924
+  Expansion 1
+       coeff         n  exponent
+           6        -1   9.29794
+     55.7876         1   8.86492
+    -38.8198         0   8.62926
+
+
+-----------------------------
+Wave function optimization:  
+Number of configurations : 2048
+Maximum iterations: 10
+nparms 12
+Minimization function : Variance 
+----------------------------
+Running with reference energy -919.07
+iteration # 1  dispersion= 4.81838
+  average gradient: 10935.5 tolerance 0.0001
+iteration # 2  dispersion= 4.80081
+  average gradient: 919.525 tolerance 0.0001
+iteration # 3  dispersion= 4.79108
+  average gradient: 233.166 tolerance 0.0001
+iteration # 4  dispersion= 4.77279
+  average gradient: 157.657 tolerance 0.0001
+iteration # 5  dispersion= 4.77127
+  average gradient: 601.313 tolerance 0.0001
+iteration # 6  dispersion= 4.71991
+  average gradient: 631.23 tolerance 0.0001
+iteration # 7  dispersion= 4.71335
+  average gradient: 122.83 tolerance 0.0001
+iteration # 8  dispersion= 4.70745
+  average gradient: 1530.46 tolerance 0.0001
+iteration # 9  dispersion= 4.70261
+  average gradient: 33.4567 tolerance 0.0001
+iteration # 10  dispersion= 4.69847
+  average gradient: 50.4317 tolerance 0.0001
+Optimization finished.  New wave function is in qwalk_000_ct.var.wfout
+Wall time for this method: 806 seconds.
+Total wall time so far: 2030 seconds.
+     System 
+Periodic system 
+Lattice vectors:
+0 : 14.8451   0   0   
+1 : 0   14.8451   0   
+2 : 0   0   6.48894   
+reciprocal vectors(multiplied by 2*pi) : 
+0 : 0.423249    0    0    
+1 : 0    0.423249    0    
+2 : 0    0    0.968291    
+total number of points in reciprocal ewald sum: 2491
+Self e-i 64.471
+Self e-e -89.62
+Self i-i -792.146
+xc correction 0.262267 Warning: not added to E_total!
+ion sum of ewald 377.833
+
+Atomic positions 
+ Label          Charge            x               y               z   
+    sr               2               0               0         3.24447
+    sr               2               0         7.42256         3.24447
+    sr               2         7.42256               0         3.24447
+    sr               2         7.42256         7.42256         3.24447
+    cu              19         11.1338         11.1338               0
+    cu              19         11.1338         3.71128               0
+    cu              19         3.71128         11.1338               0
+    cu              19         3.71128         3.71128               0
+     o               6               0         11.1338               0
+     o               6               0         3.71128               0
+     o               6         7.42256         11.1338               0
+     o               6         7.42256         3.71128               0
+     o               6         11.1338               0               0
+     o               6         11.1338         7.42256               0
+     o               6         3.71128               0               0
+     o               6         3.71128         7.42256               0
+ionic polarization 861.017  861.017  25.9558  
+
+
+     Wavefunction 
+Jastrow2 function
+Group 0
+  Separate spin two-body
+    Coefficients frozen
+    Like coefficients 0.25  0  
+    Unlike Coefficients 0  0.5  
+
+  Electron-electron basis
+    Cutoff cusp
+    Gamma 24   Cusp 1
+    Cutoff cusp
+    Gamma 24   Cusp 1
+
+Group 1
+  One-body terms 
+    Atom   Coefficients 
+    sr  -0.018335  -0.0143451  -0.00580221  
+    o  0.213855  0.0315091  -0.0109373  
+    cu  1.47967  0.070355  -0.00752029  
+
+  Two-body terms 
+    Coefficients -0.0891819  -0.0701116  -0.0526141  
+  Electron-ion basis
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  
+    cutoff distance : 3.24447
+
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  
+    cutoff distance : 3.24447
+
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  
+    cutoff distance : 3.24447
+
+
+  Electron-electron basis
+    Poly_pade function
+    beta : 0.5  6.4296  35.799  
+    cutoff distance : 3.24447
+
+
+Slater Determinant
+1 determinant
+State: 
+spin up:
+  1 2 3 4 5 6 7 8 9 10 
+  11 12 13 14 15 16 17 18 19 20 
+  21 22 23 24 25 26 27 28 29 30 
+  31 32 33 34 35 36 37 38 39 40 
+  41 42 43 44 45 46 47 48 49 50 
+  51 52 53 54 55 56 57 58 59 60 
+  61 62 63 64 65 67 
+spin down: 
+  401 402 403 404 405 406 407 408 409 410 
+  411 412 413 414 415 416 417 418 419 420 
+  421 422 423 424 425 426 427 428 429 430 
+  431 432 433 434 435 436 437 438 439 440 
+  441 442 443 444 445 446 447 448 449 450 
+  451 452 453 454 455 456 457 458 459 460 
+  461 462 463 464 465 466 
+Molecular Orbital object : Cutoff MO 
+Number of molecular orbitals: 466
+Basis functions: 
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+
+
+Pseudopotential 
+atom sr
+Integration points 12
+Cutoff for static calculation 4.05
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     146.872         0   1.28683
+  Expansion 1
+       coeff         n  exponent
+     140.026         0  0.956745
+  Expansion 2
+       coeff         n  exponent
+     24.4455         0   1.94832
+  Expansion 3
+       coeff         n  exponent
+           2        -1   4.38394
+     8.76788         1    3.1965
+    -14.2552         0  0.989915
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     146.872         0   1.28683
+  Expansion 1
+       coeff         n  exponent
+     140.026         0  0.956745
+  Expansion 2
+       coeff         n  exponent
+     24.4455         0   1.94832
+  Expansion 3
+       coeff         n  exponent
+           2        -1   4.38394
+     8.76788         1    3.1965
+    -14.2552         0  0.989915
+atom cu
+Integration points 12
+Cutoff for static calculation 1.1
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     127.351         0   12.3657
+  Expansion 1
+       coeff         n  exponent
+     71.2298         0   11.1607
+  Expansion 2
+       coeff         n  exponent
+          19        -1    6.2515
+     118.778         1   6.72725
+      -105.9         0   6.61025
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     127.351         0   12.3657
+  Expansion 1
+       coeff         n  exponent
+     71.2298         0   11.1607
+  Expansion 2
+       coeff         n  exponent
+          19        -1    6.2515
+     118.778         1   6.72725
+      -105.9         0   6.61025
+atom o
+Integration points 6
+Cutoff for static calculation 1.25
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     38.4191         0   8.71924
+  Expansion 1
+       coeff         n  exponent
+           6        -1   9.29794
+     55.7876         1   8.86492
+    -38.8198         0   8.62926
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     38.4191         0   8.71924
+  Expansion 1
+       coeff         n  exponent
+           6        -1   9.29794
+     55.7876         1   8.86492
+    -38.8198         0   8.62926
+
+
+-----------------------------
+Wave function optimization:  
+Number of configurations : 2048
+Maximum iterations: 10
+nparms 12
+Minimization function : Variance 
+----------------------------
+Running with reference energy -919.088
+iteration # 1  dispersion= 4.64789
+  average gradient: 525.694 tolerance 0.0001
+iteration # 2  dispersion= 4.64683
+  average gradient: 149.551 tolerance 0.0001
+iteration # 3  dispersion= 4.64184
+  average gradient: 223.105 tolerance 0.0001
+iteration # 4  dispersion= 4.63903
+  average gradient: 24.6432 tolerance 0.0001
+iteration # 5  dispersion= 4.62042
+  average gradient: 1574.52 tolerance 0.0001
+iteration # 6  dispersion= 4.61661
+  average gradient: 24.8639 tolerance 0.0001
+iteration # 7  dispersion= 4.6113
+  average gradient: 35.9051 tolerance 0.0001
+iteration # 8  dispersion= 4.61024
+  average gradient: 44.9109 tolerance 0.0001
+iteration # 9  dispersion= 4.61004
+  average gradient: 45.8432 tolerance 0.0001
+iteration # 10  dispersion= 4.60698
+  average gradient: 31.2405 tolerance 0.0001
+Optimization finished.  New wave function is in qwalk_000_ct.var.wfout
+Wall time for this method: 910 seconds.
+Total wall time so far: 2943 seconds.
