@@ -707,3 +707,1127 @@ Setting step size to 0.000615
 
 Setting step size to 0.000615
 
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.0228
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00544
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.00152
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to 0.0212
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Setting step size to  0.003
+
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+Setting step size to 0.00188
+
+5: cell volume 1430.017603346347
+5: elsu 6.48894159866
+5: alpha 0.7705416860328232
+4: cell volume 1430.017603346347
+4: elsu 6.48894159866
+4: alpha 0.7705416860328232
+cutoff 9.597056622908216
+ total centers 271
+0: cell volume 1430.017603346347
+**Warning** atom 4 is out of the simulation cell.  Putting it inside.
+**Warning** atom 5 is out of the simulation cell.  Putting it inside.
+**Warning** atom 6 is out of the simulation cell.  Putting it inside.
+**Warning** atom 8 is out of the simulation cell.  Putting it inside.
+**Warning** atom 10 is out of the simulation cell.  Putting it inside.
+**Warning** atom 12 is out of the simulation cell.  Putting it inside.
+**Warning** atom 13 is out of the simulation cell.  Putting it inside.
+0: elsu 6.48894159866
+0: alpha 0.7705416860328232
+14: cell volume 1430.017603346347
+14: elsu 6.48894159866
+14: alpha 0.7705416860328232
+2: cell volume 1430.017603346347
+2: elsu 6.48894159866
+2: alpha 0.7705416860328232
+7: cell volume 1430.017603346347
+7: elsu 6.48894159866
+7: alpha 0.7705416860328232
+9: cell volume 1430.017603346347
+9: elsu 6.48894159866
+9: alpha 0.7705416860328232
+1: cell volume 1430.017603346347
+1: elsu 6.48894159866
+1: alpha 0.7705416860328232
+6: cell volume 1430.017603346347
+6: elsu 6.48894159866
+6: alpha 0.7705416860328232
+13: cell volume 1430.017603346347
+13: elsu 6.48894159866
+13: alpha 0.7705416860328232
+11: cell volume 1430.017603346347
+11: elsu 6.48894159866
+11: alpha 0.7705416860328232
+15: cell volume 1430.017603346347
+15: elsu 6.48894159866
+15: alpha 0.7705416860328232
+10: cell volume 1430.017603346347
+10: elsu 6.48894159866
+10: alpha 0.7705416860328232
+3: cell volume 1430.017603346347
+3: elsu 6.48894159866
+3: alpha 0.7705416860328232
+12: cell volume 1430.017603346347
+12: elsu 6.48894159866
+12: alpha 0.7705416860328232
+8: cell volume 1430.017603346347
+8: elsu 6.48894159866
+8: alpha 0.7705416860328232
+1: real space ion-ion 0.02582126279410084
+1: reciprocal space ion 377.8070563016742
+4: real space ion-ion 0.02582126279410084
+7: real space ion-ion 0.02582126279410084
+9: real space ion-ion 0.02582126279410084
+9: reciprocal space ion 377.8070563016742
+4: reciprocal space ion 377.8070563016742
+11: real space ion-ion 0.02582126279410084
+15: real space ion-ion 0.02582126279410084
+7: reciprocal space ion 377.8070563016742
+1: wfdata allocate
+8: real space ion-ion 0.02582126279410084
+11: reciprocal space ion 377.8070563016742
+15: reciprocal space ion 377.8070563016742
+13: real space ion-ion 0.02582126279410084
+8: reciprocal space ion 377.8070563016742
+9: wfdata allocate
+4: wfdata allocate
+7: wfdata allocate
+3: real space ion-ion 0.02582126279410084
+13: reciprocal space ion 377.8070563016742
+11: wfdata allocate
+15: wfdata allocate
+3: reciprocal space ion 377.8070563016742
+8: wfdata allocate
+13: wfdata allocate
+10: real space ion-ion 0.02582126279410084
+3: wfdata allocate
+6: real space ion-ion 0.02582126279410084
+10: reciprocal space ion 377.8070563016742
+12: real space ion-ion 0.02582126279410084
+6: reciprocal space ion 377.8070563016742
+10: wfdata allocate
+Ewald sum using 2491 reciprocal points
+12: reciprocal space ion 377.8070563016742
+0: real space ion-ion 0.02582126279410084
+6: wfdata allocate
+5: real space ion-ion 0.02582126279410084
+5: reciprocal space ion 377.8070563016742
+2: real space ion-ion 0.02582126279410084
+12: wfdata allocate
+0: reciprocal space ion 377.8070563016742
+2: reciprocal space ion 377.8070563016742
+5: wfdata allocate
+0: wfdata allocate
+2: wfdata allocate
+14: real space ion-ion 0.02582126279410084
+14: reciprocal space ion 377.8070563016742
+14: wfdata allocate
+12: Timestep is 0.7399999999999998
+6: Timestep is 0.7399999999999998
+14: Timestep is 0.7399999999999998
+4: Timestep is 0.7399999999999998
+10: Timestep is 0.7399999999999998
+2: Timestep is 0.7399999999999998
+0: Timestep is 0.7399999999999998
+5: Timestep is 0.7399999999999998
+8: Timestep is 0.7399999999999998
+1: Timestep is 0.7399999999999998
+3: Timestep is 0.7399999999999998
+11: Timestep is 0.7399999999999998
+9: Timestep is 0.7399999999999998
+15: Timestep is 0.7399999999999998
+13: Timestep is 0.7399999999999998
+7: Timestep is 0.7399999999999998
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.00221
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.0183
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.00267
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.000822
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.0113
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00159
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.00295
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.0156
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00101
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Setting step size to 0.00561
+
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+cutoff 9.597056622908216
+6: cell volume 1430.017603346347
+6: elsu 6.48894159866
+6: alpha 0.7705416860328232
+13: cell volume 1430.017603346347
+13: elsu 6.48894159866
+13: alpha 0.7705416860328232
+7: cell volume 1430.017603346347
+7: elsu 6.48894159866
+7: alpha 0.7705416860328232
+14: cell volume 1430.017603346347
+14: elsu 6.48894159866
+14: alpha 0.7705416860328232
+4: cell volume 1430.017603346347
+4: elsu 6.48894159866
+4: alpha 0.7705416860328232
+10: cell volume 1430.017603346347
+10: elsu 6.48894159866
+10: alpha 0.7705416860328232
+12: cell volume 1430.017603346347
+12: elsu 6.48894159866
+12: alpha 0.7705416860328232
+5: cell volume 1430.017603346347
+5: elsu 6.48894159866
+5: alpha 0.7705416860328232
+ total centers 271
+0: cell volume 1430.017603346347
+**Warning** atom 4 is out of the simulation cell.  Putting it inside.
+**Warning** atom 5 is out of the simulation cell.  Putting it inside.
+**Warning** atom 6 is out of the simulation cell.  Putting it inside.
+**Warning** atom 8 is out of the simulation cell.  Putting it inside.
+**Warning** atom 10 is out of the simulation cell.  Putting it inside.
+**Warning** atom 12 is out of the simulation cell.  Putting it inside.
+**Warning** atom 13 is out of the simulation cell.  Putting it inside.
+0: elsu 6.48894159866
+0: alpha 0.7705416860328232
+11: cell volume 1430.017603346347
+11: elsu 6.48894159866
+11: alpha 0.7705416860328232
+1: cell volume 1430.017603346347
+1: elsu 6.48894159866
+1: alpha 0.7705416860328232
+8: cell volume 1430.017603346347
+8: elsu 6.48894159866
+8: alpha 0.7705416860328232
+9: cell volume 1430.017603346347
+9: elsu 6.48894159866
+9: alpha 0.7705416860328232
+15: cell volume 1430.017603346347
+15: elsu 6.48894159866
+15: alpha 0.7705416860328232
+3: cell volume 1430.017603346347
+3: elsu 6.48894159866
+3: alpha 0.7705416860328232
+2: cell volume 1430.017603346347
+2: elsu 6.48894159866
+2: alpha 0.7705416860328232
+11: real space ion-ion 0.02582126279410084
+15: real space ion-ion 0.02582126279410084
+9: real space ion-ion 0.02582126279410084
+11: reciprocal space ion 377.8070563016742
+15: reciprocal space ion 377.8070563016742
+9: reciprocal space ion 377.8070563016742
+14: real space ion-ion 0.02582126279410084
+10: real space ion-ion 0.02582126279410084
+1: real space ion-ion 0.02582126279410084
+11: wfdata allocate
+13: real space ion-ion 0.02582126279410084
+10: reciprocal space ion 377.8070563016742
+8: real space ion-ion 0.02582126279410084
+15: wfdata allocate
+7: real space ion-ion 0.02582126279410084
+1: reciprocal space ion 377.8070563016742
+14: reciprocal space ion 377.8070563016742
+9: wfdata allocate
+13: reciprocal space ion 377.8070563016742
+7: reciprocal space ion 377.8070563016742
+8: reciprocal space ion 377.8070563016742
+3: real space ion-ion 0.02582126279410084
+6: real space ion-ion 0.02582126279410084
+4: real space ion-ion 0.02582126279410084
+14: wfdata allocate
+6: reciprocal space ion 377.8070563016742
+10: wfdata allocate
+3: reciprocal space ion 377.8070563016742
+13: wfdata allocate
+4: reciprocal space ion 377.8070563016742
+1: wfdata allocate
+7: wfdata allocate
+8: wfdata allocate
+6: wfdata allocate
+3: wfdata allocate
+4: wfdata allocate
+Ewald sum using 2491 reciprocal points
+0: real space ion-ion 0.02582126279410084
+12: real space ion-ion 0.02582126279410084
+0: reciprocal space ion 377.8070563016742
+2: real space ion-ion 0.02582126279410084
+5: real space ion-ion 0.02582126279410084
+0: wfdata allocate
+2: reciprocal space ion 377.8070563016742
+12: reciprocal space ion 377.8070563016742
+5: reciprocal space ion 377.8070563016742
+12: wfdata allocate
+5: wfdata allocate
+2: wfdata allocate
+4: Timestep is 0.7399999999999998
+12: Timestep is 0.7399999999999998
+9: Timestep is 0.7399999999999998
+8: Timestep is 0.7399999999999998
+6: Timestep is 0.7399999999999998
+1: Timestep is 0.7399999999999998
+7: Timestep is 0.7399999999999998
+0: Timestep is 0.7399999999999998
+10: Timestep is 0.7399999999999998
+11: Timestep is 0.7399999999999998
+15: Timestep is 0.7399999999999998
+13: Timestep is 0.7399999999999998
+14: Timestep is 0.7399999999999998
+3: Timestep is 0.7399999999999998
+5: Timestep is 0.7399999999999998
+2: Timestep is 0.7399999999999998
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.000721
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.00171
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0191
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.0161
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00213
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.00211
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0101
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.0107
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00308
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Setting step size to 0.00645
+
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.
+Reached iteration limit in macopt; continuing.

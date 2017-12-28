@@ -1,0 +1,41 @@
+Entering VMC
+****Block 0 avg life 1.213013731 max life 31.5 timestep 0.42125
+Total acceptance 0.6204325284
+accept_level0   0.455227036 tries 4224000
+accept_level1   0.3032556741 tries 2301121
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.2121737         601.1188316        -1639.627220         119.2962152   (value)
+  &&0         4.995500240         70.92638146         90.40245683         59.73936362   (sigma)
+
+****Block 1 avg life 1.220450521 max life 32 timestep 0.42125
+Total acceptance 0.6203072917
+accept_level0   0.4549095644 tries 4224000
+accept_level1   0.3034317179 tries 2302462
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.2527510         601.4183063        -1640.256227         119.5851697   (value)
+  &&0         4.975919713         71.29199939         90.72559341         59.87268792   (sigma)
+
+****Block 2 avg life 1.222287169 max life 32 timestep 0.42125
+Total acceptance 0.6202069129
+accept_level0   0.4548435133 tries 4224000
+accept_level1   0.3033319857 tries 2302741
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.2504575         601.3731790        -1640.287554         119.6639175   (value)
+  &&0         5.002418811         71.45389860         90.92565035         60.40313138   (sigma)
+
+****Block 3 avg life 1.2219884 max life 32 timestep 0.42125
+Total acceptance 0.6200788352
+accept_level0   0.4546339962 tries 4224000
+accept_level1   0.3033647823 tries 2303626
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.2263222         601.3470295        -1639.900685         119.3273331   (value)
+  &&0         4.964454247         70.79719867         90.30755349         59.53829709   (sigma)
+
+****Block 4 avg life 1.217120265 max life 32 timestep 0.42125
+Total acceptance 0.6202982955
+accept_level0   0.4547374527 tries 4224000
+accept_level1   0.3036350903 tries 2303189
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.2260746         601.2086332        -1639.870059         119.4353512   (value)
+  &&0         4.970462227         70.99531920         91.01364465         59.97592129   (sigma)
+

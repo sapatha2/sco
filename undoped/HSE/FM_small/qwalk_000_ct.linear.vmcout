@@ -1,0 +1,105 @@
+Entering VMC
+****Block 0 avg life 1.094055861 max life 31 timestep 0.3983333333
+Total acceptance 0.6373127369
+accept_level0   0.4719833342 tries 11263296
+accept_level1   0.3131139856 tries 5947208
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8748132         595.6094649        -1632.288317         117.8040385   (value)
+  &&0         4.774437040         71.06123140         91.32148094         59.62171893   (sigma)
+
+****Block 1 avg life 1.089595266 max life 31 timestep 0.3983333333
+Total acceptance 0.6378776692
+accept_level0   0.4724499827 tries 11263296
+accept_level1   0.3135772554 tries 5941952
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8798823         595.8635298        -1632.832261         118.0888486   (value)
+  &&0         4.789115963         71.24659118         91.80310084         60.02829975   (sigma)
+
+****Block 2 avg life 1.092467782 max life 31.5 timestep 0.3983333333
+Total acceptance 0.6372895643
+accept_level0   0.4719418721 tries 11263296
+accept_level1   0.3131240359 tries 5947675
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8848374         595.7946732        -1632.510494         117.8309829   (value)
+  &&0         4.774507173         71.54645952         91.58205057         60.12996222   (sigma)
+
+****Block 3 avg life 1.088873097 max life 31.5 timestep 0.3983333333
+Total acceptance 0.6376305834
+accept_level0   0.4725760559 tries 11263296
+accept_level1   0.3129446992 tries 5940532
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8702613         595.5654740        -1632.310625         117.8748893   (value)
+  &&0         4.788435364         71.03272742         91.84139534         60.03660692   (sigma)
+
+****Block 4 avg life 1.089239153 max life 33 timestep 0.3983333333
+Total acceptance 0.6379002203
+accept_level0   0.4725411638 tries 11263296
+accept_level1   0.3135013487 tries 5940925
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8799415         595.7037437        -1632.535473         117.9517874   (value)
+  &&0         4.789610264         71.13298744         91.57727648         59.68809921   (sigma)
+
+****Block 5 avg life 1.093895694 max life 35.5 timestep 0.3983333333
+Total acceptance 0.6371708601
+accept_level0   0.4719259797 tries 11263296
+accept_level1   0.3129199204 tries 5947854
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8855632         595.8272251        -1632.415804         117.7030156   (value)
+  &&0         4.784463393         71.27569777         91.49500260         59.87456282   (sigma)
+
+****Block 6 avg life 1.088632848 max life 35.5 timestep 0.3983333333
+Total acceptance 0.6377246057
+accept_level0   0.4724692488 tries 11263296
+accept_level1   0.3132620354 tries 5941735
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8744134         595.8343170        -1632.666432         117.9577020   (value)
+  &&0         4.784894908         70.98479634         91.52034681         59.58373835   (sigma)
+
+****Block 7 avg life 1.092488469 max life 35.5 timestep 0.3983333333
+Total acceptance 0.6374385437
+accept_level0   0.4720231982 tries 11263296
+accept_level1   0.3133004045 tries 5946759
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8741011         595.7526671        -1632.552807         117.9260391   (value)
+  &&0         4.797928222         71.33874286         91.62831647         60.41421738   (sigma)
+
+****Block 8 avg life 1.093889568 max life 35.5 timestep 0.3983333333
+Total acceptance 0.6374165253
+accept_level0   0.4722668214 tries 11263296
+accept_level1   0.3129416733 tries 5944015
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8754098         595.5538624        -1632.290604         117.8613313   (value)
+  &&0         4.794690610         71.14217603         92.40034752         60.97860342   (sigma)
+
+****Block 9 avg life 1.091380001 max life 35.5 timestep 0.3983333333
+Total acceptance 0.6375829065
+accept_level0   0.472135066 tries 11263296
+accept_level1   0.3134283598 tries 5945499
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8718072         595.8146803        -1632.515786         117.8292983   (value)
+  &&0         4.793986634         71.14016598         91.46887276         59.55992987   (sigma)
+
+****Block 10 avg life 1.089436787 max life 35.5 timestep 0.3983333333
+Total acceptance 0.6377944786
+accept_level0   0.4723358065 tries 11263296
+accept_level1   0.3135681257 tries 5943238
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8722788         595.6536423        -1632.371195         117.8452743   (value)
+  &&0         4.773674597         71.03335173         91.42284883         59.62555310   (sigma)
+
+****Block 11 avg life 1.091982578 max life 35.5 timestep 0.3983333333
+Total acceptance 0.637662812
+accept_level0   0.47224356 tries 11263296
+accept_level1   0.3134386234 tries 5944277
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8750015         595.7853579        -1632.589366         117.9290067   (value)
+  &&0         4.792127275         71.38773307         91.51985976         59.86826933   (sigma)
+
+****Block 12 avg life 1.09110628 max life 42 timestep 0.3983333333
+Total acceptance 0.6372900082
+accept_level0   0.472188869 tries 11263296
+accept_level1   0.3128034432 tries 5944893
+            total_energy             kinetic           potential            nonlocal
+  ##0        -918.8814179         595.8845999        -1632.877014         118.1109963   (value)
+  &&0         4.783761706         71.17422244         91.92253594         60.57390732   (sigma)
+
