@@ -1,0 +1,25 @@
+Entering VMC
+****Block 0 avg life 1.201409801 max life 35 timestep 0.418
+Total acceptance 0.6248612098
+accept_level0   0.4606975024 tries 3379200
+accept_level1   0.3044000503 tries 1822411
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.3221152         598.6771396        -1638.373621         120.3743660   (value)
+  &&0         4.864124432         71.12369423         91.36736008         60.77135116   (sigma)
+
+****Block 1 avg life 1.19370857 max life 36.5 timestep 0.418
+Total acceptance 0.6245392401
+accept_level0   0.4601666075 tries 3379200
+accept_level1   0.3044877083 tries 1824205
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.3358429         598.3755688        -1637.828743         120.1173312   (value)
+  &&0         4.903663910         71.38718573         91.99957743         61.31900935   (sigma)
+
+****Block 2 avg life 1.19917081 max life 36.5 timestep 0.418
+Total acceptance 0.6245614347
+accept_level0   0.4601947206 tries 3379200
+accept_level1   0.3044926019 tries 1824110
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.3049704         599.1246171        -1639.292198         120.8626107   (value)
+  &&0         4.875118885         71.20232694         91.36152829         60.94240011   (sigma)
+
