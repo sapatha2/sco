@@ -1,0 +1,89 @@
+Entering VMC
+****Block 0 avg life 1.188995916 max life 37 timestep 0.414
+Total acceptance 0.6251618726
+accept_level0   0.4599038234 tries 3379200
+accept_level1   0.3059789282 tries 1825093
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5520355         600.7685750        -1640.217918         119.8973075   (value)
+  &&0         4.924442759         70.33489565         90.02500799         59.48931733   (sigma)
+
+****Block 1 avg life 1.186966146 max life 37 timestep 0.414
+Total acceptance 0.6254906487
+accept_level0   0.4605388849 tries 3379200
+accept_level1   0.3057713691 tries 1822947
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5466104         601.2512422        -1640.774644         119.9767913   (value)
+  &&0         4.956875225         70.37264785         90.25138691         59.91941253   (sigma)
+
+****Block 2 avg life 1.195828894 max life 37 timestep 0.414
+Total acceptance 0.6249002723
+accept_level0   0.4599662642 tries 3379200
+accept_level1   0.3054142679 tries 1824882
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5601390         600.7266766        -1640.261545         119.9747298   (value)
+  &&0         4.959908575         70.38858556         90.34935608         60.32253209   (sigma)
+
+****Block 3 avg life 1.190819721 max life 37 timestep 0.414
+Total acceptance 0.6249860914
+accept_level0   0.4603790838 tries 3379200
+accept_level1   0.3050419334 tries 1823487
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5585557         600.5149526        -1640.195322         120.1218135   (value)
+  &&0         4.979021497         70.21854938         90.15174673         59.50311192   (sigma)
+
+****Block 4 avg life 1.193832564 max life 37 timestep 0.414
+Total acceptance 0.6253364702
+accept_level0   0.4601627604 tries 3379200
+accept_level1   0.305969462 tries 1824218
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5671434         600.5552967        -1639.896649         119.7742087   (value)
+  &&0         4.937468789         70.33117727         89.83415331         59.68845733   (sigma)
+
+****Block 5 avg life 1.191462476 max life 37 timestep 0.414
+Total acceptance 0.6248310251
+accept_level0   0.460020419 tries 3379200
+accept_level1   0.3052163672 tries 1824699
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5755281         600.6820716        -1640.371815         120.1142155   (value)
+  &&0         4.978804327         70.58455341         90.40222722         60.28110685   (sigma)
+
+****Block 6 avg life 1.193433653 max life 37 timestep 0.414
+Total acceptance 0.6251154119
+accept_level0   0.4596318655 tries 3379200
+accept_level1   0.3062422372 tries 1826012
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5483119         601.2684337        -1640.915164         120.0984188   (value)
+  &&0         4.957397238         70.82805208         90.24056790         59.87142353   (sigma)
+
+****Block 7 avg life 1.182174775 max life 37 timestep 0.414
+Total acceptance 0.625974491
+accept_level0   0.4606288471 tries 3379200
+accept_level1   0.3065526271 tries 1822643
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5651115         600.4372028        -1639.852113         119.8497988   (value)
+  &&0         4.958680231         70.43915656         90.01982405         59.86929472   (sigma)
+
+****Block 8 avg life 1.187306167 max life 37 timestep 0.414
+Total acceptance 0.6255936316
+accept_level0   0.4606389086 tries 3379200
+accept_level1   0.3058335606 tries 1822609
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5700181         600.4774470        -1640.021506         119.9740410   (value)
+  &&0         4.954016447         70.10165933         90.13503053         60.23671449   (sigma)
+
+****Block 9 avg life 1.18541134 max life 37 timestep 0.414
+Total acceptance 0.6258975497
+accept_level0   0.460867661 tries 3379200
+accept_level1   0.3061027447 tries 1821836
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5565903         600.5496276        -1639.621224         119.5150065   (value)
+  &&0         4.948012218         70.17182178         89.69469060         59.10883219   (sigma)
+
+****Block 10 avg life 1.189240353 max life 37 timestep 0.414
+Total acceptance 0.6253953598
+accept_level0   0.4600636245 tries 3379200
+accept_level1   0.3062059584 tries 1824553
+            total_energy             kinetic           potential            nonlocal
+  ##0        -919.5676592         600.9163742        -1640.308952         119.8249183   (value)
+  &&0         4.940168638         70.44631610         89.66770084         59.64095486   (sigma)
+
