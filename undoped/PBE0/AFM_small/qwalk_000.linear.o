@@ -9,8 +9,8 @@ Originated at North Carolina State University
 Please cite J. Comp. Phys. v 228 pp 3390-3404 (2009) 
  when publishing results from this program.
 ------------------------------------------------
-Running on golub227
-Thu Dec 28 13:15:54 2017
+Running on golub220
+Mon Jan  1 16:25:42 2018
 
      System 
 Periodic system 
@@ -67,12 +67,12 @@ Group 0
 Group 1
   One-body terms 
     Atom   Coefficients 
-    sr  0.000803244  -0.00384199  -0.00212566  
-    o  0.225006  0.0536691  -0.00168024  
-    cu  1.32034  0.202868  -0.0800696  
+    sr  -0.0063636  -0.00701108  -0.0031009  
+    o  0.320824  0.0387847  -0.0262495  
+    cu  1.46279  0.290484  -0.0996018  
 
   Two-body terms 
-    Coefficients -0.0757883  -0.0884053  -0.0415014  
+    Coefficients -0.0872042  -0.104251  -0.0527602  
   Electron-ion basis
     Poly_pade function
     beta : 0.2  4.94369  28.4393  
@@ -393,15 +393,13 @@ Pseudopotential for spin down:
 
 -----------------------------
 Linear wave function optimization:  
-Number of processors: 24
-Number of MC steps : 63984
+Number of processors: 20
+Number of MC steps : 64000
 Wave function output to file  : qwalk_000.linear.wfout
 nparms 12
 ----------------------------
-step 0: current energy -919.2678048 +/- 0.003840518475 energy change  -0.07462430091
-step 1: current energy -919.3265477 +/- 0.005853094668 energy change  -0.05611725217
-step 2: current energy -919.389128 +/- 0.00677315569 energy change  0
-Did not find a downhill move; increasing total vmc steps to 255936
-step 3: current energy -919.3946107 +/- 0.003033658331 energy change  -0.04463747405
-step 4: current energy -919.4373793 +/- 0.002512215526 energy change  -0.00125125249
-step 5: current energy -919.4383023 +/- 0.00269149646 energy change  -0.03508931562
+step 0: current energy -919.4602105 +/- 0.005970805703 energy change  -0.0009413050936
+step 1: current energy -919.4757626 +/- 0.005696716194 energy change  0
+Did not find a downhill move; increasing total vmc steps to 256000
+step 2: current energy -919.47959 +/- 0.002554377177 energy change  -0.03189446385
+step 3: current energy -919.5078718 +/- 0.002752552663 energy change  -0.02517425944
