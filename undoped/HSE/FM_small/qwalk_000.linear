@@ -4,4 +4,4 @@ method {
   total_fit 64000 
 }
 include qwalk_000.sys
-trialfunc { include qwalk_000.var.wfout }
+trialfunc { include qwalk_000.linear.wfout }

@@ -9,8 +9,8 @@ Originated at North Carolina State University
 Please cite J. Comp. Phys. v 228 pp 3390-3404 (2009) 
  when publishing results from this program.
 ------------------------------------------------
-Running on golub222
-Sat Dec 30 07:36:11 2017
+Running on golub219
+Tue Jan  9 16:09:54 2018
 
      System 
 Periodic system 
@@ -67,12 +67,12 @@ Group 0
 Group 1
   One-body terms 
     Atom   Coefficients 
-    sr  -0.00620513  -0.00753213  -0.00267791  
-    o  0.127506  0.0118952  -0.00700219  
-    cu  1.24842  0.101191  -0.0184251  
+    sr  -0.0264448  -0.0166789  -0.00553111  
+    o  0.382429  0.00694409  -0.0201374  
+    cu  1.64309  0.298052  -0.130877  
 
   Two-body terms 
-    Coefficients -0.0564113  -0.0887909  -0.0444988  
+    Coefficients -0.104649  -0.102674  -0.0520026  
   Electron-ion basis
     Poly_pade function
     beta : 0.2  4.94369  28.4393  
@@ -398,9 +398,12 @@ Number of MC steps : 64000
 Wave function output to file  : qwalk_000.linear.wfout
 nparms 12
 ----------------------------
-step 0: current energy -918.8736112 +/- 0.006370690494 energy change  -0.3569239138
-step 1: current energy -919.2158109 +/- 0.006734586668 energy change  -0.002405523878
-step 2: current energy -919.2156975 +/- 0.004514860971 energy change  0
+step 0: current energy -919.5515644 +/- 0.004916432143 energy change  -0.02218575767
+step 1: current energy -919.5668743 +/- 0.005955740972 energy change  -0.0007531206922
+step 2: current energy -919.5639392 +/- 0.006148410375 energy change  -0.01458256896
+step 3: current energy -919.5908643 +/- 0.005727369394 energy change  -0.01432222983
+step 4: current energy -919.5914157 +/- 0.005194065147 energy change  -0.0156455326
+step 5: current energy -919.6146108 +/- 0.005596581402 energy change  -0.01636105817
+step 6: current energy -919.6290662 +/- 0.004340374295 energy change  0
 Did not find a downhill move; increasing total vmc steps to 256000
-step 3: current energy -919.2170257 +/- 0.00257086451 energy change  -0.06356489639
-step 4: current energy -919.2775555 +/- 0.002718901291 energy change  -0.05274697518
+step 7: current energy -919.6299927 +/- 0.002353955971
