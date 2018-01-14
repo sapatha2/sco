@@ -9,8 +9,8 @@ Originated at North Carolina State University
 Please cite J. Comp. Phys. v 228 pp 3390-3404 (2009) 
  when publishing results from this program.
 ------------------------------------------------
-Running on golub219
-Sat Dec 30 07:34:24 2017
+Running on golub220
+Fri Jan  5 16:29:54 2018
 
      System 
 Periodic system 
@@ -67,12 +67,12 @@ Group 0
 Group 1
   One-body terms 
     Atom   Coefficients 
-    sr  -0.0120103  -0.0107871  -0.00327785  
-    o  0.208079  0.0480622  -0.00700707  
-    cu  1.24913  0.0888131  0.00384259  
+    sr  -0.0129004  -0.0111863  -0.00340194  
+    o  0.227519  0.0486692  -0.0106308  
+    cu  1.27989  0.126156  0.013152  
 
   Two-body terms 
-    Coefficients -0.0608772  -0.0841487  -0.0509595  
+    Coefficients -0.0652279  -0.0894984  -0.0594817  
   Electron-ion basis
     Poly_pade function
     beta : 0.2  4.94369  28.4393  
@@ -398,7 +398,9 @@ Number of MC steps : 64000
 Wave function output to file  : qwalk_000.linear.wfout
 nparms 12
 ----------------------------
-step 0: current energy -919.0957915 +/- 0.003589793436 energy change  0
+step 0: current energy -919.2138424 +/- 0.004219427333 energy change  -0.06781449765
+step 1: current energy -919.2702619 +/- 0.005759774989 energy change  0
 Did not find a downhill move; increasing total vmc steps to 256000
-step 1: current energy -919.1033299 +/- 0.002925021248 energy change  -0.01021049044
-step 2: current energy -919.1151116 +/- 0.00275425263 energy change  -0.1026071903
+step 2: current energy -919.2782825 +/- 0.002611626161 energy change  -0.06492868754
+step 3: current energy -919.34228 +/- 0.003158216239 energy change  0
+Iterations without a downhill move:1

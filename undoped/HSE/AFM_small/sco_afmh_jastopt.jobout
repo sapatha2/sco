@@ -25,3 +25,30 @@ Account:          wagner
 Nodes:            golub221
 End Torque Epilogue
 ----------------------------------------
+----------------------------------------
+Begin Torque Prologue (Fri Jan  5 16:25:41 2018)
+Job ID:           6864274.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_afmh_jastopt
+Limits:           nodes=1,walltime=96:00:00,neednodes=1
+Job Queue:        wagner
+Account:          wagner
+Nodes:            golub052
+End Torque Prologue
+----------------------------------------
+=>> PBS: job killed: walltime 345601 exceeded limit 345600
+----------------------------------------
+Begin Torque Epilogue (Tue Jan  9 16:25:41 2018)
+Job ID:           6864274.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_afmh_jastopt
+Session:          38571
+Limits:           nodes=1,walltime=96:00:00,neednodes=1
+Resources:        cput=1535:06:18,vmem=9542832kb,walltime=96:00:01,mem=5893916kb,energy_used=0
+Job Queue:        wagner
+Account:          wagner
+Nodes:            golub052
+End Torque Epilogue
+----------------------------------------

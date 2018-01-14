@@ -9,8 +9,8 @@ Originated at North Carolina State University
 Please cite J. Comp. Phys. v 228 pp 3390-3404 (2009) 
  when publishing results from this program.
 ------------------------------------------------
-Running on golub221
-Sat Dec 30 07:36:11 2017
+Running on golub052
+Fri Jan  5 16:25:42 2018
 
      System 
 Periodic system 
@@ -67,12 +67,12 @@ Group 0
 Group 1
   One-body terms 
     Atom   Coefficients 
-    sr  -0.0033987  -0.0162097  -0.0116927  
-    o  0.336875  0.0340915  -0.022816  
-    cu  1.36  0.0780478  -0.0100296  
+    sr  -0.0167911  -0.0223577  -0.0136309  
+    o  0.391139  -0.00605919  -0.0113232  
+    cu  1.65943  0.251844  -0.0952555  
 
   Two-body terms 
-    Coefficients -0.0767058  -0.0761558  -0.050702  
+    Coefficients -0.107465  -0.0957596  -0.0552585  
   Electron-ion basis
     Poly_pade function
     beta : 0.2  4.94369  28.4393  
@@ -393,18 +393,13 @@ Pseudopotential for spin down:
 
 -----------------------------
 Linear wave function optimization:  
-Number of processors: 20
+Number of processors: 16
 Number of MC steps : 64000
 Wave function output to file  : qwalk_000.linear.wfout
 nparms 12
 ----------------------------
-step 0: current energy -919.1803911 +/- 0.004510341769 energy change  -0.1803231512
-step 1: current energy -919.3662564 +/- 0.006667601104 energy change  -0.102518963
-step 2: current energy -919.4657399 +/- 0.005263326477 energy change  -0.00326475233
-step 3: current energy -919.4609413 +/- 0.004409244574 energy change  -0.04747389238
-step 4: current energy -919.5023208 +/- 0.005683938745 energy change  -0.001051395353
-step 5: current energy -919.5139056 +/- 0.005678316841 energy change  -0.03240891362
-step 6: current energy -919.544678 +/- 0.004916613899 energy change  -0.0004402877909
-step 7: current energy -919.5471361 +/- 0.005692656056 energy change  -0.02303792588
-step 8: current energy -919.5655846 +/- 0.004301658306 energy change  0
+step 0: current energy -919.556656 +/- 0.004950425275 energy change  -0.0009214749629
+step 1: current energy -919.5570991 +/- 0.005243514463 energy change  0
 Did not find a downhill move; increasing total vmc steps to 256000
+step 2: current energy -919.5607801 +/- 0.002622529949 energy change  0
+Iterations without a downhill move:1

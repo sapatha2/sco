@@ -9,8 +9,8 @@ Originated at North Carolina State University
 Please cite J. Comp. Phys. v 228 pp 3390-3404 (2009) 
  when publishing results from this program.
 ------------------------------------------------
-Running on golub220
-Mon Jan  1 16:25:42 2018
+Running on golub227
+Mon Jan  8 11:26:04 2018
 
      System 
 Periodic system 
@@ -67,12 +67,12 @@ Group 0
 Group 1
   One-body terms 
     Atom   Coefficients 
-    sr  -0.0063636  -0.00701108  -0.0031009  
-    o  0.320824  0.0387847  -0.0262495  
-    cu  1.46279  0.290484  -0.0996018  
+    sr  -0.0124571  -0.00977869  -0.00396671  
+    o  0.361049  0.0211951  -0.0274699  
+    cu  1.56425  0.314192  -0.131205  
 
   Two-body terms 
-    Coefficients -0.0872042  -0.104251  -0.0527602  
+    Coefficients -0.0981183  -0.104445  -0.0515413  
   Electron-ion basis
     Poly_pade function
     beta : 0.2  4.94369  28.4393  
@@ -393,13 +393,15 @@ Pseudopotential for spin down:
 
 -----------------------------
 Linear wave function optimization:  
-Number of processors: 20
-Number of MC steps : 64000
+Number of processors: 24
+Number of MC steps : 63984
 Wave function output to file  : qwalk_000.linear.wfout
 nparms 12
 ----------------------------
-step 0: current energy -919.4602105 +/- 0.005970805703 energy change  -0.0009413050936
-step 1: current energy -919.4757626 +/- 0.005696716194 energy change  0
-Did not find a downhill move; increasing total vmc steps to 256000
-step 2: current energy -919.47959 +/- 0.002554377177 energy change  -0.03189446385
-step 3: current energy -919.5078718 +/- 0.002752552663 energy change  -0.02517425944
+step 0: current energy -919.5323746 +/- 0.007878065867 energy change  -0.01992103935
+step 1: current energy -919.5471112 +/- 0.006803995925 energy change  0
+Did not find a downhill move; increasing total vmc steps to 255936
+step 2: current energy -919.5531096 +/- 0.001901888099 energy change  0
+Iterations without a downhill move:1
+step 3: current energy -919.557957 +/- 0.002727637259 energy change  -0.0009528248118
+step 4: current energy -919.5562937 +/- 0.003131309339 energy change  -0.01786564456
