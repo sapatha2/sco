@@ -165,14 +165,14 @@ SMEAR
 0.0
 SAVEWF
 SPINLOCK
-4 200
+2 200
 ATOMSPIN
 16
 1       0 
 2       0
 3       0 
 4       0
-5       1        
+5       -1        
 6       1
 7       1
 8       1
