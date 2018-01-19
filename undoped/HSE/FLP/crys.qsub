@@ -1,10 +1,10 @@
 #PBS -q secondary 
 #PBS -l nodes=1,flags=allprocs
 #PBS -l walltime=04:00:00
-#PBS -N sco_fmhse
+#PBS -N sco_flhse 
 #PBS -j oe
-#PBS -o sco_fmhse.jobout  
-#PBS -e sco_fmhse.err 
+#PBS -o sco_flhse.jobout  
+#PBS -e sco_flhse.err 
 
 module load openmpi/1.4-gcc+ifort 
 module load intel/14.0
