@@ -76,3 +76,17 @@ Account:          wagner
 Nodes:            golub219
 End Torque Epilogue
 ----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Fri Jan 19 08:18:38 2018)
+Job ID:           6895377.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_fmp_jastopt
+Session:          24751
+Limits:           nodes=1,walltime=96:00:00,neednodes=1
+Resources:        cput=383:05:52,vmem=11667040kb,walltime=19:11:18,mem=7153868kb,energy_used=0
+Job Queue:        wagner
+Account:          wagner
+Nodes:            golub220
+End Torque Epilogue
+----------------------------------------
