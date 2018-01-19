@@ -77,7 +77,6 @@ WF2 {
     461 462 463 464 
     }
   ORBITALS {
-    CUTOFF_MO
     NMO 464
     ORBFILE qwalk_000.orb
     MAGNIFY 1
