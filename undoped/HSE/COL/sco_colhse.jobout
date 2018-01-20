@@ -1,0 +1,26 @@
+----------------------------------------
+Begin Torque Prologue (Sat Jan 20 02:07:55 2018)
+Job ID:           6904206.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_colhse
+Limits:           nodes=1,walltime=04:00:00,neednodes=1
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub044
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Sat Jan 20 05:56:25 2018)
+Job ID:           6904206.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_colhse
+Session:          59638
+Limits:           nodes=1,walltime=04:00:00,neednodes=1
+Resources:        cput=60:31:54,vmem=5959060kb,walltime=03:48:31,mem=1474704kb,energy_used=0
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub044
+End Torque Epilogue
+----------------------------------------
