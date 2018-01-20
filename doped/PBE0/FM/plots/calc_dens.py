@@ -1,6 +1,6 @@
 import cubetools
-nup=66
-ndown=66
+nup=68
+ndown=65
 import copy 
 
 up=cubetools.read_cube("qwalk_000.plot_u.dens.cube")
@@ -13,3 +13,4 @@ up['data']-=down['data'] #make 'up' the spin density
 cubetools.write_cube(up,"qwalk_000.spin.dens.cube")
 up['data']+=2*down['data'] #make 'up' the charge density
 cubetools.write_cube(up,"qwalk_000.chg.dens.cube")
+
