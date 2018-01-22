@@ -1,0 +1,26 @@
+----------------------------------------
+Begin Torque Prologue (Wed Nov 29 15:13:19 2017)
+Job ID:           6736887.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_pbe0
+Limits:           nodes=1,walltime=02:00:00,neednodes=1
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub008
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Wed Nov 29 16:56:06 2017)
+Job ID:           6736887.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_pbe0
+Session:          33614
+Limits:           nodes=1,walltime=02:00:00,neednodes=1
+Resources:        cput=27:18:13,vmem=6445416kb,walltime=01:42:47,mem=1953012kb,energy_used=0
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub008
+End Torque Epilogue
+----------------------------------------

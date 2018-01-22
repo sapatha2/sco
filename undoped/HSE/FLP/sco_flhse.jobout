@@ -1,0 +1,52 @@
+----------------------------------------
+Begin Torque Prologue (Sat Jan 20 02:07:55 2018)
+Job ID:           6904207.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_flhse
+Limits:           nodes=1,walltime=04:00:00,neednodes=1
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub093
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Sat Jan 20 06:07:56 2018)
+Job ID:           6904207.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_flhse
+Session:          17022
+Limits:           nodes=1,walltime=04:00:00,neednodes=1
+Resources:        cput=63:40:05,vmem=6110948kb,walltime=04:00:01,mem=1582524kb,energy_used=0
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub093
+End Torque Epilogue
+----------------------------------------
+----------------------------------------
+Begin Torque Prologue (Sat Jan 20 12:53:19 2018)
+Job ID:           6908295.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_flhse
+Limits:           nodes=2,walltime=04:00:00,neednodes=2
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub163 golub164
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Sat Jan 20 15:20:39 2018)
+Job ID:           6908295.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_flhse
+Session:          52849
+Limits:           nodes=2,walltime=04:00:00,neednodes=2
+Resources:        cput=97:29:04,vmem=16001360kb,walltime=02:27:19,mem=4811216kb,energy_used=0
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub163 golub164
+End Torque Epilogue
+----------------------------------------
