@@ -1,0 +1,9 @@
+method { optimize iterations 10 } 
+method { optimize iterations 10 } 
+method { optimize iterations 10 } 
+method { optimize iterations 10 } 
+
+include qwalk_000.sys
+trialfunc {
+  include qwalk_000.var.wfout
+}  

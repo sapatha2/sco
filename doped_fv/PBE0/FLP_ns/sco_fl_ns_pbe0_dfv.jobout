@@ -1,0 +1,52 @@
+----------------------------------------
+Begin Torque Prologue (Sun Jan 21 15:43:42 2018)
+Job ID:           6914496.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_fl_ns_pbe0_dfv
+Limits:           nodes=2,walltime=02:00:00,neednodes=2
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub133 golub134
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Sun Jan 21 17:43:53 2018)
+Job ID:           6914496.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_fl_ns_pbe0_dfv
+Session:          99321
+Limits:           nodes=2,walltime=02:00:00,neednodes=2
+Resources:        cput=63:53:29,vmem=14144612kb,walltime=02:00:09,mem=5130108kb,energy_used=0
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub133 golub134
+End Torque Epilogue
+----------------------------------------
+----------------------------------------
+Begin Torque Prologue (Sun Jan 21 21:23:00 2018)
+Job ID:           6914893.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_fl_ns_pbe0_dfv
+Limits:           nodes=2,walltime=04:00:00,neednodes=2
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub003 golub008
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Sun Jan 21 23:59:02 2018)
+Job ID:           6914893.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_fl_ns_pbe0_dfv
+Session:          19977
+Limits:           nodes=2,walltime=04:00:00,neednodes=2
+Resources:        cput=82:32:10,vmem=14438240kb,walltime=02:36:00,mem=5382408kb,energy_used=0
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub003 golub008
+End Torque Epilogue
+----------------------------------------
