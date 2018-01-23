@@ -1,6 +1,6 @@
 #PBS -q secondary 
 #PBS -l nodes=2,flags=allprocs
-#PBS -l walltime=02:00:00
+#PBS -l walltime=04:00:00
 #PBS -N sco_fl3_ns_pbe0_d 
 #PBS -j oe
 #PBS -o sco_fl3_ns_pbe0_d.jobout  
