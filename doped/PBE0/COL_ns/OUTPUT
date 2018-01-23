@@ -1,0 +1,2261 @@
+--------------------------------------------------------------------------
+WARNING: No preset parameters were found for the device that Open MPI
+detected:
+
+  Local host:            golub131
+  Device name:           mlx4_0
+  Device vendor ID:      0x02c9
+  Device vendor part ID: 4099
+
+Default device parameters will be used, which may result in lower
+performance.  You can edit any of the files specified by the
+btl_openib_device_param_files MCA parameter to set values for your
+device.
+
+NOTE: You can turn off this warning by setting the MCA parameter
+      btl_openib_warn_no_device_params_found to 0.
+--------------------------------------------------------------------------
+ PROCESS           18  OF           32  WORKING
+ PROCESS           30  OF           32  WORKING
+ PROCESS           23  OF           32  WORKING
+ PROCESS           27  OF           32  WORKING
+ PROCESS           28  OF           32  WORKING
+ PROCESS           20  OF           32  WORKING
+ PROCESS           29  OF           32  WORKING
+ PROCESS           21  OF           32  WORKING
+ PROCESS           19  OF           32  WORKING
+ PROCESS           16  OF           32  WORKING
+ PROCESS           24  OF           32  WORKING
+ PROCESS            6  OF           32  WORKING
+ PROCESS            9  OF           32  WORKING
+ PROCESS           12  OF           32  WORKING
+ PROCESS           13  OF           32  WORKING
+ PROCESS           14  OF           32  WORKING
+ PROCESS            1  OF           32  WORKING
+ PROCESS           11  OF           32  WORKING
+ PROCESS            7  OF           32  WORKING
+ PROCESS            4  OF           32  WORKING
+ PROCESS            5  OF           32  WORKING
+ PROCESS            0  OF           32  WORKING
+ PROCESS            8  OF           32  WORKING
+ PROCESS           15  OF           32  WORKING
+ PROCESS            3  OF           32  WORKING
+ PROCESS           10  OF           32  WORKING
+ PROCESS            2  OF           32  WORKING
+ PROCESS           17  OF           32  WORKING
+ PROCESS           26  OF           32  WORKING
+ PROCESS           31  OF           32  WORKING
+ PROCESS           25  OF           32  WORKING
+ PROCESS           22  OF           32  WORKING
+
+         
+ *******************************************************************************
+ *                                                                             *
+ *                               CRYSTAL17                                     *
+ *                      public : 1.0.1 - Jun 21st, 2017                        *
+ *                       HTTP://WWW.CRYSTAL.UNITO.IT                           *
+ *                                                                             *
+ *                              MAIN AUTHORS                                   *
+ *                                                                             *
+ *  R. DOVESI(1,11), V.R. SAUNDERS(2), C. ROETTI(1,11), R. ORLANDO(1,11),      *
+ *  C.M. ZICOVICH-WILSON(1,3), F. PASCALE(4), B. CIVALLERI(1,11),              *
+ *  K. DOLL(5), N.M. HARRISON(2,6), I.J. BUSH(7), Ph. D'ARCO(8),               *
+ *  M. LLUNELL(9), M. CAUSA'(10), Y. NOEL(8), L. MASCHIO(1,11), A. ERBA(1,11)  *
+ *  M. RE'RAT(14), S. CASASSA(1,11)                                            *
+ *                                                                             *
+ *        CONTRIBUTIONS TO THE CODE HAVE ALSO BEEN GIVEN BY                    *
+ *                                                                             *
+ *  M. FERRABONE(1,11), M. DE LA PIERRE(1,11), M. FERRERO(1,11),               *
+ *  J. BAIMA(1,11), E. ALBANESE(1,11), M.F. PEINTINGER(12), R. BAST(13),       *
+ *  B. KIRTMAN(15), V. LACIVITA(1,11), R. DEMICHELIS(1,16)                     *
+ *  G. BRANDEBURG(17), S. SALUSTRO(1,11), G. SANSONE(1,11)                     *
+ *  M.T. RUGGIERO(18)                                                          *
+ *                                                                             *
+ * (1) THEORETICAL CHEMISTRY GROUP - UNIVERSITA' DI TORINO - TORINO (ITALY)    *
+
+ * (2) COMPUTATIONAL SCIENCE & ENGINEERING DEPARTMENT - STFC DARESBURY (UK)    *
+ * (3) UNIVERSIDAD AUTONOMA DEL ESTADO DE MORELOS - CUERNAVACA (MEXICO)        *
+ * (4) UNIVERSITE' DE LORRAINE - NANCY (FRANCE)                                *
+ * (5) UNIVERSITAET STUTTGART- STUTTGART (GERMANY)                             *
+ * (6) IMPERIAL COLLEGE - LONDON (UK)                                          *
+ * (7) OXFORD E-RESEARCH CENTRE - OXFORD (UK)                                  *
+ * (8) UPMC - SORBONNE UNIVERSITES - PARIS (FRANCE)                            *
+ * (9) UNIVERSIDAD DE BARCELONA - BARCELONA (SPAIN)                            *
+ *(10) UNIVERSITA' DI NAPOLI "FEDERICO II" - NAPOLI (ITALY)                    *
+ *(11) NIS - NANOSTRUCTURED INTERFACES AND SURFACES - TORINO (ITALY)           *
+ *(12) MPI FUER CHEMISCHE ENERGIEKONVERSION - MUELHEIM AN DER RUHR (GERMANY)   *
+ *(13) UNIVERSITY OF TROMSO - TROMSO (NORWAY)                                  *
+ *(14) UNIVERSITE' DE PAU ET DES PAYS DE L'ADOUR - PAU (FRANCE)                *
+ *(15) UNIVERSITY OF CALIFORNIA SANTA BARBARA - SANTA BARBARA (USA)            *
+ *(16) CURTIN UNIVERSITY - PERTH (AUSTRALIA)                                   *
+ *(17) UNIVERSITY COLLEGE LONDON - LONDON (UK)                                 *
+ *(18) CAMBRIDGE UNIVERSITY - CAMBRIDGE (UK)                                   *
+ *                                                                             *
+ *******************************************************************************
+ EEEEEEEEEE STARTING  DATE 23 01 2018 TIME 06:41:38.3
+ Generated by CrystalWriter                                                      
+
+ CRYSTAL CALCULATION
+ (INPUT ACCORDING TO THE INTERNATIONAL TABLES FOR X-RAY CRYSTALLOGRAPHY)
+ CRYSTAL FAMILY                       :  TETRAGONAL  
+ CRYSTAL CLASS  (GROTH - 1921)        :  DITETRAGONAL DIPYRAMIDAL             
+
+ SPACE GROUP (CENTROSYMMETRIC)        :  P 4/M M M       
+
+ LATTICE PARAMETERS  (ANGSTROMS AND DEGREES) - CONVENTIONAL CELL
+        A           B           C        ALPHA        BETA       GAMMA
+     3.97088     3.97088     3.38540    90.00000    90.00000    90.00000
+
+
+ NUMBER OF IRREDUCIBLE ATOMS IN THE CONVENTIONAL CELL:    4
+
+ INPUT COORDINATES
+
+ ATOM AT. N.              COORDINATES
+   1 238     0.000000000000E+00  0.000000000000E+00  5.000000000000E-01
+   2 229     5.000000000000E-01  5.000000000000E-01  0.000000000000E+00
+   3 208     0.000000000000E+00  5.000000000000E-01  0.000000000000E+00
+   4 208     5.000000000000E-01  0.000000000000E+00  0.000000000000E+00
+
+ *******************************************************************************
+
+ << INFORMATION >>: FROM NOW ON, ALL COORDINATES REFER TO THE PRIMITIVE CELL
+
+ *******************************************************************************
+
+ LATTICE PARAMETERS  (ANGSTROMS AND DEGREES) - PRIMITIVE CELL
+       A          B          C        ALPHA      BETA     GAMMA        VOLUME
+    3.97088    3.97088    3.38540    90.00000  90.00000  90.00000     53.380604
+
+ INPUT LIST - ATOM N.   4 NOT IRREDUCIBLE
+
+ COORDINATES OF THE EQUIVALENT ATOMS (FRACTIONAL UNITS)
+
+ N. ATOM EQUIV AT. N.          X                  Y                  Z
+
+   1   1   1  238 SR    0.00000000000E+00  0.00000000000E+00 -5.00000000000E-01
+
+   2   2   1  229 CU   -5.00000000000E-01 -5.00000000000E-01  0.00000000000E+00
+
+   3   3   1  208 O     0.00000000000E+00 -5.00000000000E-01  0.00000000000E+00
+   4   3   2  208 O     5.00000000000E-01  0.00000000000E+00  0.00000000000E+00
+
+ NUMBER OF SYMMETRY OPERATORS         :   16
+ *******************************************************************************
+ * GEOMETRY EDITING - INPUT COORDINATES ARE GIVEN IN ANGSTROM         
+ *******************************************************************************
+
+ GEOMETRY NOW FULLY CONSISTENT WITH THE GROUP
+
+ NO SYMMOPS WITH FINITE TRANSLATIONAL COMPONENT
+
+ *******************************************************************************
+ * SUPERCELL OPTION
+ *******************************************************************************
+
+
+        EXPANSION MATRIX OF PRIMITIVE CELL
+ E1     2.000     0.000     0.000
+ E2     0.000     2.000     0.000
+ E3     0.000     0.000     1.000
+
+ NUMBER OF ATOMS PER SUPERCELL    16
+
+        DIRECT LATTICE VECTORS COMPONENTS (ANGSTROM)
+ B1     7.942     0.000     0.000
+ B2     0.000     7.942     0.000
+ B3     0.000     0.000     3.385
+
+ LATTICE PARAMETERS  (ANGSTROM AND DEGREES)
+       A          B          C         ALPHA     BETA     GAMMA        VOLUME
+    7.94176    7.94176    3.38540    90.00000  90.00000  90.00000    213.522417
+
+
+ **** ATOMS BELONGING TO THE SUPERCELL
+ LABEL AT.NO.      COORDINATES (ANGSTROM AND FRACTIONAL)
+     1   238     0.0000     0.0000     1.6927     0.0000     0.0000     0.5000
+     2   238     0.0000     3.9709     1.6927     0.0000     0.5000     0.5000
+     3   238     3.9709     0.0000     1.6927     0.5000     0.0000     0.5000
+     4   238     3.9709     3.9709     1.6927     0.5000     0.5000     0.5000
+     5   229    -1.9854    -1.9854     0.0000    -0.2500    -0.2500     0.0000
+     6   229    -1.9854     1.9854     0.0000    -0.2500     0.2500     0.0000
+     7   229     1.9854    -1.9854     0.0000     0.2500    -0.2500     0.0000
+     8   229     1.9854     1.9854     0.0000     0.2500     0.2500     0.0000
+     9   208     0.0000    -1.9854     0.0000     0.0000    -0.2500     0.0000
+    10   208     0.0000     1.9854     0.0000     0.0000     0.2500     0.0000
+    11   208     3.9709    -1.9854     0.0000     0.5000    -0.2500     0.0000
+    12   208     3.9709     1.9854     0.0000     0.5000     0.2500     0.0000
+    13   208    -1.9854     0.0000     0.0000    -0.2500     0.0000     0.0000
+    14   208    -1.9854     3.9709     0.0000    -0.2500     0.5000     0.0000
+    15   208     1.9854     0.0000     0.0000     0.2500     0.0000     0.0000
+    16   208     1.9854     3.9709     0.0000     0.2500     0.5000     0.0000
+
+ **************************** SUPERCELL GENERATED ****************************
+ *********************************************************************
+                        ATOMIC SITE SYMMETRIES
+ *********************************************************************
+
+
+ ATOM   1 ATOMIC NUMBER 238 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM  16
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
+   16
+ NO EQUIVALENT ATOMS
+
+
+ ATOM   2 ATOMIC NUMBER 238 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   8
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    2    3    4    9   10   11   12
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    1
+ SEQUENCE NUMBERS OF THESE ATOMS
+    3
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    5
+
+
+ ATOM   3 ATOMIC NUMBER 238 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   8
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    2    3    4    9   10   11   12
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    1
+ SEQUENCE NUMBERS OF THESE ATOMS
+    2
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    5
+
+
+ ATOM   4 ATOMIC NUMBER 238 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM  16
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
+   16
+ NO EQUIVALENT ATOMS
+
+
+ ATOM   5 ATOMIC NUMBER 229 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    6   10   13
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+    8    6    7
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    3    4
+
+
+ ATOM   6 ATOMIC NUMBER 229 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    5   10   14
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+    7    5    8
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    3    4
+
+
+ ATOM   7 ATOMIC NUMBER 229 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    5   10   14
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+    6    8    5
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    3    4
+
+
+ ATOM   8 ATOMIC NUMBER 229 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    6   10   13
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+    5    7    6
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    3    4
+
+
+ ATOM   9 ATOMIC NUMBER 208 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    4   10   11
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+   10   15   13
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    5    6
+
+
+ ATOM  10 ATOMIC NUMBER 208 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    4   10   11
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+    9   13   15
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    5    6
+
+
+ ATOM  11 ATOMIC NUMBER 208 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    4   10   11
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+   12   16   14
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    5    6
+
+
+ ATOM  12 ATOMIC NUMBER 208 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    4   10   11
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+   11   14   16
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    5    6
+
+
+ ATOM  13 ATOMIC NUMBER 208 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    3   10   12
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+   15   10    9
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    5    6
+
+
+ ATOM  14 ATOMIC NUMBER 208 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    3   10   12
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+   16   12   11
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    5    6
+
+
+ ATOM  15 ATOMIC NUMBER 208 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    3   10   12
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+   13    9   10
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    5    6
+
+
+ ATOM  16 ATOMIC NUMBER 208 - NUMBER OF SYMMOPS WHICH DO NOT MOVE THE ATOM   4
+ SEQUENCE NUMBERS OF THE SYMMOPS
+    1    3   10   12
+ NUMBER OF ATOMS EQUIVALENT BY SYMMETRY    3
+ SEQUENCE NUMBERS OF THESE ATOMS
+   14   11   12
+ SEQUENCE NUMBERS OF THE CORRESPONDING SYMMOPS
+    2    5    6
+
+ *****   16 SYMMOPS - TRANSLATORS IN ANGSTROM
+ ***** MATRICES AND TRANSLATORS IN THE CARTESIAN REFERENCE FRAME
+
+ ORDER   : ORDER OF THE OPERATOR
+
+ TRANSLA : REAL TRANSLATION (WITHOUT ORIGIN SHIFT) IN CARTESIAN COORDINATES
+
+ uvw/hkl : ORIENTATION OF THE OPERATOR IN CARTESIAN COORDINATES
+
+ LOCATED : ORIGIN OF THE OPERATOR IN CARTESIAN COORDINATES
+
+   NO.   1 INVERSE   1    ORDER   1        NO.   2 INVERSE   2    ORDER   2
+    1.000   0.000   0.000     0.000        -1.000   0.000   0.000     0.000
+    0.000   1.000   0.000     0.000         0.000  -1.000   0.000     0.000
+    0.000   0.000   1.000     0.000         0.000   0.000   1.000     0.000
+             OPERATION E(   1)                       OPERATION C(   2)
+ DETERMINANT 1.; ROTATION(DEG)   0.      DETERMINANT 1.; ROTATION(DEG) 180.
+ TRANSLA (  0.000    0.000    0.000)     TRANSLA (  0.000    0.000    0.000)
+ uvw/hkl (  0.000    0.000    0.000)     uvw/hkl (  0.000    0.000    4.000)
+ LOCATED (  0.000    0.000    0.000)     LOCATED (  0.000    0.000    0.000)
+
+   NO.   3 INVERSE   3    ORDER   2        NO.   4 INVERSE   4    ORDER   2
+    1.000   0.000   0.000     0.000        -1.000   0.000   0.000     0.000
+    0.000  -1.000   0.000     0.000         0.000   1.000   0.000     0.000
+    0.000   0.000  -1.000     0.000         0.000   0.000  -1.000     0.000
+             OPERATION C(   2)                       OPERATION C(   2)
+ DETERMINANT 1.; ROTATION(DEG) 180.      DETERMINANT 1.; ROTATION(DEG) 180.
+ TRANSLA (  0.000    0.000    0.000)     TRANSLA (  0.000    0.000    0.000)
+ uvw/hkl (  4.000    0.000    0.000)     uvw/hkl (  0.000   -4.000    0.000)
+ LOCATED (  0.000    0.000    0.000)     LOCATED (  0.000    0.000    0.000)
+
+   NO.   5 INVERSE   5    ORDER   2        NO.   6 INVERSE   6    ORDER   2
+    0.000  -1.000   0.000     0.000         0.000   1.000   0.000     0.000
+   -1.000   0.000   0.000     0.000         1.000   0.000   0.000     0.000
+    0.000   0.000  -1.000     0.000         0.000   0.000  -1.000     0.000
+             OPERATION C(   2)                       OPERATION C(   2)
+ DETERMINANT 1.; ROTATION(DEG) 180.      DETERMINANT 1.; ROTATION(DEG) 180.
+ TRANSLA (  0.000    0.000    0.000)     TRANSLA (  0.000    0.000    0.000)
+ uvw/hkl (  2.000   -2.000    0.000)     uvw/hkl ( -2.000   -2.000    0.000)
+ LOCATED (  0.000    0.000    0.000)     LOCATED (  0.000    0.000    0.000)
+
+   NO.   7 INVERSE   8    ORDER   4        NO.   8 INVERSE   7    ORDER   4
+    0.000   1.000   0.000     0.000         0.000  -1.000   0.000     0.000
+   -1.000   0.000   0.000     0.000         1.000   0.000   0.000     0.000
+    0.000   0.000   1.000     0.000         0.000   0.000   1.000     0.000
+             OPERATION C(   4)                       OPERATION C(   4)
+ DETERMINANT 1.; ROTATION(DEG)  90.      DETERMINANT 1.; ROTATION(DEG)  90.
+ TRANSLA (  0.000    0.000    0.000)     TRANSLA (  0.000    0.000    0.000)
+ uvw/hkl (  0.000    0.000    2.000)     uvw/hkl (  0.000    0.000    2.000)
+ LOCATED (  0.000    0.000    0.000)     LOCATED (  0.000    0.000    0.000)
+
+   NO.   9 INVERSE   9    ORDER   2        NO.  10 INVERSE  10    ORDER   2
+   -1.000   0.000   0.000     0.000         1.000   0.000   0.000     0.000
+    0.000  -1.000   0.000     0.000         0.000   1.000   0.000     0.000
+    0.000   0.000  -1.000     0.000         0.000   0.000  -1.000     0.000
+             OPERATION I(   2)                       OPERATION M(   2)
+ DETERMINANT-1.; ROTATION(DEG) 180.      DETERMINANT-1.; ROTATION(DEG)   0.
+ TRANSLA (  0.000    0.000    0.000)     TRANSLA (  0.000    0.000    0.000)
+ uvw/hkl (  0.000    0.000    0.000)     uvw/hkl (  0.000    0.000   -2.000)
+ LOCATED (  0.000    0.000    0.000)     LOCATED (  0.000    0.000    0.000)
+
+   NO.  11 INVERSE  11    ORDER   2        NO.  12 INVERSE  12    ORDER   2
+   -1.000   0.000   0.000     0.000         1.000   0.000   0.000     0.000
+    0.000   1.000   0.000     0.000         0.000  -1.000   0.000     0.000
+    0.000   0.000   1.000     0.000         0.000   0.000   1.000     0.000
+             OPERATION M(   2)                       OPERATION M(   2)
+ DETERMINANT-1.; ROTATION(DEG)   0.      DETERMINANT-1.; ROTATION(DEG)   0.
+ TRANSLA (  0.000    0.000    0.000)     TRANSLA (  0.000    0.000    0.000)
+ uvw/hkl (  2.000    0.000    0.000)     uvw/hkl (  0.000   -2.000    0.000)
+ LOCATED (  0.000    0.000    0.000)     LOCATED (  0.000    0.000    0.000)
+
+   NO.  13 INVERSE  13    ORDER   2        NO.  14 INVERSE  14    ORDER   2
+    0.000   1.000   0.000     0.000         0.000  -1.000   0.000     0.000
+    1.000   0.000   0.000     0.000        -1.000   0.000   0.000     0.000
+    0.000   0.000   1.000     0.000         0.000   0.000   1.000     0.000
+             OPERATION M(   2)                       OPERATION M(   2)
+ DETERMINANT-1.; ROTATION(DEG)   0.      DETERMINANT-1.; ROTATION(DEG)   0.
+ TRANSLA (  0.000    0.000    0.000)     TRANSLA (  0.000    0.000    0.000)
+ uvw/hkl (  1.000   -1.000    0.000)     uvw/hkl (  1.000    1.000    0.000)
+ LOCATED (  0.000    0.000    0.000)     LOCATED (  0.000    0.000    0.000)
+
+   NO.  15 INVERSE  16    ORDER   4        NO.  16 INVERSE  15    ORDER   4
+    0.000  -1.000   0.000     0.000         0.000   1.000   0.000     0.000
+    1.000   0.000   0.000     0.000        -1.000   0.000   0.000     0.000
+    0.000   0.000  -1.000     0.000         0.000   0.000  -1.000     0.000
+             OPERATION S(   4)                       OPERATION S(   4)
+ DETERMINANT-1.; ROTATION(DEG)  90.      DETERMINANT-1.; ROTATION(DEG)  90.
+ TRANSLA (  0.000    0.000    0.000)     TRANSLA (  0.000    0.000    0.000)
+ uvw/hkl (  0.000    0.000    2.000)     uvw/hkl (  0.000    0.000    2.000)
+ LOCATED (  0.000    0.000    0.000)     LOCATED (  0.000    0.000    0.000)
+ SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+ REDUCTION OF SYMMETRY - ATOMIC LABELS SET TO (ATOM, AT. N., LABEL)
+   1(238) 1;   2(238) 1;   3(238) 1;   4(238) 1;   5(229) 2;   6(229) 3;
+   7(229) 4;   8(229) 5;   9(208) 6;  10(208) 6;  11(208) 6;  12(208) 6;
+  13(208) 6;  14(208) 6;  15(208) 6;  16(208) 6;
+ THE NUMBER OF SYMMETRY OPERATORS HAS BEEN REDUCED FROM 16 TO  2
+ *******************************************************************************
+
+ GCALCO - MAX INDICES DIRECT LATTICE VECTOR    11    11    25
+ NO.OF VECTORS CREATED 6999 STARS  548 RMAX   134.22276 BOHR
+
+ GEOMETRY FOR WAVE FUNCTION - DIMENSIONALITY OF THE SYSTEM    3
+ (NON PERIODIC DIRECTION: LATTICE PARAMETER FORMALLY SET TO 500)
+ *******************************************************************************
+ LATTICE PARAMETERS (ANGSTROMS AND DEGREES) - BOHR = 0.5291772083 ANGSTROM
+ PRIMITIVE CELL - CENTRING CODE 1/1 VOLUME=   213.522417 - DENSITY  5.687 g/cm^3
+         A              B              C           ALPHA      BETA       GAMMA 
+     7.94176411     7.94176411     3.38539626    90.000000  90.000000  90.000000
+ *******************************************************************************
+ ATOMS IN THE ASYMMETRIC UNIT   16 - ATOMS IN THE UNIT CELL:   16
+     ATOM                 X/A                 Y/B                 Z/C    
+ *******************************************************************************
+      1 T 238 SR    0.000000000000E+00  0.000000000000E+00 -5.000000000000E-01
+      2 T 238 SR    0.000000000000E+00 -5.000000000000E-01 -5.000000000000E-01
+      3 T 238 SR   -5.000000000000E-01  0.000000000000E+00 -5.000000000000E-01
+      4 T 238 SR   -5.000000000000E-01 -5.000000000000E-01 -5.000000000000E-01
+      5 T 229 CU   -2.500000000000E-01 -2.500000000000E-01  0.000000000000E+00
+      6 T 229 CU   -2.500000000000E-01  2.500000000000E-01  0.000000000000E+00
+      7 T 229 CU    2.500000000000E-01 -2.500000000000E-01  0.000000000000E+00
+      8 T 229 CU    2.500000000000E-01  2.500000000000E-01  0.000000000000E+00
+      9 T 208 O     0.000000000000E+00 -2.500000000000E-01  0.000000000000E+00
+     10 T 208 O     0.000000000000E+00  2.500000000000E-01  0.000000000000E+00
+     11 T 208 O    -5.000000000000E-01 -2.500000000000E-01  0.000000000000E+00
+     12 T 208 O    -5.000000000000E-01  2.500000000000E-01  0.000000000000E+00
+     13 T 208 O    -2.500000000000E-01  0.000000000000E+00  0.000000000000E+00
+     14 T 208 O    -2.500000000000E-01 -5.000000000000E-01  0.000000000000E+00
+     15 T 208 O     2.500000000000E-01  0.000000000000E+00  0.000000000000E+00
+     16 T 208 O     2.500000000000E-01 -5.000000000000E-01  0.000000000000E+00
+
+ T = ATOM BELONGING TO THE ASYMMETRIC UNIT
+
+ ****    2 SYMMOPS - TRANSLATORS IN FRACTIONAL UNITS
+ **** MATRICES AND TRANSLATORS IN THE CRYSTALLOGRAPHIC REFERENCE FRAME
+   V INV                    ROTATION MATRICES                   TRANSLATORS
+   1   1  1.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00
+   2   2  1.00  0.00  0.00  0.00  1.00  0.00  0.00  0.00 -1.00  0.00  0.00  0.00
+
+ DIRECT LATTICE VECTORS CARTESIAN COMPONENTS (ANGSTROM)
+          X                    Y                    Z
+   0.794176410504E+01   0.000000000000E+00   0.000000000000E+00
+   0.000000000000E+00   0.794176410504E+01   0.000000000000E+00
+   0.000000000000E+00   0.000000000000E+00   0.338539626231E+01
+
+
+ CARTESIAN COORDINATES - PRIMITIVE CELL
+ *******************************************************************************
+ *      ATOM          X(ANGSTROM)         Y(ANGSTROM)         Z(ANGSTROM)
+ *******************************************************************************
+    1   238 SR    0.000000000000E+00  0.000000000000E+00  1.692698131155E+00
+    2   238 SR    0.000000000000E+00  3.970882052520E+00  1.692698131155E+00
+    3   238 SR    3.970882052520E+00  0.000000000000E+00  1.692698131155E+00
+    4   238 SR    3.970882052520E+00  3.970882052520E+00  1.692698131155E+00
+    5   229 CU   -1.985441026260E+00 -1.985441026260E+00  0.000000000000E+00
+    6   229 CU   -1.985441026260E+00  1.985441026260E+00  0.000000000000E+00
+    7   229 CU    1.985441026260E+00 -1.985441026260E+00  0.000000000000E+00
+    8   229 CU    1.985441026260E+00  1.985441026260E+00  0.000000000000E+00
+    9   208 O     0.000000000000E+00 -1.985441026260E+00  0.000000000000E+00
+   10   208 O     0.000000000000E+00  1.985441026260E+00  0.000000000000E+00
+   11   208 O     3.970882052520E+00 -1.985441026260E+00  0.000000000000E+00
+   12   208 O     3.970882052520E+00  1.985441026260E+00  0.000000000000E+00
+   13   208 O    -1.985441026260E+00  0.000000000000E+00  0.000000000000E+00
+   14   208 O    -1.985441026260E+00  3.970882052520E+00  0.000000000000E+00
+   15   208 O     1.985441026260E+00  0.000000000000E+00  0.000000000000E+00
+   16   208 O     1.985441026260E+00  3.970882052520E+00  0.000000000000E+00
+
+ *******************************************************************************
+ *** PSEUDOPOTENTIAL INFORMATION ***
+ *******************************************************************************
+
+ ATOMIC NUMBER  29, NUCLEAR CHARGE 19.000, GIVEN IN INPUT       PSEUDOPOTENTIAL
+   TYPE       EXPONENT      COEFF.    N      EXPONENT      COEFF.    N
+  W0 TMS     6.2514963   19.0000000  -1     6.7272533  118.7784294   1
+             6.6102459 -105.8998240   0
+  P0 TMS    12.3656871  127.3506942   0
+  P1 TMS    11.1607294   71.2298490   0
+
+ ATOMIC NUMBER   8, NUCLEAR CHARGE  6.000, GIVEN IN INPUT       PSEUDOPOTENTIAL
+   TYPE       EXPONENT      COEFF.    N      EXPONENT      COEFF.    N
+  W0 TMS     9.2979390    6.0000000  -1     8.8649220   55.7876342   1
+             8.6292567  -38.8197850   0
+  P0 TMS     8.7192445   38.4191413   0
+
+ ATOMIC NUMBER  38, NUCLEAR CHARGE  2.000, GIVEN IN INPUT       PSEUDOPOTENTIAL
+   TYPE       EXPONENT      COEFF.    N      EXPONENT      COEFF.    N
+  W0 TMS     4.3839388    2.0000000  -1     3.1964983    8.7678775   1
+             0.9899150  -14.2552431   0
+  P0 TMS     1.2868349  146.8716052   0
+  P1 TMS     0.9567448  140.0262284   0
+  P2 TMS     1.9483165   24.4454878   0
+ INFORMATION **** CHARGED ****  CHARGED CELL - NO TOTAL ENERGY
+
+ NUCLEAR CHARGE  1.320E+02 CHARGE ON SHELLS  1.330E+02
+ WARNING **** INPBAS **** UNIT CELL NOT NEUTRAL
+
+ *******************************************************************************
+ LOCAL ATOMIC FUNCTIONS BASIS SET
+ *******************************************************************************
+   ATOM   X(AU)   Y(AU)   Z(AU)  N. TYPE  EXPONENT  S COEF   P COEF   D/F/G COEF
+ *******************************************************************************
+   1 SR   0.000   0.000   3.199
+                                  1 S  
+                                         2.177E-01-9.389E-02 0.000E+00 0.000E+00
+                                         4.871E-01-2.476E-01 0.000E+00 0.000E+00
+                                         1.090E+00 1.601E-01 0.000E+00 0.000E+00
+                                         2.439E+00-4.360E-02 0.000E+00 0.000E+00
+                                         5.457E+00 8.684E-03 0.000E+00 0.000E+00
+                                         1.221E+01-1.296E-03 0.000E+00 0.000E+00
+                           2-     4 P  
+                                         2.236E-01 0.000E+00-4.747E-02 0.000E+00
+                                         4.507E-01 0.000E+00-1.710E-01 0.000E+00
+                                         9.086E-01 0.000E+00 1.048E-01 0.000E+00
+                                         1.831E+00 0.000E+00-2.952E-02 0.000E+00
+                                         3.692E+00 0.000E+00 6.196E-03 0.000E+00
+                                         7.442E+00 0.000E+00-9.550E-04 0.000E+00
+                           5-     9 D  
+                                         5.283E-01 0.000E+00 0.000E+00 1.000E+00
+                                 10 S  
+                                         2.000E-01 1.000E+00 0.000E+00 0.000E+00
+                                 11 S  
+                                         6.000E-01 1.000E+00 0.000E+00 0.000E+00
+                          12-    14 P  
+                                         2.000E-01 0.000E+00 1.000E+00 0.000E+00
+                          15-    17 P  
+                                         6.000E-01 0.000E+00 1.000E+00 0.000E+00
+   2 SR   0.000   7.504   3.199
+   3 SR   7.504   0.000   3.199
+   4 SR   7.504   7.504   3.199
+   5 CU  -3.752  -3.752   0.000
+                                 69 S  
+                                         2.785E+01-1.934E-02 0.000E+00 0.000E+00
+                                         2.142E+01 8.861E-02 0.000E+00 0.000E+00
+                                         1.054E+01-3.559E-01 0.000E+00 0.000E+00
+                                         2.536E+00 5.381E-01 0.000E+00 0.000E+00
+                                         1.250E+00 5.111E-01 0.000E+00 0.000E+00
+                                         5.998E-01 1.476E-01 0.000E+00 0.000E+00
+                                 70 S  
+                                         2.785E+01-2.653E-03 0.000E+00 0.000E+00
+                                         2.142E+01-7.542E-03 0.000E+00 0.000E+00
+                                         1.054E+01 7.976E-02 0.000E+00 0.000E+00
+                                         2.536E+00-1.553E-01 0.000E+00 0.000E+00
+                                         1.250E+00-2.531E-01 0.000E+00 0.000E+00
+                                         5.998E-01-2.817E-02 0.000E+00 0.000E+00
+                          71-    73 P  
+                                         1.859E+01 0.000E+00 3.652E-03 0.000E+00
+                                         1.430E+01 0.000E+00-3.708E-02 0.000E+00
+                                         5.631E+00 0.000E+00 2.171E-01 0.000E+00
+                                         2.683E+00 0.000E+00 4.410E-01 0.000E+00
+                                         1.259E+00 0.000E+00 3.587E-01 0.000E+00
+                                         5.741E-01 0.000E+00 1.148E-01 0.000E+00
+                                         2.092E-01 0.000E+00 7.316E-03 0.000E+00
+                          74-    78 D  
+                                         1.579E+01 0.000E+00 0.000E+00 8.422E-02
+                                         7.203E+00 0.000E+00 0.000E+00 2.554E-01
+                                         2.974E+00 0.000E+00 0.000E+00 3.500E-01
+                                         1.207E+00 0.000E+00 0.000E+00 3.417E-01
+                                         4.640E-01 0.000E+00 0.000E+00 2.417E-01
+                          79-    85 F  
+                                         1.692E+00 0.000E+00 0.000E+00 1.000E+00
+                                 86 S  
+                                         2.000E-01 1.000E+00 0.000E+00 0.000E+00
+                                 87 S  
+                                         6.000E-01 1.000E+00 0.000E+00 0.000E+00
+                          88-    90 P  
+                                         2.000E-01 0.000E+00 1.000E+00 0.000E+00
+                          91-    93 P  
+                                         6.000E-01 0.000E+00 1.000E+00 0.000E+00
+                          94-    98 D  
+                                         2.000E-01 0.000E+00 0.000E+00 1.000E+00
+                          99-   103 D  
+                                         6.000E-01 0.000E+00 0.000E+00 1.000E+00
+   6 CU  -3.752   3.752   0.000
+   7 CU   3.752  -3.752   0.000
+   8 CU   3.752   3.752   0.000
+   9 O    0.000  -3.752   0.000
+                                209 S  
+                                         2.680E-01 3.048E-01 0.000E+00 0.000E+00
+                                         5.731E-01 4.538E-01 0.000E+00 0.000E+00
+                                         1.225E+00 2.959E-01 0.000E+00 0.000E+00
+                                         2.620E+00 1.957E-02 0.000E+00 0.000E+00
+                                         5.603E+00-1.286E-01 0.000E+00 0.000E+00
+                                         1.198E+01 1.202E-02 0.000E+00 0.000E+00
+                                         2.562E+01 4.070E-04 0.000E+00 0.000E+00
+                                         5.478E+01-7.600E-05 0.000E+00 0.000E+00
+                         210-   212 P  
+                                         3.337E-01 0.000E+00 2.560E-01 0.000E+00
+                                         6.666E-01 0.000E+00 2.819E-01 0.000E+00
+                                         1.332E+00 0.000E+00 2.428E-01 0.000E+00
+                                         2.661E+00 0.000E+00 1.611E-01 0.000E+00
+                                         5.316E+00 0.000E+00 8.231E-02 0.000E+00
+                                         1.062E+01 0.000E+00 3.990E-02 0.000E+00
+                                         2.122E+01 0.000E+00 4.679E-03 0.000E+00
+                         213-   217 D  
+                                         6.693E-01 0.000E+00 0.000E+00 1.000E+00
+                         218-   224 F  
+                                         1.423E+00 0.000E+00 0.000E+00 1.000E+00
+                                225 S  
+                                         2.000E-01 1.000E+00 0.000E+00 0.000E+00
+                                226 S  
+                                         6.000E-01 1.000E+00 0.000E+00 0.000E+00
+                         227-   229 P  
+                                         2.000E-01 0.000E+00 1.000E+00 0.000E+00
+                         230-   232 P  
+                                         6.000E-01 0.000E+00 1.000E+00 0.000E+00
+  10 O    0.000   3.752   0.000
+  11 O    7.504  -3.752   0.000
+  12 O    7.504   3.752   0.000
+  13 O   -3.752   0.000   0.000
+  14 O   -3.752   7.504   0.000
+  15 O    3.752   0.000   0.000
+  16 O    3.752   7.504   0.000
+ INFORMATION **** SET_MPP **** PCRYSTAL CALCULATION
+ INFORMATION **** READM2 **** NEW DEFAULT: FOCK/KS MATRIX MIXING SET TO 30 %
+ INFORMATION **** READM2 **** NEW DEFAULT: FULL DIRECT SCF MODE
+ INFORMATION **** READM2 **** NEW DEFAULT: COULOMB BIPOLAR BUFFER SET TO 32 Mb
+ INFORMATION **** READM2 **** NEW DEFAULT: EXCHANGE BIPOLAR BUFFER SET TO 32 Mb
+
+ *******************************************************************************
+ NEW DEFAULT: DFT INTEGRATION GRID INCREASED TO XLGRID
+ NEW DEFAULT: DIIS ACCELERATOR ACTIVE
+ USE KEYWORD NODIIS TO TURN IT OFF
+ *******************************************************************************
+
+ INFORMATION **** READM2 **** FULL DIRECT SCF (MONO AND BIEL INT) SELECTED
+ INFORMATION **** BIPOSIZE **** COULOMB BIPOLAR BUFFER SET TO   100000000
+ INFORMATION **** EXCHSIZE **** EXCHANGE BIPOLAR BUFFER SIZE SET TO    10000000
+ INFORMATION **** TOLDEE **** SCF TOL ON TOTAL ENERGY SET TO          10
+ INFORMATION **** TOLINTEG **** COULOMB AND EXCHANGE SERIES TOLERANCES MODIFIED
+ INFORMATION **** MAXCYCLE **** MAX NUMBER OF SCF CYCLES SET TO         200
+ INFORMATION **** SMEAR **** FERMI SMEARING ACTIVE
+ FERMI SMEARING - TEMPERATURE SMEARING OF FERMI SURFACE  0.1000E-12
+ INFORMATION **** SAVEWF **** not fully tested
+ INFORMATION **** SPINLOCK **** LOCK IN A GIVEN SPIN STATE
+ ALPHA-BETA ELECTRONS LOCKED TO   1 FOR 200 SCF CYCLES
+ SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+ ATOMIC SPINS SET TO (ATOM, AT. N., SPIN)
+   1 238 0   2 238 0   3 238 0   4 238 0   5 229 1   6 229-1   7 229 1   8 229-1
+   9 208 0  10 208 0  11 208 0  12 208 0  13 208 0  14 208 0  15 208 0  16 208 0
+ *******************************************************************************
+ N. OF ATOMS PER CELL        16  COULOMB OVERLAP TOL         (T1) 10**   -8
+ NUMBER OF SHELLS           136  COULOMB PENETRATION TOL     (T2) 10**   -8
+ NUMBER OF AO               400  EXCHANGE OVERLAP TOL        (T3) 10**   -8
+ N. OF ELECTRONS PER CELL   133  EXCHANGE PSEUDO OVP (F(G))  (T4) 10**   -8
+ CORE ELECTRONS PER CELL      0  EXCHANGE PSEUDO OVP (P(G))  (T5) 10**  -16
+ N. OF SYMMETRY OPERATORS     2  POLE ORDER IN MONO ZONE                  4
+ *******************************************************************************
+ TYPE OF CALCULATION :  UNRESTRICTED OPEN SHELL
+ KOHN-SHAM HAMILTONIAN
+
+ (EXCHANGE)[CORRELATION] FUNCTIONAL:(PERDEW-BURKE-ERNZERHOF)[PERDEW-BURKE-ERNZERHOF]
+
+
+ HYBRID EXCHANGE - PERCENTAGE OF FOCK EXCHANGE    25.0000
+
+ SPIN POLARIZED DFT SELECTED
+ CORE  PSEUDO POTENTIAL         TOL. ON PSEUDO              (TP) 10**- 6
+ SPIN POLARIZATION - ALPHA-BETA =  1 FOR 200 CYCLES
+
+ CAPPA:IS1  6;IS2  6;IS3  4; K PTS MONK NET  60; SYMMOPS:K SPACE   4;G SPACE   2
+
+ *******************************************************************************
+ MAX NUMBER OF SCF CYCLES     200  CONVERGENCE ON DELTAP        10**-20
+ WEIGHT OF F(I) IN F(I+1)      90% CONVERGENCE ON ENERGY        10**-10
+ SPIN POLARIZATION - ALPHA-BETA =  1 FOR 200 CYCLES
+ SHRINK. FACT.(MONKH.)    6  6  4  NUMBER OF K POINTS IN THE IBZ     60
+ SHRINKING FACTOR(GILAT NET)   12  NUMBER OF K POINTS(GILAT NET)    370
+ *******************************************************************************
+ *** K POINTS COORDINATES (OBLIQUE COORDINATES IN UNITS OF IS =  6)
+   1-R(  0  0  0)   2-C(  1  0  0)   3-C(  2  0  0)   4-R(  3  0  0)
+   5-C(  0  1  0)   6-C(  1  1  0)   7-C(  2  1  0)   8-C(  3  1  0)
+   9-C(  4  1  0)  10-C(  5  1  0)  11-C(  0  2  0)  12-C(  1  2  0)
+  13-C(  2  2  0)  14-C(  3  2  0)  15-C(  4  2  0)  16-C(  5  2  0)
+  17-R(  0  3  0)  18-C(  1  3  0)  19-C(  2  3  0)  20-R(  3  3  0)
+  21-C(  0  0  1)  22-C(  1  0  1)  23-C(  2  0  1)  24-C(  3  0  1)
+  25-C(  0  1  1)  26-C(  1  1  1)  27-C(  2  1  1)  28-C(  3  1  1)
+  29-C(  4  1  1)  30-C(  5  1  1)  31-C(  0  2  1)  32-C(  1  2  1)
+  33-C(  2  2  1)  34-C(  3  2  1)  35-C(  4  2  1)  36-C(  5  2  1)
+  37-C(  0  3  1)  38-C(  1  3  1)  39-C(  2  3  1)  40-C(  3  3  1)
+  41-R(  0  0  2)  42-C(  1  0  2)  43-C(  2  0  2)  44-R(  3  0  2)
+  45-C(  0  1  2)  46-C(  1  1  2)  47-C(  2  1  2)  48-C(  3  1  2)
+  49-C(  4  1  2)  50-C(  5  1  2)  51-C(  0  2  2)  52-C(  1  2  2)
+  53-C(  2  2  2)  54-C(  3  2  2)  55-C(  4  2  2)  56-C(  5  2  2)
+  57-R(  0  3  2)  58-C(  1  3  2)  59-C(  2  3  2)  60-R(  3  3  2)
+
+ DIRECT LATTICE VECTORS COMPON. (A.U.)     RECIP. LATTICE VECTORS COMPON. (A.U.) 
+        X            Y            Z              X            Y            Z
+   15.0077592    0.0000000    0.0000000      0.4186625    0.0000000    0.0000000
+    0.0000000   15.0077592    0.0000000      0.0000000    0.4186625    0.0000000
+    0.0000000    0.0000000    6.3974718      0.0000000    0.0000000    0.9821357
+
+ DISK SPACE FOR EIGENVECTORS (FTN 10)    17920000 REALS
+
+ SYMMETRY ADAPTION OF THE BLOCH FUNCTIONS ENABLED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT gordsh1     TELAPSE        2.21 TCPU        0.04
+
+ MATRIX SIZE: P(G) 1250720, F(G)  228668, P(G) IRR  387156, F(G) IRR  150492
+ MAX G-VECTOR INDEX FOR 1- AND 2-ELECTRON INTEGRALS 111
+
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT INPUT       TELAPSE        2.26 TCPU        0.07
+
+ NEIGHBORS OF THE NON-EQUIVALENT ATOMS
+
+ N = NUMBER OF NEIGHBORS AT DISTANCE R
+    ATOM  N     R/ANG      R/AU   NEIGHBORS (ATOM LABELS AND CELL INDICES)
+   1 SR   8     2.6091     4.9304    9 O    0 0 0    9 O    0 0 1   10 O    0 0 0
+                                    10 O    0 0 1   13 O    0 0 0   13 O    0 0 1
+                                    15 O    0 0 0   15 O    0 0 1
+   1 SR   8     3.2786     6.1956    5 CU   0 0 0    5 CU   0 0 1    6 CU   0 0 0
+                                     6 CU   0 0 1    7 CU   0 0 0    7 CU   0 0 1
+                                     8 CU   0 0 0    8 CU   0 0 1
+   1 SR   2     3.3854     6.3975    1 SR   0 0-1    1 SR   0 0 1
+   1 SR   4     3.9709     7.5039    2 SR   0 0 0    2 SR   0-1 0    3 SR   0 0 0
+                                     3 SR  -1 0 0
+   1 SR  16     4.7513     8.9787   11 O    0 0 0   11 O    0 0 1   11 O   -1 0 0
+                                    11 O   -1 0 1   12 O    0 0 0   12 O    0 0 1
+                                    12 O   -1 0 0   12 O   -1 0 1   14 O    0 0 0
+                                    14 O    0 0 1   14 O    0-1 0   14 O    0-1 1
+                                    16 O    0 0 0   16 O    0 0 1   16 O    0-1 0
+                                    16 O    0-1 1
+   1 SR   8     5.2181     9.8608    2 SR   0 0 1    2 SR   0 0-1    2 SR   0-1-1
+                                     2 SR   0-1 1    3 SR   0 0 1    3 SR   0 0-1
+                                     3 SR  -1 0-1    3 SR  -1 0 1
+
+   2 SR   8     2.6091     4.9304    9 O    0 1 0    9 O    0 1 1   10 O    0 0 0
+                                    10 O    0 0 1   14 O    0 0 0   14 O    0 0 1
+                                    16 O    0 0 0   16 O    0 0 1
+   2 SR   8     3.2786     6.1956    5 CU   0 1 0    5 CU   0 1 1    6 CU   0 0 0
+                                     6 CU   0 0 1    7 CU   0 1 0    7 CU   0 1 1
+                                     8 CU   0 0 0    8 CU   0 0 1
+   2 SR   2     3.3854     6.3975    2 SR   0 0-1    2 SR   0 0 1
+   2 SR   4     3.9709     7.5039    1 SR   0 0 0    1 SR   0 1 0    4 SR   0 0 0
+                                     4 SR  -1 0 0
+   2 SR  16     4.7513     8.9787   11 O    0 1 0   11 O    0 1 1   11 O   -1 1 0
+                                    11 O   -1 1 1   12 O    0 0 0   12 O    0 0 1
+                                    12 O   -1 0 0   12 O   -1 0 1   13 O    0 0 0
+                                    13 O    0 0 1   13 O    0 1 0   13 O    0 1 1
+                                    15 O    0 0 0   15 O    0 0 1   15 O    0 1 0
+                                    15 O    0 1 1
+   2 SR   8     5.2181     9.8608    1 SR   0 0-1    1 SR   0 0 1    1 SR   0 1 1
+                                     1 SR   0 1-1    4 SR   0 0 1    4 SR   0 0-1
+                                     4 SR  -1 0-1    4 SR  -1 0 1
+
+   3 SR   8     2.6091     4.9304   11 O    0 0 0   11 O    0 0 1   12 O    0 0 0
+                                    12 O    0 0 1   13 O    1 0 0   13 O    1 0 1
+                                    15 O    0 0 0   15 O    0 0 1
+   3 SR   8     3.2786     6.1956    5 CU   1 0 0    5 CU   1 0 1    6 CU   1 0 0
+                                     6 CU   1 0 1    7 CU   0 0 0    7 CU   0 0 1
+                                     8 CU   0 0 0    8 CU   0 0 1
+   3 SR   2     3.3854     6.3975    3 SR   0 0-1    3 SR   0 0 1
+   3 SR   4     3.9709     7.5039    1 SR   0 0 0    1 SR   1 0 0    4 SR   0 0 0
+                                     4 SR   0-1 0
+   3 SR  16     4.7513     8.9787    9 O    0 0 0    9 O    0 0 1    9 O    1 0 0
+                                     9 O    1 0 1   10 O    0 0 0   10 O    0 0 1
+                                    10 O    1 0 0   10 O    1 0 1   14 O    1 0 0
+                                    14 O    1 0 1   14 O    1-1 0   14 O    1-1 1
+                                    16 O    0 0 0   16 O    0 0 1   16 O    0-1 0
+                                    16 O    0-1 1
+   3 SR   8     5.2181     9.8608    1 SR   0 0-1    1 SR   0 0 1    1 SR   1 0 1
+                                     1 SR   1 0-1    4 SR   0 0 1    4 SR   0 0-1
+                                     4 SR   0-1-1    4 SR   0-1 1
+
+   4 SR   8     2.6091     4.9304   11 O    0 1 0   11 O    0 1 1   12 O    0 0 0
+                                    12 O    0 0 1   14 O    1 0 0   14 O    1 0 1
+                                    16 O    0 0 0   16 O    0 0 1
+   4 SR   8     3.2786     6.1956    5 CU   1 1 0    5 CU   1 1 1    6 CU   1 0 0
+                                     6 CU   1 0 1    7 CU   0 1 0    7 CU   0 1 1
+                                     8 CU   0 0 0    8 CU   0 0 1
+   4 SR   2     3.3854     6.3975    4 SR   0 0-1    4 SR   0 0 1
+   4 SR   4     3.9709     7.5039    2 SR   0 0 0    2 SR   1 0 0    3 SR   0 0 0
+                                     3 SR   0 1 0
+   4 SR  16     4.7513     8.9787    9 O    0 1 0    9 O    0 1 1    9 O    1 1 0
+                                     9 O    1 1 1   10 O    0 0 0   10 O    0 0 1
+                                    10 O    1 0 0   10 O    1 0 1   13 O    1 0 0
+                                    13 O    1 0 1   13 O    1 1 0   13 O    1 1 1
+                                    15 O    0 0 0   15 O    0 0 1   15 O    0 1 0
+                                    15 O    0 1 1
+   4 SR   8     5.2181     9.8608    2 SR   0 0-1    2 SR   0 0 1    2 SR   1 0 1
+                                     2 SR   1 0-1    3 SR   0 0-1    3 SR   0 0 1
+                                     3 SR   0 1 1    3 SR   0 1-1
+
+   5 CU   4     1.9854     3.7519    9 O    0 0 0   11 O   -1 0 0   13 O    0 0 0
+                                    14 O    0-1 0
+   5 CU   8     3.2786     6.1956    1 SR   0 0 0    1 SR   0 0-1    2 SR   0-1 0
+                                     2 SR   0-1-1    3 SR  -1 0 0    3 SR  -1 0-1
+                                     4 SR  -1-1 0    4 SR  -1-1-1
+   5 CU   2     3.3854     6.3975    5 CU   0 0-1    5 CU   0 0 1
+   5 CU   8     3.9247     7.4165    9 O    0 0 1    9 O    0 0-1   11 O   -1 0-1
+                                    11 O   -1 0 1   13 O    0 0 1   13 O    0 0-1
+                                    14 O    0-1-1   14 O    0-1 1
+   5 CU   4     3.9709     7.5039    6 CU   0 0 0    6 CU   0-1 0    7 CU   0 0 0
+                                     7 CU  -1 0 0
+   5 CU   8     4.4396     8.3896   10 O    0 0 0   10 O    0-1 0   12 O   -1 0 0
+                                    12 O   -1-1 0   15 O    0 0 0   15 O   -1 0 0
+                                    16 O    0-1 0   16 O   -1-1 0
+
+   6 CU   4     1.9854     3.7519   10 O    0 0 0   12 O   -1 0 0   13 O    0 0 0
+                                    14 O    0 0 0
+   6 CU   8     3.2786     6.1956    1 SR   0 0 0    1 SR   0 0-1    2 SR   0 0 0
+                                     2 SR   0 0-1    3 SR  -1 0 0    3 SR  -1 0-1
+                                     4 SR  -1 0 0    4 SR  -1 0-1
+   6 CU   2     3.3854     6.3975    6 CU   0 0-1    6 CU   0 0 1
+   6 CU   8     3.9247     7.4165   10 O    0 0 1   10 O    0 0-1   12 O   -1 0-1
+                                    12 O   -1 0 1   13 O    0 0-1   13 O    0 0 1
+                                    14 O    0 0 1   14 O    0 0-1
+   6 CU   4     3.9709     7.5039    5 CU   0 0 0    5 CU   0 1 0    8 CU   0 0 0
+                                     8 CU  -1 0 0
+   6 CU   8     4.4396     8.3896    9 O    0 0 0    9 O    0 1 0   11 O   -1 0 0
+                                    11 O   -1 1 0   15 O    0 0 0   15 O   -1 0 0
+                                    16 O    0 0 0   16 O   -1 0 0
+
+   7 CU   4     1.9854     3.7519    9 O    0 0 0   11 O    0 0 0   15 O    0 0 0
+                                    16 O    0-1 0
+   7 CU   8     3.2786     6.1956    1 SR   0 0 0    1 SR   0 0-1    2 SR   0-1 0
+                                     2 SR   0-1-1    3 SR   0 0 0    3 SR   0 0-1
+                                     4 SR   0-1 0    4 SR   0-1-1
+   7 CU   2     3.3854     6.3975    7 CU   0 0-1    7 CU   0 0 1
+   7 CU   8     3.9247     7.4165    9 O    0 0-1    9 O    0 0 1   11 O    0 0 1
+                                    11 O    0 0-1   15 O    0 0 1   15 O    0 0-1
+                                    16 O    0-1-1   16 O    0-1 1
+   7 CU   4     3.9709     7.5039    5 CU   0 0 0    5 CU   1 0 0    8 CU   0 0 0
+                                     8 CU   0-1 0
+   7 CU   8     4.4396     8.3896   10 O    0 0 0   10 O    0-1 0   12 O    0 0 0
+                                    12 O    0-1 0   13 O    0 0 0   13 O    1 0 0
+                                    14 O    0-1 0   14 O    1-1 0
+
+   8 CU   4     1.9854     3.7519   10 O    0 0 0   12 O    0 0 0   15 O    0 0 0
+                                    16 O    0 0 0
+   8 CU   8     3.2786     6.1956    1 SR   0 0 0    1 SR   0 0-1    2 SR   0 0 0
+                                     2 SR   0 0-1    3 SR   0 0 0    3 SR   0 0-1
+                                     4 SR   0 0 0    4 SR   0 0-1
+   8 CU   2     3.3854     6.3975    8 CU   0 0-1    8 CU   0 0 1
+   8 CU   8     3.9247     7.4165   10 O    0 0-1   10 O    0 0 1   12 O    0 0 1
+                                    12 O    0 0-1   15 O    0 0-1   15 O    0 0 1
+                                    16 O    0 0 1   16 O    0 0-1
+   8 CU   4     3.9709     7.5039    6 CU   0 0 0    6 CU   1 0 0    7 CU   0 0 0
+                                     7 CU   0 1 0
+   8 CU   8     4.4396     8.3896    9 O    0 0 0    9 O    0 1 0   11 O    0 0 0
+                                    11 O    0 1 0   13 O    0 0 0   13 O    1 0 0
+                                    14 O    0 0 0   14 O    1 0 0
+
+   9 O    2     1.9854     3.7519    5 CU   0 0 0    7 CU   0 0 0
+   9 O    4     2.6091     4.9304    1 SR   0 0 0    1 SR   0 0-1    2 SR   0-1 0
+                                     2 SR   0-1-1
+   9 O    4     2.8078     5.3060   13 O    0 0 0   14 O    0-1 0   15 O    0 0 0
+                                    16 O    0-1 0
+   9 O    2     3.3854     6.3975    9 O    0 0-1    9 O    0 0 1
+   9 O    4     3.9247     7.4165    5 CU   0 0-1    5 CU   0 0 1    7 CU   0 0 1
+                                     7 CU   0 0-1
+   9 O    4     3.9709     7.5039   10 O    0 0 0   10 O    0-1 0   11 O    0 0 0
+                                    11 O   -1 0 0
+
+  10 O    2     1.9854     3.7519    6 CU   0 0 0    8 CU   0 0 0
+  10 O    4     2.6091     4.9304    1 SR   0 0 0    1 SR   0 0-1    2 SR   0 0 0
+                                     2 SR   0 0-1
+  10 O    4     2.8078     5.3060   13 O    0 0 0   14 O    0 0 0   15 O    0 0 0
+                                    16 O    0 0 0
+  10 O    2     3.3854     6.3975   10 O    0 0-1   10 O    0 0 1
+  10 O    4     3.9247     7.4165    6 CU   0 0-1    6 CU   0 0 1    8 CU   0 0 1
+                                     8 CU   0 0-1
+  10 O    4     3.9709     7.5039    9 O    0 0 0    9 O    0 1 0   12 O    0 0 0
+                                    12 O   -1 0 0
+
+  11 O    2     1.9854     3.7519    5 CU   1 0 0    7 CU   0 0 0
+  11 O    4     2.6091     4.9304    3 SR   0 0 0    3 SR   0 0-1    4 SR   0-1 0
+                                     4 SR   0-1-1
+  11 O    4     2.8078     5.3060   13 O    1 0 0   14 O    1-1 0   15 O    0 0 0
+                                    16 O    0-1 0
+  11 O    2     3.3854     6.3975   11 O    0 0-1   11 O    0 0 1
+  11 O    4     3.9247     7.4165    5 CU   1 0 1    5 CU   1 0-1    7 CU   0 0-1
+                                     7 CU   0 0 1
+  11 O    4     3.9709     7.5039    9 O    0 0 0    9 O    1 0 0   12 O    0 0 0
+                                    12 O    0-1 0
+
+  12 O    2     1.9854     3.7519    6 CU   1 0 0    8 CU   0 0 0
+  12 O    4     2.6091     4.9304    3 SR   0 0 0    3 SR   0 0-1    4 SR   0 0 0
+                                     4 SR   0 0-1
+  12 O    4     2.8078     5.3060   13 O    1 0 0   14 O    1 0 0   15 O    0 0 0
+                                    16 O    0 0 0
+  12 O    2     3.3854     6.3975   12 O    0 0-1   12 O    0 0 1
+  12 O    4     3.9247     7.4165    6 CU   1 0 1    6 CU   1 0-1    8 CU   0 0-1
+                                     8 CU   0 0 1
+  12 O    4     3.9709     7.5039   10 O    0 0 0   10 O    1 0 0   11 O    0 0 0
+                                    11 O    0 1 0
+
+  13 O    2     1.9854     3.7519    5 CU   0 0 0    6 CU   0 0 0
+  13 O    4     2.6091     4.9304    1 SR   0 0 0    1 SR   0 0-1    3 SR  -1 0 0
+                                     3 SR  -1 0-1
+  13 O    4     2.8078     5.3060    9 O    0 0 0   10 O    0 0 0   11 O   -1 0 0
+                                    12 O   -1 0 0
+  13 O    2     3.3854     6.3975   13 O    0 0-1   13 O    0 0 1
+  13 O    4     3.9247     7.4165    5 CU   0 0-1    5 CU   0 0 1    6 CU   0 0 1
+                                     6 CU   0 0-1
+  13 O    4     3.9709     7.5039   14 O    0 0 0   14 O    0-1 0   15 O    0 0 0
+                                    15 O   -1 0 0
+
+  14 O    2     1.9854     3.7519    5 CU   0 1 0    6 CU   0 0 0
+  14 O    4     2.6091     4.9304    2 SR   0 0 0    2 SR   0 0-1    4 SR  -1 0 0
+                                     4 SR  -1 0-1
+  14 O    4     2.8078     5.3060    9 O    0 1 0   10 O    0 0 0   11 O   -1 1 0
+                                    12 O   -1 0 0
+  14 O    2     3.3854     6.3975   14 O    0 0-1   14 O    0 0 1
+  14 O    4     3.9247     7.4165    5 CU   0 1 1    5 CU   0 1-1    6 CU   0 0-1
+                                     6 CU   0 0 1
+  14 O    4     3.9709     7.5039   13 O    0 0 0   13 O    0 1 0   16 O    0 0 0
+                                    16 O   -1 0 0
+
+  15 O    2     1.9854     3.7519    7 CU   0 0 0    8 CU   0 0 0
+  15 O    4     2.6091     4.9304    1 SR   0 0 0    1 SR   0 0-1    3 SR   0 0 0
+                                     3 SR   0 0-1
+  15 O    4     2.8078     5.3060    9 O    0 0 0   10 O    0 0 0   11 O    0 0 0
+                                    12 O    0 0 0
+  15 O    2     3.3854     6.3975   15 O    0 0-1   15 O    0 0 1
+  15 O    4     3.9247     7.4165    7 CU   0 0-1    7 CU   0 0 1    8 CU   0 0 1
+                                     8 CU   0 0-1
+  15 O    4     3.9709     7.5039   13 O    0 0 0   13 O    1 0 0   16 O    0 0 0
+                                    16 O    0-1 0
+
+  16 O    2     1.9854     3.7519    7 CU   0 1 0    8 CU   0 0 0
+  16 O    4     2.6091     4.9304    2 SR   0 0 0    2 SR   0 0-1    4 SR   0 0 0
+                                     4 SR   0 0-1
+  16 O    4     2.8078     5.3060    9 O    0 1 0   10 O    0 0 0   11 O    0 1 0
+                                    12 O    0 0 0
+  16 O    2     3.3854     6.3975   16 O    0 0-1   16 O    0 0 1
+  16 O    4     3.9247     7.4165    7 CU   0 1 1    7 CU   0 1-1    8 CU   0 0-1
+                                     8 CU   0 0 1
+  16 O    4     3.9709     7.5039   14 O    0 0 0   14 O    1 0 0   15 O    0 0 0
+                                    15 O    0 1 0
+
+
+ SYMMETRY ALLOWED INTERNAL DEGREE(S) OF FREEDOM:  30
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SYMM        TELAPSE        2.81 TCPU        0.55
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT INT_SCREEN  TELAPSE        3.14 TCPU        0.72
+ INFORMATION **** EXCBUF **** EXCH. BIPO BUFFER: WORDS USED =     4288050
+
+ DFT PARAMETERS
+
+     ATOM       ELECTRONS   NET CHARGE   R(ANGSTROM)
+   1 238  SR      0.0000      2.0000     1.18000000
+   5 229  CU     17.2500      1.7500     0.74000000
+   9 208  O       8.0000     -2.0000     1.40000000
+[golub132:17201] 31 more processes have sent help message help-mpi-btl-openib.txt / no device params found
+[golub132:17201] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+
+ SIZE OF GRID=     181368
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MAKE_GRID2  TELAPSE        5.52 TCPU        3.10
+ BECKE WEIGHT FUNCTION
+ RADSAFE =     2.00
+ TOLERANCES - DENSITY:10**- 6; POTENTIAL:10**- 9; GRID WGT:10**-14
+
+ RADIAL INTEGRATION  - INTERVALS (POINTS,UPPER LIMIT):            1( 75,  4.0*R)
+
+ ANGULAR INTEGRATION - INTERVALS (ACCURACY LEVEL [N. POINTS] UPPER LIMIT):
+  1(  4[  86]   0.2)  2(  8[ 194]   0.5)  3( 12[ 350]   0.9)  4( 16[ 974]   3.5)
+  5( 12[ 350]9999.0)
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT INT_CALC    TELAPSE        5.58 TCPU        3.16
+ EEEEEEEEEE INT_CALC TERMINATION  DATE 23 01 2018 TIME 06:41:42.5
+
+ *******************************************************************************
+ Generated by CrystalWriter                                                      
+ CRYSTAL - SCF - TYPE OF CALCULATION :  UNRESTRICTED OPEN SHELL
+ *******************************************************************************
+
+ CAPPA:IS1  6;IS2  6;IS3  4; K PTS MONK NET  60; SYMMOPS:K SPACE   4;G SPACE   2
+
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SDIK        TELAPSE        5.80 TCPU        3.31
+
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+         ATOMIC WAVEFUNCTION(S)
+
+
+ NUCLEAR CHARGE 19.0  SYMMETRY SPECIES            S    P    D
+ N. ELECTRONS   17.2  NUMBER OF PRIMITIVE GTOS   14    9    7
+                      NUMBER OF CONTRACTED GTOS   4    3    3
+                      NUMBER OF CLOSED SHELLS     1    1    0
+                      OPEN SHELL OCCUPATION       0    0    9
+
+  ZNUC SCFIT  TOTAL HF ENERGY   KINETIC ENERGY   VIRIAL THEOREM ACCURACY
+  19.0  24   -1.953432393E+02  1.248337040E+02 -2.564827712E+00  3.3E-06
+
+ NUCLEAR CHARGE  6.0  SYMMETRY SPECIES            S    P
+ N. ELECTRONS    8.0  NUMBER OF PRIMITIVE GTOS   10    9
+                      NUMBER OF CONTRACTED GTOS   3    3
+                      NUMBER OF CLOSED SHELLS     1    1
+                      OPEN SHELL OCCUPATION       0    0
+
+  ZNUC SCFIT  TOTAL HF ENERGY   KINETIC ENERGY   VIRIAL THEOREM ACCURACY
+   6.0  43   -1.519668598E+01  1.229882609E+01 -2.235620852E+00  4.1E-06
+
+ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+ CHARGE NORMALIZATION FACTOR   1.00757576
+ TOTAL ATOMIC CHARGES:
+   0.0000000   0.0000000   0.0000000   0.0000000  17.1287879  17.1287879
+  17.1287879  17.1287879   8.0606061   8.0606061   8.0606061   8.0606061
+   8.0606061   8.0606061   8.0606061   8.0606061
+ SUMMED SPIN DENSITY           0.00000000
+ TOTAL ATOMIC SPINS  :
+   0.0000000   0.0000000   0.0000000   0.0000000   1.0075758  -1.0075758
+   1.0075758  -1.0075758   0.0000000   0.0000000   0.0000000   0.0000000
+   0.0000000   0.0000000   0.0000000   0.0000000
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE        5.88 TCPU        3.38
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE      160.69 TCPU      158.19
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE      164.52 TCPU      162.03
+ NUMERICALLY INTEGRATED DENSITY     66.5000441259     66.5000441259
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE      165.39 TCPU      162.90
+ CYC   0 ETOT(AU) -9.211562074876E+02 DETOT -9.21E+02 tst  0.00E+00 PX  1.00E+00
+ CYCLE  0 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE      165.85 TCPU      163.14
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE      169.45 TCPU      166.68
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE      169.67 TCPU      166.89
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1705410   0.1705408   0.1705551   0.1705550  18.0787685  18.2898920
+  18.0832712  18.3388019   7.4371538   7.4541364   7.4369662   7.4496388
+   7.4335605   7.4335605   7.4410291   7.4410291
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+   0.0005583   0.0005583   0.0005725   0.0005725   0.5288112  -0.2182960
+   0.5333142  -0.1693861   0.0849226  -0.0113661   0.0847348  -0.0158639
+   0.0414829   0.0414829   0.0489510   0.0489510
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE      169.69 TCPU      166.91
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE      335.39 TCPU      332.54
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE      339.26 TCPU      336.41
+ NUMERICALLY INTEGRATED DENSITY     66.9998826537     65.9998873647
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE      342.13 TCPU      339.28
+ CYC   1 ETOT(AU) -9.208054854105E+02 DETOT  3.51E-01 tst  0.00E+00 PX  1.00E+00
+ CYCLE  1 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE      342.72 TCPU      339.68
+ DIIS TEST: 0.10385E+01 AT SCF   CYCLE   1 - MIX   90 %
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE      343.71 TCPU      340.67
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE      343.91 TCPU      340.87
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1710216   0.1710185   0.1710289   0.1710320  18.1921781  18.3223642
+  18.1862223  18.1992798   7.4345721   7.4261069   7.4342320   7.4240221
+   7.4332251   7.4332237   7.4152368   7.4152360
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+   0.0006839   0.0006876   0.0007000   0.0006973   0.4648199  -0.1182305
+   0.4540689  -0.2149280   0.0933161   0.0006406   0.0929821  -0.0020375
+   0.0636724   0.0636741   0.0496257   0.0496273
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE      343.93 TCPU      340.89
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE      510.53 TCPU      506.65
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE      513.93 TCPU      510.05
+ NUMERICALLY INTEGRATED DENSITY     66.9998858795     65.9998924427
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE      516.79 TCPU      512.91
+ CYC   2 ETOT(AU) -9.208683582758E+02 DETOT -6.29E-02 tst  3.87E-04 PX  1.35E-01
+ CYCLE  2 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE      517.43 TCPU      513.40
+ DIIS TEST: 0.36557E+00 AT SCF   CYCLE   2 - DIIS ACTIVE - HISTORY:     2 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE      518.48 TCPU      514.43
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE      518.69 TCPU      514.64
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1798336   0.1798334   0.1798170   0.1798201  18.0907548  17.8014269
+  18.1296067  18.6872568   7.4380119   7.4618580   7.4382272   7.4614205
+   7.3939142   7.3939041   7.4921567   7.4921580
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006769  -0.0006560  -0.0006387  -0.0006607   0.4343255  -0.2519035
+   0.4510803  -0.0096830   0.1202595  -0.0335943   0.1199178  -0.0349887
+   0.0454237   0.0454144   0.0581930   0.0581875
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE      518.71 TCPU      514.65
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE      684.23 TCPU      680.19
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE      689.74 TCPU      685.70
+ NUMERICALLY INTEGRATED DENSITY     66.9998867314     65.9998845298
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE      692.58 TCPU      688.55
+ CYC   3 ETOT(AU) -9.205642021835E+02 DETOT  3.04E-01 tst  4.32E-02 PX  5.32E-01
+ CYCLE  3 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE      693.30 TCPU      689.10
+ DIIS TEST: 0.32340E+01 AT SCF   CYCLE   3 - DIIS ACTIVE - HISTORY:     3 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE      694.47 TCPU      690.25
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE      694.68 TCPU      690.45
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1811873   0.1811937   0.1811891   0.1811843  17.9210840  18.4325349
+  17.9318875  18.1233203   7.4716901   7.5022735   7.4718164   7.5013033
+   7.4995867   7.4995856   7.4600816   7.4600817
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007976  -0.0007868  -0.0007638  -0.0007749   0.5977899  -0.0629217
+   0.5719551  -0.3384632   0.1087519  -0.0638751   0.1084343  -0.0651581
+   0.0554520   0.0554483   0.0178545   0.0178553
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE      694.69 TCPU      690.47
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE      860.10 TCPU      855.88
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE      864.21 TCPU      859.99
+ NUMERICALLY INTEGRATED DENSITY     66.9998752724     65.9998733514
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE      867.05 TCPU      862.83
+ CYC   4 ETOT(AU) -9.208342587509E+02 DETOT -2.70E-01 tst  3.03E-02 PX  6.05E-01
+ CYCLE  4 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE      867.70 TCPU      863.36
+ DIIS TEST: 0.89730E+00 AT SCF   CYCLE   4 - DIIS ACTIVE - HISTORY:     4 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE      868.80 TCPU      864.44
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE      869.00 TCPU      864.64
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1829113   0.1829038   0.1829066   0.1829141  18.0942283  18.1687807
+  18.0570615  18.1132932   7.4818444   7.4836992   7.4818911   7.4827304
+   7.4840218   7.4840183   7.4683956   7.4683998
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0005994  -0.0006155  -0.0006012  -0.0005864   0.4867764  -0.0523440
+   0.5150941  -0.2928051   0.1095669  -0.0427606   0.1093521  -0.0438966
+   0.0694279   0.0694208   0.0372857   0.0372850
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE      869.01 TCPU      864.66
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     1034.50 TCPU     1030.10
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     1038.42 TCPU     1034.02
+ NUMERICALLY INTEGRATED DENSITY     66.9998669257     65.9998658752
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     1041.25 TCPU     1036.84
+ CYC   5 ETOT(AU) -9.209161827022E+02 DETOT -8.19E-02 tst  2.39E-03 PX  2.44E-01
+ CYCLE  5 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     1041.79 TCPU     1037.37
+ DIIS TEST: 0.63141E-01 AT SCF   CYCLE   5 - DIIS ACTIVE - HISTORY:     5 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     1042.90 TCPU     1038.46
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     1043.11 TCPU     1038.67
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1839816   0.1839802   0.1839823   0.1839849  18.0366524  18.2798397
+  18.0796617  18.1435810   7.4644694   7.4750423   7.4643647   7.4747577
+   7.4749412   7.4749425   7.4479118   7.4479065
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007540  -0.0007564  -0.0007445  -0.0007415   0.5555414  -0.0674433
+   0.5468940  -0.3401888   0.1149743  -0.0631791   0.1148855  -0.0636925
+   0.0673899   0.0673851   0.0352148   0.0352151
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     1043.12 TCPU     1038.69
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     1208.42 TCPU     1204.00
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     1213.03 TCPU     1208.61
+ NUMERICALLY INTEGRATED DENSITY     66.9998696916     65.9998665127
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     1215.87 TCPU     1211.45
+ CYC   6 ETOT(AU) -9.209177423186E+02 DETOT -1.56E-03 tst  1.53E-03 PX  1.10E-01
+ CYCLE  6 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     1216.59 TCPU     1212.06
+ DIIS TEST: 0.83547E-01 AT SCF   CYCLE   6 - DIIS ACTIVE - HISTORY:     6 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     1217.63 TCPU     1213.04
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     1217.83 TCPU     1213.24
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1828439   0.1828441   0.1828458   0.1828460  18.1011655  18.2589244
+  18.0354785  18.1393507   7.4651215   7.4772789   7.4651118   7.4771655
+   7.4713764   7.4713770   7.4531362   7.4531338
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007515  -0.0007510  -0.0007400  -0.0007404   0.5247302  -0.0529069
+   0.5854371  -0.3634457   0.1150495  -0.0654577   0.1149790  -0.0657169
+   0.0737107   0.0737087   0.0314478   0.0314472
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     1217.85 TCPU     1213.26
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     1383.40 TCPU     1378.83
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     1387.28 TCPU     1382.69
+ NUMERICALLY INTEGRATED DENSITY     66.9998714508     65.9998677510
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     1390.11 TCPU     1385.52
+ CYC   7 ETOT(AU) -9.209216301803E+02 DETOT -3.89E-03 tst  8.30E-04 PX  4.31E-02
+ CYCLE  7 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     1390.76 TCPU     1386.12
+ DIIS TEST: 0.50762E-01 AT SCF   CYCLE   7 - DIIS ACTIVE - HISTORY:     7 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     1391.74 TCPU     1387.09
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     1391.94 TCPU     1387.29
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1823678   0.1823688   0.1823698   0.1823693  18.0746664  18.2552561
+  18.0607097  18.1258129   7.4652610   7.4823451   7.4653305   7.4822921
+   7.4770359   7.4770366   7.4523892   7.4523888
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007639  -0.0007611  -0.0007541  -0.0007567   0.5498676  -0.0595923
+   0.5913722  -0.3870073   0.1158142  -0.0694470   0.1157546  -0.0695352
+   0.0735558   0.0735547   0.0343497   0.0343489
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     1391.96 TCPU     1387.31
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     1557.28 TCPU     1552.66
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     1561.54 TCPU     1556.92
+ NUMERICALLY INTEGRATED DENSITY     66.9998721752     65.9998681074
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     1564.37 TCPU     1559.75
+ CYC   8 ETOT(AU) -9.209240318535E+02 DETOT -2.40E-03 tst  2.48E-04 PX  3.05E-02
+ CYCLE  8 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     1564.94 TCPU     1560.22
+ DIIS TEST: 0.31887E-01 AT SCF   CYCLE   8 - DIIS ACTIVE - HISTORY:     8 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     1566.00 TCPU     1561.20
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     1566.20 TCPU     1561.40
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1837554   0.1837578   0.1837572   0.1837545  18.0934977  18.2392169
+  18.0722796  18.1241311   7.4660903   7.4777387   7.4660974   7.4777945
+   7.4729114   7.4729121   7.4511525   7.4511528
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007500  -0.0007492  -0.0007462  -0.0007470   0.5479857  -0.0553123
+   0.6016272  -0.4029696   0.1153118  -0.0712474   0.1152910  -0.0711810
+   0.0767159   0.0767150   0.0350278   0.0350282
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     1566.22 TCPU     1561.42
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     1731.66 TCPU     1726.85
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     1735.77 TCPU     1730.95
+ NUMERICALLY INTEGRATED DENSITY     66.9998712615     65.9998669217
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     1738.62 TCPU     1733.80
+ CYC   9 ETOT(AU) -9.209264732496E+02 DETOT -2.44E-03 tst  7.24E-05 PX  2.42E-02
+ CYCLE  9 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     1739.23 TCPU     1734.19
+ DIIS TEST: 0.10082E-01 AT SCF   CYCLE   9 - DIIS ACTIVE - HISTORY:     9 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     1740.26 TCPU     1735.16
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     1740.47 TCPU     1735.37
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836049   0.1836057   0.1836059   0.1836049  18.1009886  18.2282723
+  18.0814913  18.1201535   7.4628627   7.4802655   7.4628151   7.4804135
+   7.4729610   7.4729624   7.4511963   7.4511963
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007059  -0.0007034  -0.0007023  -0.0007047   0.5505167  -0.0520223
+   0.6099749  -0.4179682   0.1150989  -0.0720652   0.1151047  -0.0719606
+   0.0781782   0.0781787   0.0348901   0.0348902
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     1740.48 TCPU     1735.38
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     1905.97 TCPU     1900.86
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     1909.94 TCPU     1904.83
+ NUMERICALLY INTEGRATED DENSITY     66.9998714293     65.9998671227
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     1912.78 TCPU     1907.67
+ CYC  10 ETOT(AU) -9.209272553300E+02 DETOT -7.82E-04 tst  4.99E-05 PX  2.19E-02
+ CYCLE 10 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     1913.43 TCPU     1908.03
+ DIIS TEST: 0.27954E-02 AT SCF   CYCLE  10 - DIIS ACTIVE - HISTORY:    10 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     1914.54 TCPU     1909.07
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     1914.74 TCPU     1909.27
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1835068   0.1835068   0.1835066   0.1835063  18.1022966  18.2233873
+  18.0815852  18.1234787   7.4655930   7.4778065   7.4656035   7.4778459
+   7.4725072   7.4725076   7.4516808   7.4516812
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006958  -0.0006955  -0.0006963  -0.0006968   0.5508236  -0.0498476
+   0.6131738  -0.4206500   0.1142759  -0.0725596   0.1142777  -0.0725087
+   0.0784946   0.0784945   0.0344053   0.0344049
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     1914.76 TCPU     1909.29
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     2080.19 TCPU     2074.74
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     2084.22 TCPU     2078.77
+ NUMERICALLY INTEGRATED DENSITY     66.9998715360     65.9998671929
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     2087.05 TCPU     2081.60
+ CYC  11 ETOT(AU) -9.209273994945E+02 DETOT -1.44E-04 tst  2.92E-06 PX  4.69E-03
+ CYCLE 11 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     2087.68 TCPU     2082.06
+ DIIS TEST: 0.13697E-02 AT SCF   CYCLE  11 - DIIS ACTIVE - HISTORY:    11 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     2088.70 TCPU     2083.04
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     2088.90 TCPU     2083.25
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836379   0.1836379   0.1836378   0.1836377  18.1023082  18.2210200
+  18.0806549  18.1272261   7.4643358   7.4785778   7.4643534   7.4785525
+   7.4725517   7.4725518   7.4516578   7.4516587
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006827  -0.0006831  -0.0006830  -0.0006828   0.5497909  -0.0470131
+   0.6143442  -0.4212238   0.1141141  -0.0725445   0.1141126  -0.0725708
+   0.0784159   0.0784158   0.0334455   0.0334449
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     2088.92 TCPU     2083.26
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     2254.48 TCPU     2248.73
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     2260.06 TCPU     2254.31
+ NUMERICALLY INTEGRATED DENSITY     66.9998713598     65.9998670589
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     2262.90 TCPU     2257.15
+ CYC  12 ETOT(AU) -9.209274777921E+02 DETOT -7.83E-05 tst  1.54E-06 PX  3.92E-03
+ CYCLE 12 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     2263.64 TCPU     2257.65
+ DIIS TEST: 0.63672E-03 AT SCF   CYCLE  12 - DIIS ACTIVE - HISTORY:    12 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     2264.81 TCPU     2258.79
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     2265.02 TCPU     2259.01
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1835848   0.1835848   0.1835845   0.1835843  18.1028799  18.2200770
+  18.0799776  18.1278009   7.4648388   7.4780793   7.4648088   7.4781060
+   7.4727322   7.4727322   7.4518146   7.4518144
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006736  -0.0006737  -0.0006733  -0.0006733   0.5483973  -0.0436374
+   0.6151081  -0.4222969   0.1138235  -0.0726018   0.1138279  -0.0726450
+   0.0785048   0.0785048   0.0328545   0.0328542
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     2265.04 TCPU     2259.02
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     2430.46 TCPU     2424.48
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     2434.60 TCPU     2428.62
+ NUMERICALLY INTEGRATED DENSITY     66.9998714115     65.9998670641
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     2437.44 TCPU     2431.46
+ CYC  13 ETOT(AU) -9.209275183662E+02 DETOT -4.06E-05 tst  1.77E-06 PX  4.71E-03
+ CYCLE 13 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     2438.05 TCPU     2431.92
+ DIIS TEST: 0.27301E-03 AT SCF   CYCLE  13 - DIIS ACTIVE - HISTORY:    13 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     2439.07 TCPU     2432.90
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     2439.27 TCPU     2433.10
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836022   0.1836021   0.1836043   0.1836042  18.1036540  18.2179309
+  18.0804504  18.1294499   7.4647605   7.4780136   7.4647914   7.4779021
+   7.4725424   7.4725424   7.4517746   7.4517750
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006673  -0.0006673  -0.0006666  -0.0006666   0.5462407  -0.0393097
+   0.6155679  -0.4240080   0.1136446  -0.0725581   0.1136404  -0.0726593
+   0.0788088   0.0788089   0.0322459   0.0322457
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     2439.29 TCPU     2433.12
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     2604.63 TCPU     2598.49
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     2608.79 TCPU     2602.65
+ NUMERICALLY INTEGRATED DENSITY     66.9998714015     65.9998669833
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     2611.64 TCPU     2605.50
+ CYC  14 ETOT(AU) -9.209275418139E+02 DETOT -2.34E-05 tst  2.80E-06 PX  6.01E-03
+ CYCLE 14 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     2612.18 TCPU     2605.89
+ DIIS TEST: 0.11319E-03 AT SCF   CYCLE  14 - DIIS ACTIVE - HISTORY:    14 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     2613.26 TCPU     2606.94
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     2613.47 TCPU     2607.15
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836125   0.1836125   0.1836111   0.1836109  18.1041379  18.2173896
+  18.0803805  18.1297481   7.4647527   7.4776379   7.4647242   7.4776890
+   7.4730349   7.4730349   7.4515117   7.4515116
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006688  -0.0006687  -0.0006676  -0.0006677   0.5444426  -0.0358880
+   0.6157296  -0.4252436   0.1135278  -0.0725097   0.1135323  -0.0725835
+   0.0789793   0.0789794   0.0318534   0.0318533
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     2613.48 TCPU     2607.16
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     2779.06 TCPU     2772.64
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     2783.37 TCPU     2776.95
+ NUMERICALLY INTEGRATED DENSITY     66.9998714226     65.9998669196
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     2786.23 TCPU     2779.80
+ CYC  15 ETOT(AU) -9.209275510318E+02 DETOT -9.22E-06 tst  1.80E-06 PX  4.72E-03
+ CYCLE 15 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     2786.82 TCPU     2780.22
+ DIIS TEST: 0.69895E-04 AT SCF   CYCLE  15 - DIIS ACTIVE - HISTORY:    15 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     2787.81 TCPU     2781.21
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     2788.01 TCPU     2781.41
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836179   0.1836179   0.1836201   0.1836199  18.1048393  18.2170092
+  18.0801834  18.1296412   7.4648705   7.4776215   7.4648537   7.4775683
+   7.4728793   7.4728794   7.4515892   7.4515892
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006721  -0.0006721  -0.0006706  -0.0006707   0.5415697  -0.0309066
+   0.6159646  -0.4272666   0.1133970  -0.0723423   0.1133993  -0.0724425
+   0.0793145   0.0793146   0.0313419   0.0313418
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     2788.03 TCPU     2781.42
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     2953.34 TCPU     2946.76
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     2957.78 TCPU     2951.19
+ NUMERICALLY INTEGRATED DENSITY     66.9998714636     65.9998668374
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     2960.63 TCPU     2954.04
+ CYC  16 ETOT(AU) -9.209275610767E+02 DETOT -1.00E-05 tst  3.99E-06 PX  6.82E-03
+ CYCLE 16 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     2961.23 TCPU     2954.36
+ DIIS TEST: 0.42970E-04 AT SCF   CYCLE  16 - DIIS ACTIVE - HISTORY:    16 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     2962.27 TCPU     2955.39
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     2962.48 TCPU     2955.59
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836160   0.1836159   0.1836167   0.1836165  18.1052191  18.2168489
+  18.0801372  18.1296115   7.4648578   7.4774882   7.4648786   7.4774289
+   7.4730805   7.4730805   7.4514517   7.4514520
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006768  -0.0006769  -0.0006757  -0.0006757   0.5398534  -0.0279651
+   0.6161175  -0.4285428   0.1133475  -0.0722404   0.1133423  -0.0723300
+   0.0795058   0.0795060   0.0310555   0.0310554
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     2962.49 TCPU     2955.61
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     3128.45 TCPU     3121.39
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     3133.00 TCPU     3125.94
+ NUMERICALLY INTEGRATED DENSITY     66.9998715093     65.9998668022
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     3135.85 TCPU     3128.79
+ CYC  17 ETOT(AU) -9.209275656349E+02 DETOT -4.56E-06 tst  1.48E-06 PX  4.03E-03
+ CYCLE 17 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     3136.42 TCPU     3129.25
+ DIIS TEST: 0.34385E-04 AT SCF   CYCLE  17 - DIIS ACTIVE - HISTORY:    17 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     3137.42 TCPU     3130.22
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     3137.62 TCPU     3130.43
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836147   0.1836148   0.1836146   0.1836143  18.1057382  18.2168051
+  18.0800305  18.1292959   7.4649225   7.4772836   7.4648692   7.4773301
+   7.4732574   7.4732575   7.4513757   7.4513756
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006835  -0.0006836  -0.0006826  -0.0006825   0.5373763  -0.0238314
+   0.6163388  -0.4303902   0.1132753  -0.0720861   0.1132845  -0.0721404
+   0.0797739   0.0797740   0.0306787   0.0306787
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     3137.63 TCPU     3130.44
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     3303.14 TCPU     3295.91
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     3306.95 TCPU     3299.72
+ NUMERICALLY INTEGRATED DENSITY     66.9998715753     65.9998667536
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     3310.06 TCPU     3302.83
+ CYC  18 ETOT(AU) -9.209275711445E+02 DETOT -5.51E-06 tst  3.04E-06 PX  5.63E-03
+ CYCLE 18 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     3310.67 TCPU     3303.31
+ DIIS TEST: 0.26232E-04 AT SCF   CYCLE  18 - DIIS ACTIVE - HISTORY:    18 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     3311.71 TCPU     3304.32
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     3311.91 TCPU     3304.52
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836113   0.1836112   0.1836132   0.1836130  18.1062329  18.2167892
+  18.0798696  18.1290355   7.4649106   7.4772732   7.4649806   7.4771413
+   7.4733908   7.4733908   7.4512683   7.4512687
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0006897  -0.0006898  -0.0006891  -0.0006891   0.5351001  -0.0201097
+   0.6165421  -0.4320023   0.1132254  -0.0719060   0.1132110  -0.0719794
+   0.0800060   0.0800060   0.0303321   0.0303322
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     3311.93 TCPU     3304.54
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     3477.50 TCPU     3470.02
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     3481.41 TCPU     3473.94
+ NUMERICALLY INTEGRATED DENSITY     66.9998716349     65.9998667148
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     3484.28 TCPU     3476.80
+ CYC  19 ETOT(AU) -9.209275754512E+02 DETOT -4.31E-06 tst  2.61E-06 PX  5.06E-03
+ CYCLE 19 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     3484.85 TCPU     3477.15
+ DIIS TEST: 0.19369E-04 AT SCF   CYCLE  19 - DIIS ACTIVE - HISTORY:    19 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     3485.81 TCPU     3478.09
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     3486.02 TCPU     3478.29
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836098   0.1836100   0.1836083   0.1836078  18.1075332  18.2163987
+  18.0796433  18.1284905   7.4650120   7.4768293   7.4650032   7.4768885
+   7.4737446   7.4737446   7.4511379   7.4511383
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007041  -0.0007042  -0.0007040  -0.0007040   0.5294687  -0.0110782
+   0.6170066  -0.4358100   0.1130777  -0.0715290   0.1130791  -0.0715309
+   0.0805540   0.0805542   0.0295120   0.0295121
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     3486.04 TCPU     3478.31
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     3651.46 TCPU     3643.69
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     3655.46 TCPU     3647.69
+ NUMERICALLY INTEGRATED DENSITY     66.9998717741     65.9998666196
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     3658.29 TCPU     3650.53
+ CYC  20 ETOT(AU) -9.209275828017E+02 DETOT -7.35E-06 tst  1.60E-05 PX  1.22E-02
+ CYCLE 20 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     3658.91 TCPU     3651.08
+ DIIS TEST: 0.10850E-04 AT SCF   CYCLE  20 - DIIS ACTIVE - HISTORY:    20 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     3660.26 TCPU     3652.35
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     3660.46 TCPU     3652.56
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836099   0.1836098   0.1836092   0.1836091  18.1076449  18.2164072
+  18.0796286  18.1284043   7.4650037   7.4768402   7.4649733   7.4769045
+   7.4737362   7.4737363   7.4511413   7.4511415
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007046  -0.0007046  -0.0007042  -0.0007043   0.5292452  -0.0107451
+   0.6170438  -0.4359612   0.1130688  -0.0715009   0.1130750  -0.0715053
+   0.0805734   0.0805734   0.0294753   0.0294752
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     3660.48 TCPU     3652.57
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     3825.96 TCPU     3818.04
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     3830.07 TCPU     3822.15
+ NUMERICALLY INTEGRATED DENSITY     66.9998717797     65.9998666180
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     3832.90 TCPU     3824.99
+ CYC  21 ETOT(AU) -9.209275832472E+02 DETOT -4.45E-07 tst  2.96E-08 PX  4.89E-04
+ CYCLE 21 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     3833.57 TCPU     3825.44
+ DIIS TEST: 0.88594E-05 AT SCF   CYCLE  21 - DIIS ACTIVE - HISTORY:    21 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     3834.58 TCPU     3826.44
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     3834.78 TCPU     3826.64
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836049   0.1836046   0.1836072   0.1836072  18.1116532  18.2123317
+  18.0824894  18.1274228   7.4651903   7.4760153   7.4651821   7.4759852
+   7.4736754   7.4736756   7.4509777   7.4509774
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007175  -0.0007175  -0.0007177  -0.0007177   0.5211484   0.0013265
+   0.6144155  -0.4389389   0.1128205  -0.0705234   0.1128219  -0.0705253
+   0.0814585   0.0814585   0.0287042   0.0287040
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     3834.80 TCPU     3826.66
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     4000.38 TCPU     3992.26
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     4005.94 TCPU     3997.82
+ NUMERICALLY INTEGRATED DENSITY     66.9998719097     65.9998664403
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     4008.78 TCPU     4000.66
+ CYC  22 ETOT(AU) -9.209275777048E+02 DETOT  5.54E-06 tst  1.54E-05 PX  1.56E-02
+ CYCLE 22 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     4009.39 TCPU     4001.02
+ DIIS TEST: 0.16678E-03 AT SCF   CYCLE  22 - DIIS ACTIVE - HISTORY:    22 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     4010.53 TCPU     4002.06
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     4010.74 TCPU     4002.27
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836083   0.1836082   0.1836101   0.1836100  18.1088052  18.2156908
+  18.0797687  18.1280369   7.4650470   7.4766712   7.4650486   7.4766110
+   7.4739532   7.4739532   7.4509889   7.4509886
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007135  -0.0007135  -0.0007138  -0.0007138   0.5251512  -0.0043791
+   0.6173470  -0.4385425   0.1129577  -0.0711869   0.1129577  -0.0711923
+   0.0809538   0.0809537   0.0289171   0.0289171
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     4010.75 TCPU     4002.28
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     4176.15 TCPU     4167.68
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     4180.15 TCPU     4171.68
+ NUMERICALLY INTEGRATED DENSITY     66.9998718703     65.9998665563
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     4183.01 TCPU     4174.54
+ CYC  23 ETOT(AU) -9.209275858558E+02 DETOT -8.15E-06 tst  1.10E-06 PX  7.00E-03
+ CYCLE 23 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     4183.73 TCPU     4175.06
+ DIIS TEST: 0.11567E-04 AT SCF   CYCLE  23 - DIIS ACTIVE - HISTORY:    23 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     4184.89 TCPU     4176.19
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     4185.09 TCPU     4176.39
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836107   0.1836106   0.1836098   0.1836097  18.1087827  18.2156865
+  18.0798790  18.1280464   7.4650364   7.4766229   7.4650546   7.4766354
+   7.4739252   7.4739253   7.4509823   7.4509825
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007135  -0.0007135  -0.0007133  -0.0007133   0.5251346  -0.0043924
+   0.6173738  -0.4385422   0.1129510  -0.0711881   0.1129466  -0.0711808
+   0.0809536   0.0809536   0.0289221   0.0289220
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     4185.11 TCPU     4176.41
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     4350.48 TCPU     4341.78
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     4354.62 TCPU     4345.92
+ NUMERICALLY INTEGRATED DENSITY     66.9998718696     65.9998665618
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     4357.45 TCPU     4348.75
+ CYC  24 ETOT(AU) -9.209275857655E+02 DETOT  9.03E-08 tst  2.98E-08 PX  1.16E-04
+ CYCLE 24 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     4358.16 TCPU     4349.15
+ DIIS TEST: 0.11636E-04 AT SCF   CYCLE  24 - DIIS ACTIVE - HISTORY:    24 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     4359.25 TCPU     4350.12
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     4359.47 TCPU     4350.32
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836096   0.1836095   0.1836112   0.1836111  18.1088658  18.2156530
+  18.0799448  18.1279842   7.4650623   7.4766139   7.4650280   7.4765676
+   7.4739466   7.4739467   7.4509729   7.4509728
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007139  -0.0007139  -0.0007143  -0.0007143   0.5246438  -0.0036818
+   0.6174352  -0.4388131   0.1129234  -0.0711402   0.1129304  -0.0711395
+   0.0809907   0.0809907   0.0288583   0.0288583
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     4359.48 TCPU     4350.34
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     4525.50 TCPU     4516.21
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     4529.10 TCPU     4519.80
+ NUMERICALLY INTEGRATED DENSITY     66.9998718792     65.9998665605
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     4531.93 TCPU     4522.63
+ CYC  25 ETOT(AU) -9.209275859570E+02 DETOT -1.92E-07 tst  2.43E-07 PX  9.47E-04
+ CYCLE 25 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     4532.61 TCPU     4523.18
+ DIIS TEST: 0.11225E-04 AT SCF   CYCLE  25 - DIIS ACTIVE - HISTORY:    25 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     4533.89 TCPU     4524.36
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     4534.10 TCPU     4524.56
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836103   0.1836102   0.1836098   0.1836097  18.1089165  18.2156444
+  18.0799649  18.1279294   7.4650451   7.4765799   7.4650609   7.4765906
+   7.4739595   7.4739596   7.4509547   7.4509546
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007144  -0.0007144  -0.0007146  -0.0007146   0.5243615  -0.0032633
+   0.6174757  -0.4389745   0.1129143  -0.0711203   0.1129111  -0.0711066
+   0.0810128   0.0810128   0.0288171   0.0288171
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     4534.11 TCPU     4524.58
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     4699.62 TCPU     4690.06
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     4703.55 TCPU     4693.98
+ NUMERICALLY INTEGRATED DENSITY     66.9998718849     65.9998665597
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     4706.40 TCPU     4696.83
+ CYC  26 ETOT(AU) -9.209275861090E+02 DETOT -1.52E-07 tst  6.61E-08 PX  5.60E-04
+ CYCLE 26 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     4707.02 TCPU     4697.30
+ DIIS TEST: 0.10736E-04 AT SCF   CYCLE  26 - DIIS ACTIVE - HISTORY:    26 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     4708.17 TCPU     4698.45
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     4708.38 TCPU     4698.65
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836100   0.1836098   0.1836098   0.1836097  18.1089352  18.2156317
+  18.0799835  18.1279114   7.4650488   7.4765799   7.4650546   7.4765739
+   7.4739669   7.4739670   7.4509538   7.4509540
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007142  -0.0007142  -0.0007145  -0.0007145   0.5242412  -0.0030910
+   0.6175067  -0.4390376   0.1129040  -0.0711082   0.1129031  -0.0710976
+   0.0810220   0.0810219   0.0287965   0.0287964
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     4708.40 TCPU     4698.67
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     4874.29 TCPU     4864.25
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     4878.66 TCPU     4868.62
+ NUMERICALLY INTEGRATED DENSITY     66.9998718863     65.9998665601
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     4881.53 TCPU     4871.48
+ CYC  27 ETOT(AU) -9.209275861332E+02 DETOT -2.42E-08 tst  1.55E-08 PX  2.29E-04
+ CYCLE 27 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     4882.18 TCPU     4871.99
+ DIIS TEST: 0.10781E-04 AT SCF   CYCLE  27 - DIIS ACTIVE - HISTORY:    27 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     4883.39 TCPU     4873.13
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     4883.60 TCPU     4873.33
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836099   0.1836097   0.1836098   0.1836097  18.1089530  18.2156272
+  18.0799807  18.1279009   7.4650536   7.4765761   7.4650542   7.4765749
+   7.4739701   7.4739702   7.4509501   7.4509499
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007142  -0.0007142  -0.0007144  -0.0007144   0.5241817  -0.0029994
+   0.6175181  -0.4390720   0.1128996  -0.0711039   0.1128999  -0.0710926
+   0.0810274   0.0810273   0.0287856   0.0287855
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     4883.62 TCPU     4873.35
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     5049.11 TCPU     5038.70
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     5053.10 TCPU     5042.69
+ NUMERICALLY INTEGRATED DENSITY     66.9998718871     65.9998665596
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     5055.92 TCPU     5045.51
+ CYC  28 ETOT(AU) -9.209275861610E+02 DETOT -2.78E-08 tst  1.82E-09 PX  1.23E-04
+ CYCLE 28 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     5056.53 TCPU     5045.99
+ DIIS TEST: 0.10805E-04 AT SCF   CYCLE  28 - DIIS ACTIVE - HISTORY:    28 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     5057.55 TCPU     5046.96
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     5057.76 TCPU     5047.16
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836100   0.1836099   0.1836097   0.1836096  18.1089667  18.2156226
+  18.0799829  18.1278916   7.4650464   7.4765724   7.4650570   7.4765675
+   7.4739747   7.4739748   7.4509519   7.4509522
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007142  -0.0007142  -0.0007144  -0.0007144   0.5241246  -0.0029092
+   0.6175256  -0.4391069   0.1128985  -0.0710998   0.1128967  -0.0710889
+   0.0810322   0.0810321   0.0287761   0.0287761
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     5057.78 TCPU     5047.18
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     5224.63 TCPU     5213.07
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     5228.05 TCPU     5216.48
+ NUMERICALLY INTEGRATED DENSITY     66.9998718881     65.9998665590
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     5230.90 TCPU     5219.33
+ CYC  29 ETOT(AU) -9.209275861908E+02 DETOT -2.97E-08 tst  1.82E-09 PX  1.21E-04
+ CYCLE 29 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     5231.53 TCPU     5219.84
+ DIIS TEST: 0.10804E-04 AT SCF   CYCLE  29 - DIIS ACTIVE - HISTORY:    29 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     5232.88 TCPU     5221.06
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     5233.10 TCPU     5221.29
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836100   0.1836098   0.1836097   0.1836096  18.1089690  18.2156227
+  18.0799811  18.1278907   7.4650499   7.4765725   7.4650557   7.4765693
+   7.4739747   7.4739748   7.4509501   7.4509504
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007142  -0.0007142  -0.0007144  -0.0007144   0.5241175  -0.0028978
+   0.6175267  -0.4391104   0.1128975  -0.0710993   0.1128967  -0.0710883
+   0.0810327   0.0810327   0.0287746   0.0287745
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     5233.12 TCPU     5221.30
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     5398.99 TCPU     5387.06
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     5402.82 TCPU     5390.89
+ NUMERICALLY INTEGRATED DENSITY     66.9998718882     65.9998665590
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     5405.64 TCPU     5393.71
+ CYC  30 ETOT(AU) -9.209275861963E+02 DETOT -5.52E-09 tst  2.96E-11 PX  1.53E-05
+ CYCLE 30 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     5406.26 TCPU     5394.18
+ DIIS TEST: 0.10795E-04 AT SCF   CYCLE  30 - DIIS ACTIVE - HISTORY:    30 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     5407.28 TCPU     5395.11
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     5407.49 TCPU     5395.32
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836099   0.1836098   0.1836097   0.1836096  18.1089783  18.2156217
+  18.0799773  18.1278856   7.4650503   7.4765706   7.4650564   7.4765673
+   7.4739773   7.4739774   7.4509493   7.4509494
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007142  -0.0007142  -0.0007144  -0.0007144   0.5240824  -0.0028413
+   0.6175289  -0.4391320   0.1128966  -0.0710967   0.1128958  -0.0710857
+   0.0810356   0.0810356   0.0287691   0.0287691
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     5407.50 TCPU     5395.33
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     5573.00 TCPU     5560.83
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     5576.85 TCPU     5564.68
+ NUMERICALLY INTEGRATED DENSITY     66.9998718890     65.9998665585
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     5579.69 TCPU     5567.51
+ CYC  31 ETOT(AU) -9.209275862222E+02 DETOT -2.59E-08 tst  6.82E-10 PX  7.61E-05
+ CYCLE 31 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     5580.38 TCPU     5567.99
+ DIIS TEST: 0.10746E-04 AT SCF   CYCLE  31 - DIIS ACTIVE - HISTORY:    31 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     5581.39 TCPU     5568.95
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     5581.60 TCPU     5569.16
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836095   0.1836093   0.1836092   0.1836091  18.1090290  18.2156409
+  18.0799619  18.1278348   7.4650535   7.4765550   7.4650556   7.4765538
+   7.4739955   7.4739956   7.4509419   7.4509453
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007145  -0.0007145  -0.0007147  -0.0007147   0.5238212  -0.0024186
+   0.6175503  -0.4392937   0.1128893  -0.0710769   0.1128892  -0.0710663
+   0.0810549   0.0810549   0.0287271   0.0287269
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     5581.62 TCPU     5569.18
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     5747.55 TCPU     5734.56
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     5751.14 TCPU     5738.16
+ NUMERICALLY INTEGRATED DENSITY     66.9998718955     65.9998665569
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     5753.97 TCPU     5740.98
+ CYC  32 ETOT(AU) -9.209275864419E+02 DETOT -2.20E-07 tst  3.92E-08 PX  5.66E-04
+ CYCLE 32 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     5754.68 TCPU     5741.52
+ DIIS TEST: 0.10035E-04 AT SCF   CYCLE  32 - DIIS ACTIVE - HISTORY:    32 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     5755.80 TCPU     5742.60
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     5756.00 TCPU     5742.80
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836091   0.1836091   0.1836089   0.1836088  18.1090642  18.2156586
+  18.0799364  18.1278042   7.4650514   7.4765506   7.4650554   7.4765480
+   7.4740053   7.4740052   7.4509442   7.4509407
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007145  -0.0007145  -0.0007147  -0.0007147   0.5237025  -0.0022186
+   0.6175611  -0.4393705   0.1128876  -0.0710672   0.1128871  -0.0710589
+   0.0810627   0.0810628   0.0287048   0.0287049
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     5756.02 TCPU     5742.82
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     5921.45 TCPU     5908.19
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     5926.42 TCPU     5913.16
+ NUMERICALLY INTEGRATED DENSITY     66.9998718987     65.9998665564
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     5929.25 TCPU     5915.99
+ CYC  33 ETOT(AU) -9.209275865793E+02 DETOT -1.37E-07 tst  9.30E-09 PX  2.69E-04
+ CYCLE 33 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     5929.89 TCPU     5916.53
+ DIIS TEST: 0.94747E-05 AT SCF   CYCLE  33 - DIIS ACTIVE - HISTORY:    33 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     5931.11 TCPU     5917.58
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     5931.33 TCPU     5917.76
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836093   0.1836093   0.1836090   0.1836090  18.1090402  18.2156545
+  18.0799486  18.1278217   7.4650503   7.4765559   7.4650541   7.4765539
+   7.4739970   7.4739968   7.4509479   7.4509425
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007143  -0.0007143  -0.0007145  -0.0007145   0.5238117  -0.0023955
+   0.6175548  -0.4393028   0.1128897  -0.0710757   0.1128893  -0.0710669
+   0.0810546   0.0810547   0.0287218   0.0287220
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     5931.35 TCPU     5917.78
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     6096.87 TCPU     6083.31
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     6100.93 TCPU     6087.37
+ NUMERICALLY INTEGRATED DENSITY     66.9998718959     65.9998665574
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     6103.76 TCPU     6090.20
+ CYC  34 ETOT(AU) -9.209275864893E+02 DETOT  9.00E-08 tst  6.44E-09 PX  2.37E-04
+ CYCLE 34 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     6104.44 TCPU     6090.73
+ DIIS TEST: 0.97392E-05 AT SCF   CYCLE  34 - DIIS ACTIVE - HISTORY:    34 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     6105.53 TCPU     6091.73
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     6105.74 TCPU     6091.93
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836091   0.1836092   0.1836089   0.1836089  18.1090610  18.2156563
+  18.0799398  18.1278073   7.4650515   7.4765502   7.4650544   7.4765489
+   7.4740045   7.4740039   7.4509492   7.4509369
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007145  -0.0007146  -0.0007147  -0.0007147   0.5237142  -0.0022377
+   0.6175593  -0.4393641   0.1128882  -0.0710680   0.1128879  -0.0710596
+   0.0810617   0.0810618   0.0287069   0.0287078
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     6105.76 TCPU     6091.95
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     6271.75 TCPU     6257.55
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     6275.60 TCPU     6261.40
+ NUMERICALLY INTEGRATED DENSITY     66.9998718985     65.9998665565
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     6278.43 TCPU     6264.22
+ CYC  35 ETOT(AU) -9.209275865665E+02 DETOT -7.72E-08 tst  5.02E-09 PX  2.12E-04
+ CYCLE 35 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     6279.02 TCPU     6264.71
+ DIIS TEST: 0.95288E-05 AT SCF   CYCLE  35 - DIIS ACTIVE - HISTORY:    35 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     6280.20 TCPU     6265.82
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     6280.40 TCPU     6266.02
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836093   0.1836091   0.1836090   0.1836089  18.1090543  18.2156553
+  18.0799427  18.1278132   7.4650510   7.4765516   7.4650535   7.4765508
+   7.4740014   7.4740018   7.4509441   7.4509440
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007145  -0.0007145  -0.0007146  -0.0007147   0.5237488  -0.0022926
+   0.6175564  -0.4393439   0.1128894  -0.0710704   0.1128893  -0.0710624
+   0.0810589   0.0810588   0.0287130   0.0287131
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     6280.42 TCPU     6266.04
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     6446.33 TCPU     6431.71
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     6450.08 TCPU     6435.45
+ NUMERICALLY INTEGRATED DENSITY     66.9998718977     65.9998665569
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     6452.93 TCPU     6438.30
+ CYC  36 ETOT(AU) -9.209275865414E+02 DETOT  2.52E-08 tst  5.86E-10 PX  7.37E-05
+ CYCLE 36 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     6453.60 TCPU     6438.83
+ DIIS TEST: 0.95956E-05 AT SCF   CYCLE  36 - DIIS ACTIVE - HISTORY:    36 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     6454.60 TCPU     6439.76
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     6454.81 TCPU     6439.96
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836092   0.1836090   0.1836089   0.1836088  18.1090670  18.2156568
+  18.0799365  18.1278049   7.4650515   7.4765487   7.4650542   7.4765474
+   7.4740058   7.4740060   7.4509429   7.4509424
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007146  -0.0007146  -0.0007147  -0.0007148   0.5236910  -0.0021991
+   0.6175593  -0.4393797   0.1128885  -0.0710659   0.1128883  -0.0710583
+   0.0810631   0.0810631   0.0287042   0.0287043
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     6454.82 TCPU     6439.97
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     6620.31 TCPU     6605.46
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     6624.49 TCPU     6609.65
+ NUMERICALLY INTEGRATED DENSITY     66.9998718992     65.9998665563
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     6627.34 TCPU     6612.49
+ CYC  37 ETOT(AU) -9.209275865867E+02 DETOT -4.54E-08 tst  1.78E-09 PX  1.25E-04
+ CYCLE 37 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     6628.04 TCPU     6613.07
+ DIIS TEST: 0.94728E-05 AT SCF   CYCLE  37 - DIIS ACTIVE - HISTORY:    37 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     6629.35 TCPU     6614.18
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     6629.56 TCPU     6614.39
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836087   0.1836085   0.1836085   0.1836084  18.1091327  18.2156691
+  18.0799030  18.1277560   7.4650544   7.4765342   7.4650559   7.4765318
+   7.4740278   7.4740290   7.4509356   7.4509366
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007152  -0.0007152  -0.0007153  -0.0007153   0.5233942  -0.0017190
+   0.6175732  -0.4395643   0.1128842  -0.0710419   0.1128842  -0.0710371
+   0.0810847   0.0810844   0.0286592   0.0286593
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     6629.57 TCPU     6614.40
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     6795.02 TCPU     6779.88
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     6798.88 TCPU     6783.74
+ NUMERICALLY INTEGRATED DENSITY     66.9998719069     65.9998665536
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     6801.75 TCPU     6786.61
+ CYC  38 ETOT(AU) -9.209275868306E+02 DETOT -2.44E-07 tst  4.87E-08 PX  6.45E-04
+ CYCLE 38 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     6802.41 TCPU     6787.15
+ DIIS TEST: 0.87246E-05 AT SCF   CYCLE  38 - DIIS ACTIVE - HISTORY:    38 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     6803.64 TCPU     6788.24
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     6803.86 TCPU     6788.46
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836085   0.1836083   0.1836083   0.1836082  18.1091549  18.2156738
+  18.0798933  18.1277403   7.4650536   7.4765305   7.4650555   7.4765269
+   7.4740350   7.4740345   7.4509342   7.4509343
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007154  -0.0007154  -0.0007154  -0.0007154   0.5233015  -0.0015711
+   0.6175776  -0.4396209   0.1128835  -0.0710335   0.1128833  -0.0710309
+   0.0810910   0.0810910   0.0286449   0.0286452
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     6803.88 TCPU     6788.48
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     6970.12 TCPU     6954.38
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     6973.57 TCPU     6957.82
+ NUMERICALLY INTEGRATED DENSITY     66.9998719093     65.9998665531
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     6976.42 TCPU     6960.66
+ CYC  39 ETOT(AU) -9.209275869064E+02 DETOT -7.58E-08 tst  4.75E-09 PX  2.00E-04
+ CYCLE 39 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     6977.09 TCPU     6961.23
+ DIIS TEST: 0.84911E-05 AT SCF   CYCLE  39 - DIIS ACTIVE - HISTORY:    39 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     6978.14 TCPU     6962.22
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     6978.35 TCPU     6962.42
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836078   0.1836076   0.1836077   0.1836075  18.1092446  18.2156880
+  18.0798467  18.1276767   7.4650572   7.4765110   7.4650590   7.4765056
+   7.4740647   7.4740654   7.4509256   7.4509250
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007161   0.5229018  -0.0009281
+   0.6175965  -0.4398670   0.1128774  -0.0710016   0.1128771  -0.0710019
+   0.0811206   0.0811203   0.0285846   0.0285849
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     6978.36 TCPU     6962.44
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     7144.54 TCPU     7128.28
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     7148.31 TCPU     7132.04
+ NUMERICALLY INTEGRATED DENSITY     66.9998719197     65.9998665495
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     7151.17 TCPU     7134.90
+ CYC  40 ETOT(AU) -9.209275872125E+02 DETOT -3.06E-07 tst  8.99E-08 PX  8.63E-04
+ CYCLE 40 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     7151.89 TCPU     7135.41
+ DIIS TEST: 0.75858E-05 AT SCF   CYCLE  40 - DIIS ACTIVE - HISTORY:    40 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     7153.26 TCPU     7136.72
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     7153.46 TCPU     7136.92
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836077   0.1836076   0.1836077   0.1836075  18.1092496  18.2156889
+  18.0798463  18.1276733   7.4650558   7.4765112   7.4650576   7.4765064
+   7.4740640   7.4740654   7.4509259   7.4509251
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007162   0.5228912  -0.0009139
+   0.6175979  -0.4398725   0.1128776  -0.0710003   0.1128773  -0.0710011
+   0.0811218   0.0811211   0.0285824   0.0285829
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     7153.48 TCPU     7136.94
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     7319.10 TCPU     7302.56
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     7322.94 TCPU     7306.39
+ NUMERICALLY INTEGRATED DENSITY     66.9998719199     65.9998665494
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     7325.79 TCPU     7309.25
+ CYC  41 ETOT(AU) -9.209275872217E+02 DETOT -9.12E-09 tst  5.19E-11 PX  2.09E-05
+ CYCLE 41 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     7326.47 TCPU     7309.81
+ DIIS TEST: 0.75574E-05 AT SCF   CYCLE  41 - DIIS ACTIVE - HISTORY:    41 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     7327.49 TCPU     7310.67
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     7327.70 TCPU     7310.87
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836039   0.1836038   0.1836039   0.1836038  18.1123987  18.2121531
+  18.0826000  18.1269394   7.4651912   7.4758490   7.4651927   7.4758404
+   7.4738138   7.4738118   7.4508969   7.4508976
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007196  -0.0007196  -0.0007194  -0.0007194   0.5181824   0.0058970
+   0.6147099  -0.4406713   0.1127288  -0.0702813   0.1127282  -0.0702917
+   0.0816729   0.0816727   0.0282649   0.0282655
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     7327.72 TCPU     7310.89
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     7493.15 TCPU     7476.35
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     7497.10 TCPU     7480.30
+ NUMERICALLY INTEGRATED DENSITY     66.9998719718     65.9998664320
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     7499.99 TCPU     7483.18
+ CYC  42 ETOT(AU) -9.209275837254E+02 DETOT  3.50E-06 tst  2.32E-06 PX  8.50E-03
+ CYCLE 42 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     7500.64 TCPU     7483.59
+ DIIS TEST: 0.16012E-03 AT SCF   CYCLE  42 - DIIS ACTIVE - HISTORY:    42 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     7501.85 TCPU     7484.73
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     7503.21 TCPU     7486.08
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836068   0.1836067   0.1836067   0.1836067  18.1119999  18.2121403
+  18.0827884  18.1271975   7.4651743   7.4759309   7.4651748   7.4759289
+   7.4736865   7.4736846   7.4509333   7.4509339
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007164  -0.0007165  -0.0007164  -0.0007164   0.5198830   0.0031772
+   0.6146390  -0.4396510   0.1127565  -0.0704132   0.1127564  -0.0704153
+   0.0815504   0.0815506   0.0285160   0.0285163
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     7503.28 TCPU     7486.15
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     7669.02 TCPU     7651.65
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     7672.85 TCPU     7655.48
+ NUMERICALLY INTEGRATED DENSITY     66.9998719287     65.9998664468
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     7675.70 TCPU     7658.33
+ CYC  43 ETOT(AU) -9.209275786313E+02 DETOT  5.09E-06 tst  1.67E-06 PX  3.64E-03
+ CYCLE 43 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     7676.32 TCPU     7658.82
+ DIIS TEST: 0.17492E-03 AT SCF   CYCLE  43 - DIIS ACTIVE - HISTORY:    43 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     7677.31 TCPU     7659.75
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     7677.51 TCPU     7659.95
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836076   0.1836075   0.1836075   0.1836075  18.1092508  18.2156912
+  18.0798505  18.1276702   7.4650563   7.4765066   7.4650566   7.4765075
+   7.4740653   7.4740653   7.4509250   7.4509245
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007162  -0.0007162  -0.0007162  -0.0007162   0.5228755  -0.0008882
+   0.6176016  -0.4398831   0.1128761  -0.0709997   0.1128761  -0.0709990
+   0.0811239   0.0811218   0.0285792   0.0285805
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     7677.52 TCPU     7659.96
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     7842.99 TCPU     7825.45
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     7847.31 TCPU     7829.77
+ NUMERICALLY INTEGRATED DENSITY     66.9998719206     65.9998665496
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     7850.22 TCPU     7832.68
+ CYC  44 ETOT(AU) -9.209275872316E+02 DETOT -8.60E-06 tst  5.96E-08 PX  4.82E-03
+ CYCLE 44 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     7850.88 TCPU     7833.17
+ DIIS TEST: 0.75147E-05 AT SCF   CYCLE  44 - DIIS ACTIVE - HISTORY:    44 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     7852.03 TCPU     7834.26
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     7852.23 TCPU     7834.47
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836076   0.1836075   0.1836076   0.1836075  18.1092471  18.2156913
+  18.0798524  18.1276729   7.4650562   7.4765071   7.4650562   7.4765082
+   7.4740602   7.4740679   7.4509266   7.4509235
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007162   0.5228898  -0.0009115
+   0.6176009  -0.4398741   0.1128764  -0.0710008   0.1128764  -0.0710002
+   0.0811263   0.0811174   0.0285799   0.0285840
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     7852.25 TCPU     7834.48
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     8018.16 TCPU     8000.33
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     8021.74 TCPU     8003.91
+ NUMERICALLY INTEGRATED DENSITY     66.9998719202     65.9998665498
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     8024.59 TCPU     8006.76
+ CYC  45 ETOT(AU) -9.209275872213E+02 DETOT  1.03E-08 tst  1.35E-10 PX  3.13E-05
+ CYCLE 45 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     8025.24 TCPU     8007.26
+ DIIS TEST: 0.75467E-05 AT SCF   CYCLE  45 - DIIS ACTIVE - HISTORY:    45 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     8026.38 TCPU     8008.32
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     8026.58 TCPU     8008.52
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836077   0.1836076   0.1836077   0.1836076  18.1092435  18.2156909
+  18.0798548  18.1276752   7.4650560   7.4765078   7.4650561   7.4765089
+   7.4740524   7.4740732   7.4509297   7.4509211
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007161   0.5229053  -0.0009365
+   0.6175998  -0.4398642   0.1128766  -0.0710019   0.1128766  -0.0710013
+   0.0811323   0.0811091   0.0285792   0.0285894
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     8026.60 TCPU     8008.54
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     8191.95 TCPU     8173.90
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     8196.06 TCPU     8178.00
+ NUMERICALLY INTEGRATED DENSITY     66.9998719199     65.9998665499
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     8198.89 TCPU     8180.84
+ CYC  46 ETOT(AU) -9.209275872108E+02 DETOT  1.05E-08 tst  1.89E-10 PX  4.30E-05
+ CYCLE 46 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     8199.46 TCPU     8181.19
+ DIIS TEST: 0.75794E-05 AT SCF   CYCLE  46 - DIIS ACTIVE - HISTORY:    46 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     8200.54 TCPU     8182.15
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     8200.74 TCPU     8182.35
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836077   0.1836075   0.1836077   0.1836075  18.1092432  18.2156931
+  18.0798538  18.1276741   7.4650561   7.4765077   7.4650560   7.4765087
+   7.4740621   7.4740644   7.4509254   7.4509250
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007161   0.5229006  -0.0009290
+   0.6176009  -0.4398673   0.1128765  -0.0710016   0.1128765  -0.0710010
+   0.0811221   0.0811200   0.0285830   0.0285839
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     8200.76 TCPU     8182.37
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     8366.24 TCPU     8347.86
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     8370.82 TCPU     8352.44
+ NUMERICALLY INTEGRATED DENSITY     66.9998719200     65.9998665499
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     8373.64 TCPU     8355.27
+ CYC  47 ETOT(AU) -9.209275872159E+02 DETOT -5.08E-09 tst  4.14E-10 PX  5.35E-05
+ CYCLE 47 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     8374.26 TCPU     8355.65
+ DIIS TEST: 0.75389E-05 AT SCF   CYCLE  47 - DIIS ACTIVE - HISTORY:    47 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     8375.31 TCPU     8356.64
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     8375.52 TCPU     8356.85
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836077   0.1836076   0.1836077   0.1836076  18.1092411  18.2156929
+  18.0798547  18.1276755   7.4650560   7.4765083   7.4650559   7.4765091
+   7.4740624   7.4740627   7.4509253   7.4509256
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007161   0.5229101  -0.0009442
+   0.6176005  -0.4398614   0.1128766  -0.0710023   0.1128766  -0.0710017
+   0.0811205   0.0811203   0.0285848   0.0285849
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     8375.53 TCPU     8356.87
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     8541.13 TCPU     8522.37
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     8545.06 TCPU     8526.30
+ NUMERICALLY INTEGRATED DENSITY     66.9998719198     65.9998665500
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     8547.92 TCPU     8529.15
+ CYC  48 ETOT(AU) -9.209275872096E+02 DETOT  6.28E-09 tst  4.87E-11 PX  2.04E-05
+ CYCLE 48 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     8548.55 TCPU     8529.69
+ DIIS TEST: 0.75538E-05 AT SCF   CYCLE  48 - DIIS ACTIVE - HISTORY:    48 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     8549.66 TCPU     8530.72
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     8549.86 TCPU     8530.92
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836077   0.1836076   0.1836077   0.1836076  18.1092381  18.2156926
+  18.0798560  18.1276778   7.4650559   7.4765089   7.4650558   7.4765098
+   7.4740614   7.4740618   7.4509256   7.4509258
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007161   0.5229233  -0.0009656
+   0.6175999  -0.4398532   0.1128768  -0.0710034   0.1128768  -0.0710027
+   0.0811196   0.0811192   0.0285867   0.0285870
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     8549.88 TCPU     8530.94
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     8715.26 TCPU     8696.32
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     8720.29 TCPU     8701.36
+ NUMERICALLY INTEGRATED DENSITY     66.9998719195     65.9998665501
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     8723.13 TCPU     8704.19
+ CYC  49 ETOT(AU) -9.209275872001E+02 DETOT  9.48E-09 tst  9.18E-11 PX  2.87E-05
+ CYCLE 49 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     8723.73 TCPU     8704.68
+ DIIS TEST: 0.75811E-05 AT SCF   CYCLE  49 - DIIS ACTIVE - HISTORY:    49 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     8724.76 TCPU     8705.54
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     8724.97 TCPU     8705.75
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836077   0.1836076   0.1836077   0.1836076  18.1092376  18.2156925
+  18.0798561  18.1276781   7.4650559   7.4765090   7.4650558   7.4765099
+   7.4740613   7.4740617   7.4509257   7.4509259
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007161   0.5229248  -0.0009679
+   0.6175999  -0.4398523   0.1128768  -0.0710035   0.1128769  -0.0710028
+   0.0811195   0.0811191   0.0285869   0.0285872
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     8724.99 TCPU     8705.76
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     8890.58 TCPU     8871.27
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     8894.53 TCPU     8875.22
+ NUMERICALLY INTEGRATED DENSITY     66.9998719194     65.9998665501
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     8897.36 TCPU     8878.05
+ CYC  50 ETOT(AU) -9.209275871993E+02 DETOT  8.41E-10 tst  1.08E-12 PX  3.01E-06
+ CYCLE 50 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     8897.98 TCPU     8878.51
+ DIIS TEST: 0.75823E-05 AT SCF   CYCLE  50 - DIIS ACTIVE - HISTORY:    50 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     8898.92 TCPU     8879.38
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     8899.12 TCPU     8879.58
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836077   0.1836076   0.1836077   0.1836076  18.1092375  18.2156926
+  18.0798561  18.1276782   7.4650559   7.4765090   7.4650559   7.4765099
+   7.4740613   7.4740617   7.4509257   7.4509258
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007161   0.5229250  -0.0009682
+   0.6175999  -0.4398522   0.1128768  -0.0710035   0.1128768  -0.0710029
+   0.0811195   0.0811190   0.0285870   0.0285872
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     8899.13 TCPU     8879.60
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     9064.57 TCPU     9045.05
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     9068.66 TCPU     9049.14
+ NUMERICALLY INTEGRATED DENSITY     66.9998719194     65.9998665502
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     9071.52 TCPU     9052.00
+ CYC  51 ETOT(AU) -9.209275871992E+02 DETOT  4.13E-11 tst  2.82E-14 PX  4.60E-07
+ CYCLE 51 WAVE FUNCTION SAVED IN FORTRAN UNIT 79
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT DIIS        TELAPSE     9072.23 TCPU     9052.37
+ DIIS TEST: 0.75820E-05 AT SCF   CYCLE  51 - DIIS ACTIVE - HISTORY:    51 CYCLES
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT FDIK        TELAPSE     9073.11 TCPU     9053.17
+ SPIN LOCKING: NO ENERGY GAP COMPUTED
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT PDIG        TELAPSE     9073.31 TCPU     9053.38
+ CHARGE NORMALIZATION FACTOR   1.00000000
+ TOTAL ATOMIC CHARGES:
+   0.1836077   0.1836076   0.1836077   0.1836076  18.1092381  18.2156926
+  18.0798558  18.1276778   7.4650559   7.4765089   7.4650559   7.4765098
+   7.4740614   7.4740619   7.4509256   7.4509258
+ SUMMED SPIN DENSITY           1.00000000
+ TOTAL ATOMIC SPINS  :
+  -0.0007161  -0.0007161  -0.0007161  -0.0007161   0.5229230  -0.0009650
+   0.6176000  -0.4398534   0.1128768  -0.0710034   0.1128768  -0.0710027
+   0.0811196   0.0811192   0.0285867   0.0285869
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MOQGAD      TELAPSE     9073.33 TCPU     9053.39
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT SHELLXN     TELAPSE     9238.83 TCPU     9218.84
+ +++ ENERGIES IN A.U. +++
+ ::: EXT EL-POLE                                  -4.7120101906921E+03
+ ::: EXT EL-SPHEROPOLE                             2.3113352374539E+01
+ ::: BIELET ZONE E-E                               5.1309372767980E+03
+ ::: TOTAL E-E                                     4.4204043848041E+02
+ ::: TOTAL E-N + N-E                              -1.4650014954018E+03
+ ::: TOTAL N-N                                    -4.1541873518440E+02
+ ::: KINETIC ENERGY                                5.9933469723400E+02
+ ::: PSEUDO TOTAL   ENERGY                        -8.3904509487179E+02
+ ::: VIRIAL COEFFICIENT                            8.3334693732950E-01
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT MONMO3      TELAPSE     9242.62 TCPU     9222.63
+ NUMERICALLY INTEGRATED DENSITY     66.9998719195     65.9998665501
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT NUMDFT      TELAPSE     9245.49 TCPU     9225.50
+ CYC  52 ETOT(AU) -9.209275872004E+02 DETOT -1.23E-09 tst  2.84E-12 PX  4.60E-07
+
+ == SCF ENDED - CONVERGENCE ON ENERGY      E(AU) -9.2092758720044E+02 CYCLES  52
+
+
+ ENERGY EXPRESSION=HARTREE+FOCK EXCH*0.25000+(PBE        EXCH)*0.75000+PBE        CORR
+
+ FINITE TEMPERATURE DFT CALCULATION 
+ TEMPERATURE      (T)    1.000000000000E-13 HARTREE 
+ ENERGY           (E)   -9.209275872004E+02
+ FREE ENERGY      (F)   -9.209275872004E+02
+ ELECTRON ENTROPY (S)    0.000000000000E+00
+ (E(T)+F(T))/2    (E0)  -9.209275872004E+02
+
+
+ TOTAL ENERGY(DFT)(AU)( 52) -9.2092758720044E+02 DE-1.2E-09 tester 2.8E-12
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT EDFT        TELAPSE     9245.50 TCPU     9225.51
+ EIGENVECTORS IN FORTRAN UNIT  8
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT END         TELAPSE     9247.05 TCPU     9227.05
+ EEEEEEEEEE TERMINATION  DATE 23 01 2018 TIME 09:15:44.0
+NODE    0 CPU TIME =      9227.045
+NODE    1 CPU TIME =      9227.871
+NODE    2 CPU TIME =      9227.384
+NODE    3 CPU TIME =      9228.803
+NODE    4 CPU TIME =      9227.092
+NODE    5 CPU TIME =      9224.020
+NODE    6 CPU TIME =      9229.569
+NODE    7 CPU TIME =      9226.944
+NODE    8 CPU TIME =      9227.257
+NODE    9 CPU TIME =      9227.802
+NODE   10 CPU TIME =      9225.225
+NODE   11 CPU TIME =      9225.568
+NODE   12 CPU TIME =      9230.468
+NODE   13 CPU TIME =      9227.797
+NODE   14 CPU TIME =      9226.666
+NODE   15 CPU TIME =      9227.912
+NODE   16 CPU TIME =      9227.938
+NODE   17 CPU TIME =      9226.188
+NODE   18 CPU TIME =      9227.822
+NODE   19 CPU TIME =      9227.320
+NODE   20 CPU TIME =      9229.963
+NODE   21 CPU TIME =      9229.626
+NODE   22 CPU TIME =      9224.209
+NODE   23 CPU TIME =      9226.126
+NODE   24 CPU TIME =      9228.819
+NODE   25 CPU TIME =      9228.916
+NODE   26 CPU TIME =      9227.447
+NODE   27 CPU TIME =      9226.103
+NODE   28 CPU TIME =      9229.696
+NODE   29 CPU TIME =      9232.323
+NODE   30 CPU TIME =      9226.804
+NODE   31 CPU TIME =      9223.429
+    TOTAL CPU TIME =    295280.155

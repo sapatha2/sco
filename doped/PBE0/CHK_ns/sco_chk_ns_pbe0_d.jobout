@@ -1,0 +1,52 @@
+----------------------------------------
+Begin Torque Prologue (Mon Jan 22 10:24:02 2018)
+Job ID:           6916865.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_chk_ns_pbe0_d
+Limits:           nodes=2,walltime=02:00:00,neednodes=2
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub130 golub131
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Mon Jan 22 10:24:07 2018)
+Job ID:           6916865.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_chk_ns_pbe0_d
+Session:          121227
+Limits:           nodes=2,walltime=02:00:00,neednodes=2
+Resources:        cput=00:00:00,vmem=0kb,walltime=00:00:04,mem=0kb,energy_used=0
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub130 golub131
+End Torque Epilogue
+----------------------------------------
+----------------------------------------
+Begin Torque Prologue (Mon Jan 22 13:02:44 2018)
+Job ID:           6917155.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_chk_ns_pbe0_d
+Limits:           nodes=2,walltime=02:00:00,neednodes=2
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub089 golub091
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Mon Jan 22 14:27:26 2018)
+Job ID:           6917155.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_chk_ns_pbe0_d
+Session:          79342
+Limits:           nodes=2,walltime=02:00:00,neednodes=2
+Resources:        cput=44:47:39,vmem=13953080kb,walltime=01:24:41,mem=4968448kb,energy_used=0
+Job Queue:        secondary
+Account:          wagner
+Nodes:            golub089 golub091
+End Torque Epilogue
+----------------------------------------
