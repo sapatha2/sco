@@ -1,0 +1,12 @@
+#PBS -q secondary 
+#PBS -l nodes=2,flags=allprocs
+#PBS -l walltime=04:00:00
+#PBS -N sco_flns_hse 
+#PBS -j oe
+#PBS -o sco_flns_hse.jobout  
+#PBS -e sco_flns_hse.err 
+
+module load openmpi/1.4-gcc+ifort 
+module load intel/14.0
+cd ${PBS_O_WORKDIR}  
+mpiexec ../../../../CRYSTAL17/bin/Linux-ifort14_XE_emt64/v1.0.1/Pcrystal INPUT &> OUTPUT
