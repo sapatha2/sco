@@ -1,5 +1,5 @@
 #PBS -q secondary 
-#PBS -l nodes=2,flags=allprocs
+#PBS -l nodes=4,flags=allprocs
 #PBS -l walltime=04:00:00
 #PBS -N sco_colns_hse
 #PBS -j oe
