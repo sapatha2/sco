@@ -29,6 +29,8 @@ def read_bands(filename):
       data[s].append(list(map(float,line.split())))
   data[0]=np.array(data[0])
   data[1]=np.array(data[1])
+  data[0]-=(1-4.8285312E-02)
+  data[1]-=(1-4.8285312E-02)
   return data,panels
 
 bands,panels=read_bands("BAND.DAT")
@@ -43,10 +45,6 @@ conv=27.2116
 for b in range(50,nband):
   ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')
   ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
-  if(b==65):
-    ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='m')
-  if(b==68):
-    ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='b')
 P.ylim([-2,2])
 P.ylabel("Energy (eV) ")
 if len(sys.argv) < 2: 
