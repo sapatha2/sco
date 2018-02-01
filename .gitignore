@@ -2,4 +2,5 @@
 *.333
 xml
 *.pe*
-
+*diis_Fg
+*.jobout
