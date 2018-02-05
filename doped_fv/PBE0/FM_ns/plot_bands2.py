@@ -29,8 +29,6 @@ def read_bands(filename):
       data[s].append(list(map(float,line.split())))
   data[0]=np.array(data[0])
   data[1]=np.array(data[1])
-  data[0]-=(1-4.7786127E-02)
-  data[1]-=(1-4.7786127E-02)
   return data,panels
 
 bands,panels=read_bands("BAND.DAT")

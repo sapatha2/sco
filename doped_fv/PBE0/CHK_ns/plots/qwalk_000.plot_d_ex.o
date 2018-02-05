@@ -10,7 +10,7 @@ Please cite J. Comp. Phys. v 228 pp 3390-3404 (2009)
  when publishing results from this program.
 ------------------------------------------------
 Running on Shiveshs-MacBook-Air.local
-Wed Jan 31 12:24:56 2018
+Thu Feb  1 14:08:07 2018
 
 #############Plot_method#################
 orbs=466, 467
@@ -19,5 +19,5 @@ xmin=0 xmax=14.8451
 ymin=0 ymax=14.8451
 zmin=0 zmax=6.48894
 done
-Wall time for this method: 25 seconds.
-Total wall time so far: 27 seconds.
+Wall time for this method: 40 seconds.
+Total wall time so far: 41 seconds.

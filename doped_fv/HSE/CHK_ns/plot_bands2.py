@@ -11,7 +11,6 @@ def read_bands(filename):
   nspin=int(spl[6])
   spl=f.readline().split()
   npanel=int(spl[2])
-  print(nkpt,nband,nspin,npanel)
   panels=[]
   for i in range(0,npanel+1):
     spl=f.readline().split()
@@ -40,7 +39,7 @@ for p in panels:
   ax.annotate(p[1],xy=(p[0],0.0),ha='center',fontsize=9)
 ax.axhline(0.0,color='gray',linestyle="--")
 conv=27.2116
-for b in range(50,nband):
+for b in range(1,nband):
   ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')
   ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
 P.ylim([-2,2])
