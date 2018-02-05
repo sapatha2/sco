@@ -24,3 +24,41 @@ Account:          wagner
 Nodes:            golub091 golub093
 End Torque Epilogue
 ----------------------------------------
+----------------------------------------
+Begin Torque Prologue (Tue Jan 30 16:19:21 2018)
+Job ID:           6929704.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_colns_hse
+Limits:           nodes=1,walltime=48:00:00,neednodes=1
+Job Queue:        wagner
+Account:          wagner
+Nodes:            golub220
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Prologue (Fri Feb  2 04:08:43 2018)
+Job ID:           6936249.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_colns_hse
+Limits:           nodes=1,walltime=96:00:00,neednodes=1
+Job Queue:        wagner
+Account:          wagner
+Nodes:            golub219
+End Torque Prologue
+----------------------------------------
+----------------------------------------
+Begin Torque Epilogue (Fri Feb  2 11:42:38 2018)
+Job ID:           6936249.cc-mgmt1.campuscluster.illinois.edu
+Username:         sapatha2
+Group:            wagner
+Job Name:         sco_colns_hse
+Session:          62894
+Limits:           nodes=1,walltime=96:00:00,neednodes=1
+Resources:        cput=150:47:16,vmem=7160516kb,walltime=07:33:56,mem=2004284kb,energy_used=0
+Job Queue:        wagner
+Account:          wagner
+Nodes:            golub219
+End Torque Epilogue
+----------------------------------------
