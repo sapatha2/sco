@@ -45,12 +45,19 @@ def tb(t,tt,K,d,x,y,n,m=0):
   H+=NNN(tt,x,y)
   if(n!=1):
     w,vr=np.linalg.eigh(H)
+    if(x==0 and y==0):
+      for i in range(4):
+        print(vr[:,i])
     return w
   else:
     Hu+=NN(t,x,y)
     Hu+=NNN(tt,x,y)
     wu,vru=np.linalg.eigh(Hu)
     w,vr=np.linalg.eigh(H)
+    if(x==0 and y==0):
+      for i in range(4):
+        print(vr[:,i])
+        print(vru[:,i])
     return [wu,w]
 
 #State choice
@@ -65,9 +72,9 @@ with open("hse_bands.p","r") as inp:
 if(n==0):
   t,tt,K,d=(0.85,0.30,0.1,10)
 elif(n==1):
-  t,tt,K,d,m=(0.75,0.20,0.1,10,0.30)
+  t,tt,K,d,m=(0.75,0.20,0.1,10,0.20)
 elif(n==2):
-  t,tt,K,d=(0.80,0.25,0.1,10)
+  t,tt,K,d=(0.75,0.25,0.1,10)
 else:
   #t,tt,K,d
   pass

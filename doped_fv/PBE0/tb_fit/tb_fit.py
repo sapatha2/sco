@@ -13,7 +13,7 @@ def NNN(tt,x,y):
   M+=M.conj().T
   return M
 
-def flp1e(t,tt,K,d,x,y):
+def chke(t,tt,K,d,x,y):
   return np.array([[d-2*K,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,-2*K]])+0j
 
 def colue(t,tt,K,d,m,x,y):
@@ -32,7 +32,7 @@ def tb(t,tt,K,d,x,y,n,m=0):
   Hu=np.zeros((4,4))+0j
   H=np.zeros((4,4))+0j
   if(n==0):
-    H=flp1e(t,tt,K,d,x,y)
+    H=chke(t,tt,K,d,x,y)
   elif(n==1):
     Hu=colue(t,tt,K,d,m,x,y)
     H=cole(t,tt,K,d,x,y)
@@ -54,13 +54,14 @@ def tb(t,tt,K,d,x,y,n,m=0):
     return [wu,w]
 
 #State choice
-n=2
+n=0
 
 #Read in PBE0 band structure
 di={}
 with open("pbe0_bands.p","r") as inp:
   di=json.load(inp)
 
+m=0
 #Parameter unpacking
 if(n==0):
   t,tt,K,d=(0.95,0.3,0.3,10)
@@ -69,7 +70,7 @@ elif(n==1):
 elif(n==2):
   t,tt,K,d=(0.875,0.25,0.3,10)
 else:
-  #t,tt,K,d
+  t,tt,K,d=(0.80,0.3,0.3,1)
   pass
   
 #Calculate TB bands
@@ -108,10 +109,17 @@ e=np.array(e)
 eu=np.array(eu)
 print(np.shape(e))
 print(np.shape(eu))
-if(n==0):
+if(n<0):
+  plt.plot(di['FLP1']['down'][1][:45],'r')
+  plt.plot(di['FLP1']['down'][2][:45],'r')
+  plt.plot(di['COL']['up'][2][:45],'k--')
+  plt.plot(di['COL']['down'][2][:45],'r--')
+  plt.plot(di['FM']['down'][0][:45],'r.-')
+  plt.plot(di['FM']['down'][1][:45],'r.-')
+elif(n==0):
   #Bands: 466, 467
   c=['b','g','m']
-  for i in range(np.shape(e)[1]-1):
+  for i in range(np.shape(e)[1]-2):
     plt.plot(e[:,i]-e[0,0]+di['FLP1']['down'][1][0],c[i])
   for i in range(5):
     plt.plot(di['FLP1']['up'][i][:45],'k')
@@ -136,6 +144,9 @@ elif(n==2):
     plt.plot(di['FM']['up'][i][:45],'k')
     plt.plot(di['FM']['down'][i][:45],'r')
 else:
+  c=['b','g','m']
+  for i in range(np.shape(e)[1]-1):
+    plt.plot(e[:,i],c[i])
   pass
 
 plt.axhline(0.0,color='gray',linestyle="--")
