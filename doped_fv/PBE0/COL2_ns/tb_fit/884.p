@@ -1,0 +1,1 @@
+{"Sum weights": 1.0, "Sum weights*rho": 1.05078125, "Sum weights*rho, kz=0": 0.3046875, "Sum weights*rho*evals, kz=0": -0.0208244921875, "val": -0.07103579296875003}
