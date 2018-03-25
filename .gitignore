@@ -4,3 +4,6 @@ xml
 *.pe*
 *diis_Fg
 *.jobout
+*plot*
+*.plot*
+*.cube
