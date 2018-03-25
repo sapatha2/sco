@@ -8,21 +8,21 @@ e2=[]
 w1=[]
 w2=[]
 
-#ef=-4.0509255E-02 #PBE0, FLP
-#ef=-4.7814142E-02 #PBE0, FM
-ef=-4.6149490E-02 #PBE0, COL2
+#ef=-4.5395275E-02 #HSE, FLP
+#ef=-5.1099662E-02 #HSE, FM
+ef=-5.3308992E-02 #HSE, COL
 
 w=[]
+#for r in range(255,353):
 #for r in range(318,447):
-for r in range(182,243):
-  w+=linecache.getline("../COL2_ns/KRED.DAT",r).split()
+for r in range(255,353):
+  w+=linecache.getline("../COL_ns/KRED.DAT",r).split()
 w=[float(z) for z in w]
 print("Weight readin done")
 
 #Eigenvalues
-e1=0.
-e2=0.
-f=open("../COL2_ns/prop.in.o","r")
+el=0.
+f=open("../COL_ns/prop.in.o","r")
 for line in f:
   if(i<2):
     if "BETA" in line:
@@ -38,15 +38,16 @@ for line in f:
         x=[float(y) for y in x]
        
         if(x[6]<=ef):
-          e1+=(x[6]-ef)*w[j]
+          el+=x[6]*w[j]
         #if(x[5]<=ef):
-        #  e2+=(x[5]-ef)*w[j]
+        #  el+=x[5]*w[j]
       j+=1
 
 print("BETA readin done")
+
 i=0
 j=0
-f=open("../COL2_ns/prop.in.o","r")
+f=open("../COL_ns/prop.in.o","r")
 for line in f:
   if(i<2):
     if "ALPHA" in line:
@@ -62,10 +63,9 @@ for line in f:
         x=[float(y) for y in x]
         
         if(x[6]<=ef):
-          e2+=(x[6]-ef)*w[j]
+          el+=x[6]*w[j]
       j+=1
     if "BETA" in line: 
       break
-
 print("ALPHA readin done")
-print(e1,e2)
+print(el)
