@@ -8,3 +8,4 @@ xml
 *.plot*
 *.cube
 *prop.in.o
+fort.*
