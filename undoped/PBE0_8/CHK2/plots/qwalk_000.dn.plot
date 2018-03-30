@@ -1,5 +1,6 @@
 method { 
 plot
+resolution 0.1
 orbitals {
 cutoff_mo
   magnify 1
