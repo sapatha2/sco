@@ -1,0 +1,45 @@
+--------------------------------------------------------------------------
+[[48023,1],0]: A high-performance Open MPI point-to-point messaging module
+was unable to find any relevant network interfaces:
+
+Module: OpenFabrics (openib)
+  Host: golub052
+
+Another transport will be used instead, although this may result in
+lower performance.
+--------------------------------------------------------------------------
+ PROCESS            7  OF           16  WORKING
+ PROCESS           12  OF           16  WORKING
+ PROCESS           13  OF           16  WORKING
+ PROCESS           14  OF           16  WORKING
+ PROCESS           11  OF           16  WORKING
+ PROCESS            0  OF           16  WORKING
+ PROCESS            6  OF           16  WORKING
+ PROCESS            1  OF           16  WORKING
+ PROCESS            2  OF           16  WORKING
+ PROCESS            3  OF           16  WORKING
+ PROCESS            4  OF           16  WORKING
+ PROCESS            5  OF           16  WORKING
+ PROCESS            8  OF           16  WORKING
+ PROCESS            9  OF           16  WORKING
+ PROCESS           10  OF           16  WORKING
+ PROCESS           15  OF           16  WORKING
+ ERROR **** INPUT ****  END OF DATA IN INPUT DECK
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 9 in communicator MPI_COMM_WORLD 
+with errorcode 1.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------
+ TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT ERR         TELAPSE        3.05 TCPU        0.01
+--------------------------------------------------------------------------
+mpiexec has exited due to process rank 9 with PID 47286 on
+node golub052 exiting without calling "finalize". This may
+have caused other processes in the application to be
+terminated by signals sent by mpiexec (as reported here).
+--------------------------------------------------------------------------
+[golub052:47276] 15 more processes have sent help message help-mpi-btl-base.txt / btl:no-nics
+[golub052:47276] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[golub052:47276] 15 more processes have sent help message help-mpi-api.txt / mpi-abort
