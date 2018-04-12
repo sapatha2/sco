@@ -1,0 +1,11 @@
+#PBS -q wagner 
+#PBS -l nodes=1,flags=allprocs 
+#PBS -l walltime=24:00:00 
+#PBS -N sco_FM10_p8 
+#PBS -j oe 
+#PBS -o sco_FM10_p8.jobout  
+#PBS -e sco_FM10_p8.err 
+module load openmpi/1.4-gcc+ifort 
+module load intel/14.0 
+cd ${PBS_O_WORKDIR} 
+mpiexec ../../../../CRYSTAL17/bin/Linux-ifort14_XE_emt64/v1.0.1/Pcrystal INPUT &> OUTPUT 
