@@ -32,3 +32,4 @@ name_sort=name[ind]
 plt.plot((E_sort-E_sort[0])*27.2,'o')
 plt.xticks(np.arange(0,14),name_sort)
 plt.show()
+
