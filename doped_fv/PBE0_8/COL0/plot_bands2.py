@@ -39,11 +39,7 @@ for p in panels:
   ax.annotate(p[1],xy=(p[0],0.0),ha='center',fontsize=9)
 ax.axhline(0.0,color='gray',linestyle="--")
 conv=27.2116
-<<<<<<< HEAD
-for b in range(1,nband):
-=======
 for b in range(132,nband):
->>>>>>> 440ba77436e37bef60c5699dc4dbd595e866a4c2
   ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')
   ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
   
