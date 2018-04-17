@@ -27,35 +27,6 @@ def NNN(tt,x,y):
   M+=M.conj().T
   return M
 
-'''
-def NNold(t,x,y):
-  M=-t*np.array([[0,1+exp(-1j*x),1+exp(1j*y),0],[0,0,0,1+exp(1j*y)],[0,0,0,1+exp(-1j*x)],[0,0,0,0]])
-  M+=M.conj().T
-  return M
-
-#(0,0,0)[0,3] = (0,0,0)[0,1]
-print("CHECK 1")
-w,vr=np.linalg.eigh(NN(1.0,0,0))
-wo,vro=np.linalg.eigh(NNold(1.0,0,0))
-print(w[0],w[3])
-print(wo[0],w[1])
-
-print("CHECK 2")
-wo,vro=np.linalg.eigh(NNold(1.0,np.pi,np.pi))
-print(w[1],w[2])
-print(wo[0],w[1])
-
-print("CHECK 3")
-w,vr=np.linalg.eigh(NN(1.0,np.pi,0))
-wo,vro=np.linalg.eigh(NNold(1.0,np.pi/2,np.pi/2))
-print(w[0],w[1])
-print(wo[0])
-
-print("CHECK 4")
-print(w[2],w[3])
-print(wo[1])
-'''
-
 def col0(K,d):
   up=np.array([[d,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0],
@@ -132,6 +103,18 @@ def blk0(K,d):
                [0,0,0,0,0,0,0,d]])
   return [up,dn]
 
+def flp2(K,d):
+  up=np.zeros((8,8))
+  dn=np.array([[0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0],
+               [0,0,d-2*K,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0],
+               [0,0,0,0,-2*K,0,0,0],
+               [0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,-2*K,0],
+               [0,0,0,0,0,0,0,d-2*K]])
+  return [up,dn]
+
 def tb(t,tt,K,d,x,y,state):
   H=[np.zeros((8,8))+0j,np.zeros((8,8))+0j]
   if(state=="COL0"):  
@@ -146,6 +129,9 @@ def tb(t,tt,K,d,x,y,state):
   elif(state=="BLK0"):
     H[0]+=blk0(K,d)[0]
     H[1]+=blk0(K,d)[1]
+  elif(state=="FLP2"):
+    H[0]+=flp2(K,d)[0]
+    H[1]+=flp2(K,d)[1]
   H[0]+=NN(t,x,y)+NNN(tt,x,y)
   H[1]+=NN(t,x,y)+NNN(tt,x,y)
   wu,vr=np.linalg.eigh(H[0])
@@ -153,10 +139,19 @@ def tb(t,tt,K,d,x,y,state):
   return [wu,wd]
 
 #State choice
-state="BLK0"
+state="CHK0"
 
 #Calculate TB bands
-t,tt,K,d=(0.8,0.3,0.0,10)
+if(state=="COL0"):                #0.00 eV
+  t,tt,K,d=(1.2,0.3,0.0,10)
+elif(state=="FLP2"):              #0.10 eV
+  t,tt,K,d=(1.1,0.4,0.10,10)                         
+elif(state=="BLK0"):              #0.25 eV
+  t,tt,K,d=(1.0,0.4,0.10,10)         
+elif(state=="CHK0"):              #0.50 eV
+  t,tt,K,d=(1.0,0.0,0.30,10)
+elif(state=="BCOL0"):             #1.00 eV
+  t,tt,K,d=(1.0,0.3,0.10,10)
 
 e=[]
 eu=[]
@@ -179,16 +174,51 @@ for i in range(N):
   eu.append(tb(t,tt,K,d,x[N-1-i],y[N-1-i],state)[0])
   e.append(tb(t,tt,K,d,x[N-1-i],y[N-1-i],state)[1])
 
-#Plot PBE0 and TB bands
+#Plot PBE0 bands and TB bands
+dic=json.load(open("pbe0_bands.p","r"))
 e=np.array(e)
 eu=np.array(eu)
 
-for i in range(2):
-  plt.plot(eu[:,i],'k')
-  plt.plot(e[:,i],'r')
+if(state=="COL0"):  
+  for i in range(1,len(dic['col0u'])):
+    plt.plot(dic['col0u'][i][:len(eu)],'k-')
+    plt.plot(dic['col0u'][i][:len(e)],'r-')
+  for i in range(4):
+    plt.plot(eu[:,i]-eu[0,0]+dic['col0u'][1][0],'k-o')
+    plt.plot(e[:,i]-eu[0,0]+dic['col0u'][1][0],'r-o')
+elif(state=="BCOL0"):
+  for i in range(1,len(dic['bcol0u'])):
+    plt.plot(dic['bcol0u'][i][:len(eu)],'k-')
+    plt.plot(dic['bcol0u'][i][:len(e)],'r-')
+  for i in range(4):
+    plt.plot(eu[:,i]-eu[0,0]+dic['bcol0u'][1][0],'k-o')
+    plt.plot(e[:,i]-eu[0,0]+dic['bcol0u'][1][0],'r-o')
+elif(state=="CHK0"):
+  for i in range(1,len(dic['chk0u'])):
+    plt.plot(dic['chk0u'][i][:len(eu)],'k-')
+    plt.plot(dic['chk0u'][i][:len(e)],'r-')
+  for i in range(4):
+    plt.plot(eu[:,i]-eu[0,0]+dic['chk0u'][1][0],'k-o')
+    plt.plot(e[:,i]-eu[0,0]+dic['chk0u'][1][0],'r-o')
+elif(state=="BLK0"):
+  for i in range(1,len(dic['blk0u'])):
+    plt.plot(dic['blk0u'][i][:len(eu)],'k-')
+    plt.plot(dic['blk0u'][i][:len(e)],'r-')
+  for i in range(4):
+    plt.plot(eu[:,i]-eu[0,0]+dic['blk0u'][1][0],'k-o')
+    plt.plot(e[:,i]-eu[0,0]+dic['blk0u'][1][0],'r-o')
+elif(state=="FLP2"):
+  for i in range(1,len(dic['flp2d'])):
+    plt.plot(dic['flp2d'][i][:len(eu)],'r-')
+  for i in range(4):
+    plt.plot(e[:,i]-e[0,0]+dic['flp2d'][1][0],'r-o')
 
 plt.axvline(11)
 plt.axvline(11+11)
 plt.axvline(11+11+15)
-plt.title("t="+str(t)+", tt="+str(tt)+", K="+str(K)+", d="+str(d))
+plt.axhline(0)
+plt.title("PBE0, x=0.25, "+state)
+plt.ylabel("E - EF (eV)")
+plt.xticks([0,11,22,37],["(0,0)","(0,pi)","(pi,pi)","(0,0)"])
+plt.text(3,4,"t="+str(t)+", tt="+str(tt)+"\nK="+str(K)+", d="+str(d))
 plt.show()
