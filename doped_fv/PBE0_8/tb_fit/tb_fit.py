@@ -139,20 +139,38 @@ def tb(t,tt,K,d,x,y,state):
   return [wu,wd]
 
 #State choice
-state="CHK0"
+state="BCOL0"
 
 #Calculate TB bands
 if(state=="COL0"):                #0.00 eV
-  t,tt,K,d=(1.2,0.3,0.0,10)
+  #8.53822272496
+  t,tt,K,d=(1.2, 0.3, 0.3, 10)
 elif(state=="FLP2"):              #0.10 eV
-  t,tt,K,d=(1.1,0.4,0.10,10)                         
+  #5.41337724077
+  t,tt,K,d=(1.0, 0.4, 0.3, 10)
 elif(state=="BLK0"):              #0.25 eV
-  t,tt,K,d=(1.0,0.4,0.10,10)         
+  #4.09972034692
+  t,tt,K,d=(1.0, 0.4, 0.3, 10)
 elif(state=="CHK0"):              #0.50 eV
-  t,tt,K,d=(1.0,0.0,0.30,10)
+  #10.5415018513
+  t,tt,K,d=(1.1, 0.4, 0.3, 10)
 elif(state=="BCOL0"):             #1.00 eV
-  t,tt,K,d=(1.0,0.3,0.10,10)
+  #2.08149348526
+  t,tt,K,d=(1.1, 0.4, 0.3, 10)
 
+#############################################
+#AVERAGE: 1.08(7), 0.38(4), 0.30(0), 10 
+##############################################
+
+#Brute force fitting
+'''
+d=10
+r2=[]
+parms=[]
+for t in [1.0,1.1,1.2]:
+  for tt in [0.2,0.3,0.4]:
+    for K in [0.1,0.2,0.3]:
+'''
 e=[]
 eu=[]
 N=12
@@ -180,6 +198,16 @@ e=np.array(e)
 eu=np.array(eu)
 
 if(state=="COL0"):  
+  '''
+  sum2=0
+  for i in range(2):
+    u=eu[:,i]-eu[0,0]+dic['col0u'][1][0]-dic['col0u'][i+1][0]
+    dn=e[:,i]-eu[0,0]+dic['col0u'][1][0]-dic['col0u'][i+1][0]
+    sum2+=np.dot(u,u)+np.dot(dn,dn)
+  sum2/=4
+  r2.append(sum2)
+  parms.append((t,tt,K,d))
+  '''
   for i in range(1,len(dic['col0u'])):
     plt.plot(dic['col0u'][i][:len(eu)],'k-')
     plt.plot(dic['col0u'][i][:len(e)],'r-')
@@ -187,6 +215,16 @@ if(state=="COL0"):
     plt.plot(eu[:,i]-eu[0,0]+dic['col0u'][1][0],'k-o')
     plt.plot(e[:,i]-eu[0,0]+dic['col0u'][1][0],'r-o')
 elif(state=="BCOL0"):
+  '''
+  sum2=0
+  for i in range(1):
+    u=eu[:,i]-eu[0,0]+dic['bcol0u'][1][0]-dic['bcol0u'][i+1][0]
+    dn=e[:,i]-eu[0,0]+dic['bcol0u'][1][0]-dic['bcol0u'][i+1][0]
+    sum2+=np.dot(u,u)+np.dot(dn,dn)
+  sum2/=2
+  r2.append(sum2)
+  parms.append((t,tt,K,d))
+  '''
   for i in range(1,len(dic['bcol0u'])):
     plt.plot(dic['bcol0u'][i][:len(eu)],'k-')
     plt.plot(dic['bcol0u'][i][:len(e)],'r-')
@@ -194,6 +232,16 @@ elif(state=="BCOL0"):
     plt.plot(eu[:,i]-eu[0,0]+dic['bcol0u'][1][0],'k-o')
     plt.plot(e[:,i]-eu[0,0]+dic['bcol0u'][1][0],'r-o')
 elif(state=="CHK0"):
+  '''
+  sum2=0
+  for i in range(2):
+    u=eu[:,i]-eu[0,0]+dic['chk0u'][1][0]-dic['chk0u'][i+1][0]
+    dn=e[:,i]-eu[0,0]+dic['chk0u'][1][0]-dic['chk0u'][i+1][0]
+    sum2+=np.dot(u,u)+np.dot(dn,dn)
+  sum2/=4
+  r2.append(sum2)
+  parms.append((t,tt,K,d))
+  '''
   for i in range(1,len(dic['chk0u'])):
     plt.plot(dic['chk0u'][i][:len(eu)],'k-')
     plt.plot(dic['chk0u'][i][:len(e)],'r-')
@@ -201,6 +249,16 @@ elif(state=="CHK0"):
     plt.plot(eu[:,i]-eu[0,0]+dic['chk0u'][1][0],'k-o')
     plt.plot(e[:,i]-eu[0,0]+dic['chk0u'][1][0],'r-o')
 elif(state=="BLK0"):
+  '''
+  sum2=0
+  for i in range(2):
+    u=eu[:,i]-eu[0,0]+dic['blk0u'][1][0]-dic['blk0u'][i+1][0]
+    dn=e[:,i]-eu[0,0]+dic['blk0u'][1][0]-dic['blk0u'][i+1][0]
+    sum2+=np.dot(u,u)+np.dot(dn,dn)
+  sum2/=4
+  r2.append(sum2)
+  parms.append((t,tt,K,d))
+  '''
   for i in range(1,len(dic['blk0u'])):
     plt.plot(dic['blk0u'][i][:len(eu)],'k-')
     plt.plot(dic['blk0u'][i][:len(e)],'r-')
@@ -208,11 +266,26 @@ elif(state=="BLK0"):
     plt.plot(eu[:,i]-eu[0,0]+dic['blk0u'][1][0],'k-o')
     plt.plot(e[:,i]-eu[0,0]+dic['blk0u'][1][0],'r-o')
 elif(state=="FLP2"):
+  '''
+  sum2=0
+  for i in range(3):
+    dn=e[:,i]-eu[0,0]+dic['flp2d'][1][0]-dic['flp2d'][i+1][0]
+    sum2+=np.dot(dn,dn)
+  sum2/=3
+  r2.append(sum2)
+  parms.append((t,tt,K,d))
+  '''
   for i in range(1,len(dic['flp2d'])):
     plt.plot(dic['flp2d'][i][:len(eu)],'r-')
   for i in range(4):
     plt.plot(e[:,i]-e[0,0]+dic['flp2d'][1][0],'r-o')
-
+'''
+ind=np.argsort(r2)
+print("BEST")
+for i in range(5):
+  print(r2[ind[i]])
+  print(parms[ind[i]])
+'''
 plt.axvline(11)
 plt.axvline(11+11)
 plt.axvline(11+11+15)
