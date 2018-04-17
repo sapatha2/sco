@@ -4,7 +4,6 @@ from sklearn import datasets, linear_model
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
 
-'''
 #All
 sigJ=np.array([-4,-4,0,-2,-2,-2,0,0,0,0,0,0,4,4])
 name=np.array(['CHK0','CHK2','COL0','FLP0','FLP2','FLP4','BCOL0','BCOL2','BLK0','ACHN2','ACHN4','ACHN6','FM8','FM10'])
@@ -32,4 +31,4 @@ name_sort=name[ind]
 plt.plot((E_sort-E_sort[0])*27.2,'o')
 plt.xticks(np.arange(0,14),name_sort)
 plt.show()
-
+'''
