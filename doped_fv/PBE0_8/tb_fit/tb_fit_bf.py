@@ -138,67 +138,88 @@ def tb(t,tt,K,d,x,y,state):
   wd,vr=np.linalg.eigh(H[1])
   return [wu,wd]
 
-#############################################
-#AVERAGE: 1.08(7), 0.38(4), 0.30(0), 10 
-##############################################
+#State choice
+state="BCOL0"
 
-col0sum=[]
-flp2sum=[]
-blk0sum=[]
-chk0sum=[]
-bcol0sum=[]
-#for N in [10,20,30,50]:
-for N in [10]:
-  for state in ["COL0","FLP2","BLK0","CHK0","BCOL0"]:
-    #Calculate TB bands
-    if(state=="COL0"):                #0.00 eV, GOOD
-      #8.53822272496
-      t,tt,K,d=(0.99999999999999989, 0.40000000000000001, 0.5, 10)
-    elif(state=="FLP2"):              #0.10 eV, OK 
-      #5.41337724077
-      t,tt,K,d=(1.0999999999999999, 0.40000000000000002, 0.10000000000000001, 10)
-    elif(state=="BLK0"):              #0.25 eV, OK 
-      #4.09972034692
-      t,tt,K,d=(0.99999999999999989, 0.40000000000000002, 0.59999999999999998, 10)
-    elif(state=="CHK0"):              #0.50 eV, GOOD
-      #10.5415018513
-      t,tt,K,d=(0.69999999999999996, 0.40000000000000002, 0.10000000000000001, 10)
-    elif(state=="BCOL0"):             #1.00 eV, OK
-      #2.08149348526
-      t,tt,K,d=(1.0999999999999999, 0.40000000000000002, 0.59999999999999998, 10)
-    e=[]
-    rho=[]
-    x=np.linspace(-np.pi+2*np.pi/(N-1),np.pi,N-1)
-    y=np.linspace(-np.pi+2*np.pi/(N-1),np.pi,N-1)
+#Brute force fitting
+d=10
+r2=[]
+parms=[]
+for t in np.arange(0.7,1.5,0.1):
+  for tt in np.arange(0.1,0.5,0.1):
+    for K in np.arange(0.1,0.7,0.1):
+      e=[]
+      eu=[]
+      N=12
+      x=np.linspace(0,np.pi,N)
+      y=np.linspace(0,np.pi,N)
+      for i in range(N-1):
+        eu.append(tb(t,tt,K,d,x[0],y[i],state)[0])
+        e.append(tb(t,tt,K,d,x[0],y[i],state)[1])
+      N=12
+      x=np.linspace(0,np.pi,N)
+      y=np.linspace(0,np.pi,N)
+      for i in range(N-1):
+        eu.append(tb(t,tt,K,d,x[i],y[N-1],state)[0])
+        e.append(tb(t,tt,K,d,x[i],y[N-1],state)[1])
+      N=16
+      x=np.linspace(0,np.pi,N)
+      y=np.linspace(0,np.pi,N)
+      for i in range(N):
+        eu.append(tb(t,tt,K,d,x[N-1-i],y[N-1-i],state)[0])
+        e.append(tb(t,tt,K,d,x[N-1-i],y[N-1-i],state)[1])
 
-    for i in range(N-1):
-      for j in range(N-1):
-        if(state!="FLP2"):
-          w=tb(t,tt,K,d,x[i],y[j],state)
-          for k in range(len(w[0])):
-            e.append(w[0][k])
-            e.append(w[1][k])
-        else:
-          w=tb(t,tt,K,d,x[i],y[j],state)
-          for k in range(len(w[0])):
-            e.append(w[1][k])
-    
-    e=sorted(e)
-    e=e[:2*(N-1)**2]
-    e=np.sum(e)/((N-1)**2)
-    if(state=="COL0"):                #0.00 eV
-      col0sum.append(e)
-    elif(state=="FLP2"):              #0.10 eV
-      flp2sum.append(e)
-    elif(state=="BLK0"):              #0.25 eV
-      blk0sum.append(e)
-    elif(state=="CHK0"):              #0.50 eV
-      chk0sum.append(e)
-    elif(state=="BCOL0"):             #1.00 eV
-      bcol0sum.append(e)
+      #Plot PBE0 bands and TB bands
+      dic=json.load(open("pbe0_bands.p","r"))
+      e=np.array(e)
+      eu=np.array(eu)
 
-print(col0sum)
-print(flp2sum)
-print(blk0sum)
-print(chk0sum)
-print(bcol0sum)
+      if(state=="COL0"):  
+        sum2=0
+        for i in range(3):
+          u=eu[:,i]-eu[0,0]+dic['col0u'][1][0]-dic['col0u'][i+1][:len(eu)]
+          dn=e[:,i]-eu[0,0]+dic['col0u'][1][0]-dic['col0u'][i+1][:len(e)]
+          sum2+=np.dot(u,u)+np.dot(dn,dn)
+        sum2/=6
+        r2.append(sum2)
+        parms.append((t,tt,K,d))
+      elif(state=="BCOL0"):
+        sum2=0
+        for i in range(1):
+          u=eu[:,i]-eu[0,0]+dic['bcol0u'][1][0]-dic['bcol0u'][i+1][:len(eu)]
+          dn=e[:,i]-eu[0,0]+dic['bcol0u'][1][0]-dic['bcol0u'][i+1][:len(e)]
+          sum2+=np.dot(u,u)+np.dot(dn,dn)
+        sum2/=2
+        r2.append(sum2)
+        parms.append((t,tt,K,d))
+      elif(state=="CHK0"):
+        sum2=0
+        for i in range(3):
+          u=eu[:,i]-eu[0,0]+dic['chk0u'][1][0]-dic['chk0u'][i+1][:len(eu)]
+          dn=e[:,i]-eu[0,0]+dic['chk0u'][1][0]-dic['chk0u'][i+1][:len(e)]
+          sum2+=np.dot(u,u)+np.dot(dn,dn)
+        sum2/=6
+        r2.append(sum2)
+        parms.append((t,tt,K,d))
+      elif(state=="BLK0"):
+        sum2=0
+        for i in range(3):
+          u=eu[:,i]-eu[0,0]+dic['blk0u'][1][0]-dic['blk0u'][i+1][:len(eu)]
+          dn=e[:,i]-eu[0,0]+dic['blk0u'][1][0]-dic['blk0u'][i+1][:len(e)]
+          sum2+=np.dot(u,u)+np.dot(dn,dn)
+        sum2/=6
+        r2.append(sum2)
+        parms.append((t,tt,K,d))
+      elif(state=="FLP2"):
+        sum2=0
+        for i in range(3):
+          dn=e[:,i]-e[0,0]+dic['flp2d'][1][0]-dic['flp2d'][i+1][:len(e)]
+          sum2+=np.dot(dn,dn)
+        sum2/=3
+        r2.append(sum2)
+        parms.append((t,tt,K,d))
+
+ind=np.argsort(r2)
+print("BEST")
+print(r2[ind[0]])
+print(parms[ind[0]])
