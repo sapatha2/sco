@@ -1,8 +1,9 @@
 import numpy as np
 from numpy import exp
 import matplotlib.pyplot as plt
+from tb_fit import tb
 
-#Revelant functions
+'''
 def NN(t,x,y):
   M=-t*np.array([[0,1+exp(-1j*x),1+exp(1j*y),0],[0,0,0,1+exp(1j*y)],[0,0,0,1+exp(-1j*x)],[0,0,0,0]])
   M+=M.conj().T
@@ -57,42 +58,26 @@ def tb(t,tt,K,d,x,y,n,m=0):
 flpsum=[]
 colsum=[]
 fmsum=[]
+'''
 
-for N in [10,20,30,50]:
-  for n in range(3):
-    #Parameter unpacking
-    if(n==0): #FLP1
-      t,tt,K,d=(0.95,0.3,0.3,10)
-    elif(n==1): #COL
-      t,tt,K,d,m=(0.80,0.3,0.3,10,0.7)
-    elif(n==2): #FM
-      t,tt,K,d=(0.875,0.25,0.3,10)
-    else:
-      pass
-    
-    #Calculation
-    e=[]
-    rho=[]
-    x=np.linspace(-np.pi+2*np.pi/(N-1),np.pi,N-1)
-    y=np.linspace(-np.pi+2*np.pi/(N-1),np.pi,N-1)
+def sigTB(t,tt,K,m,n):
+  N=20
+  d=10  
+  
+  e=[]
+  x=np.linspace(-np.pi+2*np.pi/(N-1),np.pi,N-1)
+  y=np.linspace(-np.pi+2*np.pi/(N-1),np.pi,N-1)
 
-    for i in range(N-1):
-      for j in range(N-1):
-        if(n!=1):
-          e+=tb(t,tt,K,d,x[i],y[j],n)[:2].tolist()
-        else:
-          e.append(tb(t,tt,K,d,x[i],y[j],n,m)[0][0])
-          e.append(tb(t,tt,K,d,x[i],y[j],n,m)[1][0])
+  for i in range(N-1):
+    for j in range(N-1):
+      if(n!=1):
+        e+=tb(t,tt,K,d,x[i],y[j],n)[:2].tolist()
+      else:
+        e.append(tb(t,tt,K,d,x[i],y[j],n,m)[0][0])
+        e.append(tb(t,tt,K,d,x[i],y[j],n,m)[1][0])
 
-    e=sorted(e)
-    e=e[:(N-1)**2]
-    e=np.sum(e)/(N-1)**2
-    if(n==0): flpsum.append(e)
-    elif(n==1): colsum.append(e)
-    else: fmsum.append(e)
+  e=sorted(e)
+  e=e[:(N-1)**2]
+  e=np.sum(e)/(N-1)**2
+  return(e)
 
-#Use these values in J_fit
-print(flpsum)
-print(colsum)
-print(fmsum)
-print([flpsum[3],colsum[3],fmsum[3]])
