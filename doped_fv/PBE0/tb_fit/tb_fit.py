@@ -53,8 +53,9 @@ def tb(t,tt,K,d,x,y,n,m=0):
     w,vr=np.linalg.eigh(H)
     return [wu,w]
 
+'''
 #State choice
-n=0
+n=2
 
 #Read in PBE0 band structure
 di={}
@@ -85,19 +86,19 @@ for i in range(N):
   else:
     eu.append(tb(t,tt,K,d,x[0],y[i],n,m)[0])
     e.append(tb(t,tt,K,d,x[0],y[i],n,m)[1])
-N=13
+N=14
 x=np.linspace(0,np.pi,N)
 y=np.linspace(0,np.pi,N)
-for i in range(N):
+for i in range(1,N):
   if(n!=1):
     e.append(tb(t,tt,K,d,x[i],y[N-1],n))
   else:
     eu.append(tb(t,tt,K,d,x[i],y[N-1],n,m)[0])
     e.append(tb(t,tt,K,d,x[i],y[N-1],n,m)[1])
-N=18
+N=19
 x=np.linspace(0,np.pi,N)
 y=np.linspace(0,np.pi,N)
-for i in range(N):
+for i in range(1,N):
   if(n!=1):
     e.append(tb(t,tt,K,d,x[N-1-i],y[N-1-i],n))
   else:
@@ -118,12 +119,12 @@ if(n<0):
   plt.plot(di['FM']['down'][1][:45],'r.-')
 elif(n==0):
   #Bands: 466, 467
-  c=['b','g','m']
+  c=['ob','og','om']
   for i in range(np.shape(e)[1]-2):
     plt.plot(e[:,i]-e[0,0]+di['FLP1']['down'][1][0],c[i])
   for i in range(5):
-    plt.plot(di['FLP1']['up'][i][:45],'k')
-    plt.plot(di['FLP1']['down'][i][:45],'r')
+    plt.plot(di['FLP1']['up'][i][:45],'o-k')
+    plt.plot(di['FLP1']['down'][i][:45],'o-r')
 elif(n==1):
   #Bands: 67, 467 
   c=['b','g']
@@ -152,4 +153,4 @@ else:
 plt.axhline(0.0,color='gray',linestyle="--")
 plt.title("t="+str(t)+", tt="+str(tt)+", K="+str(K)+", d="+str(d))
 plt.show()
-
+'''
