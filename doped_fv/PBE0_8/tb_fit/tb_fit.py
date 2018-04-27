@@ -154,7 +154,7 @@ def dp(t,tt,K,a,state):
   #Plot PBE0 bands and TB bands
   e=np.array(e)+a
   ret=[]
-  if(state=="COL0" or state=="BLK0"):
+  if(state=="COL0" or state=="CHK0"):
     for i in range(2):
       ret+=e[:,i].tolist()
       ret+=e[:,i].tolist()
@@ -166,7 +166,7 @@ def dp(t,tt,K,a,state):
 def cost(t,tt,K,a,state,lim):
   bands=json.load(open("pbe0_bands.p","r"))
   d0=[]
-  if(state=="COL0" or state=="BLK0"):
+  if(state=="COL0" or state=="CHK0"):
     for i in range(2):
       d0+=bands[state.lower()+"d"][i][:38]
       d0+=bands[state.lower()+"d"][i][:38]
@@ -185,7 +185,7 @@ def cost(t,tt,K,a,state,lim):
 def r2(t,tt,K,a,state):
   bands=json.load(open("pbe0_bands.p","r"))
   d0=[]
-  if(state=="COL0" or state=="BLK0"):
+  if(state=="COL0" or state=="CHK0"):
     for i in range(2):
       d0+=bands[state.lower()+"d"][i][:38]
       d0+=bands[state.lower()+"d"][i][:38]
@@ -199,7 +199,7 @@ def r2(t,tt,K,a,state):
 def plot(t,tt,K,a,state):
   bands=json.load(open("pbe0_bands.p","r"))
   d0=[]
-  if(state=="COL0" or state=="BLK0"):
+  if(state=="COL0" or state=="CHK0"):
     for i in range(2):
       d0+=bands[state.lower()+"d"][i][:38]
       d0+=bands[state.lower()+"d"][i][:38]
@@ -246,7 +246,7 @@ def r24(t,tt,K,a1,a2,a3,a4):
   dpp=[]
   bands=json.load(open("pbe0_bands.p","r"))
   for state in ["COL0","FLP2","FLP0","BCOL2"]:
-    if(state=="COL0" or state=="BLK0"):
+    if(state=="COL0" or state=="CHK0"):
       for i in range(2):
         d0+=bands[state.lower()+"d"][i][:38]
         d0+=bands[state.lower()+"d"][i][:38]
@@ -275,17 +275,17 @@ def cost5(t,tt,K,a1,a2,a3,a4,a5,lim):
   ret=0
   ret+=cost(t,tt,K,a1,"COL0",lim)
   ret+=cost(t,tt,K,a2,"FLP2",lim)
-  ret+=cost(t,tt,K,a3,"BLK0",lim)
-  ret+=cost(t,tt,K,a4,"FLP0",lim)
-  ret+=cost(t,tt,K,a5,"BCOL2",lim)
+  ret+=cost(t,tt,K,a3,"FLP0",lim)
+  ret+=cost(t,tt,K,a4,"BCOL2",lim)
+  ret+=cost(t,tt,K,a5,"CHK0",lim)
   return ret
 
 def r25(t,tt,K,a1,a2,a3,a4,a5):
   d0=[]
   dpp=[]
   bands=json.load(open("pbe0_bands.p","r"))
-  for state in ["COL0","FLP2","BLK0","FLP0","BCOL2"]:
-    if(state=="COL0" or state=="BLK0"):
+  for state in ["COL0","FLP2","FLP0","BCOL2","CHK0"]:
+    if(state=="COL0" or state=="CHK0"):
       for i in range(2):
         d0+=bands[state.lower()+"d"][i][:38]
         d0+=bands[state.lower()+"d"][i][:38]
@@ -295,15 +295,15 @@ def r25(t,tt,K,a1,a2,a3,a4,a5):
 
   dpp+=dp(t,tt,K,a1,"COL0").tolist()
   dpp+=dp(t,tt,K,a2,"FLP2").tolist()
-  dpp+=dp(t,tt,K,a3,"BLK0").tolist()
-  dpp+=dp(t,tt,K,a4,"FLP0").tolist()
-  dpp+=dp(t,tt,K,a5,"BCOL2").tolist()
+  dpp+=dp(t,tt,K,a3,"FLP0").tolist()
+  dpp+=dp(t,tt,K,a4,"BCOL2").tolist()
+  dpp+=dp(t,tt,K,a5,"CHK0").tolist()
   return r2_score(d0,dpp) 
 
 def plot5(t,tt,K,a1,a2,a3,a4,a5):
   j=0
   const=[a1,a2,a3,a4,a5]
-  for state in ["COL0","FLP2","BLK0","FLP0","BCOL2"]:
+  for state in ["COL0","FLP2","FLP0","BCOL2","CHK0"]:
     plt.subplot(230+j+1)
     plot(t,tt,K,const[j],state)
     j+=1
@@ -323,7 +323,7 @@ def sigTB(t,tt,K,state):
   for i in range(N-1):
     for j in range(N-1):
       w=tb(t,tt,K,x[i],y[j],state)
-      if(state=="COL0" or state=="BLK0"):
+      if(state=="COL0" or state=="CHK0"):
         for k in range(len(w[0])):
           e.append(w[0][k])
           e.append(w[1][k])
@@ -438,49 +438,49 @@ def plot4j(t,tt,K,J,b):
 
 def cost5j(t,tt,K,J,b):
   #print(t,tt,K,J)
-  sigJ=[0,0,0,-2,0]
+  sigJ=[0,0,-2,0,0]
   E=[]
   ind=0
-  for state in ["COL0","FLP2","BLK0","FLP0","BCOL2"]:
+  for state in ["COL0","FLP2","FLP0","BCOL2","CHK0"]:
     E.append(sigTB(t,tt,K,state)+J*sigJ[ind])
     ind+=1
   E=np.array(E)
   E+=b
   E-=E[0]
 
-  E0=np.array([0,0.106,0.216,0.252,0.285])
+  E0=np.array([0,0.106,0.252,0.285,0.412])
   E0-=E0[0]
 
   return np.dot(E0-E,E0-E)
 
 def r25j(t,tt,K,J,b):
-  sigJ=[0,0,0,-2,0]
+  sigJ=[0,0,-2,0,0]
   E=[]
   ind=0
-  for state in ["COL0","FLP2","BLK0","FLP0","BCOL2"]:
+  for state in ["COL0","FLP2","FLP0","BCOL2","CHK0"]:
     E.append(sigTB(t,tt,K,state)+J*sigJ[ind])
     ind+=1
   E=np.array(E)
   E+=b
   E-=E[0]
   
-  E0=np.array([0,0.106,0.216,0.252,0.285])
+  E0=np.array([0,0.106,0.252,0.285,0.412])
   E0-=E0[0]
   
   return r2_score(E0,E)
 
 def plot5j(t,tt,K,J,b):
-  sigJ=[0,0,0,-2,0]
+  sigJ=[0,0,-2,0,0]
   E=[]
   ind=0
-  for state in ["COL0","FLP2","BLK0","FLP0","BCOL2"]:
+  for state in ["COL0","FLP2","FLP0","BCOL2","CHK0"]:
     E.append(sigTB(t,tt,K,state)+J*sigJ[ind])
     ind+=1
   E=np.array(E)
   E+=b
   E-=E[0]
   
-  E0=np.array([0,0.106,0.216,0.252,0.285])
+  E0=np.array([0,0.106,0.252,0.285,0.412])
   E0-=E0[0]
   plt.plot(E0,E,'ro')
   plt.plot(E0,E0,'g')
@@ -505,14 +505,14 @@ def cost5_both(t,tt,K,J,a1,a2,a3,a4,a5,b,we,lim):
 ################################################################################3
 #SINGLE STATE BAND RUN
 '''
-lim=0.1
+lim=10
 state="BLK0"
 res=scipy.optimize.minimize(lambda p: cost(p[0],p[1],p[2],p[3],state,lim),(1.1,0.4,0.0,1.0))
 t,tt,K,a=res.x
 print(res.x)
 print(r2(t,tt,K,a,state))
-plot(t,tt,K,a,state)
-plt.show()
+#plot(t,tt,K,a,state)
+#plt.show()
 '''
 
 ################################################################################3
@@ -576,33 +576,29 @@ plt.show()
 ################################################################################3
 #FIVE STATE BAND RUN
 '''
-lim=0.1
+lim=0.25
 res=scipy.optimize.minimize(lambda p: cost5(p[0],p[1],p[2],p[3],p[4],p[5],p[6],p[7],lim),(1.1,0.4,0.0,1.0,1.0,1.0,1.0,1.0))
 t,tt,K,a1,a2,a3,a4,a5=res.x
 print(res.x)
 print(r25(t,tt,K,a1,a2,a3,a4,a5))
 plot5(t,tt,K,a1,a2,a3,a4,a5)
+plt.show()
 '''
 
 #lim=10 
-#[ 1.04192035  0.4204104  -0.29490917  1.40430674  0.99227586  1.28922651
-#  0.74104628  1.01986181]
-#0.98028406924
+#[ 1.04870376  0.38667457 -0.38235622  1.41909932  0.9680397   0.76550659
+#  0.98487879  1.96470275]
+#0.951342368501
 
 #lim=0.5, GOOD
-#[ 0.98639976  0.39863847 -0.38164717  1.3677931   0.9716797   1.22195191
-#  0.72349522  0.92909589]
-#0.973311328795
+#[ 0.98538601  0.35686016 -0.39523105  1.3854178   0.91088625  0.69960854
+#  0.85591214  1.90389896]
+#0.944264066146
 
 #lim=0.25, GOOD
-#[ 0.92600396  0.40375975 -0.37696288  1.29102846  0.9394547   1.12241501
-#  0.70383981  0.9060514 ]
-#0.953788406215
-
-#lim=0.1
-#[  1.10003627e+00   4.00000000e-01   3.62706485e-05   1.00000000e+00
-#   1.00000000e+00   1.00000000e+00   1.00000000e+00   1.00000000e+00]
-#0.753915979525
+#[ 0.50804435  0.46979156  0.70091488  0.69413234  1.01582272  0.1557477
+#  0.98888813  1.16061958]
+#0.753670912628
 
 ################################################################################3
 #THREE STATE ENERGY RUN
@@ -760,6 +756,8 @@ plt.subplot(236)
 plot4j(t,tt,K,J,b)
 plt.show()
 '''
+#####################################################
+#WITH COL0, NOT BLK0
 
   #BOTH we=500, lim=0.25, prior 
   #[ 1.68266524  1.04065727 -0.30037414  0.18        2.33745977  2.01049345
@@ -801,6 +799,50 @@ plt.show()
 #  1.07267895  1.80422129  0.        ]
 #0.636712023352 0.993108294582
 
+
+#####################################################
+#WITH BLK0
+
+#BOTH we=500, lim=0.25, prior 
+#[ 1.61838761  0.85384637 -0.38252938  0.18        2.17446736  1.8411622
+#  1.33501015  1.86236135  0.        ]
+#0.665942931102 0.803823497137
+
+#BOTH we=500, lim=0.50, prior 
+#[ 0.99478098  0.45926059 -0.13284148  0.18        1.25999894  1.10471784
+#  0.62196026  1.11342153  0.        ]
+#0.952109141612 0.248021808276
+
+#BOTH we=1000, lim=0.25, prior 
+#[ 1.815914    0.97351816 -0.45697051  0.18        2.48307548  2.07615505
+#  1.56062396  2.09258934  0.        ]
+#0.47840894953 0.899380581302
+
+#BOTH we=1000, lim=0.50, prior 
+#[ 1.11611251  0.54198956 -0.18015184  0.18        1.42781346  1.27622251
+#  0.72221874  1.26267111  0.        ]
+#0.924782615388 0.40197702278
+
+#BOTH we=5000, lim=0.25, prior 
+#[ 2.15569686  1.18643912 -0.57822218  0.18        3.03515043  2.47987916
+#  1.98513957  2.51185104  0.        ]
+#0.0402272199531 0.991945583565
+
+#BOTH we=5000, lim=0.50, prior 
+#[ 1.72407388  0.92554537 -0.42220798  0.18        2.31313918  2.03695664
+#  1.27504879  1.97242502  0.        ]
+#0.523842400444 0.867818148041
+
+#BOTH we=10000, lim=0.25, prior 
+#[ 2.21899681  1.2272606  -0.59917772  0.18        3.14795739  2.55452059
+#  2.06731885  2.59152052  0.        ]
+#-0.0590539503041 0.99794253774
+
+#BOTH we=10000, lim=0.50, prior 
+#[ 1.92852648  1.05020724 -0.49780701  0.18        2.62150292  2.28848403
+#  1.47124129  2.2164197   0.        ]
+#0.284043129274 0.946681854983
+
 pareto4=[[0.447928418641, 0.998051886998],
 [0.951829602783, 0.863014765666],
 [0.894187643723, 0.953195130158],
@@ -811,8 +853,19 @@ pareto4=[[0.447928418641, 0.998051886998],
 [0.636712023352, 0.993108294582],]
 pareto4=np.array(pareto4)
 
+pareto4_=[[0.665942931102, 0.803823497137],
+[0.952109141612, 0.248021808276],
+[0.47840894953, 0.899380581302],
+[0.924782615388, 0.40197702278],
+[0.0402272199531, 0.991945583565],
+[0.523842400444, 0.867818148041],
+[-0.0590539503041, 0.99794253774],
+[0.284043129274, 0.946681854983]]
+pareto4_=np.array(pareto4_)
+
 ################################################################################3
 #FIVE STATE ENERGY AND BAND RUN 
+'''
 we=5000
 lim=0.25
 
@@ -825,6 +878,7 @@ plot5(t,tt,K,a1,a2,a3,a4,a5)
 plt.subplot(236)
 plot5j(t,tt,K,J,b)
 plt.show()
+'''
 
 #BOTH we=500, lim=0.25, prior 
 #[ 0.84557427  0.37985557 -0.13263135  0.18        1.19648626  0.91665028
@@ -893,6 +947,7 @@ pareto5=[[0.937647475972, 0.853052618739],
 [-1.15048402719, 0.997816223066]]
 pareto5=np.array(pareto5)
 
-#plt.plot(pareto4[:,0],pareto4[:,1],'bo')
+plt.plot(pareto4[:,0],pareto4[:,1],'go')
+#plt.plot(pareto4_[:,0],pareto4_[:,1],'bo')
 #plt.plot(pareto5[:,0],pareto5[:,1],'ro')
-#plt.show()
+plt.show()
