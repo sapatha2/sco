@@ -43,12 +43,9 @@ conv=27.2116
 for b in range(65,70):
   ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')
   ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
-  print(conv*bands[1][:,b])
-'''
 P.ylim([-2,2])
 P.ylabel("Energy (eV) ")
 if len(sys.argv) < 2: 
   P.show()
 else:
   P.savefig(sys.argv[1])
-'''

@@ -154,7 +154,7 @@ def dp(t,tt,K,a,state):
   #Plot PBE0 bands and TB bands
   e=np.array(e)+a
   ret=[]
-  if(state=="COL0" or state=="CHK0"):
+  if(state in ["COL0","BLK0","CHK0"]):
     for i in range(2):
       ret+=e[:,i].tolist()
       ret+=e[:,i].tolist()
@@ -166,7 +166,7 @@ def dp(t,tt,K,a,state):
 def cost(t,tt,K,a,state,lim):
   bands=json.load(open("pbe0_bands.p","r"))
   d0=[]
-  if(state=="COL0" or state=="CHK0"):
+  if(state in ["COL0","BLK0","CHK0"]):
     for i in range(2):
       d0+=bands[state.lower()+"d"][i][:38]
       d0+=bands[state.lower()+"d"][i][:38]
@@ -185,7 +185,7 @@ def cost(t,tt,K,a,state,lim):
 def r2(t,tt,K,a,state):
   bands=json.load(open("pbe0_bands.p","r"))
   d0=[]
-  if(state=="COL0" or state=="CHK0"):
+  if(state in ["COL0","BLK0","CHK0"]):
     for i in range(2):
       d0+=bands[state.lower()+"d"][i][:38]
       d0+=bands[state.lower()+"d"][i][:38]
@@ -199,7 +199,7 @@ def r2(t,tt,K,a,state):
 def plot(t,tt,K,a,state):
   bands=json.load(open("pbe0_bands.p","r"))
   d0=[]
-  if(state=="COL0" or state=="CHK0"):
+  if(state in ["COL0","BLK0","CHK0"]):
     for i in range(2):
       d0+=bands[state.lower()+"d"][i][:38]
       d0+=bands[state.lower()+"d"][i][:38]
@@ -208,7 +208,8 @@ def plot(t,tt,K,a,state):
       d0+=bands[state.lower()+"d"][i][:38]
   d0=np.array(d0)
   dpp=dp(t,tt,K,a,state)
-
+  
+  plt.ylabel("E-Ef, eV")
   plt.plot(d0,'go')
   plt.plot(dpp,'b.')
 
@@ -265,9 +266,10 @@ def plot4(t,tt,K,a1,a2,a3,a4):
   const=[a1,a2,a3,a4]
   for state in ["COL0","FLP2","FLP0","BCOL2"]:
     plt.subplot(230+j+1)
+    plt.title(state+" bands")
     plot(t,tt,K,const[j],state)
     j+=1
-
+  
   #plt.show()
 
 def cost5(t,tt,K,a1,a2,a3,a4,a5,lim):
@@ -314,7 +316,7 @@ def plot5(t,tt,K,a1,a2,a3,a4,a5):
 #ENERGY OPTIMIZATION
 def sigTB(t,tt,K,state):
   d=10
-  N=20
+  N=50
   e=[]
   rho=[]
   x=np.linspace(-np.pi+2*np.pi/(N-1),np.pi,N-1)
@@ -323,7 +325,7 @@ def sigTB(t,tt,K,state):
   for i in range(N-1):
     for j in range(N-1):
       w=tb(t,tt,K,x[i],y[j],state)
-      if(state=="COL0" or state=="CHK0"):
+      if(state in ["COL0","BLK0","CHK0"]):
         for k in range(len(w[0])):
           e.append(w[0][k])
           e.append(w[1][k])
@@ -332,8 +334,9 @@ def sigTB(t,tt,K,state):
           e.append(w[1][k])
 
   e=sorted(e)
+  plt.plot(e,'b.')
   e=e[:2*(N-1)**2]
-  
+  plt.plot(e,'g.')
   return np.sum(e)/((N-1)**2)
 
 def cost3j(t,tt,K,J,b):
@@ -435,6 +438,9 @@ def plot4j(t,tt,K,J,b):
   E0-=E0[0]
   plt.plot(E0,E,'bo')
   plt.plot(E0,E0,'g')
+  plt.ylabel("E_pred, eV")
+  plt.xlabel("E_PBE0, eV")
+  plt.title("Total Energy fit")
 
 def cost5j(t,tt,K,J,b):
   #print(t,tt,K,J)
@@ -511,8 +517,8 @@ res=scipy.optimize.minimize(lambda p: cost(p[0],p[1],p[2],p[3],state,lim),(1.1,0
 t,tt,K,a=res.x
 print(res.x)
 print(r2(t,tt,K,a,state))
-#plot(t,tt,K,a,state)
-#plt.show()
+plot(t,tt,K,a,state)
+plt.show()
 '''
 
 ################################################################################3
@@ -731,16 +737,6 @@ plt.show()
   #  1.91645421  0.        ]
   #0.053453936565 0.98088723129
 
-pareto3=[[0.142822468874, 0.934255787037],
-[0.672633948027, 0.700948414995],
-[-0.289724721637, 0.993160184377],
-[0.602529088828, 0.792014833165],
-[-0.288263866366, 0.99585079083],
-[0.230646512052, 0.950615709567],
-[-0.199448873367, 0.998399370019],
-[0.053453936565, 0.98088723129]]
-pareto3=np.array(pareto3)
-
 ################################################################################3
 #FOUR STATE ENERGY AND BAND RUN 
 '''
@@ -750,6 +746,10 @@ constraints=({'type':'eq','fun':lambda p: p[3]-0.18})
 res=scipy.optimize.minimize(lambda p: cost4_both(p[0],p[1],p[2],p[3],p[4],p[5],p[6],p[7],p[8],we,lim),(2.0,1.0,-0.5,0.18,1.0,1.0,1.0,1.0,0.0),constraints=constraints)
 t,tt,K,J,a1,a2,a3,a4,b=res.x
 print(res.x)
+'''
+'''
+#t,tt,K,J,a1,a2,a3,a4,b=[1.49904204 , 0.89523692 ,-0.24776747 , 0.18      ,  2.08147531 , 1.79489747, 1.07267895 , 1.80422129 , 0.]
+t,tt,K,J,a1,a2,a3,a4,b=[1.03536369,  0.53250351 ,-0.15009942,  0.18  ,      1.42954778,  1.18583609, 0.67371943,  1.19444543,  0.]
 print(r24(t,tt,K,a1,a2,a3,a4),r24j(t,tt,K,J,b))
 plot4(t,tt,K,a1,a2,a3,a4)
 plt.subplot(236)
@@ -843,25 +843,6 @@ plt.show()
 #  1.47124129  2.2164197   0.        ]
 #0.284043129274 0.946681854983
 
-pareto4=[[0.447928418641, 0.998051886998],
-[0.951829602783, 0.863014765666],
-[0.894187643723, 0.953195130158],
-[0.939456821809, 0.915352293528],
-[0.354150659492, 0.999668187252],
-[0.829868587921, 0.973007646232],
-[0.325523556925, 0.999777199124],
-[0.636712023352, 0.993108294582],]
-pareto4=np.array(pareto4)
-
-pareto4_=[[0.665942931102, 0.803823497137],
-[0.952109141612, 0.248021808276],
-[0.47840894953, 0.899380581302],
-[0.924782615388, 0.40197702278],
-[0.0402272199531, 0.991945583565],
-[0.523842400444, 0.867818148041],
-[-0.0590539503041, 0.99794253774],
-[0.284043129274, 0.946681854983]]
-pareto4_=np.array(pareto4_)
 
 ################################################################################3
 #FIVE STATE ENERGY AND BAND RUN 
@@ -935,6 +916,38 @@ plt.show()
 #  1.08274591  0.54720519  0.93970739  0.        ]
 #0.943741725492 0.854225284524
 
+################################################################################3
+#PARETO PLOTS
+pareto3=[[0.142822468874, 0.934255787037],
+[0.672633948027, 0.700948414995],
+[-0.289724721637, 0.993160184377],
+[0.602529088828, 0.792014833165],
+[-0.288263866366, 0.99585079083],
+[0.230646512052, 0.950615709567],
+[-0.199448873367, 0.998399370019],
+[0.053453936565, 0.98088723129]]
+pareto3=np.array(pareto3)
+
+pareto4=[[0.447928418641, 0.998051886998],
+[0.951829602783, 0.863014765666],
+[0.894187643723, 0.953195130158],
+[0.939456821809, 0.915352293528],
+[0.354150659492, 0.999668187252],
+[0.829868587921, 0.973007646232],
+[0.325523556925, 0.999777199124],
+[0.636712023352, 0.993108294582],]
+pareto4=np.array(pareto4)
+
+pareto4_=[[0.665942931102, 0.803823497137],
+[0.952109141612, 0.248021808276],
+[0.47840894953, 0.899380581302],
+[0.924782615388, 0.40197702278],
+[0.0402272199531, 0.991945583565],
+[0.523842400444, 0.867818148041],
+[-0.0590539503041, 0.99794253774],
+[0.284043129274, 0.946681854983]]
+pareto4_=np.array(pareto4_)
+
 pareto5=[[0.937647475972, 0.853052618739],
 [0.948243742627, 0.843616968055],
 [0.940779567948, 0.853517838276],
@@ -947,7 +960,12 @@ pareto5=[[0.937647475972, 0.853052618739],
 [-1.15048402719, 0.997816223066]]
 pareto5=np.array(pareto5)
 
+'''
 plt.plot(pareto4[:,0],pareto4[:,1],'go')
-#plt.plot(pareto4_[:,0],pareto4_[:,1],'bo')
-#plt.plot(pareto5[:,0],pareto5[:,1],'ro')
+plt.plot(0.636712023352, 0.993108294582,'bs')
+plt.plot(0.939456821809, 0.915352293528,'bs')
+plt.title("4-state Pareto")
+plt.xlabel("R^2 band")
+plt.ylabel("R^2 energy")
 plt.show()
+'''
