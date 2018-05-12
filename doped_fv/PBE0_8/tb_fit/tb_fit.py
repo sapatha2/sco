@@ -960,12 +960,13 @@ pareto5=[[0.937647475972, 0.853052618739],
 [-1.15048402719, 0.997816223066]]
 pareto5=np.array(pareto5)
 
-'''
+
+
 plt.plot(pareto4[:,0],pareto4[:,1],'go')
+plt.plot(pareto5[:,0],pareto5[:,1],'ro')
 plt.plot(0.636712023352, 0.993108294582,'bs')
 plt.plot(0.939456821809, 0.915352293528,'bs')
 plt.title("4-state Pareto")
 plt.xlabel("R^2 band")
 plt.ylabel("R^2 energy")
 plt.show()
-'''
