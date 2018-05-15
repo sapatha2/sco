@@ -53,9 +53,8 @@ def tb(t,tt,K,d,x,y,n,m=0):
     w,vr=np.linalg.eigh(H)
     return [wu,w]
 
-'''
 #State choice
-n=2
+n=0
 
 #Read in PBE0 band structure
 di={}
@@ -65,7 +64,8 @@ with open("pbe0_bands.p","r") as inp:
 m=0
 #Parameter unpacking
 if(n==0):
-  t,tt,K,d=(0.95,0.3,0.3,10)
+  #t,tt,K,d=(0.95,0.3,0.3,10)
+  t,tt,K,d,a=1.04, 0.53, -0.15,10,1.
 elif(n==1):
   t,tt,K,d,m=(0.80,0.3,0.3,10,0.7)
 elif(n==2):
@@ -106,7 +106,7 @@ for i in range(1,N):
     e.append(tb(t,tt,K,d,x[N-1-i],y[N-1-i],n,m)[1])
 
 #Plot PBE0 and TB bands
-e=np.array(e)
+e=np.array(e)+a
 eu=np.array(eu)
 print(np.shape(e))
 print(np.shape(eu))
@@ -121,7 +121,7 @@ elif(n==0):
   #Bands: 466, 467
   c=['ob','og','om']
   for i in range(np.shape(e)[1]-2):
-    plt.plot(e[:,i]-e[0,0]+di['FLP1']['down'][1][0],c[i])
+    plt.plot(e[:,i],c[i])
   for i in range(5):
     plt.plot(di['FLP1']['up'][i][:45],'o-k')
     plt.plot(di['FLP1']['down'][i][:45],'o-r')
@@ -153,4 +153,3 @@ else:
 plt.axhline(0.0,color='gray',linestyle="--")
 plt.title("t="+str(t)+", tt="+str(tt)+", K="+str(K)+", d="+str(d))
 plt.show()
-'''
