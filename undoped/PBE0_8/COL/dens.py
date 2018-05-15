@@ -8,6 +8,9 @@ from functools import reduce
 import scipy as sp 
 import matplotlib.pyplot as plt
 
+###########################################################################################
+#Basis
+
 basis={'Cu':gto.basis.parse('''
   Cu S
   27.8467870 -0.019337
@@ -110,6 +113,9 @@ basis={'Cu':gto.basis.parse('''
   ''')}
 basis_order = {'Cu':[0,0,1,2,3,0,0,1,1,2,2],'O':[0,1,2,3,0,0,1,1],'Sr':[0,1,2,0,0,1,1]}
 
+###########################################################################################
+#Methods
+
 def compMolCell():
   '''
   Builds from CRYSTAL calculation a MOL and CELL object, and respective SCF objects.
@@ -121,7 +127,7 @@ def compMolCell():
   1. sum(abs(s_cell - s_mol)), where s is the overlap matrix
   2. sum(abs(mo_cell - mo_mol)), where mo is the MO coefficient matrix
   '''
-
+  
   ########################################################
   #MOL readin - INCORRECT IF YOU HAVE A PBC CYRSTAL RUN
   mol,mf=crystal2pyscf_mol(basis=basis,basis_order=basis_order)
@@ -140,7 +146,7 @@ def compMolCell():
   mo_dmu=reduce(np.dot,(mo_up.T,s,rdm1[0],s,mo_up))
   mo_dmd=reduce(np.dot,(mo_dn.T,s,rdm1[1],s,mo_dn))
   print("MOL: Tr(MO_dens)",np.trace(mo_dmu),np.trace(mo_dmd))
-  
+
   ########################################################
   #CELL readin - CORRECT IF YOU HAVE A PBC CRYSTAL RUN
   mol,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order)
@@ -155,14 +161,78 @@ def compMolCell():
   mo_ovlpu=reduce(np.dot,(mo_up.T,s,mo_up))
   mo_ovlpd=reduce(np.dot,(mo_dn.T,s,mo_dn))
   print("CELL: Tr(MO_ovlp)",np.trace(mo_ovlpu),np.trace(mo_ovlpd))
+  #print((mo_ovlpu-np.identity(800)).max())
 
   #1RDM ON MO
   rdm1=mf.make_rdm1(mf.mo_coeff,mf.mo_occ)
   mo_dmu=reduce(np.dot,(mo_up.T,s,rdm1[0][0],s,mo_up))
   mo_dmd=reduce(np.dot,(mo_dn.T,s,rdm1[1][0],s,mo_dn))
   print("CELL: Tr(MO_dens)",np.trace(mo_dmu),np.trace(mo_dmd))
+  #print((mo_dmu[:132,:132]-np.identity(132)).max())
+  #print((mo_dmd[:132,:132]-np.identity(132)).max())
 
-#TODO
-#Need to make a function to get 1RDM on AOs
 
-compMolCell()
+def calcOAO(mol,mf):
+  '''
+  input: 
+    mol and scf (PBC SCF) objects from pyscf 
+  output:
+    Calculates 1RDM on orthog atomic orbitals, orthogonalized
+    using Lowdin S^1/2
+    Returns (rdm1up+rd1mdn, rdm1up-rdm1dn)
+  '''
+
+  s=mf.get_ovlp()[0]
+  s12=sp.linalg.sqrtm(s).real 
+  rdm1=mf.make_rdm1(mf.mo_coeff,mf.mo_occ)
+  oao_dmu=reduce(np.dot,(s12,rdm1[0][0],s12))
+  oao_dmd=reduce(np.dot,(s12,rdm1[1][0],s12))
+  oao_dmu+=oao_dmd
+  oao_dmd=oao_dmu-2*oao_dmd
+  
+  #Printouts. nup+ndown and nup-ndown
+  '''
+  print("CELL: Tr(OAO_dens) - Tot ",np.trace(oao_dmu),np.trace(oao_dmd))
+  print("CELL: Tr(OAO_dens) - Cu 1",np.trace(oao_dmu[:35,:35]),np.trace(oao_dmd[:35,:35]))
+  print("CELL: Tr(OAO_dens) - Cu 2",np.trace(oao_dmu[35:70,35:70]),np.trace(oao_dmd[35:70,35:70]))
+  print("CELL: Tr(OAO_dens) - O 1 ",np.trace(oao_dmu[280:304,280:304]),np.trace(oao_dmd[280:304,280:304]))
+  print("CELL: Tr(OAO_dens) - O 2 ",np.trace(oao_dmu[304:328,304:328]),np.trace(oao_dmd[304:328,304:328]))
+  print("CELL: Tr(OAO_dens) - Sr 1",np.trace(oao_dmu[664:681,664:681]),np.trace(oao_dmd[664:681,664:681]))
+  '''
+  return (oao_dmu,oao_dmd)
+
+def subOAO(oao_dmu,oao_dmd):
+  '''
+  input: up and down density matrices on OAO basis
+  output: sub-density matrices on different types of atoms
+  '''
+  ncu=35 #Number of basis elements per copper
+  no=24  #Number of basis elements per oxygen
+  nsr=17 #Number of basis elements per strontium
+  
+  cu_oao=[]
+  #Construct the sub DM for copper
+  for i in range(8):
+    cu_oao.append([oao_dmu[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu],oao_dmd[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu]])
+
+  #Plot sub DM for copper
+  plt.suptitle("Cu OAO occupations")
+  plt.subplot(121)
+  plt.title("Nup+Ndown") 
+  plt.xticks(np.arange(0,ncu,1),mol.sph_labels()[:ncu],rotation='vertical')
+  for i in range(8):
+    plt.plot(np.diag(cu_oao[i][0]),'o')
+  plt.subplot(122)
+  plt.title("Nup-Ndown") 
+  plt.xticks(np.arange(0,ncu,1),mol.sph_labels()[:ncu],rotation='vertical')
+  for i in range(8):
+    plt.plot(np.diag(cu_oao[i][1]),'o')
+  plt.show()
+
+###########################################################################################
+#Run
+
+#compMolCell()
+mol,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order)
+oao_dmu,oao_dmd=calcOAO(mol,mf)
+subOAO(oao_dmu,oao_dmd)
