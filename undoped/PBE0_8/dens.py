@@ -210,6 +210,7 @@ def subOAO(oao_dmu,oao_dmd):
   no=24  #Number of basis elements per oxygen
   nsr=17 #Number of basis elements per strontium
   
+  '''
   cu_oao=[]
   #Construct the sub DM for copper
   for i in range(8):
@@ -228,11 +229,32 @@ def subOAO(oao_dmu,oao_dmd):
   for i in range(8):
     plt.plot(np.diag(cu_oao[i][1]),'o')
   plt.show()
+  '''
+  
+  o_oao=[]
+  #Construct the sub DM for copper
+  for i in range(16):
+    o_oao.append([oao_dmu[280+i*no:280+(i+1)*no,280+i*no:280+(i+1)*no],oao_dmd[280+i*no:280+(i+1)*no,280+i*no:280+(i+1)*no]])
+
+  #Plot sub DM for copper
+  plt.suptitle("O OAO occupations")
+  plt.subplot(121)
+  plt.title("Nup+Ndown") 
+  plt.xticks(np.arange(0,no,1),mol.sph_labels()[280:280+no],rotation='vertical')
+  for i in range(16):
+    plt.plot(np.diag(o_oao[i][0]),'o')
+  plt.subplot(122)
+  plt.title("Nup-Ndown") 
+  plt.xticks(np.arange(0,no,1),mol.sph_labels()[280:280+no],rotation='vertical')
+  for i in range(16):
+    plt.plot(np.diag(o_oao[i][1]),'o')
+  plt.show()
 
 ###########################################################################################
 #Run
+direc="COL"
 
 #compMolCell()
-mol,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order)
+mol,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 oao_dmu,oao_dmd=calcOAO(mol,mf)
 subOAO(oao_dmu,oao_dmd)
