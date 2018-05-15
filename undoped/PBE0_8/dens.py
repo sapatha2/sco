@@ -7,6 +7,7 @@ from pyscf.lo import orth
 from functools import reduce
 import scipy as sp 
 import matplotlib.pyplot as plt
+from pyscf2qwalk import print_qwalk_pbc
 
 ###########################################################################################
 #Basis
@@ -172,10 +173,10 @@ def compMolCell():
   #print((mo_dmd[:132,:132]-np.identity(132)).max())
 
 
-def calcOAO(mol,mf):
+def calcOAO(cell,mf):
   '''
   input: 
-    mol and scf (PBC SCF) objects from pyscf 
+    cell and scf (PBC SCF) objects from pyscf 
   output:
     Calculates 1RDM on orthog atomic orbitals, orthogonalized
     using Lowdin S^1/2
@@ -191,20 +192,24 @@ def calcOAO(mol,mf):
   oao_dmd=oao_dmu-2*oao_dmd
   
   #Printouts. nup+ndown and nup-ndown
-  '''
   print("CELL: Tr(OAO_dens) - Tot ",np.trace(oao_dmu),np.trace(oao_dmd))
   print("CELL: Tr(OAO_dens) - Cu 1",np.trace(oao_dmu[:35,:35]),np.trace(oao_dmd[:35,:35]))
-  print("CELL: Tr(OAO_dens) - Cu 2",np.trace(oao_dmu[35:70,35:70]),np.trace(oao_dmd[35:70,35:70]))
+  cuMin=[0,1,4,5,6,13,14,15,16,17]
+  up=0
+  dn=0
+  for i in range(len(cuMin)):
+    up+=oao_dmu[cuMin[i],cuMin[i]]
+    dn+=oao_dmd[cuMin[i],cuMin[i]]
+  print("CELL: Tr(OAO_dens) MIN - Cu 1",up,dn)
   print("CELL: Tr(OAO_dens) - O 1 ",np.trace(oao_dmu[280:304,280:304]),np.trace(oao_dmd[280:304,280:304]))
-  print("CELL: Tr(OAO_dens) - O 2 ",np.trace(oao_dmu[304:328,304:328]),np.trace(oao_dmd[304:328,304:328]))
   print("CELL: Tr(OAO_dens) - Sr 1",np.trace(oao_dmu[664:681,664:681]),np.trace(oao_dmd[664:681,664:681]))
-  '''
+  
   return (oao_dmu,oao_dmd)
 
-def subOAO(oao_dmu,oao_dmd):
+def plotSubOAO(oao_dmu,oao_dmd):
   '''
   input: up and down density matrices on OAO basis
-  output: sub-density matrices on different types of atoms
+  plot sub-density matrices on different types of atoms
   '''
   ncu=35 #Number of basis elements per copper
   no=24  #Number of basis elements per oxygen
@@ -232,11 +237,11 @@ def subOAO(oao_dmu,oao_dmd):
   '''
   
   o_oao=[]
-  #Construct the sub DM for copper
+  #Construct the sub DM for oxygen
   for i in range(16):
     o_oao.append([oao_dmu[280+i*no:280+(i+1)*no,280+i*no:280+(i+1)*no],oao_dmd[280+i*no:280+(i+1)*no,280+i*no:280+(i+1)*no]])
 
-  #Plot sub DM for copper
+  #Plot sub DM for oxygen
   plt.suptitle("O OAO occupations")
   plt.subplot(121)
   plt.title("Nup+Ndown") 
@@ -250,11 +255,25 @@ def subOAO(oao_dmu,oao_dmd):
     plt.plot(np.diag(o_oao[i][1]),'o')
   plt.show()
 
+def moToOAO(cell,mf):
+  '''
+    input: cell and mf (PBC) objects for PYSCF
+    output: cell and mf objects, but with mf.mo_coeff the coefficients of the OAO relative to AOs
+  '''
+  s=mf.get_ovlp()[0]
+  sm12=orth.lowdin(s) #S^{-1/2}
+  mf.mo_coeff[0][0]=sm12
+  mf.mo_coeff[1][0]=sm12
+  return cell,mf
+  
+
 ###########################################################################################
 #Run
-direc="COL"
+direc="ACHN"
 
 #compMolCell()
-mol,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
-oao_dmu,oao_dmd=calcOAO(mol,mf)
-subOAO(oao_dmu,oao_dmd)
+cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
+oao_dmu,oao_dmd=calcOAO(cell,mf)
+#plotSubOAO(oao_dmu,oao_dmd)
+#cell,mf=moToOAO(cell,mf)
+#print_qwalk_pbc(cell,mf,basename=direc+"/qw")
