@@ -1,12 +1,13 @@
-from crystal2pyscf import crystal2pyscf_mol
-from pyscf.scf.uhf import make_rdm1
+from crystal2pyscf import crystal2pyscf_mol, crystal2pyscf_cell
+from pyscf.scf.hf import make_rdm1
 from pyscf.scf.hf import get_ovlp
-from pyscf import gto 
+from pyscf import gto, scf, lo
 import numpy as np 
 from pyscf.lo import orth
 from functools import reduce
+import scipy as sp 
+import matplotlib.pyplot as plt
 
-#BASIS: NEEDS TO BE FIXED
 basis={'Cu':gto.basis.parse('''
 Cu S
   27.8467870 -0.019337
@@ -107,22 +108,58 @@ Sr P
 Sr P 
   0.6 1.0
 ''')}
+basis_order = {'Cu':[0,0,1,2,3,0,0,1,1,2,2],'O':[0,1,2,3,0,0,1,1],'Sr':[0,1,2,0,0,1,1]}
 
-########################################################
-#1rdm, atomic orbitals
-mol,scf=crystal2pyscf_mol(basis=basis)
-rdm1=make_rdm1(scf.mo_coeff,scf.mo_occ)
+def compMolCell():
+  '''
+  Builds from CRYSTAL calculation a MOL and CELL object, and respective SCF objects.
+  Prints the following quantities for both MOL and CELL
+  1. Trace of MO orbital overlap matrix - should be N_bas
+  2. Trace of 1rdm on MO basis - should be N_elec in each spin sector
+  
+  In addition there is a print of the difference between the two objects:
+  1. sum(abs(s_cell - s_mol)), where s is the overlap matrix
+  2. sum(abs(mo_cell - mo_mol)), where mo is the MO coefficient matrix
+  '''
 
-#full occupation 
-print(np.trace(rdm1[0]),np.trace(rdm1[1]))
+  ########################################################
+  #MOL readin - INCORRECT IF YOU HAVE A PBC CYRSTAL RUN
+  mol,mf=crystal2pyscf_mol(basis=basis,basis_order=basis_order)
 
-########################################################
-#1rdm, orthogonalized atomic orbitals
-mo_a = scf.mo_coeff[0]*scf.mo_occ[0]
-mo_b = scf.mo_coeff[1]*scf.mo_occ[1]
-s=get_ovlp(mol)
-mo_a = np.dot(mo_a, orth.lowdin(reduce(np.dot, (mo_a.T,s,mo_a))))
-mo_b = np.dot(mo_b, orth.lowdin(reduce(np.dot, (mo_b.T,s,mo_b))))
-rdm1=[np.dot(mo_a,mo_a.T.conj()),np.dot(mo_b,mo_b.T.conj())]
+  s=mf.get_ovlp()
+  mo_up=mf.mo_coeff[0]
+  mo_dn=mf.mo_coeff[1]
 
+  #MO OVERLAPS
+  mo_ovlpu=reduce(np.dot,(mo_up.T,s,mo_up))
+  mo_ovlpd=reduce(np.dot,(mo_dn.T,s,mo_dn))
+  print("MOL: Tr(MO_ovlp)",np.trace(mo_ovlpu),np.trace(mo_ovlpd))
 
+  #1RDM ON MO
+  rdm1=mf.make_rdm1(mf.mo_coeff,mf.mo_occ)
+  mo_dmu=reduce(np.dot,(mo_up.T,s,rdm1[0],s,mo_up))
+  mo_dmd=reduce(np.dot,(mo_dn.T,s,rdm1[1],s,mo_dn))
+  print("MOL: Tr(MO_dens)",np.trace(mo_dmu),np.trace(mo_dmd))
+  
+  ########################################################
+  #CELL readin - CORRECT IF YOU HAVE A PBC CRYSTAL RUN
+  mol,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order)
+  print("sum(abs(s_cell-s_mol))",np.sum(np.abs(mf.get_ovlp()[0]-s)))
+  print("sum(abs(mo_cell-mo_mol))",np.sum(np.abs(mf.mo_coeff[0][0]-mo_up)),np.sum(np.abs(mf.mo_coeff[1][0]-mo_dn)))
+
+  s=mf.get_ovlp()[0]
+  mo_up=mf.mo_coeff[0][0]
+  mo_dn=mf.mo_coeff[1][0]
+
+  #MO OVERLAPS
+  mo_ovlpu=reduce(np.dot,(mo_up.T,s,mo_up))
+  mo_ovlpd=reduce(np.dot,(mo_dn.T,s,mo_dn))
+  print("CELL: Tr(MO_ovlp)",np.trace(mo_ovlpu),np.trace(mo_ovlpd))
+
+  #1RDM ON MO
+  rdm1=mf.make_rdm1(mf.mo_coeff,mf.mo_occ)
+  mo_dmu=reduce(np.dot,(mo_up.T,s,rdm1[0][0],s,mo_up))
+  mo_dmd=reduce(np.dot,(mo_dn.T,s,rdm1[1][0],s,mo_dn))
+  print("CELL: Tr(MO_dens)",np.trace(mo_dmu),np.trace(mo_dmd))
+
+compMolCell()
