@@ -123,6 +123,13 @@ minbasis={'Cu':gto.basis.parse('''
   2.53559600 0.538088
   1.24968400 0.511137
   0.59984600 0.147640
+  Cu S
+  27.8467870 -0.002653
+  21.4206050 -0.007542
+  10.5372500 0.079756
+  2.53559600 -0.155301
+  1.24968400 -0.253078
+  0.59984600 -0.028168
   Cu P
   18.5940060 0.003652
   14.3030110 -0.037076
@@ -303,6 +310,16 @@ minbasis2={
   25.6 0.0629633270568
   51.2 -0.00853551842135
   102.4 0.000812242437275
+  Cu S
+  0.4 -2.28170595665
+  0.8 1.46285008448
+  1.6 -1.09989311533
+  3.2 0.296788655986
+  6.4 -0.12153417324
+  12.8 0.117898710111
+  25.6 -0.0341363112541
+  51.2 0.00595066976203
+  102.4 -0.00071519088395
   Cu P
   18.594006 0.003652
   14.303011 -0.037076
@@ -445,8 +462,8 @@ def calcOAO(cell,mf):
     up+=oao_dmu[cuMin[i],cuMin[i]]
     dn+=oao_dmd[cuMin[i],cuMin[i]]
   print(up,dn)
-  '''
   print("CELL: Tr(OAO_dens) - Tot ",np.trace(oao_dmu),np.trace(oao_dmd))
+  '''
   print("CELL: Tr(OAO_dens) - Cu 1",np.trace(oao_dmu[:35,:35]),np.trace(oao_dmd[:35,:35]))
   cuMin=[0,1,4,5,6,13,14,15,16,17]
   up=0
@@ -595,11 +612,9 @@ def calcIAO(cell,mf,basis):
   mo_occ = reduce(np.dot, (a.T, s, mo_occ))
   dm_d = np.dot(mo_occ, mo_occ.T)
   
-  dm_u+=dm_d
-  dm_d=dm_u-2*dm_d
-  
   #TESTING
-  print("IAO, single Cu:", np.trace(dm_u[:9,:9]),np.trace(dm_d[:9,:9]))
+  print("IAO, single Cu:", np.trace(dm_u[:10,:10]),np.trace(dm_d[:10,:10]))
+  print(np.trace(dm_u),np.trace(dm_d))
   '''
   print("IAO, all Cu:",np.trace(dm_u[:72,:72]),np.trace(dm_d[:72,:72]))
   print("IAO, single O:",np.trace(dm_u[72:76,72:76]),np.trace(dm_d[72:76,72:76]))
@@ -615,17 +630,20 @@ def plotSubIAO(oao_dmu,oao_dmd):
   input: up and down density matrices on OAO basis
   plot sub-density matrices on different types of atoms
   '''
-  ncu=9 #Number of basis elements per copper
+  ncu=10 #Number of basis elements per copper
   no=4  #Number of basis elements per oxygen
   nsr=1 #Number of basis elements per strontium
   
+  oao_dmu+=oao_dmd
+  oao_dmd=oao_dmu-2*oao_dmd
   cu_oao=[]
+   
   #Construct the sub DM for copper
   for i in range(8):
     cu_oao.append([oao_dmu[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu],oao_dmd[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu]])
- 
+  
   #Plot sub DM for copper
-  labels=['3s','3px','3py','3pz','3dxy','3dyz','3dz^2','3dxz','3dx^2-y^2']
+  labels=['3s','4s','3px','3py','3pz','3dxy','3dyz','3dz^2','3dxz','3dx^2-y^2']
   plt.suptitle("Cu OAO occupations")
   plt.subplot(121)
   plt.title("Nup+Ndown") 
@@ -639,10 +657,11 @@ def plotSubIAO(oao_dmu,oao_dmd):
     plt.plot(np.diag(cu_oao[i][1]),'o')
   plt.show()
 
+  '''
   o_oao=[]
   #Construct the sub DM for oxygen
   for i in range(16):
-    o_oao.append([oao_dmu[72+i*no:72+(i+1)*no,72+i*no:72+(i+1)*no],oao_dmd[72+i*no:72+(i+1)*no,72+i*no:72+(i+1)*no]])
+    o_oao.append([oao_dmu[80+i*no:80+(i+1)*no,80+i*no:80+(i+1)*no],oao_dmd[80+i*no:80+(i+1)*no,80+i*no:80+(i+1)*no]])
   
   #Plot sub DM for oxygen
   labels=['2s','2px','2py','2pz']
@@ -658,16 +677,18 @@ def plotSubIAO(oao_dmu,oao_dmd):
   for i in range(16):
     plt.plot(np.diag(o_oao[i][1]),'o')
   plt.show()
+  '''
 
 ###########################################################################################
 #Run
-direc="CHK"
+direc="ACHN"
 
 #READIN
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
+#cell,mf=crystal2pyscf_cell(basis=basis2,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 
 #OAOs 
-oao_dmu,oao_dmd=calcOAO(cell,mf)
-iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis)
+#oao_dmu,oao_dmd=calcOAO(cell,mf)
+#iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis)
 iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis2)
-#plotSubIAO(iao_dmu,iao_dmd)
+plotSubIAO(iao_dmu,iao_dmd)
