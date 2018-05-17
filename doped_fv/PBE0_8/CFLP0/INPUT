@@ -168,8 +168,6 @@ TOLDEE
 10
 FMIXING
 30
-LEVSHIFT
-3 0 
 TOLINTEG
 8 8 8 8 16
 MAXCYCLE
@@ -179,14 +177,7 @@ SMEAR
 SAVEWF
 SPINLOCK
 0 200
-ATOMSPIN
-8
-1       -1
-2       1 
-3       1
-4       1
-5       -1
-6       1
-7       -1
-8       1
 END
+GUESSP
+END
+
