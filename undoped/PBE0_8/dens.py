@@ -599,8 +599,8 @@ def calcIAO(cell,mf,basis):
   dm_d=dm_u-2*dm_d
   
   #TESTING
-  '''
   print("IAO, single Cu:", np.trace(dm_u[:9,:9]),np.trace(dm_d[:9,:9]))
+  '''
   print("IAO, all Cu:",np.trace(dm_u[:72,:72]),np.trace(dm_d[:72,:72]))
   print("IAO, single O:",np.trace(dm_u[72:76,72:76]),np.trace(dm_d[72:76,72:76]))
   print("IAO, all O:",np.trace(dm_u[72:136,72:136]),np.trace(dm_d[72:136,72:136]))
@@ -667,7 +667,7 @@ direc="CHK"
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 
 #OAOs 
-#oao_dmu,oao_dmd=calcOAO(cell,mf)
-#iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis)
+oao_dmu,oao_dmd=calcOAO(cell,mf)
+iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis)
 iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis2)
-plotSubIAO(iao_dmu,iao_dmd)
+#plotSubIAO(iao_dmu,iao_dmd)
