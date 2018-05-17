@@ -599,9 +599,65 @@ def calcIAO(cell,mf,basis):
   dm_d=dm_u-2*dm_d
   
   #TESTING
-  print(np.trace(dm_u[:9,:9]),np.trace(dm_d[:9,:9]))
-
+  '''
+  print("IAO, single Cu:", np.trace(dm_u[:9,:9]),np.trace(dm_d[:9,:9]))
+  print("IAO, all Cu:",np.trace(dm_u[:72,:72]),np.trace(dm_d[:72,:72]))
+  print("IAO, single O:",np.trace(dm_u[72:76,72:76]),np.trace(dm_d[72:76,72:76]))
+  print("IAO, all O:",np.trace(dm_u[72:136,72:136]),np.trace(dm_d[72:136,72:136]))
+  print("IAO, single Sr:",np.trace(dm_u[136:137,136:137]),np.trace(dm_d[136:137,136:137]))
+  print("IAO, all Sr:",np.trace(dm_u[136:,136:]),np.trace(dm_d[136:,136:]))
+  '''
   return (dm_u,dm_d)
+
+#USE: plotting IAO occupations
+def plotSubIAO(oao_dmu,oao_dmd):
+  '''
+  input: up and down density matrices on OAO basis
+  plot sub-density matrices on different types of atoms
+  '''
+  ncu=9 #Number of basis elements per copper
+  no=4  #Number of basis elements per oxygen
+  nsr=1 #Number of basis elements per strontium
+  
+  cu_oao=[]
+  #Construct the sub DM for copper
+  for i in range(8):
+    cu_oao.append([oao_dmu[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu],oao_dmd[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu]])
+ 
+  #Plot sub DM for copper
+  labels=['3s','3px','3py','3pz','3dxy','3dyz','3dz^2','3dxz','3dx^2-y^2']
+  plt.suptitle("Cu OAO occupations")
+  plt.subplot(121)
+  plt.title("Nup+Ndown") 
+  plt.xticks(np.arange(0,ncu,1),labels,rotation='vertical')
+  for i in range(8):
+    plt.plot(np.diag(cu_oao[i][0]),'o')
+  plt.subplot(122)
+  plt.title("Nup-Ndown") 
+  plt.xticks(np.arange(0,ncu,1),labels,rotation='vertical')
+  for i in range(8):
+    plt.plot(np.diag(cu_oao[i][1]),'o')
+  plt.show()
+
+  o_oao=[]
+  #Construct the sub DM for oxygen
+  for i in range(16):
+    o_oao.append([oao_dmu[72+i*no:72+(i+1)*no,72+i*no:72+(i+1)*no],oao_dmd[72+i*no:72+(i+1)*no,72+i*no:72+(i+1)*no]])
+  
+  #Plot sub DM for oxygen
+  labels=['2s','2px','2py','2pz']
+  plt.suptitle("O OAO occupations")
+  plt.subplot(121)
+  plt.title("Nup+Ndown") 
+  plt.xticks(np.arange(0,no,1),labels,rotation='vertical')
+  for i in range(16):
+    plt.plot(np.diag(o_oao[i][0]),'o')
+  plt.subplot(122)
+  plt.title("Nup-Ndown") 
+  plt.xticks(np.arange(0,no,1),labels,rotation='vertical')
+  for i in range(16):
+    plt.plot(np.diag(o_oao[i][1]),'o')
+  plt.show()
 
 ###########################################################################################
 #Run
@@ -611,6 +667,7 @@ direc="CHK"
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 
 #OAOs 
-oao_dmu,oao_dmd=calcOAO(cell,mf)
-iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis)
+#oao_dmu,oao_dmd=calcOAO(cell,mf)
+#iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis)
 iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis2)
+plotSubIAO(iao_dmu,iao_dmd)
