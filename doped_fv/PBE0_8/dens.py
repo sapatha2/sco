@@ -287,9 +287,11 @@ def calcOAO(cell,mf):
   for i in range(len(cuMin)):
     up+=oao_dmu[cuMin[i],cuMin[i]]
     dn+=oao_dmd[cuMin[i],cuMin[i]]
+  
+  '''
+  ##DEBUG
   print(up,dn)
   print("CELL: Tr(OAO_dens) - Tot ",np.trace(oao_dmu),np.trace(oao_dmd))
-  '''
   print("CELL: Tr(OAO_dens) - Cu 1",np.trace(oao_dmu[:35,:35]),np.trace(oao_dmd[:35,:35]))
   cuMin=[0,1,4,5,6,13,14,15,16,17]
   up=0
@@ -305,7 +307,7 @@ def calcOAO(cell,mf):
   return (oao_dmu,oao_dmd)
 
 #USE: plotting OAO occupations
-def plotSubOAO(oao_dmu,oao_dmd,mol):
+def plotOAO(oao_dmu,oao_dmd,mol):
   '''
   input: up and down density matrices on OAO basis
   plot sub-density matrices on different types of atoms
@@ -353,7 +355,7 @@ def plotSubOAO(oao_dmu,oao_dmd,mol):
   plt.show()
 
 #USE: plotting OAOs
-def moToOAO(mf):
+def printOAO(mf):
   '''
     input: mf (PBC) objects for PYSCF
     output: mf objects, but with mf.mo_coeff the coefficients of the OAO relative to AOs
@@ -362,6 +364,7 @@ def moToOAO(mf):
   sm12=orth.lowdin(s) #S^{-1/2}
   mf.mo_coeff[0][0]=sm12
   mf.mo_coeff[1][0]=sm12
+  #print_qwalk_pbc(cell,mf,basename=basename)
   return cell,mf
 
 def calcIAO(cell,mf,basis):
@@ -391,11 +394,11 @@ def calcIAO(cell,mf,basis):
   # transform mo_occ to iao representation. note the ao dimension is reduced
   mo_occ = reduce(np.dot, (a.T, s, mo_occ))
   dm_d = np.dot(mo_occ, mo_occ.T)
-  
-  #TESTING
+ 
+  '''
+  ##DEBUG
   print("IAO, single Cu:", np.trace(dm_u[:10,:10]),np.trace(dm_d[:10,:10]))
   print(np.trace(dm_u),np.trace(dm_d))
-  '''
   print("IAO, all Cu:",np.trace(dm_u[:72,:72]),np.trace(dm_d[:72,:72]))
   print("IAO, single O:",np.trace(dm_u[72:76,72:76]),np.trace(dm_d[72:76,72:76]))
   print("IAO, all O:",np.trace(dm_u[72:136,72:136]),np.trace(dm_d[72:136,72:136]))
@@ -404,104 +407,54 @@ def calcIAO(cell,mf,basis):
   '''
   return (dm_u,dm_d)
 
-#USE: plotting IAO occupations
-def plotSubIAO(oao_dmu,oao_dmd):
+def plotIAO(oao_dmu,oao_dmd,sub=False):
   '''
   input: up and down density matrices on OAO basis
+  if(sub) then only plot the copper 3dx^2-y^2
   plot sub-density matrices on different types of atoms
   '''
-  ncu=10 #Number of basis elements per copper
-  no=4  #Number of basis elements per oxygen
-  nsr=1 #Number of basis elements per strontium
-  
-  oao_dmu+=oao_dmd
-  oao_dmd=oao_dmu-2*oao_dmd
-  cu_oao=[]
-   
-  #Construct the sub DM for copper
-  for i in range(8):
-    cu_oao.append([oao_dmu[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu],oao_dmd[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu]])
-  
-  #Plot sub DM for copper
-  labels=['3s','4s','3px','3py','3pz','3dxy','3dyz','3dz^2','3dxz','3dx^2-y^2']
-  plt.suptitle("Cu IAO occupations")
-  plt.subplot(121)
-  plt.title("Nup+Ndown") 
-  plt.xticks(np.arange(0,ncu,1),labels,rotation='vertical')
-  for i in range(8):
-    plt.plot(np.diag(cu_oao[i][0]),'o')
-  plt.subplot(122)
-  plt.title("Nup-Ndown") 
-  plt.xticks(np.arange(0,ncu,1),labels,rotation='vertical')
-  for i in range(8):
-    plt.plot(np.diag(cu_oao[i][1]),'o')
-  plt.show()
+  ncu=10
 
-  '''
-  o_oao=[]
-  #Construct the sub DM for oxygen
-  for i in range(16):
-    o_oao.append([oao_dmu[80+i*no:80+(i+1)*no,80+i*no:80+(i+1)*no],oao_dmd[80+i*no:80+(i+1)*no,80+i*no:80+(i+1)*no]])
-  
-  #Plot sub DM for oxygen
-  labels=['2s','2px','2py','2pz']
-  plt.suptitle("O OAO occupations")
-  plt.subplot(121)
-  plt.title("Nup+Ndown") 
-  plt.xticks(np.arange(0,no,1),labels,rotation='vertical')
-  for i in range(16):
-    plt.plot(np.diag(o_oao[i][0]),'o')
-  plt.subplot(122)
-  plt.title("Nup-Ndown") 
-  plt.xticks(np.arange(0,no,1),labels,rotation='vertical')
-  for i in range(16):
-    plt.plot(np.diag(o_oao[i][1]),'o')
-  plt.show()
-  '''
- 
-  cu_oao_n=[]
-  cu_oao_s=[]
-  for i in range(8):
-    cu_oao_n+=np.diag(cu_oao[i][0]).tolist()
-    cu_oao_s+=np.diag(cu_oao[i][1]).tolist()
+  if(sub):
+    #plot copper 3dx^2-y^2 occupation 
+    cu_u=np.diag(oao_dmu)[np.arange(9,80,10)]
+    cu_d=np.diag(oao_dmd)[np.arange(9,80,10)]
+    
+    plt.plot(cu_u,'ko',label="spin up")
+    plt.plot(cu_d,'ro',label="spin down")
+    plt.xlabel("Site")
+    plt.ylabel("Occupation 3dx^2-y^2")
+    plt.legend(loc=1)
+    plt.show()
+  else:
+    ncu=10 #Number of basis elements per copper
+    no=4  #Number of basis elements per oxygen
+    nsr=1 #Number of basis elements per strontium
 
-  return (np.array(cu_oao_n),np.array(cu_oao_s))
+    oao_dmu+=oao_dmd
+    oao_dmd=oao_dmu-2*oao_dmd
+    cu_oao=[]
 
-def plotDiffSubIAO(cell,mf,cell0,mf0,basis):
-  '''
-  input:
-  cell, mf - cell and scf object (PBC) of one state
-  cell0, mf0 - cell and scf object (PBC) of another state
-  basis - basis for calculating IAOs
+    #Construct the sub DM for copper
+    for i in range(8):
+      cu_oao.append([oao_dmu[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu],oao_dmd[i*ncu:(i+1)*ncu,i*ncu:(i+1)*ncu]])
 
-  output: differences in the diagonals of the 1RDM between two different states
-  '''
-  iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis2)
-  iao_dmu0,iao_dmd0=calcIAO(cell0,mf0,minbasis2)
-  cu_iao_n,cu_iao_s=plotSubIAO(iao_dmu,iao_dmd)
-  cu_iao_n0,cu_iao_s0=plotSubIAO(iao_dmu0,iao_dmd0)
+    #Plot sub DM for copper
+    labels=['3s','4s','3px','3py','3pz','3dxy','3dyz','3dz^2','3dxz','3dx^2-y^2']
+    plt.suptitle("Cu OAO occupations")
+    plt.subplot(121)
+    plt.title("Nup+Ndown")
+    plt.xticks(np.arange(0,ncu,1),labels,rotation='vertical')
+    for i in range(8):
+      plt.plot(np.diag(cu_oao[i][0]),'o')
+    plt.subplot(122)
+    plt.title("Nup-Ndown")
+    plt.xticks(np.arange(0,ncu,1),labels,rotation='vertical')
+    for i in range(8):
+      plt.plot(np.diag(cu_oao[i][1]),'o')
+    plt.show()
 
-  #Differences in n electron
-  cu_iao_n-=cu_iao_n0
-  cu_iao_s-=cu_iao_s0
-
-  plt.suptitle("Cu IAO2 occupation diff:"+direc1+"-"+direc2[21:])
-  labels=['3s','4s','3px','3py','3pz','3dxy','3dyz','3dz^2','3dxz','3dx^2-y^2']
-  plt.subplot(121)
-  plt.title("Nup+Ndown") 
-  plt.xticks(np.arange(0,10,1),labels,rotation='vertical')
-  #for i in range(8):
-  #  plt.plot(cu_iao_n[i*10:(i+1)*10],'o')
-  plt.plot(cu_iao_n,'o')
-  plt.subplot(122)
-  plt.title("Nup-Ndown") 
-  #plt.xticks(np.arange(0,10,1),labels,rotation='vertical')
-  #for i in range(8):
-  #  plt.plot(cu_iao_s[i*10:(i+1)*10],'o')
-  plt.plot(cu_iao_s,'o')
-  plt.show()
-
-def plotIAO(cell,mf,basis,basename):
+def printIAO(cell,mf,basis,basename):
   '''
   input: 
     cell and scf (PBC SCF) objects from pyscf and basis
@@ -518,20 +471,20 @@ def plotIAO(cell,mf,basis,basename):
     mf.mo_coeff[0][0][:,i]=a[:,i]
 
   mo_occ = mf.mo_coeff[1][0][:,mf.mo_occ[1][0]>0]
-  a = lo.iao.iao(cell, mo_occ, minao=basis)
-  a = lo.vec_lowdin(a, s)
-  for i in range(a.shape[1]):
-    mf.mo_coeff[1][0][:,i]=a[:,i]
+  ad = lo.iao.iao(cell, mo_occ, minao=basis)
+  ad = lo.vec_lowdin(ad, s)
+  for i in range(ad.shape[1]):
+    mf.mo_coeff[1][0][:,i]=ad[:,i]
 
   #write qwalk files
-  #print_qwalk_pbc(cell,mf,basename=basename)
-
+  print_qwalk_pbc(cell,mf,basename=basename)
+  return cell,mf
  
 ###########################################################################################
 #Run
-direc1="COL0"
+direc1="FLP0"
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc1+"/GRED.DAT",kred=direc1+"/KRED.DAT",cryoutfn=direc1+"/dens.in.o")
-direc2="../../undoped/PBE0_8/COL"
+direc2="../../undoped/PBE0_8/FLP"
 cell0,mf0=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc2+"/GRED.DAT",kred=direc2+"/KRED.DAT",cryoutfn=direc2+"/prop.in.o")
 
 #OAOs 
@@ -539,15 +492,18 @@ cell0,mf0=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc2+"/G
 #plotSubOAO(oao_dmu,oao_dmd,cell)
 
 #IAOs
-#iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis2)
-#iao_dmu0,iao_dmd0=calcIAO(cell0,mf0,minbasis2)
+iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis2)
+iao_dmu0,iao_dmd0=calcIAO(cell0,mf0,minbasis2)
 
 #Differences in IAO occupations
-#plotDiffSubIAO(cell,mf,cell0,mf0,minbasis2)
+#plotIAO(iao_dmu0,iao_dmd0)
+#plotIAO(iao_dmu-iao_dmu0,iao_dmd-iao_dmd0)
+plotIAO(iao_dmu0,iao_dmd0,sub=True)
+plotIAO(iao_dmu-iao_dmu0,iao_dmd-iao_dmd0,sub=True)
 
 #Plot IAOs 
-plotIAO(cell,mf,minbasis2,"COL0/"+direc1)
-plotIAO(cell0,mf0,minbasis2,"COL0/"+direc2[21:])
+printIAO(cell,mf,minbasis2,direc1+"/iao/"+direc1)
+printIAO(cell0,mf0,minbasis2,direc1+"/iao/"+direc2[21:])
 mf.mo_coeff[0][0]-=mf0.mo_coeff[0][0]
 mf.mo_coeff[1][0]-=mf0.mo_coeff[1][0]
-print_qwalk_pbc(cell,mf,basename="COL0/DDIFF")
+print_qwalk_pbc(cell,mf,basename=direc1+"/iao/DDIFF")
