@@ -395,10 +395,10 @@ def calcIAO(cell,mf,basis):
   mo_occ = reduce(np.dot, (a.T, s, mo_occ))
   dm_d = np.dot(mo_occ, mo_occ.T)
  
-  '''
   ##DEBUG
   print("IAO, single Cu:", np.trace(dm_u[:10,:10]),np.trace(dm_d[:10,:10]))
   print(np.trace(dm_u),np.trace(dm_d))
+  '''
   print("IAO, all Cu:",np.trace(dm_u[:72,:72]),np.trace(dm_d[:72,:72]))
   print("IAO, single O:",np.trace(dm_u[72:76,72:76]),np.trace(dm_d[72:76,72:76]))
   print("IAO, all O:",np.trace(dm_u[72:136,72:136]),np.trace(dm_d[72:136,72:136]))
@@ -497,13 +497,10 @@ iao_dmu0,iao_dmd0=calcIAO(cell0,mf0,minbasis2)
 
 #Differences in IAO occupations
 #plotIAO(iao_dmu0,iao_dmd0)
-#plotIAO(iao_dmu-iao_dmu0,iao_dmd-iao_dmd0)
-plotIAO(iao_dmu0,iao_dmd0,sub=True)
-plotIAO(iao_dmu-iao_dmu0,iao_dmd-iao_dmd0,sub=True)
+plotIAO(iao_dmu-iao_dmu0,iao_dmd-iao_dmd0)
+#plotIAO(iao_dmu0,iao_dmd0,sub=True)
+#plotIAO(iao_dmu-iao_dmu0,iao_dmd-iao_dmd0,sub=True)
 
 #Plot IAOs 
-printIAO(cell,mf,minbasis2,direc1+"/iao/"+direc1)
-printIAO(cell0,mf0,minbasis2,direc1+"/iao/"+direc2[21:])
-mf.mo_coeff[0][0]-=mf0.mo_coeff[0][0]
-mf.mo_coeff[1][0]-=mf0.mo_coeff[1][0]
-print_qwalk_pbc(cell,mf,basename=direc1+"/iao/DDIFF")
+#printIAO(cell,mf,minbasis2,direc1+"/iao/"+direc1)
+#printIAO(cell0,mf0,minbasis2,direc1+"/iao/"+direc2[21:])
