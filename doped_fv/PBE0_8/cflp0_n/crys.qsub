@@ -1,6 +1,6 @@
 #PBS -q wagner 
 #PBS -l nodes=1,flags=allprocs 
-#PBS -l walltime=24:00:00 
+#PBS -l walltime=96:00:00 
 #PBS -N sco_CFLP0_p8 
 #PBS -j oe 
 #PBS -o sco_CFLP0_p8.jobout  
