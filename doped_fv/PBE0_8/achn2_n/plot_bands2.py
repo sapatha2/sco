@@ -43,7 +43,7 @@ for b in range(130,135):
   ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')
   ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
 
-P.ylim([-4,4])
+P.ylim([-10,2])
 P.ylabel("Energy (eV) ")
 if len(sys.argv) < 2: 
   P.show()
