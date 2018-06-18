@@ -24,7 +24,7 @@ group {
 group {
   optimize_basis
   eibasis {
-    sr
+    o
     polypade
     beta0 0.2
     nfunc 3
@@ -38,16 +38,16 @@ group {
     rcut 3.2444691770948113
   }
   eibasis {
-    o
+    sr
     polypade
     beta0 0.2
     nfunc 3
     rcut 3.2444691770948113
   }
   onebody {
-    coefficients { sr 0.0 0.0 0.0}
-    coefficients { cu 0.0 0.0 0.0}
     coefficients { o 0.0 0.0 0.0}
+    coefficients { cu 0.0 0.0 0.0}
+    coefficients { sr 0.0 0.0 0.0}
   }
   eebasis {
     ee
