@@ -3,7 +3,7 @@ plot
 orbitals {
 cutoff_mo
   magnify 1
-  nmo 989
+  nmo 988
   orbfile qwalk_000.orb
   include qwalk.basis
   centers { useglobal }
@@ -22,7 +22,7 @@ plotorbitals {
     957   958   959   960   961   962   963   964   965   966 
     967   968   969   970   971   972   973   974   975   976 
     977   978   979   980   981   982   983   984   985   986 
-    987   988   989
+    987   988
 }
 }
 include qwalk_000.sys
