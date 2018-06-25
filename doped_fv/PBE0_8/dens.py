@@ -482,7 +482,7 @@ def printIAO(cell,mf,basis,basename):
  
 ###########################################################################################
 #Run
-direc1="FLP0"
+direc1="COL0"
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc1+"/GRED.DAT",kred=direc1+"/KRED.DAT",cryoutfn=direc1+"/dens.in.o")
 direc2="../../undoped/PBE0_8/FLP"
 cell0,mf0=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc2+"/GRED.DAT",kred=direc2+"/KRED.DAT",cryoutfn=direc2+"/prop.in.o")
