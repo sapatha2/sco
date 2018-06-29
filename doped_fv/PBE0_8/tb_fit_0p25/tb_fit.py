@@ -32,12 +32,7 @@ def NNN(tt,x,y):
   M+=M.conj().T
   return M
 
-def chk(K,d):
-  up=np.diag([d-K,d-K,K,d-K,K,d-K,K,K])
-  dn=np.diag([K,K,d-K,K,d-K,K,d-K,d-K])
-  return [up,dn]
-
-def col(K,d):
+def col0(K,d):
   up=np.array([[d,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0],
                [0,0,d,0,0,0,0,0],
@@ -56,7 +51,7 @@ def col(K,d):
                [0,0,0,0,0,0,0,0]])
   return [up,dn]
 
-def achn(K,d):
+def flp2(K,d):
   up=np.zeros((8,8))
   dn=np.array([[-K,0,0,0,0,0,0,0],
                [0,d-K,0,0,0,0,0,0],
@@ -68,7 +63,7 @@ def achn(K,d):
                [0,0,0,0,0,0,0,0]])
   return [up,dn]
 
-def blk(K,d):
+def blk0(K,d):
   up=np.array([[d,0,0,0,0,0,0,0],
                [0,d,0,0,0,0,0,0],
                [0,0,d,0,0,0,0,0],
@@ -86,7 +81,7 @@ def blk(K,d):
                [0,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,d]])
   return [up,dn]
-def flp(K,d):
+def flp0(K,d):
   up=np.zeros((8,8))
   dn=np.array([[d-K,0,0,0,0,0,0,0],
                [0,d-K,0,0,0,0,0,0],
@@ -98,7 +93,7 @@ def flp(K,d):
                [0,0,0,0,0,0,0,0.5*K]])
   return [up,dn]
 
-def diag(K,d):
+def bcol2(K,d):
   up=np.zeros((8,8))
   dn=np.array([[0,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0],
@@ -113,21 +108,21 @@ def diag(K,d):
 def tb(t,tt,K,x,y,state):
   d=10
   H=[np.zeros((8,8))+0j,np.zeros((8,8))+0j]
-  if(state=="col1"):  
-    H[0]+=col(K,d)[0]
-    H[1]+=col(K,d)[1]
-  elif(state=="flp1"):
-    H[0]+=flp(K,d)[0]
-    H[1]+=flp(K,d)[1]
-  elif(state=="chk1"):
-    H[0]+=chk(K,d)[0]
-    H[1]+=chk(K,d)[1]
-  elif(state=="achn3"):
-    H[0]+=achn(K,d)[0]
-    H[1]+=achn(K,d)[1]
-  else:
-    print("tb not defined for this state")
-    exit(0)
+  if(state=="COL0"):  
+    H[0]+=col0(K,d)[0]
+    H[1]+=col0(K,d)[1]
+  elif(state=="FLP2"):
+    H[0]+=flp2(K,d)[0]
+    H[1]+=flp2(K,d)[1]
+  elif(state=="BLK0"):
+    H[0]+=blk0(K,d)[0]
+    H[1]+=blk0(K,d)[1]
+  elif(state=="FLP0"):
+    H[0]+=flp0(K,d)[0]
+    H[1]+=flp0(K,d)[1]
+  elif(state=="BCOL2"):
+    H[0]+=bcol2(K,d)[0]
+    H[1]+=bcol2(K,d)[1]
   H[0]+=NN(t,x,y)+NNN(tt,x,y)
   H[1]+=NN(t,x,y)+NNN(tt,x,y)
   wu,vr=np.linalg.eigh(H[0])
@@ -156,21 +151,32 @@ def dp(t,tt,K,a,state):
   for i in range(N):
     e.append(tb(t,tt,K,x[N-1-i],y[N-1-i],state)[1])
 
+  #Plot PBE0 bands and TB bands
   e=np.array(e)+a
   ret=[]
-  for i in range(2):
-    ret+=e[:,i].tolist()
+  if(state in ["COL0","BLK0","CHK0"]):
+    for i in range(2):
+      ret+=e[:,i].tolist()
+      ret+=e[:,i].tolist()
+  else:
+    for i in range(4):
+      ret+=e[:,i].tolist()
   return np.array(ret)
 
 def cost(t,tt,K,a,state,lim):
   bands=json.load(open("pbe0_bands.p","r"))
   d0=[]
-  for i in range(2):
-    d0+=bands[state.lower()][i][:38]
+  if(state in ["COL0","BLK0","CHK0"]):
+    for i in range(2):
+      d0+=bands[state.lower()+"d"][i][:38]
+      d0+=bands[state.lower()+"d"][i][:38]
+  else:
+    for i in range(4):
+      d0+=bands[state.lower()+"d"][i][:38]
   d0=np.array(d0)
   dpp=dp(t,tt,K,a,state)
   delta=dpp-d0
-  
+
   logi=np.logical_or(np.logical_and(d0>=-lim,d0<=lim),np.logical_and(dpp>=-lim,dpp<=lim))
   ind=np.where(logi)
   delta=delta[ind]
@@ -179,8 +185,13 @@ def cost(t,tt,K,a,state,lim):
 def r2(t,tt,K,a,state):
   bands=json.load(open("pbe0_bands.p","r"))
   d0=[]
-  for i in range(2):
-    d0+=bands[state.lower()][i][:38]
+  if(state in ["COL0","BLK0","CHK0"]):
+    for i in range(2):
+      d0+=bands[state.lower()+"d"][i][:38]
+      d0+=bands[state.lower()+"d"][i][:38]
+  else:
+    for i in range(4):
+      d0+=bands[state.lower()+"d"][i][:38]
   d0=np.array(d0)
   dpp=dp(t,tt,K,a,state)
   return r2_score(d0,dpp) 
@@ -188,8 +199,13 @@ def r2(t,tt,K,a,state):
 def plot(t,tt,K,a,state):
   bands=json.load(open("pbe0_bands.p","r"))
   d0=[]
-  for i in range(2):
-    d0+=bands[state.lower()][i][:38]
+  if(state in ["COL0","BLK0","CHK0"]):
+    for i in range(2):
+      d0+=bands[state.lower()+"d"][i][:38]
+      d0+=bands[state.lower()+"d"][i][:38]
+  else:
+    for i in range(4):
+      d0+=bands[state.lower()+"d"][i][:38]
   d0=np.array(d0)
   dpp=dp(t,tt,K,a,state)
   
@@ -199,22 +215,22 @@ def plot(t,tt,K,a,state):
 
 def cost3(t,tt,K,a1,a2,a3,lim):
   ret=0
-  ret+=cost(t,tt,K,a1,"flp1",lim)
-  ret+=cost(t,tt,K,a2,"chk1",lim)
-  ret+=cost(t,tt,K,a3,"col1",lim)
+  ret+=cost(t,tt,K,a1,"FLP2",lim)
+  ret+=cost(t,tt,K,a2,"FLP0",lim)
+  ret+=cost(t,tt,K,a3,"BCOL2",lim)
   return ret
 
 def r23(t,tt,K,a1,a2,a3):
   d0=[]
   dpp=[]
-  for state in ["flp1","chk1","col1"]:
+  for state in ["FLP2","FLP0","BCOL2"]:
     bands=json.load(open("pbe0_bands.p","r"))
-    for i in range(2):
-      d0+=bands[state.lower()][i][:38]
+    for i in range(4):
+      d0+=bands[state.lower()+"d"][i][:38]
   
-  dpp+=dp(t,tt,K,a1,"flp1").tolist()
-  dpp+=dp(t,tt,K,a2,"chk1").tolist()
-  dpp+=dp(t,tt,K,a3,"col1").tolist()
+  dpp+=dp(t,tt,K,a1,"FLP2").tolist()
+  dpp+=dp(t,tt,K,a2,"FLP0").tolist()
+  dpp+=dp(t,tt,K,a3,"BCOL2").tolist()
   return r2_score(d0,dpp) 
 
 def cost4(t,tt,K,a1,a2,a3,a4,lim):
@@ -493,64 +509,43 @@ def cost5_both(t,tt,K,J,a1,a2,a3,a4,a5,b,we,lim):
   return cost5(t,tt,K,a1,a2,a3,a4,a5,lim)+we*cost5j(t,tt,K,J,b)
 
 ################################################################################3
-#PLOT BANDS
-'''
-bands=json.load(open("pbe0_bands.p","r"))
-plt.plot(bands['chk1'][0],'bo')
-plt.plot(bands['chk1'][1],'bo')
-#plt.plot(bands['chk1'][2],'bo')
-plt.show()
-plt.plot(bands['col1'][0],'bo')
-plt.plot(bands['col1'][1],'bo')
-#plt.plot(bands['col1'][2],'bo')
-plt.show()
-plt.plot(bands['flp1'][0],'bo')
-plt.plot(bands['flp1'][1],'bo')
-#plt.plot(bands['flp1'][2],'bo')
-plt.show()
-plt.plot(bands['achn3'][0],'bo')
-plt.plot(bands['achn3'][1],'bo')
-#plt.plot(bands['achn3'][2],'bo')
-plt.show()
-'''
-
-################################################################################3
 #SINGLE STATE BAND RUN
-from scipy.optimize import Bounds
+'''
 lim=10
-for state in ["flp1","chk1","achn3","col1"]:
-  bounds=Bounds([0.8,0.0,0,-np.inf],[1.4,1.0,0,np.inf])
-  res=scipy.optimize.minimize(lambda p: cost(p[0],p[1],p[2],p[3],state,lim),(1.0,0.0,0.0,0.0),bounds=bounds)
-  t,tt,K,a=res.x
-  print(t,tt,K,a)
-  print(r2(t,tt,K,a,state))
-  plot(t,tt,K,a,state)
-  plt.show()
+state="BLK0"
+res=scipy.optimize.minimize(lambda p: cost(p[0],p[1],p[2],p[3],state,lim),(1.1,0.4,0.0,1.0))
+t,tt,K,a=res.x
+print(res.x)
+print(r2(t,tt,K,a,state))
+plot(t,tt,K,a,state)
+plt.show()
+'''
 
 ################################################################################3
 #THREE STATE BAND RUN
 '''
-lim=10
+lim=10.
 res=scipy.optimize.minimize(lambda p: cost3(p[0],p[1],p[2],p[3],p[4],p[5],lim),(1.1,0.4,0.0,1.0,1.0,1.0))
 t,tt,K,a1,a2,a3=res.x
 print(res.x)
 print(r23(t,tt,K,a1,a2,a3))
-plot(t,tt,K,a1,"flp1")
-plt.show()
-plot(t,tt,K,a2,"chk1")
-plt.show()
-plot(t,tt,K,a3,"col1")
-plt.show()
+plot(t,tt,K,a1,"FLP2")
+plot(t,tt,K,a2,"FLP0")
+plot(t,tt,K,a3,"BCOL2")
 '''
 
 #BAND ONLY CALCULATIONS
-#lim=10
-#[1.00306035 0.40384503 0.39424931 1.48633095 0.25052879 1.41597723]
-#0.9865586243594832
+#lim=10, R2=0.91
+#1.01,0.41,-0.25
 
-#lim=0.5
-#[ 0.93598415  0.45936487  0.79591781  1.56453823 -0.08569159  1.32967674]
-#0.9669273752391794
+#lim=0.5, R2=0.93
+#0.93,0.38,-0.35
+
+#lim=0.25, R2=0.905
+#0.89, 0.40, -0.30
+
+#lim=0.1, R2=0.857
+#1.11, 0.42, -0.01
 
 ################################################################################3
 #FOUR STATE BAND RUN
@@ -637,7 +632,7 @@ print(r23j(t,tt,K,J,b))
 
 ################################################################################3
 #FOUR STATE ENERGY RUN
-'''
+
 constraints=({'type':'eq','fun':lambda p: p[3]-0.18})
 res=scipy.optimize.minimize(lambda p: cost4j(p[0],p[1],p[2],p[3],p[4]),(2.0,1.0,-0.5,0.18,0.0),constraints=constraints)
 #res=scipy.optimize.minimize(lambda p: cost4j(p[0],p[1],p[2],p[3],p[4]),(2.0,1.0,0.01,0.40,0.0))
@@ -646,7 +641,6 @@ print(res.x)
 print(r24j(t,tt,K,J,b))
 plot4j(t,tt,K,J,b)
 plt.show()
-'''
 
 #BEST ENERGY, NO PRIOR; R2=1.0
 #t,tt,K,J,b=[ 1.99316482,  1.10664349 ,-0.15530005 , 0.34752776  ,0.        ]
@@ -922,7 +916,6 @@ plt.show()
 
 ################################################################################3
 #PARETO PLOTS
-'''
 pareto3=[[0.142822468874, 0.934255787037],
 [0.672633948027, 0.700948414995],
 [-0.289724721637, 0.993160184377],
@@ -965,6 +958,8 @@ pareto5=[[0.937647475972, 0.853052618739],
 [-1.15048402719, 0.997816223066]]
 pareto5=np.array(pareto5)
 
+
+
 plt.plot(pareto4[:,0],pareto4[:,1],'go')
 plt.plot(pareto5[:,0],pareto5[:,1],'ro')
 plt.plot(0.636712023352, 0.993108294582,'bs')
@@ -973,4 +968,3 @@ plt.title("4-state Pareto")
 plt.xlabel("R^2 band")
 plt.ylabel("R^2 energy")
 plt.show()
-'''
