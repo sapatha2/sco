@@ -122,6 +122,9 @@ def tb(t,tt,K,x,y,state):
   elif(state=="chk1"):
     H[0]+=chk(K,d)[0]
     H[1]+=chk(K,d)[1]
+  elif(state=="achn3"):
+    H[0]+=achn(K,d)[0]
+    H[1]+=achn(K,d)[1]
   else:
     print("tb not defined for this state")
     exit(0)
@@ -495,33 +498,38 @@ def cost5_both(t,tt,K,J,a1,a2,a3,a4,a5,b,we,lim):
 bands=json.load(open("pbe0_bands.p","r"))
 plt.plot(bands['chk1'][0],'bo')
 plt.plot(bands['chk1'][1],'bo')
-plt.plot(bands['chk1'][2],'bo')
+#plt.plot(bands['chk1'][2],'bo')
 plt.show()
 plt.plot(bands['col1'][0],'bo')
 plt.plot(bands['col1'][1],'bo')
-plt.plot(bands['col1'][2],'bo')
+#plt.plot(bands['col1'][2],'bo')
 plt.show()
 plt.plot(bands['flp1'][0],'bo')
 plt.plot(bands['flp1'][1],'bo')
-plt.plot(bands['flp1'][2],'bo')
+#plt.plot(bands['flp1'][2],'bo')
+plt.show()
+plt.plot(bands['achn3'][0],'bo')
+plt.plot(bands['achn3'][1],'bo')
+#plt.plot(bands['achn3'][2],'bo')
 plt.show()
 '''
 
 ################################################################################3
 #SINGLE STATE BAND RUN
-'''
+from scipy.optimize import Bounds
 lim=10
-for state in ["flp1","chk1","col1"]:
-  res=scipy.optimize.minimize(lambda p: cost(p[0],p[1],p[2],p[3],state,lim),(1.1,0.4,0.0,2.0))
+for state in ["flp1","chk1","achn3","col1"]:
+  bounds=Bounds([0.8,0.0,0,-np.inf],[1.4,1.0,0,np.inf])
+  res=scipy.optimize.minimize(lambda p: cost(p[0],p[1],p[2],p[3],state,lim),(1.0,0.0,0.0,0.0),bounds=bounds)
   t,tt,K,a=res.x
-  print(res.x)
+  print(t,tt,K,a)
   print(r2(t,tt,K,a,state))
   plot(t,tt,K,a,state)
   plt.show()
-'''
 
 ################################################################################3
 #THREE STATE BAND RUN
+'''
 lim=10
 res=scipy.optimize.minimize(lambda p: cost3(p[0],p[1],p[2],p[3],p[4],p[5],lim),(1.1,0.4,0.0,1.0,1.0,1.0))
 t,tt,K,a1,a2,a3=res.x
@@ -533,6 +541,7 @@ plot(t,tt,K,a2,"chk1")
 plt.show()
 plot(t,tt,K,a3,"col1")
 plt.show()
+'''
 
 #BAND ONLY CALCULATIONS
 #lim=10
