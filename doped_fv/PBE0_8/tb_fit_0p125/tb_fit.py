@@ -110,7 +110,7 @@ def diag(K,d):
                [0,0,0,0,0,0,0,-K]])
   return [up,dn]
 
-def tb(t,tt,K,x,y,state):
+def tb(t,tt,K,x,y,state,m=0):
   d=10
   H=[np.zeros((8,8))+0j,np.zeros((8,8))+0j]
   if(state=="col1"):  
@@ -129,7 +129,7 @@ def tb(t,tt,K,x,y,state):
     print("tb not defined for this state")
     exit(0)
   H[0]+=NN(t,x,y)+NNN(tt,x,y)
-  H[1]+=NN(t,x,y)+NNN(tt,x,y)
+  H[1]+=NN(t,x,y)+NNN(tt,x,y)+m
   wu,vr=np.linalg.eigh(H[0])
   wd,vr=np.linalg.eigh(H[1])
   return [wu,wd]
@@ -201,54 +201,48 @@ def cost3(t,tt,K,a1,a2,a3,lim):
   ret=0
   ret+=cost(t,tt,K,a1,"flp1",lim)
   ret+=cost(t,tt,K,a2,"chk1",lim)
-  ret+=cost(t,tt,K,a3,"col1",lim)
+  ret+=cost(t,tt,K,a3,"achn3",lim)
   return ret
 
 def r23(t,tt,K,a1,a2,a3):
   d0=[]
   dpp=[]
-  for state in ["flp1","chk1","col1"]:
+  for state in ["flp1","chk1","achn3"]:
     bands=json.load(open("pbe0_bands.p","r"))
     for i in range(2):
       d0+=bands[state.lower()][i][:38]
   
   dpp+=dp(t,tt,K,a1,"flp1").tolist()
   dpp+=dp(t,tt,K,a2,"chk1").tolist()
-  dpp+=dp(t,tt,K,a3,"col1").tolist()
+  dpp+=dp(t,tt,K,a3,"achn3").tolist()
   return r2_score(d0,dpp) 
 
 def cost4(t,tt,K,a1,a2,a3,a4,lim):
-  #print(t,tt,K)
   ret=0
-  ret+=cost(t,tt,K,a1,"COL0",lim)
-  ret+=cost(t,tt,K,a2,"FLP2",lim)
-  ret+=cost(t,tt,K,a3,"FLP0",lim)
-  ret+=cost(t,tt,K,a4,"BCOL2",lim)
+  ret+=cost(t,tt,K,a1,"flp1",lim)
+  ret+=cost(t,tt,K,a2,"chk1",lim)
+  ret+=cost(t,tt,K,a3,"achn3",lim)
+  ret+=cost(t,tt,K,a4,"col1",lim)
   return ret
 
 def r24(t,tt,K,a1,a2,a3,a4):
   d0=[]
   dpp=[]
   bands=json.load(open("pbe0_bands.p","r"))
-  for state in ["COL0","FLP2","FLP0","BCOL2"]:
-    if(state=="COL0" or state=="CHK0"):
-      for i in range(2):
-        d0+=bands[state.lower()+"d"][i][:38]
-        d0+=bands[state.lower()+"d"][i][:38]
-    else:
-      for i in range(4):
-        d0+=bands[state.lower()+"d"][i][:38]
+  for state in ["flp1","chk1","achn3","col1"]:
+    for i in range(2):
+      d0+=bands[state.lower()][i][:38]
 
-  dpp+=dp(t,tt,K,a1,"COL0").tolist()
-  dpp+=dp(t,tt,K,a2,"FLP2").tolist()
-  dpp+=dp(t,tt,K,a3,"FLP0").tolist()
-  dpp+=dp(t,tt,K,a4,"BCOL2").tolist()
+  dpp+=dp(t,tt,K,a1,"flp1").tolist()
+  dpp+=dp(t,tt,K,a2,"chk1").tolist()
+  dpp+=dp(t,tt,K,a3,"achn3").tolist()
+  dpp+=dp(t,tt,K,a4,"col1").tolist()
   return r2_score(d0,dpp) 
 
 def plot4(t,tt,K,a1,a2,a3,a4):
   j=0
   const=[a1,a2,a3,a4]
-  for state in ["COL0","FLP2","FLP0","BCOL2"]:
+  for state in ["flp1","chk1","achn3","col1"]:
     plt.subplot(230+j+1)
     plt.title(state+" bands")
     plot(t,tt,K,const[j],state)
@@ -298,7 +292,7 @@ def plot5(t,tt,K,a1,a2,a3,a4,a5):
 
 ################################################################################
 #ENERGY OPTIMIZATION
-def sigTB(t,tt,K,state):
+def sigTB(t,tt,K,state,m):
   d=10
   N=50
   e=[]
@@ -309,7 +303,8 @@ def sigTB(t,tt,K,state):
   for i in range(N-1):
     for j in range(N-1):
       w=tb(t,tt,K,x[i],y[j],state)
-      if(state in ["COL0","BLK0","CHK0"]):
+      if(state in ["chk1","col1"]):
+        w=tb(t,tt,K,x[i],y[j],state,m=m)
         for k in range(len(w[0])):
           e.append(w[0][k])
           e.append(w[1][k])
@@ -323,19 +318,19 @@ def sigTB(t,tt,K,state):
   plt.plot(e,'g.')
   return np.sum(e)/((N-1)**2)
 
-def cost3j(t,tt,K,J,b):
-  #print(t,tt,K,J)
+def cost3j(t,tt,K,J,b,m):
+  print(t,tt,K,J)
   sigJ=[0,-2,0]
   E=[]
   ind=0
-  for state in ["FLP2","FLP0","BCOL2"]:
-    E.append(sigTB(t,tt,K,state)+J*sigJ[ind])
+  for state in ["flp1","chk1","achn3"]:
+    E.append(sigTB(t,tt,K,state,m)+J*sigJ[ind])
     ind+=1
   E=np.array(E)
   E+=b
   E-=E[0]
   
-  E0=np.array([0.106,0.252,0.285])
+  E0=np.array([0,0.049,0.149])
   E0-=E0[0]
 
   return np.dot(E0-E,E0-E)
@@ -344,14 +339,14 @@ def r23j(t,tt,K,J,b):
   sigJ=[0,-2,0]
   E=[]
   ind=0
-  for state in ["FLP2","FLP0","BCOL2"]:
+  for state in ["flp1","chk1","achn3"]:
     E.append(sigTB(t,tt,K,state)+J*sigJ[ind])
     ind+=1
   E=np.array(E)
   E+=b
   E-=E[0]
   
-  E0=np.array([0.106,0.252,0.285])
+  E0=np.array([0,0.049,0.149])
   E0-=E0[0]
   
   return r2_score(E0,E)
@@ -360,14 +355,14 @@ def plot3j(t,tt,K,J,b):
   sigJ=[0,-2,0]
   E=[]
   ind=0
-  for state in ["FLP2","FLP0","BCOL2"]:
+  for state in ["flp1","chk1","achn3"]:
     E.append(sigTB(t,tt,K,state)+J*sigJ[ind])
     ind+=1
   E=np.array(E)
   E+=b
   E-=E[0]
   
-  E0=np.array([0.106,0.252,0.285])
+  E0=np.array([0,0.049,0.149])
   E0-=E0[0]
   plt.plot(E0,E,'bo')
   plt.plot(E0,E0,'g')
@@ -516,47 +511,49 @@ plt.show()
 
 ################################################################################3
 #SINGLE STATE BAND RUN
+'''
 from scipy.optimize import Bounds
 lim=10
 for state in ["flp1","chk1","achn3","col1"]:
-  bounds=Bounds([0.8,0.0,0,-np.inf],[1.4,1.0,0,np.inf])
-  res=scipy.optimize.minimize(lambda p: cost(p[0],p[1],p[2],p[3],state,lim),(1.0,0.0,0.0,0.0),bounds=bounds)
+  res=scipy.optimize.minimize(lambda p: cost(p[0],p[1],p[2],p[3],state,lim),(1.0,0.4,0.0,2.0))
   t,tt,K,a=res.x
   print(t,tt,K,a)
   print(r2(t,tt,K,a,state))
   plot(t,tt,K,a,state)
   plt.show()
+'''
 
 ################################################################################3
 #THREE STATE BAND RUN
 '''
-lim=10
+lim=0.5
 res=scipy.optimize.minimize(lambda p: cost3(p[0],p[1],p[2],p[3],p[4],p[5],lim),(1.1,0.4,0.0,1.0,1.0,1.0))
 t,tt,K,a1,a2,a3=res.x
-print(res.x)
+t*=-1
+print(t,tt,K,a1,a2,a3)
 print(r23(t,tt,K,a1,a2,a3))
 plot(t,tt,K,a1,"flp1")
 plt.show()
 plot(t,tt,K,a2,"chk1")
 plt.show()
-plot(t,tt,K,a3,"col1")
+plot(t,tt,K,a3,"achn3")
 plt.show()
 '''
 
 #BAND ONLY CALCULATIONS
 #lim=10
-#[1.00306035 0.40384503 0.39424931 1.48633095 0.25052879 1.41597723]
-#0.9865586243594832
+#0.9757901244474414 0.4017741777796167 0.4182800410225736 1.4541589156080563 0.21837188053636938 1.8842502493309279
+#0.9722618799911984
 
 #lim=0.5
-#[ 0.93598415  0.45936487  0.79591781  1.56453823 -0.08569159  1.32967674]
-#0.9669273752391794
+#1.0293861564061242 0.4624171900705294 0.6253331107121146 1.635089598284964 0.10576375248512045 2.093131787947487
+#0.950648057821299
 
 ################################################################################3
 #FOUR STATE BAND RUN
 '''
-lim=0.10
-res=scipy.optimize.minimize(lambda p: cost4(p[0],p[1],p[2],p[3],p[4],p[5],p[6],lim),(1.1,0.4,0.0,1.0,1.0,1.0,1.0))
+lim=0.25
+res=scipy.optimize.minimize(lambda p: cost4(p[0],p[1],p[2],p[3],p[4],p[5],p[6],lim),(1.1,0.4,0.6,1.0,1.0,1.0,1.0))
 t,tt,K,a1,a2,a3,a4=res.x
 print(res.x)
 print(r24(t,tt,K,a1,a2,a3,a4))
@@ -565,61 +562,27 @@ plt.show()
 '''
 
 #lim=10
-#[ 1.03309165  0.41679968 -0.28269269  1.39277115  0.98451076  0.72912682
-#  1.01296482]
-#0.979107614569
+#[1.0171907  0.40819949 0.34775049 1.50666829 0.30545383 1.92348381
+# 1.43459673]
+#0.9810013182919124
 
 #lim=0.5, GOOD
-#[ 0.95423733  0.39311385 -0.36783962  1.32334485  0.94950138  0.69532971
-#  0.91285412]
-#0.966425980952
+#[1.05323922 0.46885172 0.60196144 1.66890936 0.1431581  2.12359157
+# 1.529816  ]
+#0.9659122559275077
 
 #lim=0.25, GOOD
-#[ 0.9448341   0.41690881 -0.39270645  1.32437299  0.95799299  0.71801252
-#  0.92647914]
-#0.954748836004
-
-#lim=0.10
-#[  1.10003627e+00   4.00000000e-01   3.62721859e-05   1.00000000e+00
-#   1.00000000e+00   1.00000000e+00   1.00000000e+00]
-#0.776011504656
-
-################################################################################3
-#FIVE STATE BAND RUN
-'''
-lim=0.25
-res=scipy.optimize.minimize(lambda p: cost5(p[0],p[1],p[2],p[3],p[4],p[5],p[6],p[7],lim),(1.1,0.4,0.0,1.0,1.0,1.0,1.0,1.0))
-t,tt,K,a1,a2,a3,a4,a5=res.x
-print(res.x)
-print(r25(t,tt,K,a1,a2,a3,a4,a5))
-plot5(t,tt,K,a1,a2,a3,a4,a5)
-plt.show()
-'''
-
-#lim=10 
-#[ 1.04870376  0.38667457 -0.38235622  1.41909932  0.9680397   0.76550659
-#  0.98487879  1.96470275]
-#0.951342368501
-
-#lim=0.5, GOOD
-#[ 0.98538601  0.35686016 -0.39523105  1.3854178   0.91088625  0.69960854
-#  0.85591214  1.90389896]
-#0.944264066146
-
-#lim=0.25, GOOD
-#[ 0.50804435  0.46979156  0.70091488  0.69413234  1.01582272  0.1557477
-#  0.98888813  1.16061958]
-#0.753670912628
+# 0.99752944  0.50103597  0.87646278  1.73245596 -0.10175006  2.23720709
+#  1.456227  ]
+#0.9336288596365827
 
 ################################################################################3
 #THREE STATE ENERGY RUN
-'''
 constraints=({'type':'eq','fun':lambda p: p[3]-0.18})
-res=scipy.optimize.minimize(lambda p: cost3j(p[0],p[1],p[2],p[3],p[4]),(1.1,0.4,0.0,0.18,0.0),constraints=constraints)
+res=scipy.optimize.minimize(lambda p: cost3j(p[0],p[1],p[2],p[3],p[4],0.45),(1.1,0.4,0.0,0.18,0.0),constraints=constraints)
 t,tt,K,J,b=res.x
 print(res.x)
 print(r23j(t,tt,K,J,b))
-'''
 
 #BEST ENERGY, NO PRIOR; R2 = 1.0
 #t,tt,K,J,b=1.95683621 , 1.07842494 , 0.01187048  ,0.42430482 , 0.
