@@ -303,7 +303,10 @@ def calcOAO(cell,mf):
   print("CELL: Tr(OAO_dens) - O 1 ",np.trace(oao_dmu[280:304,280:304]),np.trace(oao_dmd[280:304,280:304]))
   print("CELL: Tr(OAO_dens) - Sr 1",np.trace(oao_dmu[664:681,664:681]),np.trace(oao_dmd[664:681,664:681]))
   '''
-
+  
+  print("OAO, single Cu",np.trace(oao_dmu[:35,:35]),np.trace(oao_dmd[:35,:35]))
+  print(np.trace(oao_dmu),np.trace(oao_dmd))
+  
   return (oao_dmu,oao_dmd)
 
 #USE: plotting OAO occupations
@@ -396,8 +399,8 @@ def calcIAO(cell,mf,basis):
   dm_d = np.dot(mo_occ, mo_occ.T)
  
   ##DEBUG
-  print("IAO, single Cu:", np.trace(dm_u[:10,:10]),np.trace(dm_d[:10,:10]))
-  print(np.trace(dm_u),np.trace(dm_d))
+  print("IAO, single Cu:", np.trace(dm_u[:10,:10])+np.trace(dm_d[:10,:10]),np.trace(dm_u[:10,:10])-np.trace(dm_d[:10,:10]))
+  print(np.trace(dm_u)+np.trace(dm_d),np.trace(dm_u)-np.trace(dm_d))
   '''
   print("IAO, all Cu:",np.trace(dm_u[:72,:72]),np.trace(dm_d[:72,:72]))
   print("IAO, single O:",np.trace(dm_u[72:76,72:76]),np.trace(dm_d[72:76,72:76]))
@@ -482,14 +485,11 @@ def printIAO(cell,mf,basis,basename):
  
 ###########################################################################################
 #Run
-direc1="COL0"
+direc1="COL1"
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc1+"/GRED.DAT",kred=direc1+"/KRED.DAT",cryoutfn=direc1+"/dens.in.o")
-direc2="../../undoped/PBE0_8/FLP"
-cell0,mf0=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc2+"/GRED.DAT",kred=direc2+"/KRED.DAT",cryoutfn=direc2+"/prop.in.o")
 
-#OAOs 
-#oao_dmu,oao_dmd=calcOAO(cell,mf)
-#plotSubOAO(oao_dmu,oao_dmd,cell)
+direc2="../../undoped/PBE0_8/COL"
+cell0,mf0=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc2+"/GRED.DAT",kred=direc2+"/KRED.DAT",cryoutfn=direc2+"/prop.in.o")
 
 #IAOs
 iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis2)
@@ -497,10 +497,10 @@ iao_dmu0,iao_dmd0=calcIAO(cell0,mf0,minbasis2)
 
 #Differences in IAO occupations
 #plotIAO(iao_dmu0,iao_dmd0)
-plotIAO(iao_dmu-iao_dmu0,iao_dmd-iao_dmd0)
+#plotIAO(iao_dmu-iao_dmu0,iao_dmd-iao_dmd0)
 #plotIAO(iao_dmu0,iao_dmd0,sub=True)
 #plotIAO(iao_dmu-iao_dmu0,iao_dmd-iao_dmd0,sub=True)
 
 #Plot IAOs 
-#printIAO(cell,mf,minbasis2,direc1+"/iao/"+direc1)
-#printIAO(cell0,mf0,minbasis2,direc1+"/iao/"+direc2[21:])
+printIAO(cell,mf,minbasis2,direc1+"/iao/"+direc1)
+printIAO(cell0,mf0,minbasis2,direc1+"/iao/"+direc2[21:])
