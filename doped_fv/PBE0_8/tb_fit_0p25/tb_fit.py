@@ -632,7 +632,7 @@ print(r23j(t,tt,K,J,b))
 
 ################################################################################3
 #FOUR STATE ENERGY RUN
-
+'''
 constraints=({'type':'eq','fun':lambda p: p[3]-0.18})
 res=scipy.optimize.minimize(lambda p: cost4j(p[0],p[1],p[2],p[3],p[4]),(2.0,1.0,-0.5,0.18,0.0),constraints=constraints)
 #res=scipy.optimize.minimize(lambda p: cost4j(p[0],p[1],p[2],p[3],p[4]),(2.0,1.0,0.01,0.40,0.0))
@@ -641,6 +641,7 @@ print(res.x)
 print(r24j(t,tt,K,J,b))
 plot4j(t,tt,K,J,b)
 plt.show()
+'''
 
 #BEST ENERGY, NO PRIOR; R2=1.0
 #t,tt,K,J,b=[ 1.99316482,  1.10664349 ,-0.15530005 , 0.34752776  ,0.        ]
@@ -961,8 +962,8 @@ pareto5=np.array(pareto5)
 
 
 plt.plot(pareto4[:,0],pareto4[:,1],'go')
-plt.plot(pareto5[:,0],pareto5[:,1],'ro')
-plt.plot(0.636712023352, 0.993108294582,'bs')
+#plt.plot(pareto5[:,0],pareto5[:,1],'ro')
+#plt.plot(0.636712023352, 0.993108294582,'bs')
 plt.plot(0.939456821809, 0.915352293528,'bs')
 plt.title("4-state Pareto")
 plt.xlabel("R^2 band")
