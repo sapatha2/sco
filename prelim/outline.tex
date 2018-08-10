@@ -2,10 +2,13 @@
 \title{Prelim Outline}
 \author{Shivesh Pathak}
 \usepackage[margin=1.0in]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
 \begin{document}
 
 \section{Introduction and methods}
 \textit{The goal of the introduction is to show the reader that the project is valuable. Should be x pages, other 5-x page will be methods.}
+
 \paragraph{Overall goal}
 We want to understand the low energy behavior of the cuprate superconductors.
 \\
@@ -35,6 +38,20 @@ The density matrix downfolding method allows us to downfold a first-principles H
 We will use fixed node diffusion Monte Carlo (FN-DMC) to generate wave functions in our chosen low-energy subspace and to accurately calculate \textit{ab-initio} energies and reduced density matrices.
 \\
 \textit{This paragraph should outline how we will use FN-DMC (with DFT) to generate the low energy states, their energies, and their RDMs}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Figures/I1-phase_diagram.pdf}
+\caption{\label{fig1} Phase diagram of Sr$_{1-x}$La$_x$CuO$_2$ for various electron doping \textit{x} and temperature \textit{T}. Figure taken from [ref].}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{Figures/I2-DMD_diagram.pdf}
+\caption{\label{fig2} Schematic drawing of the the density matrix downfolding method, describing how the wave function samples, total energies, and descriptor values are mapped onto a linear regression problem.}
+\end{figure}
+
+
 \pagebreak
 
 \section{Preliminary results and discussion}
@@ -67,6 +84,24 @@ We will use fixed node diffusion Monte Carlo (FN-DMC) to generate wave functions
 \paragraph{SCO DMD: Basis elements} Our first step into DMD with FN-DMC was the generation of appropriate basis elements for our effective model Hamiltonian which we handled, for all three dopings, using intrinsic atomic orbitals.
 \\
 \textit{This paragraph should talk about the IAO analysis that we have.}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Figures/R1-mean_field.pdf}
+\caption{\label{fig3} Schematic diagram showing the method for mean-field approximation we used in our DFT model fitting calculations.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{Figures/R2-pareto.pdf}
+\caption{\label{fig4} Results of the \textit{ad hoc} fitting procedure just using the DFT eigenvalues and total energies for three different dopings.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{Figures/R3-iao_basis.pdf}
+\caption{\label{fig5} Relaxation of the IAOs for the spin majority and minority channel under doping for the eighth doped flip state. The majority spin IAO can be used as a basis for the fixed spin moments and the minority spin IAO for the itinerant electrons.}
+\end{figure}
 \pagebreak
 
 \section{Proposed work}
@@ -97,6 +132,19 @@ We will use fixed node diffusion Monte Carlo (FN-DMC) to generate wave functions
  \paragraph{SCO DMD: Reach goal} A longer term goal is to use the DMD method to generate a single low-energy model that can accurately describe the low-energy properties of both superconducting SCO and an isostructural non-super conducting nickelate.
  \\
  \textit{This should talk about the goal of showing that DMD is actually accurate in its predictions, and is an interesting scientific problem not just a calculation we did.}
+
+\begin{figure}[H]
+\centering
+%\includegraphics[width=0.9\textwidth]{Figures/R2-pareto.pdf}
+\caption{\label{fig6} Results for greedy algorithm procedure for choosing descriptors showing the decrease in $R^2$ as more descriptors are added for the FeSe molecule [ref].}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{Figures/P2-Ni_Cu.pdf}
+\caption{\label{fig7} The primitive unit cells of the isostructural materials LNCO [ref] and LSCO [ref], the prior which is not super conducting all the way to temperatures of 30mK [ref].}
+\end{figure}
+\pagebreak
 
 \section{Conclusion and Summary}
 \paragraph{SCO DMD} We propose that a DMD method using \textit{ab initio} QMC calculations can generate an effective model which can describe the low-energy properties of the electron doped cuprate SCO with a level of accuracy previously unattainable.
