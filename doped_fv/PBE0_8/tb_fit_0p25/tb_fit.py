@@ -209,7 +209,10 @@ def plot(t,tt,K,a,state):
   d0=np.array(d0)
   dpp=dp(t,tt,K,a,state)
   
-  plt.ylabel("E-Ef, eV")
+  plt.ylim([-1.5,1.5])
+  plt.yticks(np.arange(-1.0,2.0,1.0))
+  plt.xticks(np.arange(1.0,1.0,1.0))
+  plt.axhline(0,color='gray',linestyle='--')
   plt.plot(d0,'go')
   plt.plot(dpp,'b.')
 
@@ -334,9 +337,7 @@ def sigTB(t,tt,K,state):
           e.append(w[1][k])
 
   e=sorted(e)
-  plt.plot(e,'b.')
   e=e[:2*(N-1)**2]
-  plt.plot(e,'g.')
   return np.sum(e)/((N-1)**2)
 
 def cost3j(t,tt,K,J,b):
@@ -438,9 +439,11 @@ def plot4j(t,tt,K,J,b):
   E0-=E0[0]
   plt.plot(E0,E,'bo')
   plt.plot(E0,E0,'g')
-  plt.ylabel("E_pred, eV")
-  plt.xlabel("E_PBE0, eV")
-  plt.title("Total Energy fit")
+  plt.xticks(np.arange(0,0.4,0.1))
+  plt.yticks(np.arange(0,0.4,0.1))
+  plt.ylabel("Predicted, eV")
+  plt.xlabel("DFT, eV")
+  plt.title("Total Energy")
 
 def cost5j(t,tt,K,J,b):
   #print(t,tt,K,J)
@@ -746,15 +749,23 @@ res=scipy.optimize.minimize(lambda p: cost4_both(p[0],p[1],p[2],p[3],p[4],p[5],p
 t,tt,K,J,a1,a2,a3,a4,b=res.x
 print(res.x)
 '''
-'''
-#t,tt,K,J,a1,a2,a3,a4,b=[1.49904204 , 0.89523692 ,-0.24776747 , 0.18      ,  2.08147531 , 1.79489747, 1.07267895 , 1.80422129 , 0.]
 t,tt,K,J,a1,a2,a3,a4,b=[1.03536369,  0.53250351 ,-0.15009942,  0.18  ,      1.42954778,  1.18583609, 0.67371943,  1.19444543,  0.]
-print(r24(t,tt,K,a1,a2,a3,a4),r24j(t,tt,K,J,b))
-plot4(t,tt,K,a1,a2,a3,a4)
+plt.subplot(232)
+plt.title("COL")
+plot(t,tt,K,a1,"COL0")
+plt.subplot(233)
+plt.title("FLP-2")
+plot(t,tt,K,a2,"FLP2")
+plt.subplot(235)
+plt.title("FLP0")
+plot(t,tt,K,a3,"FLP0")
 plt.subplot(236)
+plt.title("BCOL2")
+plot(t,tt,K,a4,"BCOL2")
+plt.suptitle("x=0.25 DFT fitting results")
+plt.subplot(234)
 plot4j(t,tt,K,J,b)
-plt.show()
-'''
+
 #####################################################
 #WITH COL0, NOT BLK0
 
@@ -959,11 +970,8 @@ pareto5=[[0.937647475972, 0.853052618739],
 [-1.15048402719, 0.997816223066]]
 pareto5=np.array(pareto5)
 
-
-
+plt.subplot(231)
 plt.plot(pareto4[:,0],pareto4[:,1],'go')
-#plt.plot(pareto5[:,0],pareto5[:,1],'ro')
-#plt.plot(0.636712023352, 0.993108294582,'bs')
 plt.plot(0.939456821809, 0.915352293528,'bs')
 plt.title("4-state Pareto")
 plt.xlabel("R^2 band")

@@ -193,9 +193,13 @@ def plot(t,tt,K,a,state):
   d0=np.array(d0)
   dpp=dp(t,tt,K,a,state)
   
-  plt.ylabel("E-Ef, eV")
+  #plt.ylabel("E-Ef, eV")
   plt.plot(d0,'go')
   plt.plot(dpp,'b.')
+  plt.ylim([-1.0,1.5])
+  plt.yticks(np.arange(-1.0,2.0,1.0))
+  plt.xticks(np.arange(1.0,1.0,1.0))
+  plt.axhline(0,color='gray',linestyle='--')
 
 def cost3(t,tt,K,a1,a2,a3,lim):
   ret=0
@@ -417,9 +421,11 @@ def plot4j(t,tt,K,J,b,m):
   E0-=E0[0]
   plt.plot(E0,E,'bo')
   plt.plot(E0,E0,'g')
-  plt.ylabel("E_pred, eV")
-  plt.xlabel("E_PBE0, eV")
-  plt.title("Total Energy fit")
+  plt.xticks(np.arange(0,0.3,0.1))
+  plt.yticks(np.arange(0,0.3,0.1))
+  plt.ylabel("Predicted, eV")
+  plt.xlabel("DFT, eV")
+  plt.title("Total Energy")
 
 ################################################################################3
 #BOTH ENERGY AND BANDS: 3 STATES
@@ -649,17 +655,21 @@ print(r24(t,tt,K,a1,a2,a3,a4),r24j(t,tt,K,J,b,m))
 t,tt,K,J,a1,a2,a3,a4,b,m=[ 1.15170394,  0.39218111, -0.29262262 , 0.18  ,      1.69178952 , 0.95802699,
 1.89141888 , 1.71880588,  0.39999982 , 0.20994019]
 
-plt.subplot(231)
-plot4j(t,tt,K,J,b,m)
 plt.subplot(232)
+plt.title("FLP")
 plot(t,tt,K,a1,"flp1")
 plt.subplot(233)
+plt.title("CHK")
 plot(t,tt,K,a2,"chk1")
-plt.subplot(234)
-plot(t,tt,K,a3,"achn3")
 plt.subplot(235)
+plt.title("ACHN")
+plot(t,tt,K,a3,"achn3")
+plt.subplot(236)
+plt.title("COL")
 plot(t,tt,K,a4,"col1")
-plt.show()
+plt.suptitle("x=0.125 DFT fitting results")
+plt.subplot(234)
+plot4j(t,tt,K,J,b,m)
 
 #BOTH, we=10, lim=0.50, prior 
 #[ 1.11945322  0.39492157 -0.16104265  0.18        1.642794    0.82084797
@@ -730,7 +740,6 @@ pareto4=[[0.447928418641, 0.998051886998],
 pareto4=np.array(pareto4)
 '''
 
-'''
 pareto4=[[0.9651141083919738, 0.7073169242324674],
 [0.960032630350126, 0.8279230597675337],
 [0.9596918440983537, 0.9455725282367278],
@@ -742,14 +751,12 @@ pareto4=[[0.9651141083919738, 0.7073169242324674],
 [0.9244160040480747, 0.9999920291329627],
 [0.9224591843859415, 0.9999999073662887],
 [0.8403975404237436, 0.9999988729753257]]
-
-
 pareto4=np.array(pareto4)
 
+plt.subplot(231)
 plt.plot(pareto4[:,0],pareto4[:,1],'go')
 plt.plot(0.9576849284811734, 0.980739250289097,'bs')
 plt.title("4-state Pareto")
 plt.xlabel("R^2 band")
 plt.ylabel("R^2 energy")
 plt.show()
-'''
