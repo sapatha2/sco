@@ -5,16 +5,17 @@
 \usepackage{amsfonts}
 \begin{document}
 \section{Introduction} 
-%Paragraph 1
-%A major challenge in theoretical physics is the development of an accurate effective low-energy theory for the cuprate superconductors. The cuprate materials all share a common feature of repeating charge reservoir layers and CuO$_2$ planes within the conventional unit cell, with the reservoir layers providing hole or electron carriers to the CuO$_2$ planes under doping. The parent material to the cuprates are charge-transfer insulators with anti-ferromagnetic (AFM) order [ref]. The common phases shared by all cuprate materials are the AFM, pseudogap, strange metallic, normal metallic, and superconducting phases, with each phase deviating from the simple behavior we expect from  The pseudogap phase exists in the underdoped region with T$>$T$_c$ but still maintains a gap [ref]. The strange metal phase appears in the optimally doped region above T$_c$ and is a metallic phase, but has linear resistivity as opposed to the quadratic resisitivity expected from a Fermi-Landau liquid theory [ref]. The normal metal phase has Fermi-Landau like single-particle charge excitations (quasiparticle excitations), but does not have the predicted bosonic charge excitations (plasmons) [ref]. The superconducting phase has d$_{x^2-y^2}$ pairing and lives under a superconducting dome with the transition temperature T$_c$ varying with doping. 
-%
+Understanding the low energy behavior of the cuprate superconductors has been an open question in theoretical condensed matter physics for over thirty years. The cuprate materials all share a similar structure of repeating layers of square lattice CuO$_2$ planes and charge reservoir blocks, of which carriers on the prior exhibit the most interesting collective behavior. At zero doping the cuprates are antiferromagnetic charge-transfer insulators [ref]. The theoretical challenge arises away from zero doping where the poorly understood superconducting, pseudo-gap, strange metal and "normal" metal phases appear [ref]. \ref{fig1} shows the phase diagram of a hole- and electron-doped cuprate materials with different structures. The superconducting phase is d-wave in character and cannot be described by phonon-induced pairings [ref]. In the pseudo-gap phase the d-wave gap from the superconducting state continues to exist, however the material is now metallic in character [ref] \textbf{check this!}. The strange metal phase is metallic but has a "strange" T-linear resistivity unlike typical metals which have quadratic-T resistivity at low temperatures [ref]. The "normal" metallic phase exhibits the same single particle behavior expected of a Fermi-Landau-like metal, but the plasmon excitations are very different exhibiting self-similiarity in dispersion unlike the well defined plasmonic modes of the Fermi liquid [ref].
 
-%Paragraph 2
-%The difficulty can be attributed in large part to the host of structural, magnetic and charge orders that exist as doping, temperature and pressure are varied. The simplest orders that are shared among all cuprates are charge transfer anti-ferromagnetic, pseudogap, strange metallic, normal metallic, and superconducting phases which stabilize as doping and temperature are varied \textbf{[ref1]}. Alongside these common orders, particular cuprate families exhibit structural phase transitions\textbf{[ref2]}, static stripe-like order\textbf{[ref3, ref4, ref5]}, and charge density wave order \textbf{[ref6]}. 
-%
+The strong coupling between magnetic, charge, and lattice degrees of freedom in the cuprates makes writing down an accurate low energy effective theory very challenging. For example, in La$_{2-x}$Ba$_x$CuO$_4$ (LBCO) there is a structural phase transition as doping and temperature are varied between a high temperature tetragonal phase (HTT), a low-temperature orthorhombic phase (LTO) and a low temperature tetragonal phase (LTT), and the fraction of the bulk transformed material from LTO to LTT is correlated with the bulk superconducting temperature under various dopings [ref]. An independent study shows that in La$_{2-x}$Sr$_x$CuO$_{4-\delta}$ (LSCO) the superconducting phase transition for x $<$ 0.19 is accompanied by a structural phase transition from the HTT to LTO phase [ref]. Further, there is evidence for static stripe phase, where antiferromagnetic stripes of copper spins are separated by periodically spaced domain walls to which the holes segregate, in La$_{1.6-x}$Nd$_{0.4}$Sr$_x$CuO$_4$ at x=0.12 which is associated with an anomalous suppression in the superconducting temperature [two refs]. Elastic magnetic measurements on La$_2$CuO$_{4+y}$ show the superconducting phase is accompanied by a spin-density wave emergence indicating a strong correlation between the two phases [ref]. In the undoped phase of the cuprates the magnetic dispersion across the magnetic Brillouin zone strongly resembles that of spin-waves in a square Heisenberg antiferromagnet [ref], however within the superconducting phase the magnetic dispersion takes on an "hourglass" shape which has been reproduced in experiments for LSCO at x=0.10, 0.16 [ref, ref], LBCO at x=0.125 [ref], and YBa$_2$Cu$_3$O$_{6+x}$ at x=0.5, 0.6 [ref]. 
 
-%Paragraph 3
+Many theoretical approaches to generating a low energy model for the cuprates which can account for the strong correlations between magnetic, lattice and charge degrees of freedom have been attempted with varying degrees of success. For the undoped cuprates a nearest neighbor Heisenberg model can reproduce the magnetic dispersions measured in inelastic neutron scattering experiments accurate away from the magnetic Brillouin zone boundary, but fail to capture the small effects of anomalous dispersion near the boundary [ref]. 
+%All refs for this part will be from Scalapino article "models"
+The simplest model for the hole-doped cuprates was suggested by Anderson and is a 2D single-band Hubbard model which only includes bands of Cu d$_{x^2-y^2}$ character, which will be hybridized with the oxygen bands to some degree [ref]. This model is capable of producing the AFM phase at zero doping as in the strong coupling limit this model reduces to a nearest neighbor AFM Heisenberg model [ref]. The model even exhibits a pseudo-gap like phase in the underdoped region [ref]. Further, in the limit of $U/t \rightarrow 0$ the Hubbard model has a transition to a $d_{x^2-y^2}$ superconducting-like phase [ref]. It has not been shown numerically that the superconducting order parameter is non-zero as the pair spacing is taken to be very large, however [ref]. A similar model is the t-J model [ref, Elbio Dagatto] which is built on the idea that under doping there are itinerant holes which hop around the oxygen bands alongside the fixed S=1/2 moments on the copper sites which interact through a superexchange term with parameter J. The t-J model can be seen as an effective theory of the single band t-U model. This model exhibits superconductivity proper at J/t $\sim$ 3 with a density of $\langle n \rangle$ = 1/2 [ref], meaning that the pairing function does not vanish in the large spacing limit. While these models have fewer degrees of freedom and thus allow for quick numerical computations, it has been shown in accurate \textit{ab initio} Quantum Monte Carlo calculations that holes move to the oxygen bands under doping, indicating that an effective theory should include the oxygen bands explicitly not implicity inclusion via hybridization. This leads to a 2D 3-band Hubbard model which includes the Cu 3$d_{x^2-y^2}$ and O p bands [ref, Elbio Dagatto] and exhibits qualitatively similar behavior to the 1-band model. However, these approaches to generating a low-energy model have two inherent flaws. First, the model parameters are not specified with the model, meaning that seeing whether the model can accurately describe the cuprates involves mapping the entire parameter space. Second, there is no standard measure of effectiveness of the models under question: some cherry-picked qualitative and quantiative features of the model are compared to reality.
 
+We propose that a density matrix downfolding (DMD) approach using
+\textit{ab initio} quantum Monte Carlo calculations (QMC) can generate an effective model which can accurately describe low-energy properties and energetics for the infinite layer electron-doped cuprates at zero temperature and dopings of x=0, 0.125, 0.25. We choose to study the electron-doped cuprates because while they do not exhibit the exact same features as the hole-doped materials, they do have AFM,  superconducting, and "normal" metallic phases. Further, the electron-doped materials have fewer relevant degrees of freedom to worry, as electrons added to the x=0 CuO$_2$ plane can only fall into the unoccupied Cu 3d orbitals, allowing us to ignore the explicit inclusion of O p bands in our study. The choice of x=0, 0.125 and 0.25 at T=0 allows us to probe the most robust parts of the AFM, superconducting and metallic phases respectively, ignoring any thermal fluctuations or phase transitions like the LTO to LTT transition described earlier. The DMD downfolding approach allows us to map in a systematic way the \textit{ab initio} Hamiltonian to an effective model Hamiltonian, with specified model parameters and basis elements, in a way which ensures the model accurately reproduces the expectation value of the \textit{ab initio} Hamiltonian for states in a low-energy subspace of the full Hilbert space. In order to conduct the DMD procedure we require states in the low-energy subspace of the full \textit{ab initio} Hilbert space. These states will be sampled using fixed-node diffusion Monte Carlo, a QMC algorithm which can project out low-energy states starting with appropriate trial wave functions.
+ 
 The density matrix downfolding method (DMD) allows us to downfold a first-principles Hamiltonian into a low-energy effective theory by mapping the downfolding problem to a linear regression problem which uses ab-initio energies and reduced density matrices of wave functions sampled from a low-energy subspace of the full Hilbert space [ref]. 
 Consider a Hamiltonian H which acts on vectors in a Hilbert space $\mathcal{H}$ and a subset of the Hilbert space $\mathcal{LE}$ which is spanned by the lowest N energy eigenvectors of H. 
 We would like to write down an effective Hamiltonian operator which acts on vectors in $\mathcal{LE}$ such that  $$\forall |\Psi\rangle \in \mathcal{LE}, H_{eff}|\Psi \rangle = H|\Psi \rangle.$$ 
@@ -34,7 +35,7 @@ The next step is to assess whether the set of descriptors we chose and the set o
 For example, we might find that we have two states $\Psi_1, \Psi_2$ which have very similar descriptor values but very different energies (but both within the low-energy space), then it is clear that our descriptor set does not capture the variation of the energy within the space $\mathcal{LE}$ and a different descriptor must be included. 
 If instead we find that we have many low-energy states with very similar energies and descriptor sets then our sampling of the low-energy space may be incomplete as we are not capturing the full variation of the descriptors we are interested in. 
 In either case we may have to return to the low-energy state sampling or descriptor choosing step until we are satisfied. Once we have all of our low-energy states and important descriptors, we can simply conduct a linear regression to fit the coefficients of descriptors $f_i$, although other fitting approaches such as a LASSO fit can also be used [ref].
-\ref{fig1} shows the workflow of the DMD procedure. 
+\ref{fig2} shows the workflow of the DMD procedure. 
 We can increase the number of data points per wave function sample $\Psi_i$ by considering derivatives of the wave function and descriptors as well. 
 Insofar each wave function provides one data point for linear regression, however if we parameterize the wave function $\Psi_i(\vec{p})$ then we can generate N data points for the fitting where N is the number of parameters by simply taking a derivative of the left and right hand sides of equation (1) with respect to the parameters $p_i$. 
 Therefore including parameter derivatives in our fitting procedure can increase the efficiency N fold, decreasing the number of low-energy states that need to be sampled. 
@@ -64,8 +65,14 @@ Fixed-node error can be managed through \textbf{do this!}
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=0.6\textwidth]{Figures/I1-phase_diagram.pdf}
+\caption{\label{fig1} Phase diagram of Sr$_{1-x}$La$_x$CuO$_2$ for various electron doping \textit{x} and temperature \textit{T}. Figure taken from [ref]. \textbf{Add hole doped to this figure too.}}
+\end{figure}
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=0.9\textwidth]{Figures/I2-DMD_flow.png}
-\caption{\label{fig1} Schematic drawing of the workflow for the density matrix downfolding technique, taken from [ref].}
+\caption{\label{fig2} Schematic drawing of the workflow for the density matrix downfolding technique, taken from [ref].}
 \end{figure}
 
 \section{Preliminary results}
@@ -229,12 +236,25 @@ Having a single model which can describe the low-energy behavior of both of thes
 
 %\section{References}
 %\begin{enumerate}
-%\item https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.82.2421
+%\item https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.82.2421 (Figure?)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Introduction
+
+%Structural phase transitions
 %\item https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.62.2751
+%\item https://journals.aps.org/prb/pdf/10.1103/PhysRevB.35.7191
+
+%Stripes 
 %\item https://www.nature.com/articles/375561a0
 %\item https://journals.aps.org/prb/abstract/10.1103/PhysRevB.54.7489
 %\item https://journals.aps.org/prb/abstract/10.1103/PhysRevB.60.3643
-%\item https://www.nature.com/articles/nphys178
+
+%Magnons
+%INS - 10.1007-978-0-387-68734-6_6, Figure 6.3
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %\end{enumerate}
  
 \end{document}
