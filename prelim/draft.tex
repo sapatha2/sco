@@ -3,54 +3,52 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{amsfonts}
+
 \begin{document}
 \section{Introduction} 
 Understanding the low energy behavior of the cuprate superconductors has been an open question in theoretical condensed matter physics for over thirty years. 
 The cuprate materials all share a similar structure of repeating layers of square lattice CuO$_2$ planes and charge reservoir blocks, of which carriers on the prior exhibit the most interesting collective behavior. 
-At zero doping the cuprates are antiferromagnetic charge-transfer insulators [ref]. 
-The theoretical challenge arises away from zero doping where the poorly understood superconducting, pseudo-gap, strange metal and "normal" metal phases appear [ref]. 
+At zero doping the cuprates are antiferromagnetic charge-transfer insulators \cite{RevModPhys.78.17}. 
+The theoretical challenge arises away from zero doping where the poorly understood superconducting, pseudo-gap, strange metal phases appear \cite{RevModPhys.84.1383}. 
 \ref{fig1} shows the phase diagram of a hole- and electron-doped cuprate materials with different structures. 
-The superconducting phase is d-wave in character and cannot be described by phonon-induced pairings [ref]. 
-In the pseudo-gap phase the d-wave gap from the superconducting state continues to exist, however the material is now metallic in character [ref] \textbf{check this!}. 
-The strange metal phase is metallic but has a "strange" T-linear resistivity unlike typical metals which have quadratic-T resistivity at low temperatures [ref]. 
-The "normal" metallic phase exhibits the same single particle behavior expected of a Fermi-Landau-like metal, but the plasmon excitations are very different exhibiting self-similiarity in dispersion unlike the well defined plasmonic modes of the Fermi liquid [ref].
+The superconducting phase is d-wave in character and cannot be described by phonon-induced pairings \cite{PhysRevLett.71.2134,PhysRevLett.69.1431,PhysRevB.43.2778, PhysRevB.47.11314, PhysRevLett.70.1553, RevModPhys.67.515, RevModPhys.77.109, RevModPhys.79.353, RevModPhys.75.473}. 
+In the pseudo-gap phase the d-wave gap from the superconducting state continues to partially exist, so that parts of the Fermi surface are gapped above the superconducting transition temperature \cite{ROSSATMIGNOD199186, RevModPhys.77.721, PhysRevLett.75.4114, PhysRevB.61.9752}.
+The strange metal phase in the hole doped cuprates is metallic but has a "strange" resistivity which does not depend quadratically on temperature like normal Fermi liquids \cite{PhysRevLett.69.2975}, but does have T-quadratic resitivity for the electron-doped materials \cite{1989PhyC..161..415T}. 
 
 The strong coupling between magnetic, charge, and lattice degrees of freedom in the cuprates makes writing down an accurate low energy effective theory very challenging. 
-For example, in La$_{2-x}$Ba$_x$CuO$_4$ (LBCO) there is a structural phase transition as doping and temperature are varied between a high temperature tetragonal phase (HTT), a low-temperature orthorhombic phase (LTO) and a low temperature tetragonal phase (LTT), and the fraction of the bulk transformed material from LTO to LTT is correlated with the bulk superconducting temperature under various dopings [ref]. 
-An independent study shows that in La$_{2-x}$Sr$_x$CuO$_{4-\delta}$ (LSCO) the superconducting phase transition for x $<$ 0.19 is accompanied by a structural phase transition from the HTT to LTO phase [ref]. 
-Further, there is evidence for static stripe phase, where antiferromagnetic stripes of copper spins are separated by periodically spaced domain walls to which the holes segregate, in La$_{1.6-x}$Nd$_{0.4}$Sr$_x$CuO$_4$ at x=0.12 which is associated with an anomalous suppression in the superconducting temperature [two refs]. 
-Elastic magnetic measurements on La$_2$CuO$_{4+y}$ show the superconducting phase is accompanied by a spin-density wave emergence indicating a strong correlation between the two phases [ref]. 
-In the undoped phase of the cuprates the magnetic dispersion across the magnetic Brillouin zone strongly resembles that of spin-waves in a square Heisenberg antiferromagnet [ref], however within the superconducting phase the magnetic dispersion takes on an "hourglass" shape which has been reproduced in experiments for LSCO at x=0.10, 0.16 [ref, ref], LBCO at x=0.125 [ref], and YBa$_2$Cu$_3$O$_{6+x}$ at x=0.5, 0.6 [ref]. 
+For example, in La$_{2-x}$Ba$_x$CuO$_4$ (LBCO) there is a structural phase transition as doping and temperature are varied between a high temperature tetragonal phase (HTT), a low-temperature orthorhombic phase (LTO) and a low temperature tetragonal phase (LTT), and the fraction of the bulk transformed material from LTO to LTT is correlated with the bulk superconducting temperature under various dopings \cite{PhysRevLett.62.2751}. 
+An independent study shows that in La$_{2-x}$Sr$_x$CuO$_{4-\delta}$ (LSCO) the superconducting phase transition for x $<$ 0.19 is accompanied by a structural phase transition from the HTT to LTO phase \cite{PhysRevB.35.7191}. 
+Further, there is evidence for static stripe phase, where antiferromagnetic stripes of copper spins are separated by periodically spaced domain walls to which the holes segregate, in La$_{1.6-x}$Nd$_{0.4}$Sr$_x$CuO$_4$ at x=0.12 which is associated with an anomalous suppression in the superconducting temperature \cite{Tranquada1995, PhysRevB.54.7489}. 
+Elastic magnetic measurements on La$_2$CuO$_{4+y}$ show the superconducting phase is accompanied by a spin-density wave emergence indicating a strong correlation between the two phases \cite{PhysRevB.60.3643}. 
+In the undoped phase of the cuprates the magnetic dispersion across the magnetic Brillouin zone strongly resembles that of spin-waves in a square Heisenberg antiferromagnet \cite{PhysRevLett.104.077002, PhysRevLett.102.167401, PhysRevLett.105.157006}, however within the superconducting phase the magnetic dispersion takes on an "hourglass" shape which has been reproduced in experiments for LSCO at x=0.10, 0.16 \cite{PhysRevLett.93.147002}, LBCO at x=0.125 \cite{Tranquada2004}, and YBa$_2$Cu$_3$O$_{6+x}$ at x=0.5, 0.6 \cite{PhysRevB.71.024522, Hayden2004}. 
 
 Many theoretical approaches to generating a low energy model for the cuprates which can account for the strong correlations between magnetic, lattice and charge degrees of freedom have been attempted with varying degrees of success. 
-For the undoped cuprates a nearest neighbor Heisenberg model can reproduce the magnetic dispersions measured in inelastic neutron scattering experiments accurate away from the magnetic Brillouin zone boundary, but fail to capture the small effects of anomalous dispersion near the boundary [ref]. 
-%All refs for this part will be from Scalapino article "models"
-The simplest model for the hole-doped cuprates was suggested by Anderson and is a 2D single-band Hubbard model which only includes bands of Cu d$_{x^2-y^2}$ character, which will be hybridized with the oxygen bands to some degree [ref]. 
-This model is capable of producing the AFM phase at zero doping as in the strong coupling limit this model reduces to a nearest neighbor AFM Heisenberg model [ref]. 
-The model even exhibits a pseudo-gap like phase in the underdoped region [ref]. Further, in the limit of $U/t \rightarrow 0$ the Hubbard model has a transition to a $d_{x^2-y^2}$ superconducting-like phase [ref]. 
-It has not been shown numerically that the superconducting order parameter is non-zero as the pair spacing is taken to be very large, however [ref]. 
-A similar model is the t-J model [ref, Elbio Dagatto] which is built on the idea that under doping there are itinerant holes which hop around the oxygen bands alongside the fixed S=1/2 moments on the copper sites which interact through a superexchange term with parameter J. 
+For the undoped cuprates a nearest neighbor Heisenberg model can reproduce the magnetic dispersions measured in inelastic neutron scattering experiments accurate away from the magnetic Brillouin zone boundary, but fail to capture the small effects of anomalous dispersion near the boundary \cite{PhysRevB.79.155114, PhysRevLett.75.553}. 
+The simplest model for the hole-doped cuprates was suggested by Anderson and is a 2D single-band Hubbard model which only includes bands of Cu d$_{x^2-y^2}$ character, which will be hybridized with the oxygen bands to some degree. 
+In the strong coupling limit at half filling and T=0 this model reduces to a nearest neighbor Heisenberg model with long-range AFM order \cite{doi:10.1139/p78-120, PhysRevB.38.316}.
+The model even exhibits a pseudo-gap like phase in the underdoped region \cite{PhysRevLett.94.156404,PhysRevB.74.024508}. 
+Further, numerical studies on the Hubbard model show the existence of a $d_{x^2-y^2}$ superconducting-like phase \cite{PhysRevB.81.224505, PhysRevB.70.054504}. 
+A similar model is the t-J model  which is built on the idea that under doping there are itinerant holes which hop around the oxygen bands alongside the fixed S=1/2 moments on the copper sites which interact through a superexchange term with parameter J. 
 The t-J model can be seen as an effective theory of the single band t-U model. 
-This model exhibits superconductivity proper at J/t $\sim$ 3 with a density of $\langle n \rangle$ = 1/2 [ref], meaning that the pairing function does not vanish in the large spacing limit. 
+This model exhibits superconductivity at J/t $\sim$ 3 with a density of $\langle n \rangle$ = 1/2 \cite{PhysRevB.45.5744, PhysRevLett.70.682}.
 While these models have fewer degrees of freedom and thus allow for quick numerical computations, it has been shown in accurate \textit{ab initio} Quantum Monte Carlo calculations that holes move to the oxygen bands under doping, indicating that an effective theory should include the oxygen bands explicitly not implicity inclusion via hybridization. 
-This leads to a 2D 3-band Hubbard model which includes the Cu 3$d_{x^2-y^2}$ and O p bands [ref, Elbio Dagatto] and exhibits qualitatively similar behavior to the 1-band model. 
+This leads to a 2D 3-band Hubbard model which includes the Cu 3$d_{x^2-y^2}$ and O p bands \cite{PhysRevLett.58.2794, VARMA1987681} and exhibits qualitatively similar behavior to the 1-band model. 
 However, these approaches to generating a low-energy model have two inherent flaws. 
 First, the model parameters are not specified with the model, meaning that seeing whether the model can accurately describe the cuprates involves mapping the entire parameter space. 
 Second, there is no standard measure of effectiveness of the models under question: some cherry-picked qualitative and quantiative features of the model are compared to reality.
 
-We propose that a density matrix downfolding (DMD) approach using
-\textit{ab initio} quantum Monte Carlo calculations (QMC) can generate an effective model which can accurately describe low-energy properties and energetics for the infinite layer electron-doped cuprates at zero temperature and dopings of x=0, 0.125, 0.25. 
+We propose that a density matrix downfolding (DMD) \cite{10.3389/fphy.2018.00043, doi:10.1063/1.4927664} using \textit{ab initio} quantum Monte Carlo calculations (QMC) can generate an effective model which can accurately describe low-energy properties and energetics for the infinite layer electron-doped cuprates at zero temperature and dopings of x=0, 0.125, 0.25. 
 We choose to study the electron-doped cuprates because while they do not exhibit the exact same features as the hole-doped materials, they do have AFM,  superconducting, and "normal" metallic phases. 
 Further, the electron-doped materials have fewer relevant degrees of freedom to worry, as electrons added to the x=0 CuO$_2$ plane can only fall into the unoccupied Cu 3d orbitals, allowing us to ignore the explicit inclusion of O p bands in our study. 
 The choice of x=0, 0.125 and 0.25 at T=0 allows us to probe the most robust parts of the AFM, superconducting and metallic phases respectively, ignoring any thermal fluctuations or phase transitions like the LTO to LTT transition described earlier. 
 The DMD downfolding approach allows us to map in a systematic way the \textit{ab initio} Hamiltonian to an effective model Hamiltonian, with specified model parameters and basis elements, in a way which ensures the model accurately reproduces the expectation value of the \textit{ab initio} Hamiltonian for states in a low-energy subspace of the full Hilbert space. 
 In order to conduct the DMD procedure we require states in the low-energy subspace of the full \textit{ab initio} Hilbert space. 
-These states will be sampled using fixed-node diffusion Monte Carlo, a QMC algorithm which can project out low-energy states starting with appropriate trial wave functions.
+These states will be sampled using fixed-node diffusion Monte Carlo, a QMC algorithm which can project out low-energy states starting with appropriate trial wave functions \cite{RevModPhys.73.33}.
  
-The density matrix downfolding method (DMD) allows us to downfold a first-principles Hamiltonian into a low-energy effective theory by mapping the downfolding problem to a linear regression problem which uses ab-initio energies and reduced density matrices of wave functions sampled from a low-energy subspace of the full Hilbert space [ref]. 
+The density matrix downfolding method (DMD) allows us to downfold a first-principles Hamiltonian into a low-energy effective theory by mapping the downfolding problem to a linear regression problem which uses ab-initio energies and reduced density matrices of wave functions sampled from a low-energy subspace of the full Hilbert space \cite{10.3389/fphy.2018.00043}. 
 Consider a Hamiltonian H which acts on vectors in a Hilbert space $\mathcal{H}$ and a subset of the Hilbert space $\mathcal{LE}$ which is spanned by the lowest N energy eigenvectors of H. 
 We would like to write down an effective Hamiltonian operator which acts on vectors in $\mathcal{LE}$ such that  $$\forall |\Psi\rangle \in \mathcal{LE}, H_{eff}|\Psi \rangle = H|\Psi \rangle.$$ 
-It can be shown that this statement is equivalent to requiring that $$ E[\Psi] = E_{eff}[\Psi] + C \forall \Psi \in \mathcal{LE}$$ where we define the functional as $E[\Psi] = \frac{\langle \Psi | H | \Psi \rangle}{\langle \Psi | \Psi \rangle},E_{eff}[\Psi] = \frac{\langle \Psi | H_{eff} | \Psi \rangle}{\langle \Psi | \Psi \rangle}$ [ref]. 
+It can be shown that this statement is equivalent to requiring that $$ E[\Psi] = E_{eff}[\Psi] + C \forall \Psi \in \mathcal{LE}$$ where we define the functional as $E[\Psi] = \frac{\langle \Psi | H | \Psi \rangle}{\langle \Psi | \Psi \rangle},E_{eff}[\Psi] = \frac{\langle \Psi | H_{eff} | \Psi \rangle}{\langle \Psi | \Psi \rangle}$. 
 The obvious choice that would satisfy these constraints would simply be $H_{eff} = \sum_{i=1}^{N} E_i |\Psi_i\rangle \langle \Psi_i|$, but this would require us to be able to solve for the eigenstates and eigenvalues of the many-body Hamiltonian H, which we presumably cannot do. 
 Instead, we may expand the $E_{eff}$ in terms of descriptors $d_i[\Psi]$ which much be chosen, simplifying the expression to just 
 \begin{equation}
@@ -58,14 +56,13 @@ E_{eff} \sim \sum f_i d_i[\Psi].
 \end{equation}
 Now the task of generating an $E_{eff}$ that can satisfy the conditions outlined above can be cast into a statistical learning form.
 Generally we will begin the DMD procedure by generating low energy states $\Psi_i$ within the space $\mathcal{LE}$. 
-Generating these states is somewhat problem dependent and will be discussed later on for the specific case of SrCuO$_2$. 
 Additionally, we need to generate a set of descriptors $d_j$. 
 Typically these descriptors take the form of expectation values of 1- or 2-rdm elements, such as $\langle \Psi| c^\dagger_k c_k |\Psi \rangle$ but can generally be any functional of $\Psi$. 
 We can then use the sample states $\Psi_i$ to calculate the set of quantities $d_j[\Psi_i], E[\Psi_i]$. 
 The next step is to assess whether the set of descriptors we chose and the set of states sampled are complete or not. 
 For example, we might find that we have two states $\Psi_1, \Psi_2$ which have very similar descriptor values but very different energies (but both within the low-energy space), then it is clear that our descriptor set does not capture the variation of the energy within the space $\mathcal{LE}$ and a different descriptor must be included. 
 If instead we find that we have many low-energy states with very similar energies and descriptor sets then our sampling of the low-energy space may be incomplete as we are not capturing the full variation of the descriptors we are interested in. 
-In either case we may have to return to the low-energy state sampling or descriptor choosing step until we are satisfied. Once we have all of our low-energy states and important descriptors, we can simply conduct a linear regression to fit the coefficients of descriptors $f_i$, although other fitting approaches such as a LASSO fit can also be used [ref].
+In either case we may have to return to the low-energy state sampling or descriptor choosing step until we are satisfied. Once we have all of our low-energy states and important descriptors, we can simply conduct a linear regression to fit the coefficients of descriptors $f_i$, although other fitting approaches such as a LASSO fit can also be used \cite{10.2307/2346178}.
 \ref{fig2} shows the workflow of the DMD procedure. 
 We can increase the number of data points per wave function sample $\Psi_i$ by considering derivatives of the wave function and descriptors as well. 
 Insofar each wave function provides one data point for linear regression, however if we parameterize the wave function $\Psi_i(\vec{p})$ then we can generate N data points for the fitting where N is the number of parameters by simply taking a derivative of the left and right hand sides of equation (1) with respect to the parameters $p_i$. 
@@ -94,25 +91,25 @@ This implementation when used on a Hamiltonian with fermions also leads to a fer
 We deal with this sign problem through a fixed-node approximation, where the nodal surface of the projected wave function is forced to match that of the initial trial wave function. 
 This approximation makes FN-DMC variational, and will only return the exact ground state of $H$ if the nodal surfaces of $|\psi\rangle$ and $|\phi_0\rangle$ are identical. 
 Therefore the FN-DMC calculation has two major systematic errors that have to be dealt with, the fixed-node error and the time-step error. 
-The time-step error is typically handled through a time-step extrapolation, where multiple FN-DMC calculations are conducted at sequentially smaller $\tau$ and the relevant expectation values are extrapolated to $\tau \rightarrow 0$ [ref]. 
-Fixed-node error can be reduced by using optimized many-body trial wave functions of the (multi-)Slater-Jastrow form seen in [ref Umrigar 2007].
+The time-step error is typically handled through a time-step extrapolation, where multiple FN-DMC calculations are conducted at sequentially smaller $\tau$ and the relevant expectation values are extrapolated to $\tau \rightarrow 0$ \cite{Needs2010}. 
+Fixed-node error can be reduced by using optimized many-body trial wave functions of the (multi-)Slater-Jastrow form seen in \cite{PhysRevLett.98.110201}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{Figures/I1-phase_diagram.pdf}
-\caption{\label{fig1} Phase diagram of Sr$_{1-x}$La$_x$CuO$_2$ for various electron doping \textit{x} and temperature \textit{T}. Figure taken from [ref]. \textbf{Add hole doped to this figure too.}}
+\includegraphics[width=0.6\textwidth]{Figures/I1-phase_diagram.png}
+\caption{\label{fig1} Phase diagrams of the hole-doped cuprate LSCO and electron-doped cuprate family R$_{2-x}$Ce$_{x}$CuO$_4$\textit{x} and temperature \textit{T}. Figure taken from \cite{Armitage2010}. }
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{Figures/I2-DMD_flow.png}
-\caption{\label{fig2} Schematic drawing of the workflow for the density matrix downfolding technique, taken from [ref].}
+\caption{\label{fig2} Schematic drawing of the workflow for the density matrix downfolding technique, taken from \cite{10.3389/fphy.2018.00043}.}
 \end{figure}
 
 \section{Preliminary results}
-In order to become acquainted with our code QWalk [ref QWalk] and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC [ref my paper]. 
+In order to become acquainted with our code QWalk \cite{WAGNER20093390} and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{Pathak2018}.
 We assessed the efficiency and compactness of this new trial function by calculating the ground state energy and single particle densities of a C$_2$ molecule using FN-DMC and comparing to the results when using multi-Slater-Jastrow trial functions with optimized orthogonal determinant trial functions (MSJ+O). 
-The workflow involved constructing the un-optimized trial wave functions, optimizing the parameters using an energy optimization method [ref], and finally using the optimized trial functions in an FN-DMC calculation. 
+The workflow involved constructing the un-optimized trial wave functions, optimizing the parameters using an energy optimization method \cite{Toulouse2007}, and finally using the optimized trial functions in an FN-DMC calculation. 
 We found that the FN-DMC energy calculated using an MSJ+NO trial function with only 24 determinants was lower than the FN-DMC energy using an MSJ+O trial function with 55 determinants. 
 Further, the FN-DMC charge density calculated using MSJ+NO trial functions had stronger bonding character than when using MSJ+O trial functions, a reasonable result as introducing correlations into trial functions allows for electrons to avoid each other while still occupying the same bonding region. 
 Our results indicated that using non-orthogonal determinants may lead to more compact multi-Slater-Jastrow trial wave functions for small molecules.
@@ -135,13 +132,13 @@ The Pareto optimal pair then gives us the optimal parameters $\vec{p}^\star$.
 Note that the resulting fitted effective model will not accurately reproduce the low-energy features of the \textit{ab initio} Hamiltonian H, but rather will reproduce the low-energy features of the effective Kohn-Sham theory used in our DFT calculation.
 
 We conducted this \textit{ad hoc} fitting procedure for SrCuO$_2$ under three different dopings x=0, 0.125, and 0.25 using the PBE0 functional in DFT on a 2$\sqrt{2}$x2$\sqrt{2}$x1 unit cell. 
-The PBE0 functional has been used within QMC in the past to yield accurate results for low-energy properties and energies on the hole-doped cuprates [ref]. 
+The PBE0 functional has been used within QMC in the past to yield accurate results for low-energy properties and energies on the hole-doped cuprates \cite{Wagner2015,Narayan2017,Wagner2014}. 
 The eight unit cell calculation was chosen since it is small enough to be computationally feasible even when moving to QMC, but large enough that the finite size effects are not too large. 
 For the undoped calculations, the PBE0 ground state was a checkerboard AFM state, and the six low-energy states we considered were states with spins flipped relative to this ground state. 
 This choice was made since the lowest energy excitations of the undoped cuprates are spin excitations as they are charge-transfer insulators. 
 For the x=0.125 calculations, the PBE0 ground state was a flip state, and the four low-energy states we considered were states with total energy less than 0.25 eV above this ground state. 
 One excited state in this energy range was discarded because it was insulating in character while the other four were metallic. 
-This may have occured since PBE0 has been shown to incorrectly order states energetically for strongly correlated systems [ref]. 
+This may have occured since PBE0 has been shown to incorrectly order states energetically for strongly correlated systems.
 For the x=0.25 calculations, the PBE0 ground state was a collinear state, and the four low-energy states we chose were states with total energy less than 0.30 eV above this ground state. 
 Again one state in this range was insulating, while the other four were metallic, and this state was discarded from the fitting procedure. 
 The model we chose to fit has four terms: 
@@ -151,7 +148,7 @@ H_m = -t \sum_{\langle i,j \rangle} c_i^\dagger c_j + h.c.
 K\sum_{\langle i,j \rangle} \vec{S_i} \cdot c_{j,\alpha}^\dagger \vec{\sigma}_{\alpha,\beta} c_{i,\beta} + J \sum_{\langle i,j \rangle} \vec{S_i} \cdot \vec{S_j}.
 \end{equation}
 The operators $\vec{S_i}$ represent the spin moment on the copper sites and $c_i^\dagger$ the itinerant electrons hopping around copper sites. 
-The last term is a Heisenberg exchange which we included since the undoped material can be modeled fairly accurately with just a nearest neighbor Heisenberg model with J = 0.18 eV [ref]. 
+The last term is a Heisenberg exchange which we included since the undoped material can be modeled fairly accurately with just a nearest neighbor Heisenberg model with J = 0.18 eV \cite{Wagner2014}. 
 The first two terms are nearest neighbor and next-nearest neighbor hopping which are both required to capture the curvature of the PBE0 bands crossing the Fermi level for the x=0.125 and x=0.25 low-energy states. 
 The third term is a nearest neighbor Kondo term which we included since it can help stabilize a flip state over a checkerboard state, as seen in the x=0.125 PBE0 calculations. 
 In order to extract the band structure and total energy from this model we made a mean field approximation where we split the electrons into two groups: those which contribute to the fixed spin moments $\vec{S_i}$ on site and those which are itinerant $c_i^\dagger$. 
@@ -183,7 +180,7 @@ Using MOs in our model is not feasible because the interactions we are looking a
 If our interaction terms were more easily written in a momentum representation then MOs from PBE0 would be a useful basis to use. 
 We could start with atomic orbitals, AOs, which are the building blocks of the MOs in our PBE0 calculation, but AOs in general are not orthogonal to each other. 
 This complicates our model representation because we typically work with models where creation and annihilation operators generate orthogonal states. 
-Therefore, what we are looking for are orbitals that are maximally localized and still orthogonal to one another, and this is precisely what the IAO is [ref]. 
+Therefore, what we are looking for are orbitals that are maximally localized and still orthogonal to one another, and this is precisely what the IAO is \cite{doi:10.1021/ct400687b}. 
 In order to test whether the IAO basis is sufficient at spanning the space of excitations we are interested in, we looked at the 1-body reduced density matrix (1RDM) relative to the IAO basis for each x=0, 0.125 and 0.25 low-energy state chosen above. 
 We found that the total number of electrons in the system is accounted for up to three decimal places using just the trace of the 1RDM over the minimal IAO basis. 
 Further, we found that the primary variation between low energy states at a fixed doping was in occupation of the IAOs was of the 3$d_{x^2-y^2}$ IAO. 
@@ -222,71 +219,57 @@ The MSJ wave function form
 \Psi_{MSJ} = e^{J(\vec{\alpha})} \sum_I c_I |D_I{\{\phi\}}\rangle 
 \end{equation}
 has two core parts, the multi-determinant expansion with determinant coefficients $c_I$ and a 3-body Jastrow factor with some Jastrow coefficients $\alpha$. 
-These parameters will be optimized using an energy optimization method described by [ref]. 
+These parameters will be optimized using an energy optimization method described by \cite{Toulouse2007}. 
 The determinants will be composed of single particle orbitals from the eight unit cell DFT calculations we have already completed.	
 The multi-determinant expansion will be generated using a (complete) active space (C)AS expansion using the Cu 3d and 4s bands and the O 2p bands. 
 We believe that these bands include the relevant degrees of freedom to generate an accurate low-energy model. 
 The (C)AS expansion allows us to generate many low-energy states by simply varying the coefficients $\{c_I\}_{I>0}$ within some cutoff. 
 After generating these trial wave functions we can use FN-DMC to project out a low-energy state within the \textit{ab initio} Hilbert space, calculate the total FN-DMC energy, 1- and 2-body reduced density matrices using the IAO basis that we have already generated, as well as derivatives of the total energy and the density matrices with respect to the determinant coefficients $c_I$. 
-We will not consider derivatives with respect to the Jastrow coefficients because that derivative will take us outside of the low-energy space, as the Jastrow factor significantly reduces the total energy of a trial state [ref]. 
+We will not consider derivatives with respect to the Jastrow coefficients because that derivative will take us outside of the low-energy space, as the Jastrow factor significantly reduces the total energy of a trial state \cite{PhysRevLett.75.3870}.
 
 After the data generation phase above from which we have all the information required to do our fitting, relevant descriptors have to be chosen for our low-energy model. 
-The first tool in reducing the space of relevant descriptors is through symmetry considerations. [ref] provides a useful manual for the terms that any 1- and 2-body Hamiltonian can have given the symmetry of the bands that are under consideration. 
+The first tool in reducing the space of relevant descriptors is through symmetry considerations. Coury \textit{et al} \cite{Coury2016} provides a useful manual for the terms that any 1- and 2-body Hamiltonian can have given the symmetry of the bands that are under consideration. 
 From here we arrive at a basic statistics problem of generating a linear model given a potential set of descriptors. 
 A very basic approach to solving this problem is through a greedy selection algorithm. 
 This selection algorithm iteratively includes more and more descriptors to our model Hamiltonian, at each step including a term which would reduce the $R^2$ value between the \textit{ab initio} energies of our low-energy states and the model energies $\langle H_m \rangle$. 
 This method does not span the space of all possible models given the symmetry constraints above, but is an efficient choice given the very large space of model Hamiltonians that could be chosen. 
 The greedy selection algorithm can then take our data and generate a sequence of models with increasing complexity, provide the best values of the model parameters for each model, and also provide a measure of the fit through the $R^2$ value. 
 We can then manually choose a model which has a large $R^2$ with a relatively small model complexity. 
-This choice can also be made systematically by using an Akaike information criterion or Bayesian information criterion to measure the goodness of fit at each step of the greedy algorithm instead of a simple least-square measure of goodness. 
-These two criteria penalize a model not only for the least-square measure of goodness but also for model complexity [ref].
+This choice can also be made systematically by using an Akaike information criterion \cite{ref591} or Bayesian information criterion \cite{schwarz1978} to measure the goodness of fit at each step of the greedy algorithm instead of a simple least-square measure of goodness. 
+These two criteria penalize a model not only for the least-square measure of goodness but also for model complexity.
 
 Since our initial set of calculations will be on an eight unit cell calculation cell with periodic boundary conditions, it is important to account for possible finite size errors in our FN-DMC calculations. 
 If these finite size errors (FSEs) are not accounted for in FN-DMC then the model we generated may suffer from the same finite size effects as the QMC calculations. 
 Within QMC there are typically two approaches to dealing with finite size effects. 
 To deal with finite size effects affecting single particle properties a common choice is to use twist-averaging. 
-This means conducting the many-body FN-DMC calculation using various twisted boundary conditions and then averaging over the results of the single-particle expectation values [ref].
+This means conducting the many-body FN-DMC calculation using various twisted boundary conditions and then averaging over the results of the single-particle expectation values \cite{Lin2001, PhysRevB.78.125106}.
 This is equivalent to averaging over the many-body Brillouin zone. 
-To account for two-particle or higher order finite size effects, such as those affecting the Coulumb interaction term when calculating the total energy, a finite size extrapolation is required. 
+To account for two-particle or higher order finite size effects, such as those affecting the Coulomb interaction term when calculating the total energy, a finite size extrapolation is required. 
 This involves conducting the FN-DMC calculations for a sequence of increasing calculation cell size, and then extrapolating the results of expectation values to the infinite cell size. 
-The extrapolation scales linearly with the cell volume [ref].
+The extrapolation scales linearly with the cell volume \cite{PhysRevB.78.125106}.
 
 Further, we will use the DMD procedure to attempt to describe the differences between the isostructural nickelate and cuprate materials. 
 Shown in \ref{fig6} are the conventional unit cells of the cuprate La$_2$CuO$_4$ and the nickelate La$_2$NiO$_4$, which are identical except that the copper atom within the cell is replaced by a nickel atom. 
-While isostructural, the nickelates have been shown to not superconduct even down to temperatures of mK [ref] under doping. 
+While isostructural, the nickelates have been shown to not superconduct even down to temperatures of mK \cite{PhysRevB.43.1229} under doping. 
 In order to study this distinct difference in low-energy behavior, we will use the DMD procedure listed above in an identical fashion on the material SrNiO$_2$. 
 The relevant degrees of freedom are the same for both the nickelate and cuprate materials, meaning the active space used to generate low-energy states will be Cu 3d, 4s and O 2p for both cases. 
 If we consider a slightly higher energy cutoff for our low-energy theory, it may be possible that our DMD procedure generates an effective theory with identical descriptors but different model parameters. 
-The reasoning behind this argument stems from the fact that effective models like the Hubbard model can yield various low-energy effective theories when considered under certain parameter regimes [ref], meaning that two materials can, at the lowest energy scales, have drastically different low-energy theories while at a higher energy scales be described accurately by similar effective theories. 
+The reasoning behind this argument stems from the fact that effective models like the Hubbard model can yield various low-energy effective theories when considered under certain parameter regimes, meaning that two materials can, at the lowest energy scales, have drastically different low-energy theories while at a higher energy scales be described accurately by similar effective theories. 
 Having a single model which can describe the low-energy behavior of both of these materials would provide a big step forwards to understanding the emergence of superconductivity in the cuprates and the lack thereof in the nickelates. 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{Figures/P2-Ni_Cu.pdf}
-\caption{\label{fig6} The primitive unit cells of the isostructural materials LNCO [ref] and LSCO [ref], the prior which is not super conducting all the way to temperatures of 30mK [ref].}
+\caption{\label{fig6} The primitive unit cells of the isostructural materials LNCO \cite{PhysRevB.92.205114} and LSCO \cite{Scalapino2012}, the prior which is not super conducting all the way to temperatures of 30mK.}
 \end{figure}
 
 %\section{References}
 %\begin{enumerate}
 %\item https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.82.2421 (Figure?)
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Introduction
-
-%Structural phase transitions
-%\item https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.62.2751
-%\item https://journals.aps.org/prb/pdf/10.1103/PhysRevB.35.7191
-
-%Stripes 
-%\item https://www.nature.com/articles/375561a0
-%\item https://journals.aps.org/prb/abstract/10.1103/PhysRevB.54.7489
-%\item https://journals.aps.org/prb/abstract/10.1103/PhysRevB.60.3643
-
-%Magnons
-%INS - 10.1007-978-0-387-68734-6_6, Figure 6.3
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %\end{enumerate}
+ 
+\bibliographystyle{unsrt}
+\bibliography{biblio} 
  
 \end{document}
