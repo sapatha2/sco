@@ -66,21 +66,27 @@ Additionally, we need to generate a set of descriptors $d_j$.
 Typically these descriptors take the form of expectation values of 1- or 2-rdm elements, such as $\langle \Psi| c^\dagger_k c_k |\Psi \rangle$ but can generally be any functional of $\Psi$. 
 We can then use the sample states $\Psi_i$ to calculate the set of quantities $d_j[\Psi_i], E[\Psi_i]$. 
 The next step is to assess whether the set of descriptors we chose and the set of states sampled are complete or not. 
-For example, we might find that we have two states $\Psi_1, \Psi_2$ which have very similar descriptor values but very different energies (but both within the low-energy space), then it is clear that our descriptor set does not capture the variation of the energy within the space $\mathcal{LE}$ and a different descriptor must be included. 
+For example, we might find that we have two states $\Psi_1, \Psi_2$ which have very similar descriptor values but very different energies (within the low-energy space), then it is clear that our descriptor set does not capture the variation of the energy within the space $\mathcal{LE}$ and a different descriptor must be included. 
 If instead we find that we have many low-energy states with very similar energies and descriptor sets then our sampling of the low-energy space may be incomplete as we are not capturing the full variation of the descriptors we are interested in. 
-In either case we may have to return to the low-energy state sampling or descriptor choosing step until we are satisfied. Once we have all of our low-energy states and important descriptors, we can simply conduct a linear regression to fit the coefficients of descriptors $f_i$, although other fitting approaches such as a LASSO fit can also be used \cite{10.2307/2346178}.
-\ref{fig2} shows the workflow of the DMD procedure. 
-We can increase the number of data points per wave function sample $\Psi_i$ by considering derivatives of the wave function and descriptors as well. 
-Insofar each wave function provides one data point for linear regression, however if we parameterize the wave function $\Psi_i(\vec{p})$ then we can generate N data points for the fitting where N is the number of parameters by simply taking a derivative of the left and right hand sides of equation (1) with respect to the parameters $p_i$. 
-Therefore including parameter derivatives in our fitting procedure can increase the efficiency N fold, decreasing the number of low-energy states that need to be sampled. 
+In either case we may have to return to the low-energy state sampling or descriptor choosing step until we are satisfied. Once we have all of our low-energy states and important descriptors, we can simply conduct a linear regression to fit the optimal coefficients $f_j^*$ by minimizing a mean-square error (MSE) cost function:
+\begin{equation}
+f^{*} = argmin \Big[ \sum_{i=1}^{N} ( E[\Psi_i] - \sum_j f_j d_j[\Psi_i])^2  \Big],
+\end{equation}
+although other fitting approaches such as a LASSO fit can also be used \cite{10.2307/2346178}.
+The $R^2$ of the fit can be used to validate the fit if using the MSE cost function, whereas different measures of goodness-of-fit are appropriate for other cost functions.
+\ref{fig2} shows the workflow of the DMD procedure.
+Insofar each wave function provides one data point for linear regression, however if we parameterize the wave function $\Psi_i(\vec{p})$, where $\vec{p}$ are some parameters within the wave function that can be varied without moving out of $\mathcal{LE}$, then we can generate N$_p$+1 data points per wave function where N$_p$ is the number of parameters.
+This is accomplished by taking a derivative of the left and right hand sides of equation (1) with respect to the parameters $p_i$, and then minimizing a cost function like:
+\begin{equation}
+f^{*} = argmin \Bigg[ \sum_{i=1}^{N} \Big(\sum_{p=0}^{N_p} ( E^{(p)}[\Psi_i] - \sum_j f_j d_j^{(p)}[\Psi_i])^2 \Big) \Bigg],
+\end{equation}
+where $E^{(0)}[\Psi] = E[\Psi], d^{(0)}[\Psi]= d[\Psi], E^{(p)}[\Psi]=\frac{\partial E[\Psi]}{\partial p_p}, d^{(p)}[\Psi]=\frac{\partial d[\Psi]}{\partial p_p}, p\in [1,N_p].$
+Therefore including parameter derivatives in our fitting procedure can increase the efficiency N$_p$ fold, decreasing the number of low-energy states that need to be sampled. 
 For our situation the Hamiltonian H is the \textit{ab initio} Hamiltonian 
 \begin{equation}
 \hat{H_{ab}} = -\frac{1}{2} \sum_i \nabla_i^2 + \sum_{i<j} \frac{1}{r_{ij}} + \sum_{i\alpha} \frac{Z_\alpha}{r_{i\alpha}} + \sum_{\alpha<\beta} \frac{Z_{\alpha}Z_{\beta}}{r_{\alpha \beta}}
 \end{equation}
 where $i,j$ are electron indices, $\alpha$ is a nuclear index, with a clamped nucleus approximation and psuedo-potentials for core electrons.  
-The DMD method allows us to generate an effective model for materials in a systematic way starting from the \textit{ab-initio} Hamiltonian with very little guess work, ensuring that each step has a physically motivated validation step. 
-Also, the method comes with a built in measure of effectiveness of the low-energy model, namely the $R^2$ coefficient of determination between the \textit{ab initio} energies of low-energy states and the model energies.
-Finally, the DMD method not only generates a model, but also gives the best values for the model parameters and forms for basis elements in the model.
 
 \textbf{We will use fixed node diffusion Monte Carlo (FN-DMC) to generate
 wave functions in our chosen low-energy subspace and to accurately calculate ab-initio energies and reduced density matrices. }
@@ -99,6 +105,7 @@ This approximation makes FN-DMC variational, and will only return the exact grou
 Therefore the FN-DMC calculation has two major systematic errors that have to be dealt with, the fixed-node error and the time-step error. 
 The time-step error is typically handled through a time-step extrapolation, where multiple FN-DMC calculations are conducted at sequentially smaller $\tau$ and the relevant expectation values are extrapolated to $\tau \rightarrow 0$ \cite{Needs2010}. 
 Fixed-node error can be reduced by using optimized many-body trial wave functions of the (multi-)Slater-Jastrow form seen in \cite{PhysRevLett.98.110201}.
+\textbf{Need to add RDMs in DMC, mixed estimator error.}
 
 \begin{figure}[H]
 \centering
