@@ -105,7 +105,11 @@ This approximation makes FN-DMC variational, and will only return the exact grou
 Therefore the FN-DMC calculation has two major systematic errors that have to be dealt with, the fixed-node error and the time-step error. 
 The time-step error is typically handled through a time-step extrapolation, where multiple FN-DMC calculations are conducted at sequentially smaller $\tau$ and the relevant expectation values are extrapolated to $\tau \rightarrow 0$ \cite{Needs2010}. 
 Fixed-node error can be reduced by using optimized many-body trial wave functions of the (multi-)Slater-Jastrow form seen in \cite{PhysRevLett.98.110201}.
-\textbf{Need to add RDMs in DMC, mixed estimator error.}
+We can use the final FN-DMC state to calculate the expectation values of operators like the Hamiltonian or reduced density matrices.
+For an operator $\hat{O}$ we will use a mixed estimator to calculate the expectation value $\langle \Psi_{DMC} |\hat{O} | \Psi_T \rangle/\langle \Psi_{DMC} | \Psi_T \rangle$ where $\Psi_{DMC}$ is the projected FN-DMC state starting with the trial wave function $\Psi_T$, as this estimator allows us to use the importance sampled distribution $f = \Psi_{DMC}\Psi_T$ for our Monte Carlo estimates.
+For operators which do not commute with the Hamiltonian H the mixed estimator has an error which can be corrected to first order by subtracting twice the VMC estimate of the expectation value \cite{ceperley_kalos_1979}.
+Wagner provides the details for calculating reduced density matrix elements in QMC \cite{doi:10.1063/1.4793531}.
+
 
 \begin{figure}[H]
 \centering
