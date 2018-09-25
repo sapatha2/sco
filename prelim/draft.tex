@@ -43,7 +43,7 @@ Second, there is no standard measure of effectiveness of the models under questi
 Typically, just a few qualitative and quantitative features of the model are compared to reality as a form of validation.
 
 \textbf{We propose that a density matrix downfolding (DMD) \cite{10.3389/fphy.2018.00043, doi:10.1063/1.4927664} technique using \textit{ab initio} quantum Monte Carlo calculations (QMC) can systematically generate an effective model that accurately describes the low-energy properties of cuprate materials, which we will test on the electron-doped cuprate SrCuO$_2$ at T=0 and x=0, 0.125, 0.25. }
-We choose to study the electron-doped cuprates because while they do not exhibit the exact same features as the hole-doped materials, they do have AFM,  superconducting, and pseudo-gap phases.
+We choose to study the electron-doped cuprates because while they do not exhibit the exact same features as the hole-doped materials, they do have AFM,  superconducting, pseudo-gap, and metallic phases.
 Further, the electron-doped materials have fewer relevant degrees of freedom, as electrons added to the x=0 CuO$_2$ plane can only fall into the unoccupied Cu 3d orbitals, allowing us to ignore the explicit inclusion of O p bands in our study. 
 The choice of x=0, 0.125 and 0.25 at T=0 allows us to probe the most robust parts of the AFM, superconducting and metallic phases respectively, ignoring any thermal fluctuations or phase transitions like the LTO to LTT transition described earlier. 
 In order to reduce the computational cost we look at the infinite-layer materials which have unit cells with the fewest number of electrons within the cuprate family.
@@ -124,14 +124,14 @@ Wagner provides the details for calculating reduced density matrix elements in Q
 \end{figure}
 
 \section{Preliminary results}
-In order to become acquainted with our code QWalk \cite{WAGNER20093390} and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{Pathak2018}.
+\textbf{In order to become acquainted with our code QWalk \cite{WAGNER20093390} and QMC algorithms in general I worked on implementing and testing multi-Slater-Jastrow trial functions with optimized non-orthogonal determinants (MSJ+NO) in FN-DMC \cite{Pathak2018}.}
 We assessed the efficiency and compactness of this new trial function by calculating the ground state energy and single particle densities of a C$_2$ molecule using FN-DMC and comparing to the results when using multi-Slater-Jastrow trial functions with optimized orthogonal determinant trial functions (MSJ+O). 
 The workflow involved constructing the un-optimized trial wave functions, optimizing the parameters using an energy optimization method \cite{Toulouse2007}, and finally using the optimized trial functions in an FN-DMC calculation. 
 We found that the FN-DMC energy calculated using an MSJ+NO trial function with only 24 determinants was lower than the FN-DMC energy using an MSJ+O trial function with 55 determinants. 
 Further, the FN-DMC charge density calculated using MSJ+NO trial functions had stronger bonding character than when using MSJ+O trial functions, a reasonable result as introducing correlations into trial functions allows for electrons to avoid each other while still occupying the same bonding region. 
 Our results indicated that using non-orthogonal determinants may lead to more compact multi-Slater-Jastrow trial wave functions for small molecules.
 
-Before moving on to the computationally expensive DMD with FN-DMC calculations on SrCuO$_2$, we attempted an \textit{ad hoc} model fitting procedure using only eigenvalues and total energies from density functional theory (DFT) to get a grasp on the relevant energy scales, model terms, and values for model parameters. 
+\textbf{Before moving on to the computationally expensive DMD with FN-DMC calculations on SrCuO$_2$, we attempted an \textit{ad hoc} model fitting procedure using only eigenvalues and total energies from density functional theory (DFT) to get a grasp on the relevant energy scales, model terms, and values for model parameters. }
 A single DFT calculation provides us three pieces of information: a Slater determinant wave function with occupied single particle orbitals $|\Psi_{DFT}\rangle$, a single particle band structure which represents the DFT eigenvalues $\epsilon(\vec{k})_{DFT}$, and a total DFT energy $E_{DFT}$. 
 Suppose we have some low-energy effective model in mind with parameters $\vec{p}$, H$_m$($\vec{p}$).
 We can fit the parameters in the model using only information from the DFT calculation by constructing a cost function which depends on $\vec{p}$, and then minimizing the cost. 
@@ -139,19 +139,20 @@ The cost function we used was:
 \begin{equation}
 Cost(w_E, \vec{p}) = \sum_{i=1}^{n} [\sum_{\vec{k}}(\epsilon(\vec{k})_{DFT,i} - \epsilon(\vec{k})_{m,i})^2] + w_E[E_{DFT,i} - \langle \Psi_{DFT,i}|H_m(\vec{p})| \Psi_{DFT,i} \rangle]^2
 \end{equation}
-where the sum over $i$ is over a sample of low-energy DFT states. The first term is the cost function for a least squares fit of the single particle eigenvalues calculated using our model $\epsilon(\vec{k})_m$ and the DFT state $|\Psi_{DFT,i}\rangle$ to the DFT eigenvalues. 
-The second term is a cost function for a least squares fit of the total energy calculated using our model to the DFT total energy. 
-The term $w_E$ controls the importance of minimizing the total energy cost relative to the eigenvalue cost, and is a variable parameter. 
+where the sum over $i$ is over a sample of low-energy DFT states. 
+The first term is the mean squared error (MSE) evaluated on the single particle eigenvalues calculated using our model $\epsilon(\vec{k})_m$ with the DFT state $|\Psi_{DFT,i}\rangle$ and the DFT eigenvalues. 
+The second term is the MSE between the total energy calculated using our model and the DFT total energy. 
+The term is a variable parameter and $w_E$ controls the importance of minimizing the total energy cost relative to the eigenvalue cost.
 The accuracy of the fit was assessed by looking at the $R^2$ value between the total energies, $R^2_E$, and between the eigenvalues, $R^2_\epsilon$. 
 The fitting procedure then follows: choose a model Hamiltonian H$_m$, choose a sequence of $w_E$, minimize the cost function for each $w_E$ in the sequence and obtain a sequence of tuples $(\vec{p}, R^2_E, R^2_\epsilon)$. 
 Increasing $R^2_E$ to near 1.0 will lead to a decrease in $R^2_\epsilon$ and vice versa, so the optimal model parameters are chosen by conducting a Pareto efficiency analysis on the sequence of pairs $(R^2_E, R^2_\epsilon)$. 
 The Pareto optimal pair then gives us the optimal parameters $\vec{p}^\star$. 
 Note that the resulting fitted effective model will not accurately reproduce the low-energy features of the \textit{ab initio} Hamiltonian H, but rather will reproduce the low-energy features of the effective Kohn-Sham theory used in our DFT calculation.
 
-We conducted this \textit{ad hoc} fitting procedure for SrCuO$_2$ under three different dopings x=0, 0.125, and 0.25 using the PBE0 functional in DFT on a 2$\sqrt{2}$x2$\sqrt{2}$x1 unit cell. 
+\textbf{We conducted this \textit{ad hoc} fitting procedure for SrCuO$_2$ under three different dopings x=0, 0.125, and 0.25 using the PBE0 functional in DFT on a 2$\sqrt{2}$x2$\sqrt{2}$x1 unit cell. }
 The PBE0 functional has been used within QMC in the past to yield accurate results for low-energy properties and energies on the hole-doped cuprates \cite{Wagner2015,Narayan2017,Wagner2014}. 
-The eight unit cell calculation was chosen since it is small enough to be computationally feasible even when moving to QMC, but large enough that the finite size effects are not too large. 
-For the undoped calculations, the PBE0 ground state was a checkerboard AFM state, and the six low-energy states we considered were states with spins flipped relative to this ground state. 
+The eight unit cell calculation was chosen since it is small enough to be computationally feasible even when moving to QMC, but large enough to reduce finite size errors. 
+For the undoped calculations, the lowest energy PBE0 state was a checkerboard antiferromagnetic (AFM) state, and the six low-energy states we considered were states with spins flipped relative to the AFM state. 
 This choice was made since the lowest energy excitations of the undoped cuprates are spin excitations as they are charge-transfer insulators. 
 For the x=0.125 calculations, the PBE0 ground state was a flip state, and the four low-energy states we considered were states with total energy less than 0.25 eV above this ground state. 
 One excited state in this energy range was discarded because it was insulating in character while the other four were metallic. 
@@ -173,39 +174,39 @@ This choice was motivated by looking at the PBE0 band structures of the low-ener
 As shown in \ref{fig3} the band structure is split by a large gap on the order of 1 eV, in this case for the collinear x=0.25 state. 
 The bands above this gap cross the Fermi level, and can be thought of as bands which contribute only itinerant electrons. 
 The bands below this gap never cross the Fermi level, and can be thought of as bands which contribute only to the fixed spin moments on copper sites. 
-Therefore we can treat the quantities $\vec{S_i}$ as fixed variables, the values of which are dictated by the bands below the gap for a given PBE0 calculation. 
+Therefore, we can treat the quantities $\vec{S_i}$ as fixed variables, the values of which are dictated by the bands below the gap for a given PBE0 calculation. 
 In doing so, the Kondo term becomes a 1-body term and the Heinsenberg term becomes a constant value, leaving the model Hamiltonian as a 1-body Hamiltonian which we can exactly diagonalize to get the total energy and eigenvalues. 
 
-We find that the four term model above can accurately describe the PBE0 band structures and total energies of low-energy states of SrCuO$_2$ for x=0, 0.125, and 0.25. 
+\textbf{We find that the four term model above can accurately describe the PBE0 band structures and total energies of low-energy states of SrCuO$_2$ for x=0, 0.125, and 0.25 at T=0.}
 \ref{fig4} shows the results of our \textit{ad hoc} fitting procedure. For the undoped calculation no fitting to eigenvalues was necessary nor Pareto efficiency analysis since there were no itinerant electrons, leading to an optimal fit of $t=t^\prime=K=0 eV; J = 0.18 eV$. 
 For the doped calculations, we held J fixed at the undoped value. 
 This choice was made since doping with just one or two electrons in the unit cell means that most nearest neighbor copper atoms will not see the presence of the itinerant electron permanently, meaning that the local exchange interaction will not be too strongly affected.
 Computationally, holding the value of J fixed at some prior made the minimization of the cost function much more stable. 
 For the doped calculations, the first inset figure shows the Pareto plot with the sequence of $(R^2_E, R^2_\epsilon)$, and the Pareto optimal pair as a blue square. 
 The other five insets show the fits to the bands and total energies from DFT using our model with the Pareto optimal parameters. 
-For the x=0.125 calculation the optimal parameters were with $t,t^\prime,K,J$=1.15, 0.39, -0.29, 0.18 eV $R^2_E$=0.98 and $R^2_\epsilon$=0.96. 
+For the x=0.125 calculation the optimal parameters were $t,t^\prime,K,J$=1.15, 0.39, -0.29, 0.18 eV with $R^2_E$=0.98 and $R^2_\epsilon$=0.96. 
 For the x=0.25 calculation the optimal parameters were $t,t^\prime,K,J$=1.04, 0.53, -0.15, 0.18 eV with $R^2_E$=0.91 and $R^2_\epsilon$=0.94. 
 In both our model and PBE0, the bands which cross the Fermi level are antibonding Cu 3d$_{x^2-y^2}$ orbitals which have been relaxed via small contributions from nearest neighbor oxygen p orbitals. 
-In PBE0 the net spin moments comprised of the bands below the Fermi level also reside on the Cu 3d$_{x^2-y^2}$ orbital, indicating that unlike the hole-doped cuprates where oxygen and copper orbitals both play an important role in the effective theories, the electron-doped cuprates may be simpler since the major players is just the Cu 3d$_{x^2-y^2}$ orbital. 
-Therefore the fact that $t, t^\prime$ have the same sign makes sense as this is a feature arising from the symmetry of the 3d$_{x^2-y^2}$ orbital. 
+In PBE0 the net spin moments comprised of the bands below the Fermi level also reside on the Cu 3d$_{x^2-y^2}$ orbital, indicating that unlike the hole-doped cuprates where oxygen and copper orbitals both play an important role in the effective theories, the electron-doped cuprates may be simpler since the major players are just the Cu 3d$_{x^2-y^2}$ orbital. 
+The fact that $t, t^\prime$ have the same sign makes sense as this is a feature arising from the symmetry of the 3d$_{x^2-y^2}$ orbital. 
 The positive sign of $J$ indicates a preference of nearest neighbor spin moments to be anti-ferromagnetically aligned, whereas the negative sign of $K$ shows a preference for itinerant electrons to ferromagnetically align with nearby spin moments. 
-The opposite signs of J and K, and the fact that K is larger in magnitude than J when x=0.125 can lead to the stabilization of a flip state instead of a checkerboard one in PBE0. 
+The opposite signs of J and K, and the fact that K is larger in magnitude than J when x=0.125, can lead to the stabilization of a flip state instead of a checkerboard one in PBE0. 
 
-Our first step into DMD with FN-DMC was the generation of appropriate basis elements for our effective model Hamiltonian which we handled for all three dopings using intrinsic atomic orbitals. 
+\textbf{Our first step into DMD with FN-DMC was the generation of appropriate basis elements for our effective model Hamiltonian which we handled for all three dopings using intrinsic atomic orbitals. }
 The \textit{ad hoc} fitting procedure we conducted provided us with a starting point for generating low-energy states for the DMD calculation, the terms in our model Hamiltonian, and parameter values, but gave us no headway on understanding which basis elements to use.
-Using MOs in our model is not feasible because the interactions we are looking at are local and are nearest neighbor spatially. 
+Using molecular orbitals (MOs) in our model is not feasible because the interactions we are looking at are local and are nearest neighbor spatially. 
 If our interaction terms were more easily written in a momentum representation then MOs from PBE0 would be a useful basis to use. 
-We could start with atomic orbitals, AOs, which are the building blocks of the MOs in our PBE0 calculation, but AOs in general are not orthogonal to each other. 
+We could start with atomic orbitals (AOs) which are the building blocks of the MOs in our PBE0 calculation, but AOs in general are not orthogonal to each other. 
 This complicates our model representation because we typically work with models where creation and annihilation operators generate orthogonal states. 
-Therefore, what we are looking for are orbitals that are maximally localized and still orthogonal to one another, and this is precisely what the IAO is \cite{doi:10.1021/ct400687b}. 
+Therefore, what we are looking for are orbitals that are maximally localized and still orthogonal to one another, and this is precisely what the Intrinsic Atomic Orbital (IAO) is \cite{doi:10.1021/ct400687b}. 
 In order to test whether the IAO basis is sufficient at spanning the space of excitations we are interested in, we looked at the 1-body reduced density matrix (1RDM) relative to the IAO basis for each x=0, 0.125 and 0.25 low-energy state chosen above. 
 We found that the total number of electrons in the system is accounted for up to three decimal places using just the trace of the 1RDM over the minimal IAO basis. 
-Further, we found that the primary variation between low energy states at a fixed doping was in occupation of the IAOs was of the 3$d_{x^2-y^2}$ IAO. 
+Further, we found that the primary variation between low energy states at a fixed doping was in the occupation of the 3$d_{x^2-y^2}$ IAO. 
 For the undoped calculations the only variation in IAO occupation among the various states was the relative occupation of the spin-up or spin-down 3$d_{x^2-y^2}$ orbital on particular copper sites. 
 This makes sense as the only difference between the undoped low-energy states was the configuration of local spin moments. 
 Under doping, the primary variation in orbital occupation was found in the 3$d_{x^2-y^2}$ IAO which had the lower occupancy.
 This makes sense as the only place the added electron can go is in the 3$d_{x^2-y^2}$ orbital in the spin channel opposite to the local moment on the site. 
-\ref{fig5} shows the IAOs for the majority spin IAO, which has the higher occupation, and the minority spin IAO, which has the lower spin, for a low-energy state at x=0.125. 
+\ref{fig5} shows the IAOs for the majority and minority spin IAOs, for a low-energy PBE0 state at x=0.125. 
 It is clear that the majority spin IAO is more tightly localized on site whereas the minority spin IAO spreads across the unit cell with contributions from oxygen p-orbitals. 
 We therefore come to the conclusion that the majority spin IAOs should be used as a basis for the localized spin moments, $\vec{S_i}$, and the minority spin IAOs should be used as a basis for the itinerant electrons, $c_i^\dagger$. 
 
@@ -229,7 +230,7 @@ We therefore come to the conclusion that the majority spin IAOs should be used a
 \pagebreak
 
 \section{Proposed work}
-In order to generate an effective low-energy model using the DMD technique we need to generate low-energy wave functions within the full \textit{ab initio} Hilbert space. 
+\textbf{In order to generate an effective low-energy model using the DMD technique we need to generate low-energy wave functions within the full \textit{ab initio} Hilbert space.} 
 We will be using optimized multi-Slater-Jastrow (MSJ) as trial wave functions in FN-DMC to generate the low-energy states we are interested in. 
 The MSJ wave function form 
 \begin{equation}
@@ -244,7 +245,7 @@ The (C)AS expansion allows us to generate many low-energy states by simply varyi
 After generating these trial wave functions we can use FN-DMC to project out a low-energy state within the \textit{ab initio} Hilbert space, calculate the total FN-DMC energy, 1- and 2-body reduced density matrices using the IAO basis that we have already generated, as well as derivatives of the total energy and the density matrices with respect to the determinant coefficients $c_I$. 
 We will not consider derivatives with respect to the Jastrow coefficients because that derivative will take us outside of the low-energy space, as the Jastrow factor significantly reduces the total energy of a trial state \cite{PhysRevLett.75.3870}.
 
-After the data generation phase above from which we have all the information required to do our fitting, relevant descriptors have to be chosen for our low-energy model. 
+\textbf{After the data generation phase above from which we have all the information required to do our fitting, relevant descriptors have to be chosen for our low-energy model. }
 The first tool in reducing the space of relevant descriptors is through symmetry considerations. Coury \textit{et al} \cite{Coury2016} provides a useful manual for the terms that any 1- and 2-body Hamiltonian can have given the symmetry of the bands that are under consideration. 
 From here we arrive at a basic statistics problem of generating a linear model given a potential set of descriptors. 
 A very basic approach to solving this problem is through a greedy selection algorithm. 
@@ -255,7 +256,7 @@ We can then manually choose a model which has a large $R^2$ with a relatively sm
 This choice can also be made systematically by using an Akaike information criterion \cite{ref591} or Bayesian information criterion \cite{schwarz1978} to measure the goodness of fit at each step of the greedy algorithm instead of a simple least-square measure of goodness. 
 These two criteria penalize a model not only for the least-square measure of goodness but also for model complexity.
 
-Since our initial set of calculations will be on an eight unit cell calculation cell with periodic boundary conditions, it is important to account for possible finite size errors in our FN-DMC calculations. 
+\textbf{Since our initial set of calculations will be on an eight unit cell calculation cell with periodic boundary conditions, it is important to account for possible finite size errors in our FN-DMC calculations. }
 If these finite size errors (FSEs) are not accounted for in FN-DMC then the model we generated may suffer from the same finite size effects as the QMC calculations. 
 Within QMC there are typically two approaches to dealing with finite size effects. 
 To deal with finite size effects affecting single particle properties a common choice is to use twist-averaging. 
@@ -265,7 +266,7 @@ To account for two-particle or higher order finite size effects, such as those a
 This involves conducting the FN-DMC calculations for a sequence of increasing calculation cell size, and then extrapolating the results of expectation values to the infinite cell size. 
 The extrapolation scales linearly with the cell volume \cite{PhysRevB.78.125106}.
 
-Further, we will use the DMD procedure to attempt to describe the differences between the isostructural nickelate and cuprate materials. 
+\textbf{Further, we will use the DMD procedure to attempt to describe the differences between the isostructural nickelate and cuprate materials. }
 Shown in \ref{fig6} are the conventional unit cells of the cuprate La$_2$CuO$_4$ and the nickelate La$_2$NiO$_4$, which are identical except that the copper atom within the cell is replaced by a nickel atom. 
 While isostructural, the nickelates have been shown to not superconduct even down to temperatures of mK \cite{PhysRevB.43.1229} under doping. 
 In order to study this distinct difference in low-energy behavior, we will use the DMD procedure listed above in an identical fashion on the material SrNiO$_2$. 
