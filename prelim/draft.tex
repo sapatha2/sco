@@ -3,8 +3,19 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{amsfonts}
+\usepackage{titling}
+\title{Development of an effective model for SrCuO$_2$ using \textit{ab-initio} quantum Monte Carlo density-matrix downfolding}
+\author{Shivesh Pathak, Advisor: Lucas Wagner}
+\date{TBD}
 
 \begin{document}
+\maketitle
+\begin{abstract}
+\normalsize
+Understanding the low energy behavior of the cuprate superconductors has been an open question in theoretical condensed matter physics for over thirty years. Various model Hamiltonians have been proposed and tested to describe different phases under variation in doping and temperature, but the development and validation of these models have not been systematic. We propose that a density matrix downfolding approach \cite{10.3389/fphy.2018.00043, doi:10.1063/1.4927664} using \textit{ab-initio} quantum Monte Carlo can generate and validate an accurate low-energy model for the electron-doped cuprate SrCuO$_2$ at zero temperature and dopings of x=0, 0.125, 0.25 in a systematic way beginning directly from the \textit{ab-initio} Hamiltonian. By conducting a similar downfolding for the isostructural non-superconducting nickelate SrNiO$_2$, and comparing to the effective model for SrCuO$_2$, we hope to develop a better understanding of the mechanisms for superconductivity present in the cuprates. 
+\end{abstract}
+\pagebreak
+
 \section{Introduction} 
 \textbf{Understanding the low energy behavior of the cuprate superconductors has been an open question in theoretical condensed matter physics for over thirty years.}
 The cuprate materials all share a similar structure of repeating layers of square lattice CuO$_2$ planes and charge reservoir blocks, of which carriers on the prior exhibit the most interesting collective behavior. 
@@ -218,13 +229,13 @@ We therefore come to the conclusion that the majority spin IAOs should be used a
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{Figures/R2-pareto.pdf}
+\includegraphics[width=0.7\textwidth]{Figures/R2-pareto.pdf}
 \caption{\label{fig4} Results of the \textit{ad hoc} fitting procedure just using the DFT eigenvalues and total energies for three different dopings.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{Figures/R3-iao_basis.pdf}
+\includegraphics[width=0.7\textwidth]{Figures/R3-iao_basis.pdf}
 \caption{\label{fig5} Relaxation of the IAOs for the spin majority and minority channel under doping for the eighth doped flip state. The majority spin IAO can be used as a basis for the fixed spin moments and the minority spin IAO for the itinerant electrons.}
 \end{figure}
 \pagebreak
@@ -275,9 +286,11 @@ If we consider a slightly higher energy cutoff for our low-energy theory, it may
 The reasoning behind this argument stems from the fact that effective models like the Hubbard model can yield various low-energy effective theories when considered under certain parameter regimes, meaning that two materials can, at the lowest energy scales, have drastically different low-energy theories while at a higher energy scales be described accurately by similar effective theories. 
 Having a single model which can describe the low-energy behavior of both of these materials would provide a big step forwards to understanding the emergence of superconductivity in the cuprates and the lack thereof in the nickelates. 
 
+\textbf{An approximate timeline for accomplishing each goal follows.} Generation of low-energy states and a complete descriptor space for the cuprate calculation will take the most time in the model fitting process as it requires multiple revisions and will require about two semesters. Studying finite size effects and implementing a similar downfolding to the nickelate material should take a sum total of one semester. Finite size corrections are time-gated only by computational hours (easier to come by than human hours) and the nickelate downfolding should be much easier given the work already done on the isostructural cuprate. Therefore we expect the proposed work to take another three semesters to complete.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{Figures/P2-Ni_Cu.pdf}
+\includegraphics[width=0.7\textwidth]{Figures/P2-Ni_Cu.pdf}
 \caption{\label{fig6} The primitive unit cells of the isostructural materials LNCO \cite{PhysRevB.92.205114} and LSCO \cite{Scalapino2012}, the prior which is not super conducting all the way to temperatures of 30mK.}
 \end{figure}
 
