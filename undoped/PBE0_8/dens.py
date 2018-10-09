@@ -174,7 +174,17 @@ minbasis={'Cu':gto.basis.parse('''
   12.211949 -0.001296
   ''')}
 
-#0.2 BFD basis
+#Cu S 
+# 0.2 -1.13199213114
+# 0.4 2.44339699088
+# 0.8 -0.758351124293
+# 1.6 0.148562918794
+# 3.2 -1.08962597318
+# 6.4 0.271308293063
+# 12.8 0.129019554051
+# 25.6 0.0107897771832
+# 51.2 -0.0174979943357
+# 102.4 0.00169394393737
 minbasis2={
 'Cu':gto.basis.parse('''
 Cu S  
@@ -219,6 +229,10 @@ Cu D
   51.2 -0.00051734713442
   102.4 2.47330807683e-05
   '''),
+#O S
+#  1.686633 1.00000
+#O P 
+#  0.184696 1.00000
 'O':gto.basis.parse('''
 O S  
   0.2 0.215448374976
@@ -478,32 +492,81 @@ def calcIAO(cell,mf,basis):
   '''
   s=mf.get_ovlp()[0]
 
+  occ=[i for i in range(132)] + [32,33,34,36]
+
   mo_occ = mf.mo_coeff[0][0][:,mf.mo_occ[0][0]>0]
+  #mo_occ = mf.mo_coeff[0][0][:,occ]
   a = lo.iao.iao(cell, mo_occ, minao=basis)
-  # orthogonalize iao
   a = lo.vec_lowdin(a, s)
-  # transform mo_occ to iao representation. note the ao dimension is reduced
   mo_occ = reduce(np.dot, (a.T, s, mo_occ))
   dm_u = np.dot(mo_occ, mo_occ.T)
   
   mo_occ = mf.mo_coeff[1][0][:,mf.mo_occ[1][0]>0]
+  #mo_occ = mf.mo_coeff[1][0][:,occ]
+  a2 = lo.iao.iao(cell, mo_occ, minao=basis)
+  a2 = lo.vec_lowdin(a2, s)
+  mo_occ = reduce(np.dot, (a2.T, s, mo_occ))
+  dm_d = np.dot(mo_occ, mo_occ.T)
+
+  plt.subplot(221)
+  plt.title("Spin-up copper")
+  plt.plot(np.diag(dm_u)[:10],'b*',label='method 1')
+  plt.plot(np.diag(dm_u)[10:20],'b*')
+  plt.xticks(np.arange(0,10,step=1),["3s", "4s", "3px", "3py", "3pz", "3dxy", "3dyz", "3dz2", "3dxz", "3dx2-y2"])
+  plt.subplot(222)
+  plt.title("Spin-down copper")
+  plt.plot(np.diag(dm_d)[10:20],'r*')
+  plt.plot(np.diag(dm_d)[:10],'r*')
+  plt.xticks(np.arange(0,10,step=1),["3s", "4s", "3px", "3py", "3pz", "3dxy", "3dyz", "3dz2", "3dxz", "3dx2-y2"])
+  plt.subplot(223)
+  plt.title("Oxygen, spin-up channel")
+  plt.plot(np.diag(dm_u)[80:84],'g*')
+  plt.xticks(np.arange(0,4,step=1),["2s","2px","2py","2pz"]) 
+  plt.subplot(224)
+  plt.title("Oxygen, spin-down channel")
+  plt.xticks(np.arange(0,4,step=1),["2s","2px","2py","2pz"]) 
+  plt.plot(np.diag(dm_d)[80:84],'k*')
+
+  #TESTING
+  print("Orthog separate:", np.trace(dm_u),np.trace(dm_d), dm_u.shape, dm_d.shape)
+
+  mo_occ = mf.mo_coeff[0][0][:,mf.mo_occ[0][0]>0]
+  mo_occ2 = mf.mo_coeff[1][0][:,mf.mo_occ[1][0]>0]
+  #mo_occ = mf.mo_coeff[0][0][:,occ]
+  #mo_occ2 = mf.mo_coeff[1][0][:,occ]
+  mo_occ=np.concatenate((mo_occ,mo_occ2),axis=1)
   a = lo.iao.iao(cell, mo_occ, minao=basis)
-  # orthogonalize iao
   a = lo.vec_lowdin(a, s)
-  # transform mo_occ to iao representation. note the ao dimension is reduced
+  mo_occ = mf.mo_coeff[0][0][:,mf.mo_occ[0][0]>0]
+  mo_occ = reduce(np.dot, (a.T, s, mo_occ))
+  dm_u = np.dot(mo_occ, mo_occ.T)
+  mo_occ = mf.mo_coeff[1][0][:,mf.mo_occ[1][0]>0]
   mo_occ = reduce(np.dot, (a.T, s, mo_occ))
   dm_d = np.dot(mo_occ, mo_occ.T)
-  
-  #TESTING
-  print("IAO, single Cu:", np.trace(dm_u[:10,:10]),np.trace(dm_d[:10,:10]))
-  print(np.trace(dm_u),np.trace(dm_d))
-  '''
-  print("IAO, all Cu:",np.trace(dm_u[:72,:72]),np.trace(dm_d[:72,:72]))
-  print("IAO, single O:",np.trace(dm_u[72:76,72:76]),np.trace(dm_d[72:76,72:76]))
-  print("IAO, all O:",np.trace(dm_u[72:136,72:136]),np.trace(dm_d[72:136,72:136]))
-  print("IAO, single Sr:",np.trace(dm_u[136:137,136:137]),np.trace(dm_d[136:137,136:137]))
-  print("IAO, all Sr:",np.trace(dm_u[136:,136:]),np.trace(dm_d[136:,136:]))
-  '''
+
+  plt.subplot(221)
+  plt.plot(np.diag(dm_u)[:10],'bs',label='method 2')
+  plt.plot(np.diag(dm_u)[10:20],'bs')
+  plt.legend(loc=4)
+  plt.subplot(222)
+  plt.plot(np.diag(dm_d)[10:20],'rs')
+  plt.plot(np.diag(dm_d)[:10],'rs')
+  plt.subplot(223)
+  plt.plot(np.diag(dm_u)[80:84],'gs')
+  plt.subplot(224)
+  plt.plot(np.diag(dm_d)[80:84],'ks')
+  print("Orthog together:", np.trace(dm_u), np.trace(dm_d), dm_u.shape, dm_d.shape)
+  plt.show()
+
+  #SAVE 
+  #for i in range(a.shape[1]):
+  #  mf.mo_coeff[0][0][:,i]=a[:,i]
+  #print_qwalk_pbc(cell,mf,basename="CHK/tog")
+
+
+  exit(0)
+
+
   return (dm_u,dm_d)
 
 #USE: plotting IAO occupations
@@ -569,7 +632,4 @@ direc="CHK"
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 
 #OAOs 
-oao_dmu,oao_dmd=calcOAO(cell,mf)
-iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis)
 iao_dmu,iao_dmd=calcIAO(cell,mf,minbasis2)
-plotSubIAO(iao_dmu,iao_dmd)
