@@ -1,0 +1,9 @@
+This directory will have all the DFT fitting data
+
+spin texture, occupied orbitals, E, 1rdm 
+
+Occupied orbitals are from active space taking highest energy dx^2-y^2 orbitals to the virtual dx^2-y^2 virtual bands 
+Total energy is built using the DFT total energy + difference in eigenvalues 
+1rdm built on IAO basis constructed from CHK x=0 state (lowest energy) using the occupied + (dx^2-y^2 virtual) bands
+
+
