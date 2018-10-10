@@ -1,14 +1,12 @@
 from crystal2pyscf import crystal2pyscf_mol, crystal2pyscf_cell
-from pyscf.scf.hf import make_rdm1
-from pyscf.scf.hf import get_ovlp
 from pyscf import gto, scf, lo
-import numpy as np 
 from pyscf.lo import orth
-from functools import reduce
-import scipy as sp 
-import matplotlib.pyplot as plt
-from pyscf2qwalk import print_qwalk_pbc
 from pyscf.lo.iao import iao
+from functools import reduce
+import numpy as np 
+import matplotlib.pyplot as plt
+import pickle
+
 
 ###########################################################################################
 #Basis
@@ -243,22 +241,46 @@ def rdmIAO(mf,a):
 
 ###########################################################################################
 #Run
+
+########################
+#CREATE IAO 
 direc="../CHK"
 occ=[i for i in range(132)] + [32,33,34,36]  #Have to include the virtual dx2-y2 orbitals
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 a=calcIAO(cell,mf,minbasis,occ)
 
+#######################
+#CALCULATE E, 1RDM
 direclist=["CHK","FLP","COL","BCOL","BLK","ACHN","FM"]
 Elist=[-1.8424749919822E+03,-1.8424644227349E+03,-1.8424527681040E+03,
 -1.8424548946115E+03,-1.8424530584090E+03,-1.8424527307933E+03,
 -1.8424227577357E+03]
+occlist={
+"CHK": ([130,131,132],[130,131,132]), #(132,132)
+"FLP": ([130,131,132,133],[130,131]), #(133,131)
+"COL": ([130,131,132],[130,131,132]), #(132,132)
+"BCOL": ([131,132],[131,132]),        #(132,132)
+"BLK":  ([131,132],[131,132]),        #(132,132)
+"ACHN": ([130,131,132,133,134],[127,128,129,130]),   #(134,130)
+"FM":   ([],[126,127,128]) #(136,128)
+} #List of active orbitals occupied
+virtlist={
+"CHK": ([133,134,135,136],[133,134,135,136]),
+"FLP": ([134,135,137],[132,133,134,135,137]),
+"COL": ([133,134,135,137],[133,134,135,137]),
+"BCOL": ([133,134,135,137],[133,134,135,137]),
+"BLK": ([133,134,135,137],[133,134,135,137]),
+"ACHN": ([135,136],[131,132,133,134,135,137]),
+"FM":([],[129,130,131,132,133,134,135,137])
+} #List of virtual active orbitals
 
-textures=[]
-Es=[]
-occs=[]
-rdms=[]
+textures=[] #Will have Base texture
+Es=[] #Will have energy
+occs=[] #Will have occupation array
+rdms=[] #Will have 1rdm on IAO
 
 for i in range(len(direclist)):
+  #Base states
   direc="../"+direclist[i]
   E=Elist[i]
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
@@ -270,6 +292,29 @@ for i in range(len(direclist)):
   occs.append((mf.mo_occ[0][0],mf.mo_occ[1][0]))
   rdms.append((dmu,dmd))
 
+  #Excitations
+  for s in range(2):
+    for occ in occlist[direclist[i]][s]:
+      for virt in virtlist[direclist[i]][s]:
+        o=occ-1  #indices
+        v=virt-1 #incides
+        
+        mf.mo_occ[s][0][o]=0  #Excitation!
+        mf.mo_occ[s][0][v]=1 #Excitation!
+
+        dmu,dmd=rdmIAO(mf,a) #Excited state 1rdm
+        energy=E-mf.mo_energy[s][0][occ]+mf.mo_energy[s][0][virt] #Excited state energy
+
+        print((occ,virt),(energy-Elist[0])*27.2,np.trace(dmu)+np.trace(dmd),np.trace(dmu)-np.trace(dmd))
+
+        textures.append(direclist[i])
+        Es.append(energy)
+        occs.append((mf.mo_occ[0][0],mf.mo_occ[1][0]))
+        rdms.append((dmu,dmd))
+        
+        mf.mo_occ[s][0][o]=1  #Revert Excitation!
+        mf.mo_occ[s][0][v]=0 #Revert Excitation!
+
 data={
 "texture":textures,
 "energy":Es,
@@ -277,3 +322,5 @@ data={
 "1rdm":rdms
 }
 
+with open("gendata.pickle","wb") as handle:
+  pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
