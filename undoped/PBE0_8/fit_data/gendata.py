@@ -6,7 +6,7 @@ from functools import reduce
 import numpy as np 
 import matplotlib.pyplot as plt
 import pickle
-
+from pyscf import fci
 
 ###########################################################################################
 #Basis
@@ -239,6 +239,11 @@ def rdmIAO(mf,a):
 
   return (dm_u,dm_d)
 
+#IAO 2RDM
+def rdm2IAO(mf,a):
+  print("Need to implement!")
+  exit(0)
+
 ###########################################################################################
 #Run
 
@@ -278,6 +283,7 @@ textures=[] #Will have Base texture
 Es=[] #Will have energy
 occs=[] #Will have occupation array
 rdms=[] #Will have 1rdm on IAO
+rdm2s=[] #2Body RDMs
 
 for i in range(len(direclist)):
   #Base states
@@ -287,11 +293,14 @@ for i in range(len(direclist)):
   dmu,dmd=rdmIAO(mf,a)
   print(direclist[i],(E-Elist[0])*27.2,np.trace(dmu)+np.trace(dmd),np.trace(dmu)-np.trace(dmd))
   
+  #2rdm calculation 
+  rdm2IAO(mf,a)
+
   textures.append(direclist[i])
   Es.append(E)
   occs.append((mf.mo_occ[0][0],mf.mo_occ[1][0]))
   rdms.append((dmu,dmd))
-
+  
   #Excitations
   for s in range(2):
     for occ in occlist[direclist[i]][s]:
