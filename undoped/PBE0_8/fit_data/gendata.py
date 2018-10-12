@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 from pyscf import fci
+from downfold_tools import gen_slater_tbdm
 
 ###########################################################################################
 #Basis
@@ -237,12 +238,18 @@ def rdmIAO(mf,a):
   mo_occ = reduce(np.dot, (a.T, s, mo_occ))
   dm_d = np.dot(mo_occ, mo_occ.T)
 
-  return (dm_u,dm_d)
+  return np.array([dm_u,dm_d])
 
 #IAO 2RDM
-def rdm2IAO(mf,a):
-  print("Need to implement!")
-  exit(0)
+def rdm2diag(obdm):
+  '''THIS MIGHT BE ONLY
+  VALID IF OBDM IS ON THE 
+  OCCUPIED STATES, NOT THE IAOS?
+  '''
+  uu=np.zeros(obdm.shape[1])
+  dd=np.zeros(obdm.shape[1])
+  ud=np.diag(obdm[0])*np.diag(obdm[1])
+  return (uu,dd,ud)
 
 ###########################################################################################
 #Run
@@ -261,6 +268,7 @@ Elist=[-1.8424749919822E+03,-1.8424644227349E+03,-1.8424527681040E+03,
 -1.8424548946115E+03,-1.8424530584090E+03,-1.8424527307933E+03,
 -1.8424227577357E+03]
 occlist={
+#WITH OXYGEN
 "CHK": ([130,131,132],[130,131,132]), #(132,132)
 "FLP": ([130,131,132,133],[130,131]), #(133,131)
 "COL": ([130,131,132],[130,131,132]), #(132,132)
@@ -268,9 +276,18 @@ occlist={
 "BLK":  ([131,132],[131,132]),        #(132,132)
 "ACHN": ([130,131,132,133,134],[127,128,129,130]),   #(134,130)
 "FM":   ([],[126,127,128]) #(136,128)
+
+#NO OXYGEN
+#"CHK": ([131,132],[131,132]), #(132,132)
+#"FLP": ([131,132,133],[131]), #(133,131)
+#"COL": ([131,132],[131,132]), #(132,132)
+#"BCOL": ([132],[132]),        #(132,132)
+#"BLK":  ([132],[132]),        #(132,132)
+#"ACHN": ([131,132,133,134],[130]),   #(134,130)
+#"FM":   ([],[]) #(136,128)
 } #List of active orbitals occupied
 virtlist={
-"CHK": ([133,134,135,136],[133,134,135,136]),
+"CHK": ([133,134,135,137],[133,134,135,137]),
 "FLP": ([134,135,137],[132,133,134,135,137]),
 "COL": ([133,134,135,137],[133,134,135,137]),
 "BCOL": ([133,134,135,137],[133,134,135,137]),
@@ -283,23 +300,22 @@ textures=[] #Will have Base texture
 Es=[] #Will have energy
 occs=[] #Will have occupation array
 rdms=[] #Will have 1rdm on IAO
-rdm2s=[] #2Body RDMs
+rdm2s=[] #2Body RDM diagonals
 
 for i in range(len(direclist)):
   #Base states
   direc="../"+direclist[i]
   E=Elist[i]
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
-  dmu,dmd=rdmIAO(mf,a)
-  print(direclist[i],(E-Elist[0])*27.2,np.trace(dmu)+np.trace(dmd),np.trace(dmu)-np.trace(dmd))
-  
-  #2rdm calculation 
-  rdm2IAO(mf,a)
+  obdm=rdmIAO(mf,a)
+  tbdm_diag=rdm2diag(obdm)
+  print(direclist[i],(E-Elist[0])*27.2,np.trace(obdm[0])+np.trace(obdm[1]),np.trace(obdm[0])-np.trace(obdm[1]))
 
   textures.append(direclist[i])
   Es.append(E)
   occs.append((mf.mo_occ[0][0],mf.mo_occ[1][0]))
-  rdms.append((dmu,dmd))
+  rdms.append(obdm)
+  rdm2s.append(tbdm_diag[2])
   
   #Excitations
   for s in range(2):
@@ -311,16 +327,17 @@ for i in range(len(direclist)):
         mf.mo_occ[s][0][o]=0  #Excitation!
         mf.mo_occ[s][0][v]=1 #Excitation!
 
-        dmu,dmd=rdmIAO(mf,a) #Excited state 1rdm
-        energy=E-mf.mo_energy[s][0][occ]+mf.mo_energy[s][0][virt] #Excited state energy
-
-        print((occ,virt),(energy-Elist[0])*27.2,np.trace(dmu)+np.trace(dmd),np.trace(dmu)-np.trace(dmd))
+        obdm=rdmIAO(mf,a) #Excited state 1rdm
+        energy=E-mf.mo_energy[s][0][o]+mf.mo_energy[s][0][v] #Excited state energy
+        tbdm_diag=rdm2diag(obdm)
+        print((occ,virt),(energy-Elist[0])*27.2,np.trace(obdm[0])+np.trace(obdm[1]),np.trace(obdm[0])-np.trace(obdm[1]))
 
         textures.append(direclist[i])
         Es.append(energy)
         occs.append((mf.mo_occ[0][0],mf.mo_occ[1][0]))
-        rdms.append((dmu,dmd))
-        
+        rdms.append(obdm)
+        rdm2s.append(tbdm_diag[2])
+
         mf.mo_occ[s][0][o]=1  #Revert Excitation!
         mf.mo_occ[s][0][v]=0 #Revert Excitation!
 
@@ -328,7 +345,8 @@ data={
 "texture":textures,
 "energy":Es,
 "occupation":occs,
-"1rdm":rdms
+"1rdm":rdms,
+"2rdm":rdm2s
 }
 
 with open("gendata.pickle","wb") as handle:
