@@ -15,16 +15,14 @@ e=np.array(data['energy'])
 e-=e[0]
 e*=27.2
 
-#SORTEDE.PDF
 '''
+#SORTEDE.PDF
 plt.plot(sorted(e),'o')
 plt.ylabel("Energy - CHK, eV")
 plt.xlabel("State")
 plt.show()
-'''
 
 #TRACE.PDF
-'''
 #Plot nelec of 1rdm
 rdms=data['1rdm']
 nelec=[np.trace(x[0])+np.trace(x[1]) for x in rdms]
@@ -50,10 +48,24 @@ for rdms in data['1rdm']:
     cu=np.sum(cu,axis=0)
   
     #Oxygen part
+    to=np.diag(rdms[s])[8*ncu:8*ncu+16*no]
+    to=np.split(to,16)
+    o=np.zeros(6)
+    o[:4]=np.sum(to,axis=0)
+    for i in range(16):
+      if(i<8): 
+        o[4]+=to[i][1] #sigma
+        o[5]+=to[i][2] #pi
+      else:
+        o[4]+=to[i][2] #sigma
+        o[5]+=to[i][1] #pi
+    '''
     o=np.diag(rdms[s])[8*ncu:8*ncu+16*no]
     o=np.split(o,16)
     o=np.sum(o,axis=0)
-  
+    print(o.shape)
+    '''
+
     #Sr part
     sr=np.diag(rdms[s])[8*ncu+16*no:8*ncu+16*no+8*nsr]
     sr=np.split(sr,8)
@@ -64,10 +76,15 @@ for rdms in data['1rdm']:
 
 n=np.array(n)
 X=np.concatenate((e[:,np.newaxis],n),axis=1)
-cols=[
+'''cols=[
 "E",
 "3s","4s","3px","3py","3pz",'3dxy','3dyz','3dz2','3dxz','3dx2y2',
 '2s','2px','2py','2pz','5s'
+]'''
+cols=[
+"E",
+"3s","4s","3px","3py","3pz",'3dxy','3dyz','3dz2','3dxz','3dx2y2',
+'2s','2px','2py','2pz','2psig','2ppi','5s'
 ]
 df=pd.DataFrame(data=X,columns=cols)
 
@@ -83,12 +100,10 @@ plt.show()
 '''
 
 #EVSNPAIRPLOT.PDF
-'''
-g=sns.pairplot(df,vars=["E","4s","3dx2y2","2s","2px","2py"])
-for i, j in zip(*np.triu_indices_from(g.axes, 1)):
-    g.axes[i, j].set_visible(False)
-plt.show()
-'''
+#g=sns.pairplot(df,vars=["E","4s","3dx2y2","2s","2px","2py"])
+#g=sns.pairplot(df,vars=["E","3dx2y2","4s","2s","2px","2py","2psig","2ppi"])
+#plt.show()
+#exit(0)
 
 #NREG.PDF
 '''
@@ -114,7 +129,7 @@ for nund in data['2rdm']:
 
   #Oxygen part
   o=nund[8*ncu:8*ncu+16*no]
-  o=np.split(o,16)
+  o=np.split(o,16) #Split amongst the 16 atoms
   o=np.sum(o,axis=0)
 
   #Sr part
@@ -146,5 +161,34 @@ plt.show()
 '''
 
 #EVSUPAIRPLOT.PDF
-g=sns.pairplot(dfU,vars=["E","4sU","3dx2y2U","2sU","2pxU","2pyU"])
-plt.show()
+#g=sns.pairplot(dfU,vars=["E","4sU","3dx2y2U","2sU","2pxU","2pyU"])
+#plt.show()
+
+
+#Hopping calculations 
+
+ch=[] #Hybridized hopping (Cu d and sigma, no curl)
+nnh=[[0,6,8,11],
+[1,7,8,9],
+[2,4,9,15],
+[3,5,10,11],
+[0,4,12,15],
+[1,5,12,13],
+[2,6,13,14],
+[3,7,14,15]] #Nearest neighbors oxygens for a given copper
+
+ncu=10
+no=4
+nsr=1
+
+#Signs???
+for rdms in data['1rdm']:
+  chtmp=0
+  for j in range(8):
+    cui=ncu*j+9
+    for k in nnh[j]:
+      oi=np.nan
+      if(k<8): oi=ncu*8+no*k+1 #px
+      else: oi=ncu*8+no*k+2    #py
+      print(rdms[0][oi,cui]+rdms[0][cui,oi],rdms[1][oi,cui]+rdms[1][oi,cui])
+  exit(0)
