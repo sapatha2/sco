@@ -3,34 +3,16 @@ import matplotlib.pyplot as plt
 import pickle 
 import pandas as pd 
 import seaborn as sns
+import statsmodels.formula.api as sm
 sns.set(style="ticks")
 
 with open('gendata.pickle', 'rb') as handle:
-#with open('gendata_noO.pickle','rb') as handle:
   data = pickle.load(handle)
 
-N=len(data['energy'])
-#Plot energies
+#Energies
 e=np.array(data['energy'])
 e-=e[0]
-e*=27.2
-
-'''
-#SORTEDE.PDF
-plt.plot(sorted(e),'o')
-plt.ylabel("Energy - CHK, eV")
-plt.xlabel("State")
-plt.show()
-
-#TRACE.PDF
-#Plot nelec of 1rdm
-rdms=data['1rdm']
-nelec=[np.trace(x[0])+np.trace(x[1]) for x in rdms]
-plt.plot(nelec,'o')
-plt.ylabel("Tr(up) + Tr(dn)")
-plt.xlabel("Excitation")
-plt.show()
-'''
+e*=27.2114
 
 #Array of occupations 
 ncu=10
@@ -59,13 +41,6 @@ for rdms in data['1rdm']:
       else:
         o[4]+=to[i][2] #sigma
         o[5]+=to[i][1] #pi
-    '''
-    o=np.diag(rdms[s])[8*ncu:8*ncu+16*no]
-    o=np.split(o,16)
-    o=np.sum(o,axis=0)
-    print(o.shape)
-    '''
-
     #Sr part
     sr=np.diag(rdms[s])[8*ncu+16*no:8*ncu+16*no+8*nsr]
     sr=np.split(sr,8)
@@ -73,46 +48,7 @@ for rdms in data['1rdm']:
     
     tmp.append(np.concatenate((cu,o,sr),axis=None))
   n.append(np.array(tmp[0])+np.array(tmp[1]))
-
 n=np.array(n)
-X=np.concatenate((e[:,np.newaxis],n),axis=1)
-'''cols=[
-"E",
-"3s","4s","3px","3py","3pz",'3dxy','3dyz','3dz2','3dxz','3dx2y2',
-'2s','2px','2py','2pz','5s'
-]'''
-cols=[
-"E",
-"3s","4s","3px","3py","3pz",'3dxy','3dyz','3dz2','3dxz','3dx2y2',
-'2s','2px','2py','2pz','2psig','2ppi','5s'
-]
-df=pd.DataFrame(data=X,columns=cols)
-
-#VARN.PDF
-'''
-i=0
-for col in cols[1:]:
-  plt.plot(np.ones(len(df[col]))*i,df[col],'o')
-  i+=1
-plt.ylabel("n")
-plt.xticks(np.arange(len(cols[1:])),cols[1:])
-plt.show()
-'''
-
-#EVSNPAIRPLOT.PDF
-#g=sns.pairplot(df,vars=["E","4s","3dx2y2","2s","2px","2py"])
-#g=sns.pairplot(df,vars=["E","3dx2y2","4s","2s","2px","2py","2psig","2ppi"])
-#plt.show()
-#exit(0)
-
-#NREG.PDF
-'''
-import statsmodels.formula.api as sm
-regdf=pd.DataFrame({"E":e,"A":n[:,9],"B":n[:,11]+n[:,12]})
-result=sm.ols(formula="E ~ A + B",data=regdf).fit()
-print(result.params)
-print(result.summary())
-'''
 
 #Array of double occupations 
 ncu=10
@@ -140,34 +76,11 @@ for nund in data['2rdm']:
   u.append(np.concatenate((cu,o,sr),axis=None))
 
 u=np.array(u)
-XU=np.concatenate((e[:,np.newaxis],u),axis=1)
-
-cols=[
-"E",
-"3sU","4sU","3pxU","3pyU","3pzU",'3dxyU','3dyzU','3dz2U','3dxzU','3dx2y2U',
-'2sU','2pxU','2pyU','2pzU','5sU'
-]
-dfU=pd.DataFrame(data=XU,columns=cols)
-
-#VARU.PDF
-'''
-i=0
-for col in cols[1:]:
-  plt.plot(np.ones(len(dfU[col]))*i,dfU[col],'o')
-  i+=1
-plt.ylabel("nu*nd")
-plt.xticks(np.arange(len(cols[1:])),cols[1:])
-plt.show()
-'''
-
-#EVSUPAIRPLOT.PDF
-#g=sns.pairplot(dfU,vars=["E","4sU","3dx2y2U","2sU","2pxU","2pyU"])
-#plt.show()
-
 
 #Hopping calculations 
-
 ch=[] #Hybridized hopping (Cu d and sigma, no curl)
+cc=[] #Curly hopping
+cxy=[] #x hopping
 nnh=[[0,6,8,11],
 [1,7,8,9],
 [2,4,9,15],
@@ -176,19 +89,134 @@ nnh=[[0,6,8,11],
 [1,5,12,13],
 [2,6,13,14],
 [3,7,14,15]] #Nearest neighbors oxygens for a given copper
+signh=[[-1,1,1,-1],
+[-1,1,-1,1],
+[-1,1,-1,1],
+[-1,1,-1,1],
+[1,-1,1,-1],
+[1,-1,-1,1],
+[1,-1,1,-1],
+[1,-1,-1,1]] #Hopping signs for neighbor oxygens
+
+nnhc=[[15,12,8,11],
+[12,13,9,8],
+[13,14,10,9],
+[14,15,11,10],
+[9,10,12,15],
+[10,11,13,12],
+[11,8,14,13],
+[8,9,15,14],
+[0,1,7,6],
+[1,2,4,7],
+[2,3,5,4],
+[3,0,6,5],
+[4,5,1,0],
+[5,6,2,1],
+[6,7,3,2],
+[7,4,0,3]]
+sgn=[1,-1,1,-1]
 
 ncu=10
 no=4
 nsr=1
 
-#Signs???
 for rdms in data['1rdm']:
   chtmp=0
+  cctmp=0
+  cxytmp=0
+  
+  #SIGMA
   for j in range(8):
     cui=ncu*j+9
+    p=0
     for k in nnh[j]:
       oi=np.nan
       if(k<8): oi=ncu*8+no*k+1 #px
       else: oi=ncu*8+no*k+2    #py
-      print(rdms[0][oi,cui]+rdms[0][cui,oi],rdms[1][oi,cui]+rdms[1][oi,cui])
-  exit(0)
+      chtmp+=signh[j][p]*(rdms[0][oi,cui]+rdms[0][cui,oi]+rdms[1][oi,cui]+rdms[1][cui,oi])
+      p+=1
+  
+  #PI
+  for x in range(16):
+    oi1=0
+    oi2=0
+    if(x<8): 
+      oi1=ncu*8+no*x+2 #py
+      for y in range(4): #NN
+        oi2=(ncu*8+no*nnhc[x][y]+1) #px
+        cctmp+=sgn[y]*(rdms[0][oi1,oi2]+rdms[0][oi2,oi1]+rdms[1][oi1,oi2]+rdms[1][oi2,oi1])
+    else:
+      oi1=ncu*8+no*x+1 #px
+      for y in range(4): #NN
+        oi2=(ncu*8+no*nnhc[x][y]+2) #py
+        cctmp+=sgn[y]*(rdms[0][oi1,oi2]+rdms[0][oi2,oi1]+rdms[1][oi1,oi2]+rdms[1][oi2,oi1])
+    
+  #X
+  for x in range(16):
+    oi1=0
+    oi2=0
+    oi1=ncu*8+no*x+1 #px
+    for y in range(4): #NN
+      oi2=(ncu*8+no*nnhc[x][y]+1) #px
+      cxytmp+=(rdms[0][oi1,oi2]+rdms[0][oi2,oi1]+rdms[1][oi1,oi2]+rdms[1][oi2,oi1])
+
+  #Y
+  for x in range(16):
+    oi1=0
+    oi2=0
+    oi1=ncu*8+no*x+2 #px
+    for y in range(4): #NN
+      oi2=(ncu*8+no*nnhc[x][y]+2) #px
+      cxytmp+=(rdms[0][oi1,oi2]+rdms[0][oi2,oi1]+rdms[1][oi1,oi2]+rdms[1][oi2,oi1])
+ 
+  cxy.append(cxytmp)
+  ch.append(chtmp)
+  cc.append(cctmp)
+ch=np.array(ch)
+cc=np.array(cc)
+cxy=np.array(cxy)
+
+#Total data frame
+Xtot=np.concatenate((e[:,np.newaxis],n,u,ch[:,np.newaxis],cc[:,np.newaxis],cxy[:,np.newaxis]),axis=1)
+cols=[
+"E",
+"3s","4s","3px","3py","3pz",'3dxy','3dyz','3dz2','3dxz','3dx2y2',
+'2s','2px','2py','2pz','2psig','2ppi','5s',
+"3sU","4sU","3pxU","3pyU","3pzU",'3dxyU','3dyzU','3dz2U','3dxzU','3dx2y2U',
+'2sU','2pxU','2pyU','2pzU','5sU',
+'ts','tp','txy'
+]
+dftot=pd.DataFrame(data=Xtot,columns=cols)
+sns.pairplot(dftot,vars=["E","ts","tp","txy","2psig","2ppi","3dx2y2U"])
+plt.show()
+
+'''
+plt.title("Weight LS, ts,tp,nd,ns,np, and Ud")
+weights=np.ones(len(e))
+weights[e<2.0]=(len(e)/7)**2
+regdf=pd.DataFrame({"E":e,"A":ch,"B":cc,"C":n[:,9],"D":n[:,14],"F":n[:,15],"G":u[:,9]})
+result=sm.wls(formula="E~A+G+C",data=regdf,weights=weights).fit()
+#result=sm.wls(formula="E~A+B+C+D+F+G",data=regdf,weights=weights).fit()
+#result=sm.wls(formula="E~A+G",data=regdf,weights=weights).fit()
+print(result.summary())
+pred=result.predict(regdf)
+plt.plot(pred,e,'bo')
+plt.plot(e,e,'g-')
+plt.show()
+'''
+
+'''
+Xtot=np.concatenate((e[:,np.newaxis],n,u,ch[:,np.newaxis],cc[:,np.newaxis],(e-pred)[:,np.newaxis]),axis=1)
+cols=[
+"E",
+"3s","4s","3px","3py","3pz",'3dxy','3dyz','3dz2','3dxz','3dx2y2',
+'2s','2px','2py','2pz','2psig','2ppi','5s',
+"3sU","4sU","3pxU","3pyU","3pzU",'3dxyU','3dyzU','3dz2U','3dxzU','3dx2y2U',
+'2sU','2pxU','2pyU','2pzU','5sU',
+'td','tc','res1'
+]
+dftot=pd.DataFrame(data=Xtot,columns=cols)
+
+sns.pairplot(dftot,vars=["res1","td","tc","3dx2y2","2px","2py","2psig","2ppi","3dx2y2U"])
+plt.show()
+'''
