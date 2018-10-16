@@ -187,15 +187,14 @@ cols=[
 'ts','tp','txy'
 ]
 dftot=pd.DataFrame(data=Xtot,columns=cols)
-sns.pairplot(dftot,vars=["E","ts","tp","txy","2psig","2ppi","3dx2y2U"])
-plt.show()
+#sns.pairplot(dftot,vars=["E","ts","tp","txy","2psig","2ppi","3dx2y2U"])
+#plt.show()
 
-'''
 plt.title("Weight LS, ts,tp,nd,ns,np, and Ud")
 weights=np.ones(len(e))
 weights[e<2.0]=(len(e)/7)**2
 regdf=pd.DataFrame({"E":e,"A":ch,"B":cc,"O":cxy,"C":n[:,9],"D":n[:,14],"F":n[:,15],"G":u[:,9]})
-result=sm.wls(formula="E~A+B+G",data=regdf,weights=weights).fit()
+result=sm.wls(formula="E~A+G",data=regdf,weights=weights).fit()
 #result=sm.wls(formula="E~A+B+C+D+F+G",data=regdf,weights=weights).fit()
 #result=sm.wls(formula="E~A+G",data=regdf,weights=weights).fit()
 print(result.summary())
@@ -203,7 +202,6 @@ pred=result.predict(regdf)
 plt.plot(pred,e,'bo')
 plt.plot(e,e,'g-')
 plt.show()
-'''
 
 '''
 Xtot=np.concatenate((e[:,np.newaxis],n,u,ch[:,np.newaxis],cc[:,np.newaxis],(e-pred)[:,np.newaxis]),axis=1)
