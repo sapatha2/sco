@@ -159,7 +159,7 @@ for rdms in data['1rdm']:
     for y in range(4): #NN
       oi2=(ncu*8+no*nnhc[x][y]+1) #px
       cxytmp+=(rdms[0][oi1,oi2]+rdms[0][oi2,oi1]+rdms[1][oi1,oi2]+rdms[1][oi2,oi1])
-
+  
   #Y
   for x in range(16):
     oi1=0
@@ -194,8 +194,8 @@ plt.show()
 plt.title("Weight LS, ts,tp,nd,ns,np, and Ud")
 weights=np.ones(len(e))
 weights[e<2.0]=(len(e)/7)**2
-regdf=pd.DataFrame({"E":e,"A":ch,"B":cc,"C":n[:,9],"D":n[:,14],"F":n[:,15],"G":u[:,9]})
-result=sm.wls(formula="E~A+G+C",data=regdf,weights=weights).fit()
+regdf=pd.DataFrame({"E":e,"A":ch,"B":cc,"O":cxy,"C":n[:,9],"D":n[:,14],"F":n[:,15],"G":u[:,9]})
+result=sm.wls(formula="E~A+B+G",data=regdf,weights=weights).fit()
 #result=sm.wls(formula="E~A+B+C+D+F+G",data=regdf,weights=weights).fit()
 #result=sm.wls(formula="E~A+G",data=regdf,weights=weights).fit()
 print(result.summary())
