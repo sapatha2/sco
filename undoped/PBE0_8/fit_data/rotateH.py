@@ -306,14 +306,20 @@ a=calcIAO(cell,mf,minbasis,occ)
 #######################
 #CALCULATE E, 1RDM
 direclist=["CHK","FLP","COL","BCOL","BLK","ACHN","FM"]
-Elist=[-1.8424749919822E+03,-1.8424644227349E+03,-1.8424527681040E+03,
--1.8424548946115E+03,-1.8424530584090E+03,-1.8424527307933E+03,
--1.8424227577357E+03]
+
+virtlist={
+"CHK": ([133,134,135,137],[133,134,135,137]),
+"FLP": ([134,135,137],[132,133,134,135,137]),
+"COL": ([133,134,135,137],[133,134,135,137]),
+"BCOL": ([133,134,135,137],[133,134,135,137]),
+"BLK": ([133,134,135,137],[133,134,135,137]),
+"ACHN": ([135,136],[131,132,133,134,135,137]),
+"FM":([128],[129,130,131,132,133,134,135,137])
+}
 
 for i in range(len(direclist)):
   #Base states
   direc="../"+direclist[i]
-  E=Elist[i]
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 
   s=mf.get_ovlp()[0]
@@ -323,25 +329,28 @@ for i in range(len(direclist)):
   #H1d=np.diag(mf.mo_energy[1][0])*27.2114
 
   #IAO SPACE SPAN 
-  mf.mo_occ[0][0][132:135]=1
-  mf.mo_occ[0][0][136]=1
-  mf.mo_occ[1][0][132:135]=1
-  mf.mo_occ[1][0][136]=1
-  H1u=np.diag(mf.mo_energy[0][0])*27.2114
-  H1d=np.diag(mf.mo_energy[1][0])*27.2114
-
-  #OCCUPIED ONLY 
+  indup=np.array(virtlist[direclist[i]][0])-1
+  inddn=np.array(virtlist[direclist[i]][1])-1
+  mf.mo_occ[0][0][indup]=1
+  mf.mo_occ[1][0][inddn]=1
   H1u=np.diag(mf.mo_occ[0][0]*mf.mo_energy[0][0])*27.2114
   H1d=np.diag(mf.mo_occ[1][0]*mf.mo_energy[1][0])*27.2114
 
   e1u=reduce(np.dot,(a.T,s,mf.mo_coeff[0][0],H1u,mf.mo_coeff[0][0].T,s.T,a))
-  e1d=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1d,mf.mo_coeff[1][0].T,s.T,a))
+  e1d=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1u,mf.mo_coeff[1][0].T,s.T,a))
 
   ncu=10
   no=4
   nsr=1
- 
-  print(-e1u[ncu*0+9,ncu*8+no*0+1]-e1d[ncu*0+9,ncu*8+no*0+1]) #sigma
-  print(-e1u[ncu*8+no*0+2,ncu*8+no*12+1]-e1d[ncu*8+no*0+2,ncu*8+no*12+1]) #pi
-  print(e1u[ncu*8+no*0+1,ncu*8+no*12+1]+e1d[ncu*8+no*0+1,ncu*8+no*12+1]) #xy
+
+  print(direclist[i])
+  print(e1u[9,9]) #nd
+  print(e1d[9,9])
+  print(e1u[ncu*8+1,ncu*8+1]) #nsigma
+  print(e1d[ncu*8+1,ncu*8+1]) #nsigma
+  print(e1u[ncu*8+2,ncu*8+2]) #npi
+  print(e1d[ncu*8+2,ncu*8+2]) #npi
+  print("ts:",-e1u[ncu*0+9,ncu*8+no*0+1],-e1d[ncu*0+9,ncu*8+no*0+1]) #sigma
+  print("tp:",-e1u[ncu*8+no*0+2,ncu*8+no*12+1],-e1d[ncu*8+no*0+2,ncu*8+no*12+1]) #pi
+  print("txy:",-e1u[ncu*8+no*0+1,ncu*8+no*12+1],-e1u[ncu*8+no*0+1,ncu*8+no*12+1]) #xy
 

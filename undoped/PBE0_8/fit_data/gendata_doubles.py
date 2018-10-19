@@ -277,8 +277,7 @@ symlist={
 "ACHN": (["xy","xy","pi","sig","sig","sig","sig"],["xy","xy","pi","sig"]),
 "FM":  ([],["xy","xy","pi"])
 } #list of symmetries of occupied
-
-occlist={
+'''
 "CHK": ([126,127,130,131,132],[126,127,130,131,132]), #(132,132)
 "FLP": ([126,127,130,131,132,133],[125,126,130,131]), #(133,131) (312???)
 "COL": ([126,127,130,131,132],[126,127,130,131,132]), #(132,132)
@@ -286,6 +285,15 @@ occlist={
 "BLK":  ([129,130,131,132],[129,130,131,132]),        #(132,132)
 "ACHN": ([126,127,130,131,132,133,134],[127,128,129,130]),   #(134,130)
 "FM":   ([],[126,127,128]) #(136,128)
+'''
+occlist={
+"CHK": ([131,132],[131,132]), #(132,132)
+"FLP": ([131,132,133],[131]), #(133,131) (312???)
+"COL": ([131,132],[131,132]), #(132,132)
+"BCOL": ([132],[132]),        #(132,132)
+"BLK":  ([132],[132]),        #(132,132)
+"ACHN": ([131,132,133,134],[130]),   #(134,130)
+"FM":   ([],[]) #(136,128)
 } #List of active orbitals occupied
 virtlist={
 "CHK": ([133,134,135,137],[133,134,135,137]),
@@ -318,9 +326,9 @@ for i in range(len(direclist)):
   occs.append((mf.mo_occ[0][0],mf.mo_occ[1][0]))
   rdms.append(obdm)
   rdm2s.append(tbdm_diag[2])
-  symm.append("na")
+  #symm.append("na")
 
-  #Excitations
+  #Excitations (Need to doubles)
   for s in range(2):
     z=0
     for occ in occlist[direclist[i]][s]:
@@ -331,6 +339,7 @@ for i in range(len(direclist)):
         mf.mo_occ[s][0][o]=0  #Excitation!
         mf.mo_occ[s][0][v]=1 #Excitation!
 
+#direclist=["CHK"]
         obdm=rdmIAO(mf,a) #Excited state 1rdm
         energy=E-mf.mo_energy[s][0][o]+mf.mo_energy[s][0][v] #Excited state energy
         tbdm_diag=rdm2diag(obdm)
@@ -341,7 +350,7 @@ for i in range(len(direclist)):
         occs.append((mf.mo_occ[0][0],mf.mo_occ[1][0]))
         rdms.append(obdm)
         rdm2s.append(tbdm_diag[2])
-        symm.append(symlist[direclist[i]][s][z])
+        #symm.append(symlist[direclist[i]][s][z])
 
         mf.mo_occ[s][0][o]=1  #Revert Excitation!
         mf.mo_occ[s][0][v]=0 #Revert Excitation!
@@ -353,7 +362,7 @@ data={
 "occupation":occs,
 "1rdm":rdms,
 "2rdm":rdm2s,
-"symm":symm
+#"symm":symm
 }
 
 with open("gendata_doubles.pickle","wb") as handle:
