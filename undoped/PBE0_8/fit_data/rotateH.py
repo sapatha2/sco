@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import pickle
 from pyscf import fci
 from downfold_tools import gen_slater_tbdm
+import find_connect 
 
 ###########################################################################################
 #Basis
@@ -220,102 +221,27 @@ def calcIAO(cell,mf,basis,occ):
  
   return a
 
-#IAO DM
-def rdmIAO(mf,a):
-  '''
-  input:
-    mf object for calculation
-  output:
-    1rdm for spin up and down 
-  '''
-  s=mf.get_ovlp()[0]
-
-  mo_occ = mf.mo_coeff[0][0][:,mf.mo_occ[0][0]>0]
-  mo_occ = reduce(np.dot, (a.T, s, mo_occ))
-  dm_u = np.dot(mo_occ, mo_occ.T)
-  
-  mo_occ = mf.mo_coeff[1][0][:,mf.mo_occ[1][0]>0]
-  mo_occ = reduce(np.dot, (a.T, s, mo_occ))
-  dm_d = np.dot(mo_occ, mo_occ.T)
-
-  return np.array([dm_u,dm_d])
-
-
-#IAO Matrix
-def matIAO(mat,mf,a):
-  return reduce(np.dot(t,mat,t.T))
-
-#IAO 2RDM
-def rdm2diag(obdm):
-  '''THIS MIGHT BE ONLY
-  VALID IF OBDM IS ON THE 
-  OCCUPIED STATES, NOT THE IAOS?
-  '''
-  uu=np.zeros(obdm.shape[1])
-  dd=np.zeros(obdm.shape[1])
-  ud=np.diag(obdm[0])*np.diag(obdm[1])
-  return (uu,dd,ud)
-
-###########################################################################################
-#Run
-ch=[] #Hybridized hopping (Cu d and sigma, no curl)
-cc=[] #Curly hopping
-cxy=[] #x hopping
-nnh=[[0,6,8,11],
-[1,7,8,9],
-[2,4,9,15],
-[3,5,10,11],
-[0,4,12,15],
-[1,5,12,13],
-[2,6,13,14],
-[3,7,14,15]] #Nearest neighbors oxygens for a given copper
-signh=[[-1,1,1,-1],
-[-1,1,-1,1],
-[-1,1,-1,1],
-[-1,1,-1,1],
-[1,-1,1,-1],
-[1,-1,-1,1],
-[1,-1,1,-1],
-[1,-1,-1,1]] #Hopping signs for neighbor oxygens
-
-nnhc=[[15,12,8,11],
-[12,13,9,8],
-[13,14,10,9],
-[14,15,11,10],
-[9,10,12,15],
-[10,11,13,12],
-[11,8,14,13],
-[8,9,15,14],
-[0,1,7,6],
-[1,2,4,7],
-[2,3,5,4],
-[3,0,6,5],
-[4,5,1,0],
-[5,6,2,1],
-[6,7,3,2],
-[7,4,0,3]]
-sgn=[1,-1,1,-1]
-
 ########################
-#CREATE IAO 
+#RUN IAO 
 direc="../CHK"
 occ=[i for i in range(132)] + [32,33,34,36]  #Have to include the virtual dx2-y2 orbitals
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 a=calcIAO(cell,mf,minbasis,occ)
 
-#######################
-#CALCULATE E, 1RDM
-direclist=["CHK","FLP","COL","BCOL","BLK","ACHN","FM"]
-
-virtlist={
-"CHK": ([133,134,135,137],[133,134,135,137]),
-"FLP": ([134,135,137],[132,133,134,135,137]),
-"COL": ([133,134,135,137],[133,134,135,137]),
-"BCOL": ([133,134,135,137],[133,134,135,137]),
-"BLK": ([133,134,135,137],[133,134,135,137]),
-"ACHN": ([135,136],[131,132,133,134,135,137]),
-"FM":([128],[129,130,131,132,133,134,135,137])
-}
+#direclist=["CHK","FLP","COL","BCOL","BLK","ACHN","FM"]
+direclist=["FLP","COL","BCOL","BLK","ACHN","FM"]
+culabels=["3s","4s","3px","3py","3pz",'3dxy','3dyz','3dz2','3dxz','3dx2y2']
+oxlabels=["2s","2px","2py","2pz"]
+srlabels=["5s"]
+labels=[]
+#labels=(culabels)*8+(oxlabels)*16+(srlabels)*8
+for i in range(8):
+  labels+=[x+str(i+1) for x in culabels]
+for i in range(16):
+  labels+=[x+str(i+1) for x in oxlabels]
+for i in range(8):
+  labels+=[x+str(i+1) for x in srlabels]
+labels=np.array(labels)
 
 for i in range(len(direclist)):
   #Base states
@@ -323,34 +249,105 @@ for i in range(len(direclist)):
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 
   s=mf.get_ovlp()[0]
+  H1u=np.diag(mf.mo_energy[0][0])
+  H1d=np.diag(mf.mo_energy[1][0])
+  e1u=27.2114*reduce(np.dot,(a.T,s,mf.mo_coeff[0][0],H1u,mf.mo_coeff[0][0].T,s.T,a))
+  e1d=27.2114*reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1u,mf.mo_coeff[1][0].T,s.T,a))
+  e1u=(e1u+e1u.T)/2
+  e1d=(e1d+e1d.T)/2
+  
+  #PLOT EIGENVALUES
+  '''
+  w,vr=np.linalg.eigh(e1u)
+  plt.subplot(221)
+  plt.plot(mf.mo_energy[0][0][:len(w)]*27.2112,'go',label='DFT PBE0')
+  plt.plot(w,'bo',label='rotated')
+  plt.ylabel("E (eV)")
+  plt.xlabel("Eigenvalue")
+  plt.legend(loc=2)
+  
+  plt.subplot(223)
+  plt.plot(np.arange(126,137),mf.mo_energy[0][0][126:137]*27.2112,'go',label='DFT PBE0')
+  plt.plot(np.arange(126,137),w[126:137],'bo',label='rotated')
+  plt.ylabel("E (eV)")
+  plt.xlabel("Eigenvalue")
+  plt.legend(loc=2)
+  
+  w,vr=np.linalg.eigh(e1d)
+  plt.subplot(222)
+  plt.plot(mf.mo_energy[1][0][:len(w)]*27.2112,'go',w*27.2112,'bo')
+  plt.ylabel("E (eV)")
+  plt.xlabel("Eigenvalue")
+  w,vr=np.linalg.eigh(e1u)
+  
+  plt.subplot(224)
+  plt.plot(np.arange(126,137),mf.mo_energy[1][0][126:137]*27.2112,'go',label='DFT PBE0')
+  plt.plot(np.arange(126,137),w[126:137],'bo',label='rotated')
+  plt.ylabel("E (eV)")
+  plt.xlabel("Eigenvalue")
  
-  #FULL MATRIX
-  #H1u=np.diag(mf.mo_energy[0][0])*27.2114
-  #H1d=np.diag(mf.mo_energy[1][0])*27.2114
+  plt.show()
+  '''
+  
+  '''
+  #REMOVE CORE SPACE
+  relcu=[]
+  for i in range(8):
+    relcu+=[i*10+1,i*10+5,i*10+6,i*10+7,i*10+8,i*10+9]
+  relo=[]
+  for i in range(16):
+    relo+=[80+i*4+1,80+i*4+2,80+i*4+3]
 
-  #IAO SPACE SPAN 
-  indup=np.array(virtlist[direclist[i]][0])-1
-  inddn=np.array(virtlist[direclist[i]][1])-1
-  mf.mo_occ[0][0][indup]=1
-  mf.mo_occ[1][0][inddn]=1
-  H1u=np.diag(mf.mo_occ[0][0]*mf.mo_energy[0][0])*27.2114
-  H1d=np.diag(mf.mo_occ[1][0]*mf.mo_energy[1][0])*27.2114
+  #REMOVE CORE AND Z SPACE 
+  relcu=[]
+  for i in range(8):
+    relcu+=[i*10+1,i*10+5,i*10+7,i*10+9]
+  relo=[]
+  for i in range(16):
+    relo+=[80+i*4+1,80+i*4+2]
+  
+  rel=relcu+relo
+  e1u=e1u[rel][:,rel]
+  labels=labels[rel]    
+  print(labels)
+  '''
 
-  e1u=reduce(np.dot,(a.T,s,mf.mo_coeff[0][0],H1u,mf.mo_coeff[0][0].T,s.T,a))
-  e1d=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1u,mf.mo_coeff[1][0].T,s.T,a))
+  #SPIN UP 
+  print(direc)
+  ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,0.7,1,3,10,50,100,200])
+  #ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,0.7,1,3])
+  rearrange = e1u[ordering][:,ordering]
 
-  ncu=10
-  no=4
-  nsr=1
+  fig=plt.figure()
+  ax=fig.add_subplot(111)
+  cax=ax.matshow(rearrange,vmin=-8.15,vmax=8.15,cmap='BrBG')
+  #cax=ax.matshow(rearrange,vmin=-4.0,vmax=4.0,cmap='BrBG')
+  fig.colorbar(cax)
+  plt.title(direc+", spin up")
 
-  print(direclist[i])
-  print(e1u[9,9]) #nd
-  print(e1d[9,9])
-  print(e1u[ncu*8+1,ncu*8+1]) #nsigma
-  print(e1d[ncu*8+1,ncu*8+1]) #nsigma
-  print(e1u[ncu*8+2,ncu*8+2]) #npi
-  print(e1d[ncu*8+2,ncu*8+2]) #npi
-  print("ts:",-e1u[ncu*0+9,ncu*8+no*0+1],-e1d[ncu*0+9,ncu*8+no*0+1]) #sigma
-  print("tp:",-e1u[ncu*8+no*0+2,ncu*8+no*12+1],-e1d[ncu*8+no*0+2,ncu*8+no*12+1]) #pi
-  print("txy:",-e1u[ncu*8+no*0+1,ncu*8+no*12+1],-e1u[ncu*8+no*0+1,ncu*8+no*12+1]) #xy
+  ax.set_xticks(np.arange(len(labels)))
+  ax.set_yticks(np.arange(len(labels)))
+  ax.set_xticklabels(labels[ordering],rotation=90,fontsize=6)
+  ax.set_yticklabels(labels[ordering],fontsize=6)
+  #print(labels[ordering][:48])
+  #print(labels[ordering][48:])
+  plt.show()
 
+  ordering = find_connect.recursive_order(e1d,[1e-10,1e-4,0.5,0.7,1,3,10,50,100,200])
+  #ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,0.7,1,3])
+  rearrange = e1u[ordering][:,ordering]
+
+  fig=plt.figure()
+  ax=fig.add_subplot(111)
+  cax=ax.matshow(rearrange,vmin=-8.15,vmax=8.15,cmap='BrBG')
+  #cax=ax.matshow(rearrange,vmin=-4.0,vmax=4.0,cmap='BrBG')
+  fig.colorbar(cax)
+  plt.title(direc+", spin dn")
+  
+  ax.set_xticks(np.arange(len(labels)))
+  ax.set_yticks(np.arange(len(labels)))
+  ax.set_xticklabels(labels[ordering],rotation=90,fontsize=6)
+  ax.set_yticklabels(labels[ordering],fontsize=6)
+  #print(labels[ordering][:48])
+  #print(labels[ordering][48:])
+  plt.show()

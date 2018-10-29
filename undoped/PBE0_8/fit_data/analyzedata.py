@@ -244,7 +244,7 @@ cols=[
 dftot=pd.DataFrame(data=Xtot,columns=cols)
 #Energy, all hoppings, all occupations, all U
 #sns.pairplot(dftot,vars=["E","2psig","2ppi","3dx2y2","3dx2y2U","ts","tp","txy"],hue='symm')
-sns.pairplot(dftot,vars=["E","ts","2ppi"],hue='symm')
+sns.pairplot(dftot,vars=["E","ts","2psig","2ppi"],hue='symm')
 plt.show()
 exit(0)
 
