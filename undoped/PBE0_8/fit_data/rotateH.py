@@ -228,20 +228,19 @@ occ=[i for i in range(132)] + [32,33,34,36]  #Have to include the virtual dx2-y2
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 a=calcIAO(cell,mf,minbasis,occ)
 
-#direclist=["CHK","FLP","COL","BCOL","BLK","ACHN","FM"]
-direclist=["FLP","COL","BCOL","BLK","ACHN","FM"]
+direclist=["CHK","FLP","COL","BCOL","BLK","ACHN","FM"]
 culabels=["3s","4s","3px","3py","3pz",'3dxy','3dyz','3dz2','3dxz','3dx2y2']
 oxlabels=["2s","2px","2py","2pz"]
 srlabels=["5s"]
-labels=[]
+orig_labels=[]
 #labels=(culabels)*8+(oxlabels)*16+(srlabels)*8
 for i in range(8):
-  labels+=[x+str(i+1) for x in culabels]
+  orig_labels+=[x+str(i+1) for x in culabels]
 for i in range(16):
-  labels+=[x+str(i+1) for x in oxlabels]
+  orig_labels+=[x+str(i+1) for x in oxlabels]
 for i in range(8):
-  labels+=[x+str(i+1) for x in srlabels]
-labels=np.array(labels)
+  orig_labels+=[x+str(i+1) for x in srlabels]
+orig_labels=np.array(orig_labels)
 
 for i in range(len(direclist)):
   #Base states
@@ -252,7 +251,7 @@ for i in range(len(direclist)):
   H1u=np.diag(mf.mo_energy[0][0])
   H1d=np.diag(mf.mo_energy[1][0])
   e1u=27.2114*reduce(np.dot,(a.T,s,mf.mo_coeff[0][0],H1u,mf.mo_coeff[0][0].T,s.T,a))
-  e1d=27.2114*reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1u,mf.mo_coeff[1][0].T,s.T,a))
+  e1d=27.2114*reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1d,mf.mo_coeff[1][0].T,s.T,a))
   e1u=(e1u+e1u.T)/2
   e1d=(e1d+e1d.T)/2
   
@@ -289,33 +288,24 @@ for i in range(len(direclist)):
   plt.show()
   '''
   
-  '''
-  #REMOVE CORE SPACE
-  relcu=[]
-  for i in range(8):
-    relcu+=[i*10+1,i*10+5,i*10+6,i*10+7,i*10+8,i*10+9]
-  relo=[]
-  for i in range(16):
-    relo+=[80+i*4+1,80+i*4+2,80+i*4+3]
-
   #REMOVE CORE AND Z SPACE 
   relcu=[]
   for i in range(8):
     relcu+=[i*10+1,i*10+5,i*10+7,i*10+9]
   relo=[]
   for i in range(16):
-    relo+=[80+i*4+1,80+i*4+2]
+    relo+=[80+i*4,80+i*4+1,80+i*4+2]
   
   rel=relcu+relo
   e1u=e1u[rel][:,rel]
-  labels=labels[rel]    
+  e1d=e1d[rel][:,rel]
+  labels=orig_labels[rel]    
   print(labels)
-  '''
 
   #SPIN UP 
   print(direc)
-  ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,0.7,1,3,10,50,100,200])
-  #ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,0.7,1,3])
+  #ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,0.7,1,3,10,50,100,200])
+  ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,1,2,2.5,3,4,5,8])
   rearrange = e1u[ordering][:,ordering]
 
   fig=plt.figure()
@@ -333,9 +323,9 @@ for i in range(len(direclist)):
   #print(labels[ordering][48:])
   plt.show()
 
-  ordering = find_connect.recursive_order(e1d,[1e-10,1e-4,0.5,0.7,1,3,10,50,100,200])
-  #ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,0.7,1,3])
-  rearrange = e1u[ordering][:,ordering]
+  #ordering = find_connect.recursive_order(e1d,[1e-10,1e-4,0.5,0.7,1,3,10,50,100,200])
+  ordering = find_connect.recursive_order(e1d,[1e-10,1e-4,0.5,1,2,2.5,3,4,5,8])
+  rearrange = e1d[ordering][:,ordering]
 
   fig=plt.figure()
   ax=fig.add_subplot(111)
