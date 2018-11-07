@@ -1,3 +1,5 @@
+#GENERATES DATA TO USE IN ANALYZEDATA.PY
+
 from crystal2pyscf import crystal2pyscf_mol, crystal2pyscf_cell
 from pyscf import gto, scf, lo
 from pyscf.lo import orth

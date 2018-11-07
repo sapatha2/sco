@@ -1,3 +1,6 @@
+#USED TO PLOT EXCITATIONS 
+#N AND DOUBLE OCCUPATIONS
+
 import numpy as np 
 import matplotlib.pyplot as plt
 import pickle 

@@ -1,20 +1,26 @@
+#ANALYSIS OF THE KS MATRIX
 from crystal2pyscf import crystal2pyscf_mol, crystal2pyscf_cell
 from pyscf import gto, scf, lo
 from pyscf.lo import orth
 from pyscf.lo.iao import iao
 from functools import reduce
 import numpy as np 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pickle
 from pyscf import fci
 from downfold_tools import gen_slater_tbdm
-import find_connect 
+import find_connect
+import pandas as pd
+import networkx as nx
+import pygraphviz
+from networkx.drawing.nx_agraph import to_agraph
 
 ###########################################################################################
-#Basis
-
-#CUTOFF BFD basis
-basis={'Cu':gto.basis.parse('''
+#Bases
+#CUTOFF BFD 
+basis={
+  'Cu':gto.basis.parse('''
   Cu S
   27.8467870 -0.019337
   21.4206050 0.088614
@@ -57,7 +63,7 @@ basis={'Cu':gto.basis.parse('''
   0.2 1.0
   Cu D
   0.6 1.0'''),
-'O':gto.basis.parse('''
+  'O':gto.basis.parse('''
   O S
   0.268022 0.304848
   0.573098 0.453752
@@ -87,8 +93,8 @@ basis={'Cu':gto.basis.parse('''
   0.2 1.0
   O P 
   0.6 1.0
-'''),
-'Sr':gto.basis.parse('''
+  '''),
+  'Sr':gto.basis.parse('''
   Sr S
   0.217685 -0.093894
   0.487102 -0.247613
@@ -113,11 +119,12 @@ basis={'Cu':gto.basis.parse('''
   0.2 1.0
   Sr P 
   0.6 1.0
-  ''')}
+   ''')}
 
+#BFD PBC 0.2 MINIMAL BASIS
 minbasis={
-'Cu':gto.basis.parse('''
-Cu S  
+  'Cu':gto.basis.parse('''
+  Cu S  
   0.2 0.0286878866897
   0.4 -0.0364413530365
   0.8 0.358763832032
@@ -128,18 +135,18 @@ Cu S
   25.6 0.0629633270568
   51.2 -0.00853551842135
   102.4 0.000812242437275
-Cu S  
- 0.2 2.20172386547
- 0.4 -2.28170595665
- 0.8 1.46285008448
- 1.6 -1.09989311533
- 3.2 0.296788655986
- 6.4 -0.12153417324
- 12.8 0.117898710111
- 25.6 -0.0341363112541
- 51.2 0.00595066976203
- 102.4 -0.00071519088395
-Cu P  
+  Cu S  
+  0.2 2.20172386547
+  0.4 -2.28170595665
+  0.8 1.46285008448
+  1.6 -1.09989311533
+  3.2 0.296788655986
+  6.4 -0.12153417324
+  12.8 0.117898710111
+  25.6 -0.0341363112541
+  51.2 0.00595066976203
+  102.4 -0.00071519088395
+  Cu P  
   18.594006 0.003652
   14.303011 -0.037076
   5.63142 0.21712
@@ -147,7 +154,7 @@ Cu P
   1.258573 0.358723
   0.574084 0.114846
   0.20923 0.007316
-Cu D  
+  Cu D  
   0.2 0.279289473482
   0.4 -0.117221524191
   0.8 0.420466340314
@@ -159,8 +166,8 @@ Cu D
   51.2 -0.00051734713442
   102.4 2.47330807683e-05
   '''),
-'O':gto.basis.parse('''
-O S  
+  'O':gto.basis.parse('''
+  O S  
   0.2 0.215448374976
   0.4 0.351884869096
   0.8 0.395141155066
@@ -171,7 +178,7 @@ O S
   25.6 -0.00197386728468
   51.2 0.000387842127399
   102.4 -5.57569955803e-05
-O P  
+  O P  
   0.2 0.283073445696
   0.4 0.205849797904
   0.8 0.303195415412
@@ -182,10 +189,10 @@ O P
   25.6 0.00161138147606
   51.2 1.51410458608e-05
   102.4 -2.8165242665e-06
-'''),
-'Sr':gto.basis.parse('''
-Sr S  
-0.2 0.688519195726
+  '''),
+  'Sr':gto.basis.parse('''
+  Sr S  
+  0.2 0.688519195726
   0.4 -1.12060079327
   0.8 0.667777052063
   1.6 -0.264303359332
@@ -195,7 +202,7 @@ Sr S
   25.6 -0.00656798101781
   51.2 0.0015551383896
   102.4 -0.000192791210535
-''')}
+  ''')}
 basis_order = {'Cu':[0,0,1,2,3,0,0,1,1,2,2],'O':[0,1,2,3,0,0,1,1],'Sr':[0,1,2,0,0,1,1]}
 
 ###########################################################################################
@@ -203,13 +210,13 @@ basis_order = {'Cu':[0,0,1,2,3,0,0,1,1,2,2],'O':[0,1,2,3,0,0,1,1],'Sr':[0,1,2,0,
 def calcIAO(cell,mf,basis,occ):
   '''
   input: 
-    cell and scf (PBC SCF) objects from pyscf and basis
-    to calculate IAOs on
-    occupied MOs which IAOs should span
+  cell and scf (PBC SCF) objects from pyscf and basis
+  to calculate IAOs on
+  occupied MOs which IAOs should span
   output:
-    Calculates 1RDM on orthog atomic orbitals, orthogonalized
-    using Lowdin S^1/2
-    Returns coefficient matrix for IAOs 
+  Calculates 1RDM on orthog atomic orbitals, orthogonalized
+  using Lowdin S^1/2
+  Returns coefficient matrix for IAOs 
   '''
   s=mf.get_ovlp()[0]
 
@@ -221,97 +228,182 @@ def calcIAO(cell,mf,basis,occ):
  
   return a
 
-########################
-#RUN IAO 
+def block(M):
+  '''
+  input:
+  Calculate blocks of matrix M
+  output: 
+  Returns ordering and rearranged matrix
+  '''
+  ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,1,2,2.5,3,4,5,8])
+  rearrange = e1u[ordering][:,ordering]
+  return ordering, rearrange
+
+def group(r,cut,m,labels,out=0,fout="groupH.txt"):
+  '''   
+  input:
+  r - rounding for parameters
+  cut - cutoff for parameters
+  m - matrix to group up 
+  labels - labels of the matrix elements 
+  fout - file to print out to 
+  output:
+  df - data frame with all the data
+  unique_vals - unique rounded values
+  save groups to groupH.txt
+  '''
+  
+  ls=[]
+  for i in range(len(labels)):
+    for j in range(len(labels)):
+      ls.append([labels[i],labels[j]])
+  ls=np.array(ls)
+
+  data=e1u.flatten()
+  data[np.abs(data)<cut]=0
+  d={'c1':ls.T[0],'c2':ls.T[1],'e':data,'abs':np.abs(data),'round':np.round(np.abs(data),r)}
+  df=pd.DataFrame(d)
+  
+  #Unique values 
+  unique_vals=sorted(list(set(df['round'].values))) 
+
+  if(out):
+    f=open(fout,"a")
+    for u in unique_vals:
+      print(df[df['round']==u],file=f)
+    print("Cutoff ",cut,file=f)
+    print("Rounding ",r,file=f)
+    print("Nblocks ",len(unique_vals),file=f)
+
+  return df, unique_vals
+
+def graph(df,unique_vals,symm=0):
+  '''
+  input:
+  df - data frame of all hopping and energies 
+  unique_vals - unique values of hopping/energies
+  within some cutoff and roundign 
+  symm - with symmetries included
+  output:
+  returns graph with nodes (weight energy)
+  and edges (weight hopping)
+  ''' 
+  nodes=[]
+  edges=[]
+  cmap=mpl.cm.ScalarMappable(cmap='bwr')
+  norm=mpl.colors.Normalize(vmin=-3,vmax=3)
+  cm=cmap.get_cmap()
+  cmapN=mpl.cm.ScalarMappable(cmap='bwr')
+  normN=mpl.colors.Normalize(vmin=-15,vmax=15)
+  cmN=cmapN.get_cmap()
+  for u in unique_vals:
+    if(symm):
+      x=df[df['round']==u].iloc[0]
+      c1=x['c1']
+      c2=x['c2']
+      cc1=c1.split("_")[0]
+      cc2=c2.split("_")[0]
+      if(x['round']>0):
+        #if(c1==c2): nodes.append((cc1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+        #else: edges.append((cc1,cc2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
+        if(c1==c2): nodes.append((c1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+        else: edges.append((c1,c2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
+    else:
+      for j in range(len(df[df['round']==u])):
+        x=df[df['round']==u].iloc[j]
+        c1=x['c1']
+        c2=x['c2']
+        cc1=c1.split("_")[0]
+        cc2=c2.split("_")[0]
+        if(x['round']>0):
+          #if(c1==c2): nodes.append((cc1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+          #else: edges.append((cc1,cc2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
+          if(c1==c2): nodes.append((c1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+          else: edges.append((c1,c2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
+  G=nx.Graph()
+  G.add_nodes_from(nodes)
+  G.add_edges_from(edges)
+
+  return G
+
+###########################################################################################
+#Pre-run
+#GET IAOS
 direc="../CHK"
 occ=[i for i in range(132)] + [32,33,34,36]  #Have to include the virtual dx2-y2 orbitals
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 a=calcIAO(cell,mf,minbasis,occ)
 
-direclist=["CHK","FLP","COL","BCOL","BLK","ACHN","FM"]
+#SETUP LABELS
+siglist=["2px_1","2px_2","2px_3","2px_4","2px_5","2px_6","2px_7","2px_8",
+"2py_9","2py_10","2py_11","2py_12","2py_13","2py_14","2py_15","2py_16"]
+pilist=["2py_1","2py_2","2py_3","2py_4","2py_5","2py_6","2py_7","2py_8",
+"2px_9","2px_10","2px_11","2px_12","2px_13","2px_14","2px_15","2px_16"]
 culabels=["3s","4s","3px","3py","3pz",'3dxy','3dyz','3dz2','3dxz','3dx2y2']
 oxlabels=["2s","2px","2py","2pz"]
 srlabels=["5s"]
 orig_labels=[]
-#labels=(culabels)*8+(oxlabels)*16+(srlabels)*8
 for i in range(8):
-  orig_labels+=[x+str(i+1) for x in culabels]
+  orig_labels+=[x+"_"+str(i+1) for x in culabels]
 for i in range(16):
-  orig_labels+=[x+str(i+1) for x in oxlabels]
+  orig_labels+=[x+"_"+str(i+1) for x in oxlabels]
 for i in range(8):
-  orig_labels+=[x+str(i+1) for x in srlabels]
+  orig_labels+=[x+"_"+str(i+1) for x in srlabels]
 orig_labels=np.array(orig_labels)
 
-for i in range(len(direclist)):
-  #Base states
-  direc="../"+direclist[i]
+###########################################################################################
+#Run
+direclist=["CHK","FLP","COL","BCOL","BLK","ACHN","FM"]
+for z in range(len(direclist)):
+  direc="../"+direclist[z]
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",cryoutfn=direc+"/prop.in.o")
 
+  #ROTATE H1 INTO IAO BASIS
   s=mf.get_ovlp()[0]
-  H1u=np.diag(mf.mo_energy[0][0])
-  H1d=np.diag(mf.mo_energy[1][0])
-  e1u=27.2114*reduce(np.dot,(a.T,s,mf.mo_coeff[0][0],H1u,mf.mo_coeff[0][0].T,s.T,a))
-  e1d=27.2114*reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1d,mf.mo_coeff[1][0].T,s.T,a))
+  H1u=np.diag(mf.mo_energy[0][0])*27.2114
+  H1d=np.diag(mf.mo_energy[1][0])*27.2114
+  e1u=reduce(np.dot,(a.T,s,mf.mo_coeff[0][0],H1u,mf.mo_coeff[0][0].T,s.T,a))
+  e1d=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1d,mf.mo_coeff[1][0].T,s.T,a))
   e1u=(e1u+e1u.T)/2
   e1d=(e1d+e1d.T)/2
   
-  #PLOT EIGENVALUES
-  '''
-  w,vr=np.linalg.eigh(e1u)
-  plt.subplot(221)
-  plt.plot(mf.mo_energy[0][0][:len(w)]*27.2112,'go',label='DFT PBE0')
-  plt.plot(w,'bo',label='rotated')
-  plt.ylabel("E (eV)")
-  plt.xlabel("Eigenvalue")
-  plt.legend(loc=2)
-  
-  plt.subplot(223)
-  plt.plot(np.arange(126,137),mf.mo_energy[0][0][126:137]*27.2112,'go',label='DFT PBE0')
-  plt.plot(np.arange(126,137),w[126:137],'bo',label='rotated')
-  plt.ylabel("E (eV)")
-  plt.xlabel("Eigenvalue")
-  plt.legend(loc=2)
-  
-  w,vr=np.linalg.eigh(e1d)
-  plt.subplot(222)
-  plt.plot(mf.mo_energy[1][0][:len(w)]*27.2112,'go',w*27.2112,'bo')
-  plt.ylabel("E (eV)")
-  plt.xlabel("Eigenvalue")
-  w,vr=np.linalg.eigh(e1u)
-  
-  plt.subplot(224)
-  plt.plot(np.arange(126,137),mf.mo_energy[1][0][126:137]*27.2112,'go',label='DFT PBE0')
-  plt.plot(np.arange(126,137),w[126:137],'bo',label='rotated')
-  plt.ylabel("E (eV)")
-  plt.xlabel("Eigenvalue")
- 
-  plt.show()
-  '''
-  
-  #REMOVE CORE AND Z SPACE 
+  #REMOVE CORE, KEEP Z
   relcu=[]
   for i in range(8):
-    relcu+=[i*10+1,i*10+5,i*10+7,i*10+9]
+    relcu+=[i*10+1,i*10+5,i*10+6,i*10+7,i*10+8,i*10+9]
   relo=[]
   for i in range(16):
-    relo+=[80+i*4,80+i*4+1,80+i*4+2]
-  
+    relo+=[80+i*4,80+i*4+1,80+i*4+2,80+i*4+3]
   rel=relcu+relo
   e1u=e1u[rel][:,rel]
   e1d=e1d[rel][:,rel]
-  labels=orig_labels[rel]    
-  print(labels)
+  labels=orig_labels[rel]
+  for i in range(len(labels)):
+    if(labels[i] in siglist): labels[i]='2psig_'+labels[i].split("_")[1]
+    if(labels[i] in pilist): labels[i]='2ppi_'+labels[i].split("_")[1]
 
-  #SPIN UP 
-  print(direc)
-  #ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,0.7,1,3,10,50,100,200])
-  ordering = find_connect.recursive_order(e1u,[1e-10,1e-4,0.5,1,2,2.5,3,4,5,8])
-  rearrange = e1u[ordering][:,ordering]
+  #METHOD CALLS
+  df,unique_vals=group(3,0.0,e1u,labels) #Generate unique groups and total dataframe
+  G=graph(df,unique_vals,symm=0)                #Generate graph 
+  print(G.number_of_nodes(),G.number_of_edges())
+  A=to_agraph(G)
+  A.layout('dot')
+  A.draw('graph_'+direclist[z]+'_symm.pdf')                    #Plot graph
+  exit(0)
 
+  '''
+  sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.normalize(vmin=vmin, vmax=vmax))
+  sm._A = []
+  plt.colorbar(sm)
+  plt.show()
+  '''
+###########################################################################################
+#etc
+'''
+  #FOR PLOTTING THE ROTATED MATRICES
   fig=plt.figure()
   ax=fig.add_subplot(111)
   cax=ax.matshow(rearrange,vmin=-8.15,vmax=8.15,cmap='BrBG')
-  #cax=ax.matshow(rearrange,vmin=-4.0,vmax=4.0,cmap='BrBG')
   fig.colorbar(cax)
   plt.title(direc+", spin up")
 
@@ -319,18 +411,15 @@ for i in range(len(direclist)):
   ax.set_yticks(np.arange(len(labels)))
   ax.set_xticklabels(labels[ordering],rotation=90,fontsize=6)
   ax.set_yticklabels(labels[ordering],fontsize=6)
-  #print(labels[ordering][:48])
-  #print(labels[ordering][48:])
   plt.show()
 
-  #ordering = find_connect.recursive_order(e1d,[1e-10,1e-4,0.5,0.7,1,3,10,50,100,200])
+  #SPIN DOWN 
   ordering = find_connect.recursive_order(e1d,[1e-10,1e-4,0.5,1,2,2.5,3,4,5,8])
   rearrange = e1d[ordering][:,ordering]
 
   fig=plt.figure()
   ax=fig.add_subplot(111)
   cax=ax.matshow(rearrange,vmin=-8.15,vmax=8.15,cmap='BrBG')
-  #cax=ax.matshow(rearrange,vmin=-4.0,vmax=4.0,cmap='BrBG')
   fig.colorbar(cax)
   plt.title(direc+", spin dn")
   
@@ -338,6 +427,5 @@ for i in range(len(direclist)):
   ax.set_yticks(np.arange(len(labels)))
   ax.set_xticklabels(labels[ordering],rotation=90,fontsize=6)
   ax.set_yticklabels(labels[ordering],fontsize=6)
-  #print(labels[ordering][:48])
-  #print(labels[ordering][48:])
   plt.show()
+'''
