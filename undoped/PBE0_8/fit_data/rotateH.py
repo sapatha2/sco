@@ -304,10 +304,10 @@ def graph(df,unique_vals,symm=0):
       cc1=c1.split("_")[0]
       cc2=c2.split("_")[0]
       if(x['round']>0):
-        #if(c1==c2): nodes.append((cc1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
-        #else: edges.append((cc1,cc2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
-        if(c1==c2): nodes.append((c1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
-        else: edges.append((c1,c2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
+        if(c1==c2): nodes.append((cc1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+        else: edges.append((cc1,cc2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
+        #if(c1==c2): nodes.append((c1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+        #else: edges.append((c1,c2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
     else:
       for j in range(len(df[df['round']==u])):
         x=df[df['round']==u].iloc[j]
@@ -316,10 +316,10 @@ def graph(df,unique_vals,symm=0):
         cc1=c1.split("_")[0]
         cc2=c2.split("_")[0]
         if(x['round']>0):
-          #if(c1==c2): nodes.append((cc1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
-          #else: edges.append((cc1,cc2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
-          if(c1==c2): nodes.append((c1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
-          else: edges.append((c1,c2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
+          if(c1==c2): nodes.append((cc1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+          else: edges.append((cc1,cc2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
+          #if(c1==c2): nodes.append((c1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+          #else: edges.append((c1,c2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
   G=nx.Graph()
   G.add_nodes_from(nodes)
   G.add_edges_from(edges)
@@ -378,9 +378,20 @@ for z in range(len(direclist)):
   e1u=e1u[rel][:,rel]
   e1d=e1d[rel][:,rel]
   labels=orig_labels[rel]
+  my_labels=[]
   for i in range(len(labels)):
-    if(labels[i] in siglist): labels[i]='2psig_'+labels[i].split("_")[1]
-    if(labels[i] in pilist): labels[i]='2ppi_'+labels[i].split("_")[1]
+    #px, py -> pi, sigma
+    if(labels[i] in siglist): my_labels.append('2psig_'+labels[i].split("_")[1])
+    elif(labels[i] in pilist): my_labels.append('2ppi_'+labels[i].split("_")[1])
+    #split 3d by spin up and down 
+    elif(labels[i][:2]=='3d'): 
+      if(labels[i][-1] in ['1','3','6','8']): 
+        my_labels.append("u_".join(labels[i].split("_")))
+      else:
+        my_labels.append("d_".join(labels[i].split("_")))
+    #rest is unchanged
+    else: my_labels.append(labels[i])
+  labels=my_labels[:]
 
   #METHOD CALLS
   df,unique_vals=group(3,0.0,e1u,labels) #Generate unique groups and total dataframe
@@ -388,15 +399,9 @@ for z in range(len(direclist)):
   print(G.number_of_nodes(),G.number_of_edges())
   A=to_agraph(G)
   A.layout('dot')
-  A.draw('graph_'+direclist[z]+'_symm.pdf')                    #Plot graph
+  A.draw('graph_'+direclist[z]+'.pdf')                    #Plot graph
   exit(0)
 
-  '''
-  sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.normalize(vmin=vmin, vmax=vmax))
-  sm._A = []
-  plt.colorbar(sm)
-  plt.show()
-  '''
 ###########################################################################################
 #etc
 '''
