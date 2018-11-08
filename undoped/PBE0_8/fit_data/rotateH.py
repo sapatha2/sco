@@ -304,10 +304,8 @@ def graph(df,unique_vals,symm=0):
       cc1=c1.split("_")[0]
       cc2=c2.split("_")[0]
       if(x['round']>0):
-        if(c1==c2): nodes.append((cc1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+        if(c1==c2): nodes.append((cc1,{'pos':'0,'+str(x['e']/2.)+'!','style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
         else: edges.append((cc1,cc2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
-        #if(c1==c2): nodes.append((c1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
-        #else: edges.append((c1,c2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
     else:
       for j in range(len(df[df['round']==u])):
         x=df[df['round']==u].iloc[j]
@@ -316,10 +314,8 @@ def graph(df,unique_vals,symm=0):
         cc1=c1.split("_")[0]
         cc2=c2.split("_")[0]
         if(x['round']>0):
-          if(c1==c2): nodes.append((cc1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
+          if(c1==c2): nodes.append((cc1,{'pos':'0,'+str(x['e']/2.)+'!','style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
           else: edges.append((cc1,cc2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
-          #if(c1==c2): nodes.append((c1,{'style':'filled','fillcolor':mpl.colors.rgb2hex(cmN(normN(x['e']))[:3])}))
-          #else: edges.append((c1,c2,{'color':mpl.colors.rgb2hex(cm(norm(x['round']))[:3])}))
   G=nx.Graph()
   G.add_nodes_from(nodes)
   G.add_edges_from(edges)
@@ -398,6 +394,9 @@ for z in range(len(direclist)):
   G=graph(df,unique_vals,symm=0)                #Generate graph 
   print(G.number_of_nodes(),G.number_of_edges())
   A=to_agraph(G)
+  A.outputorder="edgesfirst"
+  #A.has_layout=True
+  #neato, dot, twopi, circo, fdp, nop, wc, acyclic, gvpr, gvcolor, ccomps, sccmap, tred, sfdp, unflatten.
   A.layout('dot')
   A.draw('graph_'+direclist[z]+'.pdf')                    #Plot graph
   exit(0)
