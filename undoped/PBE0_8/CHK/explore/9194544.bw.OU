@@ -1,0 +1,12 @@
+----------------------------------------
+Begin Torque Prologue on nid25339
+at Fri Nov  9 13:39:16 CST 2018
+Job Id:			9194544.bw
+Username:		sapatha2
+Group:			ILL_batr
+Job name:		chkvar3e
+Requested resources:	nodes=20:ppn=32:xe,walltime=08:00:00,neednodes=20:ppn=32:xe
+Queue:			low
+Account:		batr
+End Torque Prologue:  0.180 elapsed
+----------------------------------------

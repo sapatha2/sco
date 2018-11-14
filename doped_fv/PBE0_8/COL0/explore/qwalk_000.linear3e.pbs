@@ -1,0 +1,11 @@
+#!/bin/bash 
+#PBS -q low 
+#PBS -l nodes=20:ppn=32:xe 
+#PBS -l walltime=48:00:00 
+#PBS -N chklin3e
+#PBS -e chklin3e.perr 
+#PBS -o chklin3e.pout 
+mkdir -p /scratch/sciteam/$USER/explore_col/
+cd /scratch/sciteam/$USER/explore_col/
+cp -u /u/sciteam/$USER/sco/doped_fv/PBE0_8/COL0/explore/* . 
+aprun -n 640 /u/sciteam/$USER/fork/bin/qwalk qwalk_000.linear3e &> qwalk_000.linear3e.out 

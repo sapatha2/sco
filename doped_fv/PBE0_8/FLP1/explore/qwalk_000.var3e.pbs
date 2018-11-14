@@ -1,0 +1,11 @@
+#!/bin/bash 
+#PBS -q low 
+#PBS -l nodes=20:ppn=32:xe 
+#PBS -l walltime=08:00:00 
+#PBS -N chkvar3e 
+#PBS -e chkvar3e.perr 
+#PBS -o chkvar3e.pout 
+mkdir -p /scratch/sciteam/$USER/explore_flp/
+cd /scratch/sciteam/$USER/explore_flp/
+cp -u /u/sciteam/$USER/sco/doped_fv/PBE0_8/FLP1/explore/* . 
+aprun -n 640 /u/sciteam/$USER/fork/bin/qwalk qwalk_000.var3e &> qwalk_000.var3e.out 

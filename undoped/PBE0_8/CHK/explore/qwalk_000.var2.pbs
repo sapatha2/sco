@@ -1,0 +1,11 @@
+#!/bin/bash 
+#PBS -q low 
+#PBS -l nodes=20:ppn=32:xe 
+#PBS -l walltime=08:00:00 
+#PBS -N chkvar2 
+#PBS -e chkvar2.perr 
+#PBS -o chkvar2.pout 
+mkdir -p /scratch/sciteam/$USER/explore/
+cd /scratch/sciteam/$USER/explore/
+cp -u /u/sciteam/$USER/sco/undoped/PBE0_8/CHK/explore/* . 
+aprun -n 640 /u/sciteam/$USER/fork/bin/qwalk qwalk_000.var2 &> qwalk_000.var2.out 

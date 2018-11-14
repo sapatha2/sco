@@ -1,0 +1,743 @@
+------------------------------------------------
+Quantum Walk development version
+Contributions from: (in no particular order) 
+Michal Bajdich, Shuming Hu, Jindrich Kolorenc, Kevin Rasch, 
+Pavel Vagner, Rene Derian, Paul Kent, Jarrod McClean, 
+Fernando Reboredo, Lucas Wagner, Hiori Kino, Lubos Mitas, Brian Busemeyer, Joshua Schiller,
+Li Chen, Kiel Williams, and Huihuo Zheng
+Originated at North Carolina State University 
+Please cite J. Comp. Phys. v 228 pp 3390-3404 (2009) 
+ when publishing results from this program.
+------------------------------------------------
+Running on nid19712
+Fri Nov  9 18:07:54 2018
+
+     System 
+Periodic system 
+Lattice vectors:
+0 : -14.8451   -14.8451   0   
+1 : 14.8451   -14.8451   0   
+2 : 0   0   6.48894   
+reciprocal vectors(multiplied by 2*pi) : 
+0 : -0.211625    -0.211625    0    
+1 : 0.211625    -0.211625    0    
+2 : 0    0    0.968291    
+total number of points in reciprocal ewald sum: 4654
+Self e-i 128.942
+Self e-e -179.24
+Self i-i -1584.29
+xc correction 0.262267 Warning: not added to E_total!
+ion sum of ewald 755.666
+
+Atomic positions 
+ Label          Charge            x               y               z   
+    cu              19        -3.71128        -18.5564               0
+    cu              19        -3.71128        -11.1338               0
+    cu              19        -3.71128        -3.71128               0
+    cu              19         11.1338        -11.1338               0
+    cu              19         3.71128        -18.5564               0
+    cu              19         3.71128        -11.1338               0
+    cu              19         3.71128        -3.71128               0
+    cu              19        -11.1338        -11.1338               0
+     o               6    -1.77636e-15        -18.5564               0
+     o               6    -1.77636e-15        -11.1338               0
+     o               6               0        -3.71128               0
+     o               6     1.77636e-15         -25.979               0
+     o               6         7.42256        -18.5564               0
+     o               6         7.42256        -11.1338               0
+     o               6        -7.42256        -18.5564               0
+     o               6        -7.42256        -11.1338               0
+     o               6        -3.71128        -14.8451               0
+     o               6        -3.71128        -7.42256               0
+     o               6         11.1338        -14.8451               0
+     o               6        -3.71128        -22.2677               0
+     o               6         3.71128        -14.8451               0
+     o               6         3.71128        -7.42256               0
+     o               6        -11.1338        -14.8451               0
+     o               6         3.71128        -22.2677               0
+    sr               2               0        -14.8451         3.24447
+    sr               2               0        -7.42256         3.24447
+    sr               2               0               0         3.24447
+    sr               2     1.77636e-15        -22.2677         3.24447
+    sr               2         7.42256        -14.8451         3.24447
+    sr               2         7.42256        -7.42256         3.24447
+    sr               2        -7.42256        -14.8451         3.24447
+    sr               2        -7.42256        -7.42256         3.24447
+ionic polarization -1.06581e-14  -3295.62  51.9115  
+
+
+     Wavefunction 
+Slater Determinant
+1 determinant
+State: 
+spin up:
+  1 2 3 4 5 6 7 8 9 10 
+  11 12 13 14 15 16 17 18 19 20 
+  21 22 23 24 25 26 27 28 29 30 
+  31 32 33 34 35 36 37 38 39 40 
+  41 42 43 44 45 46 47 48 49 50 
+  51 52 53 54 55 56 57 58 59 60 
+  61 62 63 64 65 66 67 68 69 70 
+  71 72 73 74 75 76 77 78 79 80 
+  81 82 83 84 85 86 87 88 89 90 
+  91 92 93 94 95 96 97 98 99 100 
+  101 102 103 104 105 106 107 108 109 110 
+  111 112 113 114 115 116 117 118 119 120 
+  121 122 123 124 125 126 127 128 129 130 
+  131 132 
+spin down: 
+  801 802 803 804 805 806 807 808 809 810 
+  811 812 813 814 815 816 817 818 819 820 
+  821 822 823 824 825 826 827 828 829 830 
+  831 832 833 834 835 836 837 838 839 840 
+  841 842 843 844 845 846 847 848 849 850 
+  851 852 853 854 855 856 857 858 859 860 
+  861 862 863 864 865 866 867 868 869 870 
+  871 872 873 874 875 876 877 878 879 880 
+  881 882 883 884 885 886 887 888 889 890 
+  891 892 893 894 895 896 897 898 899 900 
+  901 902 903 904 905 906 907 908 909 910 
+  911 912 913 914 915 916 917 918 919 920 
+  921 922 923 924 925 926 927 928 929 930 
+  931 932 
+Molecular Orbital object : Cutoff MO 
+Number of molecular orbitals: 932
+Basis functions: 
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+
+Jastrow2 function
+Group 0
+  Separate spin two-body
+    Coefficients frozen
+    Like coefficients 0.25  0  
+    Unlike Coefficients 0  0.5  
+
+  Electron-electron basis
+    Cutoff cusp
+    Gamma 25.462   Cusp 1
+    Cutoff cusp
+    Gamma 19.9296   Cusp 1
+
+Group 1
+  One-body terms 
+    Atom   Coefficients 
+    cu  1.01769  0.615651  -0.13353  
+    sr  -0.00887868  -0.00906757  -0.00396739  
+    o  0.162393  0.133123  -0.00717982  
+
+  Two-body terms 
+    Coefficients -0.00594938  -0.190112  -0.0386935  
+   Three-body terms 
+    Atom   Coefficients 
+    cu  -0.132298  0.24167  -0.120784  0.158476  -0.0669076  -0.0265778  -0.0130943  
+    sr  -0.000100008  -7.15794e-05  -2.64132e-05  -1.09276e-05  -3.03045e-05  -2.01056e-05  -1.28648e-06  
+    o  -0.0879449  0.00899992  0.0777518  -0.0103472  0.0175204  -0.0017087  -0.0119144  
+
+  Electron-ion basis
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  
+    cutoff distance : 3.24447
+
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  
+    cutoff distance : 3.24447
+
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  
+    cutoff distance : 3.24447
+
+
+  Electron-electron basis
+    Poly_pade function
+    beta : 0.5  6.4296  35.799  
+    cutoff distance : 3.24447
+
+
+
+Pseudopotential 
+atom cu
+Integration points 12
+Cutoff for static calculation 1.1
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     127.351         0   12.3657
+  Expansion 1
+       coeff         n  exponent
+     71.2298         0   11.1607
+  Expansion 2
+       coeff         n  exponent
+          19        -1    6.2515
+     118.778         1   6.72725
+      -105.9         0   6.61025
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     127.351         0   12.3657
+  Expansion 1
+       coeff         n  exponent
+     71.2298         0   11.1607
+  Expansion 2
+       coeff         n  exponent
+          19        -1    6.2515
+     118.778         1   6.72725
+      -105.9         0   6.61025
+atom o
+Integration points 6
+Cutoff for static calculation 1.25
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     38.4191         0   8.71924
+  Expansion 1
+       coeff         n  exponent
+           6        -1   9.29794
+     55.7876         1   8.86492
+    -38.8198         0   8.62926
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     38.4191         0   8.71924
+  Expansion 1
+       coeff         n  exponent
+           6        -1   9.29794
+     55.7876         1   8.86492
+    -38.8198         0   8.62926
+atom sr
+Integration points 12
+Cutoff for static calculation 4.05
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     146.872         0   1.28683
+  Expansion 1
+       coeff         n  exponent
+     140.026         0  0.956745
+  Expansion 2
+       coeff         n  exponent
+     24.4455         0   1.94832
+  Expansion 3
+       coeff         n  exponent
+           2        -1   4.38394
+     8.76788         1    3.1965
+    -14.2552         0  0.989915
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     146.872         0   1.28683
+  Expansion 1
+       coeff         n  exponent
+     140.026         0  0.956745
+  Expansion 2
+       coeff         n  exponent
+     24.4455         0   1.94832
+  Expansion 3
+       coeff         n  exponent
+           2        -1   4.38394
+     8.76788         1    3.1965
+    -14.2552         0  0.989915
+
+
+-----------------------------
+Linear wave function optimization:  
+Number of processors: 640
+Number of MC steps : 16000
+Number of correlated sampling walkers : 16000
+Wave function output to file  : qwalk_000.linear3.wfout
+nparms 33
+----------------------------
+####################
+step 0: current energy -1837.719801 +/- 0.01356120576
+prop_psi0 0.8618871407 stabilization 0.2297149751 energy -1.442728465 +/- 0.07720784884
+prop_psi0 0.9539788294 stabilization 1.148574875 energy -1.247457772 +/- 0.07760865834
+prop_psi0 0.9900089673 stabilization 5.742874377 energy -1.025254952 +/- 0.07607999369
+prop_psi0 0.9979751313 stabilization 28.71437188 energy -0.8549874872 +/- 0.06979634364
+prop_psi0 0.9995518116 stabilization 143.5718594 energy -0.7226245181 +/- 0.05870786315
+prop_psi0 0.9998643567 stabilization 717.8592971 energy -0.6083330862 +/- 0.03860435868
+prop_psi0 0.9999784538 stabilization 3589.296485 energy -0.3459556721 +/- 0.0179752859
+prop_psi0 0.9999982766 stabilization 17946.48243 energy -0.1213804203 +/- 0.006565758015
+prop_psi0 0.9999999029 stabilization 89732.41213 energy -0.03170755557 +/- 0.001729527676
+prop_psi0 0.9999999957 stabilization 448662.0607 energy -0.006850785392 +/- 0.0003725059002
+prop_psi0 0.9999999998 stabilization 2243310.303 energy -0.001393579445 +/- 7.569780457e-05
+prop_psi0 1 stabilization 11216551.52 energy -0.0002796810592 +/- 1.518863082e-05
+prop_psi0 1 energy 0 +/- 0
+Minimum stabilization 0.2297149751
+Estimated change -1.559931366 +/- 0.05740003325
+####################
+step 1: current energy -1839.276637 +/- 0.01626985481
+prop_psi0 0.8651025367 stabilization 0.04598191592 energy -0.1515200316 +/- 0.01940353753
+prop_psi0 0.9534401452 stabilization 0.2299095796 energy -0.1283239689 +/- 0.01518412666
+prop_psi0 0.9912860083 stabilization 1.149547898 energy -0.08864672151 +/- 0.01177264118
+prop_psi0 0.9989857419 stabilization 5.74773949 energy -0.0536463876 +/- 0.01019405057
+prop_psi0 0.9998950765 stabilization 28.73869745 energy -0.03274522274 +/- 0.009024878768
+prop_psi0 0.9999861717 stabilization 143.6934873 energy -0.02091201669 +/- 0.007257233489
+prop_psi0 0.9999975073 stabilization 718.4674363 energy -0.01421672211 +/- 0.004888755217
+prop_psi0 0.9999996538 stabilization 3592.337182 energy -0.008607876581 +/- 0.00222401634
+prop_psi0 0.9999999665 stabilization 17961.68591 energy -0.003784378697 +/- 0.0007980144677
+prop_psi0 0.9999999979 stabilization 89808.42954 energy -0.001081057976 +/- 0.0002100143732
+prop_psi0 0.9999999999 stabilization 449042.1477 energy -0.0002378625848 +/- 4.517625728e-05
+prop_psi0 1 stabilization 2245210.738 energy -4.855653821e-05 +/- 9.176941833e-06
+prop_psi0 1 stabilization 11226053.69 energy -9.751743573e-06 +/- 1.841188066e-06
+prop_psi0 1 energy 0 +/- 0
+Minimum stabilization 0.04598191592
+Estimated change -0.1564235874 +/- 0.02235592384
+####################
+step 2: current energy -1839.420375 +/- 0.01219722387
+prop_psi0 0.8152405347 stabilization 0.001839420375 energy -0.009467154293 +/- 0.006112952798
+prop_psi0 0.9207082712 stabilization 0.009197101877 energy -0.00914314126 +/- 0.005680669913
+prop_psi0 0.9797836469 stabilization 0.04598550938 energy -0.007765689912 +/- 0.004229407417
+prop_psi0 0.9969883917 stabilization 0.2299275469 energy -0.00582866229 +/- 0.002672538551
+prop_psi0 0.9997170681 stabilization 1.149637735 energy -0.004353610638 +/- 0.002179704575
+prop_psi0 0.9999751704 stabilization 5.748188673 energy -0.003471137449 +/- 0.001762252812
+prop_psi0 0.9999972018 stabilization 28.74094336 energy -0.002866635551 +/- 0.001258123237
+prop_psi0 0.999999633 stabilization 143.7047168 energy -0.002216548397 +/- 0.0008678582201
+prop_psi0 0.9999999532 stabilization 718.5235841 energy -0.001228653748 +/- 0.0005574214177
+prop_psi0 0.9999999949 stabilization 3592.617921 energy -0.0003986245044 +/- 0.0003266698477
+prop_psi0 0.9999999995 stabilization 17963.0896 energy -8.690760463e-05 +/- 0.0001449206756
+prop_psi0 1 stabilization 89815.44801 energy -1.782509052e-05 +/- 4.007413587e-05
+prop_psi0 1 stabilization 449077.2401 energy -3.608579482e-06 +/- 8.698435488e-06
+prop_psi0 1 stabilization 2245386.2 energy -7.239304523e-07 +/- 1.770040251e-06
+prop_psi0 1 stabilization 11226931 energy -1.448793796e-07 +/- 3.552489359e-07
+prop_psi0 1 energy 0 +/- 0
+Minimum stabilization 0.001839420375
+Estimated change -0.009489476015 +/- 0.006367125342
+####################
+step 3: current energy -1839.438058 +/- 0.01272338356
+prop_psi0 0.9829506772 stabilization 0.001839438058 energy -0.002206836463 +/- 0.001776270491
+prop_psi0 0.9945884914 stabilization 0.009197190288 energy -0.002107921004 +/- 0.001722691663
+prop_psi0 0.9984206278 stabilization 0.04598595144 energy -0.001600745329 +/- 0.001433594886
+prop_psi0 0.9996982671 stabilization 0.2299297572 energy -0.0005148378951 +/- 0.0009755348635
+prop_psi0 0.9999614681 stabilization 1.149648786 energy 0.0002926528871 +/- 0.0007124629808
+prop_psi0 0.9999956627 stabilization 5.74824393 energy 0.0005430548928 +/- 0.00057360279
+prop_psi0 0.9999996247 stabilization 28.74121965 energy 0.0003719437186 +/- 0.0005040339767
+prop_psi0 0.9999999625 stabilization 143.7060982 energy 0.0001043213891 +/- 0.0004323020549
+prop_psi0 0.9999999937 stabilization 718.5304912 energy -3.39172159e-05 +/- 0.0003295774729
+prop_psi0 0.9999999987 stabilization 3592.652456 energy -2.651244907e-05 +/- 0.0002080441919
+prop_psi0 0.9999999998 stabilization 17963.26228 energy -9.916170575e-06 +/- 9.232626891e-05
+prop_psi0 1 stabilization 89816.3114 energy -3.012916682e-06 +/- 2.54174899e-05
+prop_psi0 1 stabilization 449081.557 energy -6.833480938e-07 +/- 5.510754697e-06
+prop_psi0 1 stabilization 2245407.785 energy -1.404868954e-07 +/- 1.121112628e-06
+prop_psi0 1 stabilization 11227038.93 energy -2.825564707e-08 +/- 2.249976654e-07
+prop_psi0 1 energy 0 +/- 0
+Minimum stabilization 0.001839438058
+Estimated change 0.0002767928504 +/- 0.002236301317
+Did not find a downhill move; increasing total vmc steps to 64000
+####################
+step 4: current energy -1839.443639 +/- 0.006089553493
+prop_psi0 0.9875107039 stabilization 0.001839443639 energy 0.001986548014 +/- 0.001512788124
+prop_psi0 0.9968383632 stabilization 0.009197218195 energy 0.001881642627 +/- 0.001434897549
+prop_psi0 0.9992696512 stabilization 0.04598609097 energy 0.002038756061 +/- 0.001284254085
+prop_psi0 0.9998584993 stabilization 0.2299304549 energy 0.00231962662 +/- 0.001032442156
+prop_psi0 0.9999783134 stabilization 1.149652274 energy 0.002190481534 +/- 0.0008100347576
+prop_psi0 0.9999967518 stabilization 5.748261372 energy 0.001869525431 +/- 0.0006188977976
+prop_psi0 0.9999996322 stabilization 28.74130686 energy 0.001516281493 +/- 0.0004907087416
+prop_psi0 0.9999999615 stabilization 143.7065343 energy 0.00120537851 +/- 0.0004062412362
+prop_psi0 0.9999999953 stabilization 718.5326715 energy 0.0009844260079 +/- 0.0003416545143
+prop_psi0 0.9999999988 stabilization 3592.663357 energy 0.0007329396688 +/- 0.0002598815413
+prop_psi0 0.9999999997 stabilization 17963.31679 energy 0.0003484682593 +/- 0.0001261570471
+prop_psi0 1 stabilization 89816.58393 energy 9.673352283e-05 +/- 3.548953458e-05
+prop_psi0 1 stabilization 449082.9197 energy 2.097907333e-05 +/- 7.728123881e-06
+prop_psi0 1 stabilization 2245414.598 energy 4.267869906e-06 +/- 1.573585413e-06
+prop_psi0 1 stabilization 11227072.99 energy 8.565160101e-07 +/- 3.158600284e-07
+prop_psi0 1 energy 0 +/- 0
+Minimum stabilization 11227072.99
+Estimated change 3.18511411e-07 +/- 2.885925404e-07
+Iterations without a downhill move:1
+####################
+step 5: current energy -1839.448232 +/- 0.007130164259
+prop_psi0 0.9914145126 stabilization 0.001839448232 energy -0.0004471461049 +/- 0.001815973124
+prop_psi0 0.9977889373 stabilization 0.009197241161 energy -0.0005649236823 +/- 0.001630394141
+prop_psi0 0.9994658321 stabilization 0.0459862058 energy -0.0007331373772 +/- 0.001322356222
+prop_psi0 0.9999007823 stabilization 0.229931029 energy -0.0008350042665 +/- 0.001052252796
+prop_psi0 0.9999847021 stabilization 1.149655145 energy -0.0008177106679 +/- 0.0008805574215
+prop_psi0 0.9999966156 stabilization 5.748275725 energy -0.0006481018923 +/- 0.0006817182465
+prop_psi0 0.9999994709 stabilization 28.74137863 energy -0.0002559557832 +/- 0.0004142186627
+prop_psi0 0.9999999553 stabilization 143.7068931 energy -3.782846414e-05 +/- 0.0002144232729
+prop_psi0 0.999999997 stabilization 718.5344657 energy -6.628721019e-06 +/- 0.0001194095036
+prop_psi0 0.9999999997 stabilization 3592.672328 energy -8.831262073e-06 +/- 8.009150128e-05
+prop_psi0 1 stabilization 17963.36164 energy -6.076453644e-06 +/- 3.794550418e-05
+prop_psi0 1 stabilization 89816.80821 energy -1.924412311e-06 +/- 1.061886854e-05
+prop_psi0 1 stabilization 449084.0411 energy -4.317045182e-07 +/- 2.309728987e-06
+prop_psi0 1 stabilization 2245420.205 energy -8.845860293e-08 +/- 4.701933713e-07
+prop_psi0 1 stabilization 11227101.03 energy -1.777864327e-08 +/- 9.437580789e-08
+prop_psi0 1 energy 0 +/- 0
+Minimum stabilization 0.229931029
+Estimated change 3.726143882e-06 +/- 0.001267139688
+Iterations without a downhill move:2
+Reached 2 without a downhill move and at the maximum number of samples.
+Halting.
+Wall time for this method: 50728 seconds.
+Total wall time so far: 50745 seconds.

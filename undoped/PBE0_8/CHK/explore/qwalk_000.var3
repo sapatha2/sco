@@ -1,0 +1,17 @@
+method { optimize iterations 10 }
+method { optimize iterations 10 }
+method { optimize iterations 10 }
+method { optimize iterations 10 }
+method { optimize iterations 10 }
+method { optimize iterations 10 }
+method { optimize iterations 10 }
+method { optimize iterations 10 }
+method { optimize iterations 10 }
+method { optimize iterations 10 }
+
+include qwalk_000.sys
+trialfunc { 
+  slater-jastrow
+  wf1 { include qwalk_000.slater }
+  wf2 { include qwalk.jast3 }
+}
