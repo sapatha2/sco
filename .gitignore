@@ -9,3 +9,6 @@ xml
 *.cube
 *prop.in.o
 fort.*
+*.orb
+*core*
+*.config*
