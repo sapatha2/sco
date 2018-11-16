@@ -1,0 +1,734 @@
+------------------------------------------------
+Quantum Walk development version
+Contributions from: (in no particular order) 
+Michal Bajdich, Shuming Hu, Jindrich Kolorenc, Kevin Rasch, 
+Pavel Vagner, Rene Derian, Paul Kent, Jarrod McClean, 
+Fernando Reboredo, Lucas Wagner, Hiori Kino, Lubos Mitas, Brian Busemeyer, Joshua Schiller,
+Li Chen, Kiel Williams, and Huihuo Zheng
+Originated at North Carolina State University 
+Please cite J. Comp. Phys. v 228 pp 3390-3404 (2009) 
+ when publishing results from this program.
+------------------------------------------------
+Running on nid18196
+Wed Nov 14 15:03:46 2018
+
+Periodic system 
+Lattice vectors:
+0 : -14.8451   -14.8451   0   
+1 : 14.8451   -14.8451   0   
+2 : 0   0   6.48894   
+reciprocal vectors(multiplied by 2*pi) : 
+0 : -0.211625    -0.211625    0    
+1 : 0.211625    -0.211625    0    
+2 : 0    0    0.968291    
+total number of points in reciprocal ewald sum: 4654
+Self e-i 128.942
+Self e-e -179.24
+Self i-i -1584.29
+xc correction 0.262267 Warning: not added to E_total!
+ion sum of ewald 755.666
+
+Atomic positions 
+ Label          Charge            x               y               z   
+    cu              19        -3.71128        -18.5564               0
+    cu              19        -3.71128        -11.1338               0
+    cu              19        -3.71128        -3.71128               0
+    cu              19         11.1338        -11.1338               0
+    cu              19         3.71128        -18.5564               0
+    cu              19         3.71128        -11.1338               0
+    cu              19         3.71128        -3.71128               0
+    cu              19        -11.1338        -11.1338               0
+     o               6    -1.77636e-15        -18.5564               0
+     o               6    -1.77636e-15        -11.1338               0
+     o               6               0        -3.71128               0
+     o               6     1.77636e-15         -25.979               0
+     o               6         7.42256        -18.5564               0
+     o               6         7.42256        -11.1338               0
+     o               6        -7.42256        -18.5564               0
+     o               6        -7.42256        -11.1338               0
+     o               6        -3.71128        -14.8451               0
+     o               6        -3.71128        -7.42256               0
+     o               6         11.1338        -14.8451               0
+     o               6        -3.71128        -22.2677               0
+     o               6         3.71128        -14.8451               0
+     o               6         3.71128        -7.42256               0
+     o               6        -11.1338        -14.8451               0
+     o               6         3.71128        -22.2677               0
+    sr               2               0        -14.8451         3.24447
+    sr               2               0        -7.42256         3.24447
+    sr               2               0               0         3.24447
+    sr               2     1.77636e-15        -22.2677         3.24447
+    sr               2         7.42256        -14.8451         3.24447
+    sr               2         7.42256        -7.42256         3.24447
+    sr               2        -7.42256        -14.8451         3.24447
+    sr               2        -7.42256        -7.42256         3.24447
+ionic polarization -1.06581e-14  -3295.62  51.9115  
+Pseudopotential 
+atom cu
+Integration points 12
+Cutoff for static calculation 1.1
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     127.351         0   12.3657
+  Expansion 1
+       coeff         n  exponent
+     71.2298         0   11.1607
+  Expansion 2
+       coeff         n  exponent
+          19        -1    6.2515
+     118.778         1   6.72725
+      -105.9         0   6.61025
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     127.351         0   12.3657
+  Expansion 1
+       coeff         n  exponent
+     71.2298         0   11.1607
+  Expansion 2
+       coeff         n  exponent
+          19        -1    6.2515
+     118.778         1   6.72725
+      -105.9         0   6.61025
+atom o
+Integration points 6
+Cutoff for static calculation 1.25
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     38.4191         0   8.71924
+  Expansion 1
+       coeff         n  exponent
+           6        -1   9.29794
+     55.7876         1   8.86492
+    -38.8198         0   8.62926
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     38.4191         0   8.71924
+  Expansion 1
+       coeff         n  exponent
+           6        -1   9.29794
+     55.7876         1   8.86492
+    -38.8198         0   8.62926
+atom sr
+Integration points 12
+Cutoff for static calculation 4.05
+Pseudopotential for spin up: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     146.872         0   1.28683
+  Expansion 1
+       coeff         n  exponent
+     140.026         0  0.956745
+  Expansion 2
+       coeff         n  exponent
+     24.4455         0   1.94832
+  Expansion 3
+       coeff         n  exponent
+           2        -1   4.38394
+     8.76788         1    3.1965
+    -14.2552         0  0.989915
+Pseudopotential for spin down: 
+  R^n *Gaussian
+  Expansion 0
+       coeff         n  exponent
+     146.872         0   1.28683
+  Expansion 1
+       coeff         n  exponent
+     140.026         0  0.956745
+  Expansion 2
+       coeff         n  exponent
+     24.4455         0   1.94832
+  Expansion 3
+       coeff         n  exponent
+           2        -1   4.38394
+     8.76788         1    3.1965
+    -14.2552         0  0.989915
+Slater Determinant
+1 determinant
+State: 
+spin up:
+  1 2 3 4 5 6 7 8 9 10 
+  11 12 13 14 15 16 17 18 19 20 
+  21 22 23 24 25 26 27 28 29 30 
+  31 32 33 34 35 36 37 38 39 40 
+  41 42 43 44 45 46 47 48 49 50 
+  51 52 53 54 55 56 57 58 59 60 
+  61 62 63 64 65 66 67 68 69 70 
+  71 72 73 74 75 76 77 78 79 80 
+  81 82 83 84 85 86 87 88 89 90 
+  91 92 93 94 95 96 97 98 99 100 
+  101 102 103 104 105 106 107 108 109 110 
+  111 112 113 114 115 116 117 118 119 120 
+  121 122 123 124 125 126 127 128 129 130 
+  131 132 
+spin down: 
+  801 802 803 804 805 806 807 808 809 810 
+  811 812 813 814 815 816 817 818 819 820 
+  821 822 823 824 825 826 827 828 829 830 
+  831 832 833 834 835 836 837 838 839 840 
+  841 842 843 844 845 846 847 848 849 850 
+  851 852 853 854 855 856 857 858 859 860 
+  861 862 863 864 865 866 867 868 869 870 
+  871 872 873 874 875 876 877 878 879 880 
+  881 882 883 884 885 886 887 888 889 890 
+  891 892 893 894 895 896 897 898 899 900 
+  901 902 903 904 905 906 907 908 909 910 
+  911 912 913 914 915 916 917 918 919 920 
+  921 922 923 924 925 926 927 928 929 930 
+  931 932 
+Molecular Orbital object : Cutoff MO 
+Number of molecular orbitals: 932
+Basis functions: 
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for cu
+  11  radial functions
+    function  symmetry    cutoff
+           0         S      6.48
+           1         S      5.98
+           2         P      9.48
+           3        5D      6.98
+           47F_crystal      3.98
+           5         S     10.98
+           6         S      6.48
+           7         P     10.98
+           8         P      6.48
+           9        5D     10.98
+          10        5D      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for o
+  8  radial functions
+    function  symmetry    cutoff
+           0         S      9.48
+           1         P      8.48
+           2        5D      5.98
+           37F_crystal      4.48
+           4         S     10.98
+           5         S      6.48
+           6         P     10.98
+           7         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+  Cubic spline for sr
+  7  radial functions
+    function  symmetry    cutoff
+           0         S     10.48
+           1         P      9.98
+           2        5D      6.98
+           3         S     10.98
+           4         S      6.48
+           5         P     10.98
+           6         P      6.48
+
+Jastrow2 function
+Group 0
+  Separate spin two-body
+    Coefficients frozen
+    Like coefficients 0.25  0  
+    Unlike Coefficients 0  0.5  
+
+  Electron-electron basis
+    Cutoff cusp
+    Gamma 25.2326   Cusp 1
+    Cutoff cusp
+    Gamma 20.5399   Cusp 1
+
+Group 1
+  One-body terms 
+    Atom   Coefficients 
+    cu  1.74834  0.573003  -0.431483  0.402631  
+    sr  -0.00713053  -0.502764  -0.591362  -0.164455  
+    o  0.545731  0.234229  -0.171845  0.122547  
+
+  Two-body terms 
+    Coefficients -0.125159  -0.100944  -0.0807821  
+   Three-body terms 
+    Atom   Coefficients 
+    cu  -0.114792  0.269255  -0.20338  0.546857  -0.220666  -0.276368  -0.966241  -1.08704  0.1427  1.20134  0.749686  0.235575  
+    sr  -0.00106926  0.00451371  0.00513217  -1.55226e-05  0.00151603  0.00126191  0.000172578  -1.91327e-06  0.00026882  7.72752e-06  0.000677888  3.65126e-05  
+    o  -0.1968  -0.618533  1.0379  0.131382  -0.0971709  1.80535  0.607775  -0.869283  -0.119175  0.461359  -2.95336  0.97993  
+
+  Electron-ion basis
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  144.814  
+    cutoff distance : 3.24447
+
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  144.814  
+    cutoff distance : 3.24447
+
+    Poly_pade function
+    beta : 0.2  4.94369  28.4393  144.814  
+    cutoff distance : 3.24447
+
+
+  Electron-electron basis
+    Poly_pade function
+    beta : 0.5  6.4296  35.799  
+    cutoff distance : 3.24447
+
+###########################################################
+Diffusion Monte Carlo:
+Number of processors 64
+Blocks: 100
+Steps per block: 100
+Timestep: 0.01
+T-moves turned on
+  recursion depth 1
+  timestep divider 1
+  restricting node crossings
+  drift type 1
+###########################################################
+Acceptance 0.9834043561
+Acceptance 0.9824573864
+Acceptance 0.9826467803
+Acceptance 0.9827888258
+Acceptance 0.9825284091
+Acceptance 0.9835464015
+Acceptance 0.9828125
+Acceptance 0.9837121212
+Acceptance 0.9832386364
+Acceptance 0.9822206439
+Acceptance 0.9830492424
+Acceptance 0.9816761364
+Acceptance 0.9825994318
+Acceptance 0.9839488636
+Acceptance 0.9835700758
+Acceptance 0.98359375
+Acceptance 0.982907197
+Acceptance 0.9825994318
+Acceptance 0.9841619318
+Acceptance 0.9829782197
+***
+Block 0 etrial -1842.681713
+maximum age 3 average age 0.01751893939
+Total acceptance 0.983022017
+accept_level0   0.983022017 tries 844800
+            total_energy             kinetic           potential            nonlocal
+  ##0        -1841.531278         1204.324904        -3284.145790         238.2896069   (value)
+  &&0         7.056487461         99.51367733         127.4910851         85.06273498   (sigma)
+Branched 15168 times.  So a branch every 13.5021097 steps 
+Acceptance 0.9822916667
+Acceptance 0.9828598485
+Acceptance 0.9839015152
+Acceptance 0.98125
+Acceptance 0.9827888258
+Acceptance 0.9825757576
+Acceptance 0.9821732955
+Acceptance 0.9811316288
+Acceptance 0.9823390152
+Acceptance 0.9834280303
+Acceptance 0.9835700758
+Acceptance 0.982907197
+Acceptance 0.9829782197
+Acceptance 0.9815340909
+Acceptance 0.9819128788
+Acceptance 0.9828835227
+Acceptance 0.9822206439
+Acceptance 0.9840198864
+Acceptance 0.9823153409
+Acceptance 0.9824337121
+***
+Block 1 etrial -1842.319551
+maximum age 4 average age 0.02059659091
+Total acceptance 0.9825757576
+accept_level0   0.9825757576 tries 844800
+            total_energy             kinetic           potential            nonlocal
+  ##0        -1841.853705         1206.815460        -3287.146070         238.4769053   (value)
+  &&0         7.010391618         98.80432628         126.3924288         85.44258176   (sigma)
+Branched 20471 times.  So a branch every 10.00439646 steps 
+Acceptance 0.9821022727
+Acceptance 0.9805160985
+Acceptance 0.9821022727
+Acceptance 0.9829308712
+Acceptance 0.9821732955
+Acceptance 0.9829308712
+Acceptance 0.9826941288
+Acceptance 0.9821732955
+Acceptance 0.9818892045
+Acceptance 0.9830729167
+Acceptance 0.9821732955
+Acceptance 0.9811316288
+Acceptance 0.9835700758
+Acceptance 0.9837594697
+Acceptance 0.9831202652
+Acceptance 0.9835464015
+Acceptance 0.9824810606
+Acceptance 0.9822443182
+Acceptance 0.9825520833
+Acceptance 0.9825994318
+***
+Block 2 etrial -1842.317314
+maximum age 3 average age 0.0185842803
+Total acceptance 0.9824881629
+accept_level0   0.9824881629 tries 844800
+            total_energy             kinetic           potential            nonlocal
+  ##0        -1842.107074         1205.014044        -3285.706546         238.5854281   (value)
+  &&0         6.922373903         97.89544358         126.8503473         86.50509447   (sigma)
+Branched 15195 times.  So a branch every 13.4781178 steps 
+Acceptance 0.9826467803
+Acceptance 0.9825757576
+Acceptance 0.9833333333
+Acceptance 0.9822443182
+Acceptance 0.9825047348
+Acceptance 0.9824573864
+Acceptance 0.981936553
+Acceptance 0.9826231061
+Acceptance 0.9832149621
+Acceptance 0.9833806818
+Acceptance 0.9830729167
+Acceptance 0.9818418561
+Acceptance 0.9823390152
+Acceptance 0.9825757576
+Acceptance 0.9836410985
+Acceptance 0.9840435606
+Acceptance 0.9836647727
+Acceptance 0.9835700758
+Acceptance 0.9819128788
+Acceptance 0.9831202652
+***
+Block 3 etrial -1842.284447
+maximum age 3 average age 0.01669034091
+Total acceptance 0.9828349905
+accept_level0   0.9828349905 tries 844800
+            total_energy             kinetic           potential            nonlocal
+  ##0        -1842.155932         1205.020801        -3286.047138         238.8704056   (value)
+  &&0         6.930333816         98.40625314         126.3693315         85.53092104   (sigma)
+Branched 9448 times.  So a branch every 21.6765453 steps 
+Acceptance 0.9825520833

@@ -1,0 +1,11 @@
+#!/bin/bash 
+#PBS -q low 
+#PBS -l nodes=2:ppn=32:xe 
+#PBS -l walltime=24:00:00 
+#PBS -N chkvmc3e
+#PBS -e chkvmc3e.perr 
+#PBS -o chkvmc3e.pout 
+mkdir -p /scratch/sciteam/$USER/explore/
+cd /scratch/sciteam/$USER/explore/
+cp -u /u/sciteam/$USER/sco/undoped/PBE0_8/CHK/explore/* . 
+aprun -n 64 /u/sciteam/$USER/fork/bin/qwalk qwalk_000.vmc3e &> qwalk_000.vmc3e.out 

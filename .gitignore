@@ -12,3 +12,5 @@ fort.*
 *.orb
 *core*
 *.config*
+*.ER
+*.OU
