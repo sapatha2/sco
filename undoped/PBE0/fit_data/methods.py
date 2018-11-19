@@ -2,6 +2,7 @@ from pyscf import lo
 import numpy as np 
 from functools import reduce
 
+#BASE
 def calcIAO(cell,mf,basis,occ):
   ''' 
   input: 
@@ -23,6 +24,12 @@ def calcIAO(cell,mf,basis,occ):
  
   return a
 
+def printIAO(mf,a):
+  for i in range(a.shape[1]):
+    mf.mo_coeff[0][0][:,i]=a[:,i]
+  print_qwalk_mol(cell,mf,basename="./iao/qwalk_iao")
+
+#SINGLE STATE CALCULATION
 def rdmIAO(mf,a):
   ''' 
   input:
@@ -56,17 +63,19 @@ def hIAO(mf,a):
   e1d=(e1d+e1d.T)/2
   return np.array([e1u,e1d])
 
+#EXCITATION CALCULATIONS
 def genex(mo_occ,occ,virt,ex='singles'):
   '''
   generates an excitation list 
   input: 
   mo_occ - molecular orbital occupancy of base state
-  occ - a list of occupied orbitals 
-  virt - a list of virtual orbitals 
+  occ - a list of occupied orbitals in up and down channels (occ[0],occ[1])
+  virt - a list of virtual orbitals in up and down channels (occ[0],occ[1])
   ex - excitation type
   output: 
   ex_list - list of mo_occ objects of type ex
   '''
+  print("Generating excitations") 
   if(ex=='singles'): ex_list=gensingles(mo_occ,occ,virt)
   else: pass
   return ex_list
@@ -76,28 +85,103 @@ def gensingles(mo_occ,occ,virt):
   generates a singles excitation list
   input: 
   mo_occ - molecular orbital occupancy of base state
-  occ - a list of occupied orbitals 
-  virt - a list of virtual orbitals 
+  occ - a list of occupied orbitals in up and down channels (occ[0],occ[1])
+  virt - a list of virtual orbitals in up and down channels (occ[0],occ[1])
   output: 
   ex_list - list of mo_occ objects for singles excitations
   '''
+  print("Singles excitations")
   ex_list=[]
   ex_list.append(mo_occ)
-  print(len(occ),len(virt))
-  for j in occ:
-    for k in virt:
-      tmp=np.array(mo_occ,copy=True)
-      assert(tmp[j]==1) #Make sure this is occupied
-      assert(tmp[k]==0) #Make sure this is unoccupied
-      tmp[j]=0
-      tmp[k]=1
-      ex_list.append(tmp)
+  for s in [0,1]:
+    for j in occ[s]:
+      for k in virt[s]:
+        tmp=np.array(mo_occ,copy=True)
+        assert(tmp[s][0][j]==1)
+        assert(tmp[s][0][k]==0)
+        tmp[s][0][j]=0
+        tmp[s][0][k]=1
+        ex_list.append(tmp)
   return np.array(ex_list)
 
-def data_from_ex(mf,ex_list):
-  e_list=[np.zeros(len(ex_list[0])),np.zeros(len(ex_list[1]))]
-  for s in [0,1]:  
-    for i in range(len(ex_list[s])):
-      e_list[s][i]=np.sum(mf.mo_energy[s][0][ex_list[s][i].astype(bool)])
+def data_from_ex(mf,a,ex_list):
+  '''
+  generates energies and 1rdms from excitation list provided
+  input: 
+  mf - scf object of base state
+  a - basis to calculate 1RDM on 
+  ex_list - excitation list of states to calculate for
+  output:
+  e - list of energies for excitations 
+  dm - list of 1rdms (spin separated) for excitations
+  '''
+  
+  print("Generating energies")
+  e=np.einsum('ijk,jk->i',ex_list[:,:,0,:],mf.mo_energy[:,0,:])
+  
+  print("Generating 1rdms")
+  s=mf.get_ovlp()[0]
+  M=reduce(np.dot,(a.T, s, mf.mo_coeff[0][0])) 
+  R=np.einsum('ik,jk->ijk',ex_list[:,0,0,:],M)
+  dm_u=np.einsum('ijl,ikl->ijk',R,R)
+  M=reduce(np.dot,(a.T, s, mf.mo_coeff[1][0])) 
+  R=np.einsum('ik,jk->ijk',ex_list[:,1,0,:],M)
+  dm_d=np.einsum('ijl,ikl->ijk',R,R)
+  dm=np.einsum('ijkl->jikl',np.array([dm_u,dm_d]))
 
-  return np.array(e_list),0
+  return e,dm
+
+#OCCUPATIONS
+def getn(dm_list):
+  '''
+  returns diagonals of dm_list
+  intput: 
+  dm_list - list of 1rdms
+  output:
+  n - list of diagonals of 1rdms
+  '''
+  return np.einsum('ijkk->ijk',dm_list)
+
+def nsum(n):
+  '''
+  takes output from getn, groups by symmetry
+  input: 
+  n - output from get n 
+  output: 
+  nsum - returns sum of n based on symmetry
+  '''
+  
+  sr5s=  np.arange(4)
+  o2s=   np.arange(44,76,4)
+  o2pz=  np.arange(47,76,4)
+  o2psg= np.array([45,49,53,57,62,66,70,74]) 
+  o2ppi= np.array([46,50,54,58,61,65,69,73])
+  cu4s1= np.array([5,35])
+  cu4s2= np.array([15,25])
+
+  nsum_u=np.zeros((n.shape[0],17))
+  nsum_d=np.zeros((n.shape[0],17))
+  T=np.zeros((17,n.shape[2]))
+  T[0,:][sr5s]=1
+  T[1,:][o2s]=1
+  T[2,:][o2psg]=1
+  T[3,:][o2ppi]=1
+  T[4,:][o2pz]=1
+  T[5,:][cu4s1]=1
+  T[11,:][cu4s2]=1
+  for i in range(6,11):
+    T[i,:][cu4s1+i-2]=1
+    T[i+6,:][cu4s2+i-2]=1
+  nsum_u=np.einsum('ik,lk->il',n[:,0,:],T)
+
+  T[5:,:]=0
+  T[5,:][cu4s2]=1
+  T[11,:][cu4s1]=1
+  for i in range(6,11):
+    T[i,:][cu4s2+i-2]=1
+    T[i+6,:][cu4s1+i-2]=1
+  nsum_d=np.einsum('ik,lk->il',n[:,1,:],T)
+
+  return nsum_u + nsum_d
+
+
