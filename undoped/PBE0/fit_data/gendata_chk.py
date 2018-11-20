@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 from crystal2pyscf import crystal2pyscf_cell
 from pyscf2qwalk import print_qwalk_mol
 from methods import calcIAO, rdmIAO, hIAO, genex, data_from_ex, getn, nsum 
-from methods import tsig3d1, tsig3d2, tsig4s1, tsig4s2, tsig3dz1, tsig3dz2, ts3d1, ts3d2, ts4s1, ts4s2, ts3dz1, ts3dz2
-from methods import tp3dxy1, tp3dxy2, tz3dyz1, tz3dyz2
+from methods import ts, tsig, tpi, tz
 from basis import basis, minbasis, basis_order
 import seaborn as sns
 sns.set_style("white")
@@ -24,44 +23,51 @@ occ=np.arange(24,66)
 virt=np.arange(66,72)
 ex='singles'
 ex_list=genex(mf.mo_occ,[occ,occ],[virt,virt],ex=ex)
-e_list,rdm_list=data_from_ex(mf,a,ex_list)
-print(ex_list.shape,e_list.shape,rdm_list.shape)
+e_list,dm_list=data_from_ex(mf,a,ex_list)
+print(ex_list.shape,e_list.shape,dm_list.shape)
 
 #Analysis
-n=getn(rdm_list)
+n=getn(dm_list)
 nsum=nsum(n)
-tsig3d1=tsig3d1(rdm_list)
-tsig3d2=tsig3d2(rdm_list)
-tsig4s1=tsig4s1(rdm_list)
-tsig4s2=tsig4s2(rdm_list)
-tsig3dz1=tsig3dz1(rdm_list)
-tsig3dz2=tsig3dz2(rdm_list)
-ts3d1=ts3d1(rdm_list)
-ts3d2=ts3d2(rdm_list)
-ts4s1=ts4s1(rdm_list)
-ts4s2=ts4s2(rdm_list)
-ts3dz1=ts3dz1(rdm_list)
-ts3dz2=ts3dz2(rdm_list)
-tp3dxy1=tp3dxy1(rdm_list)
-tp3dxy2=tp3dxy2(rdm_list)
-tz3dyz1=tz3dyz1(rdm_list)
-tz3dyz2=tz3dyz2(rdm_list)
+
+ts4s1=ts(dm_list,"4s",1)
+ts4s2=ts(dm_list,"4s",2)
+ts3dz21=ts(dm_list,"3dz2",1)
+ts3dz22=ts(dm_list,"3dz2",2)
+ts3d1=ts(dm_list,"3d",1)
+ts3d2=ts(dm_list,"3d",2)
+
+tsig4s1=tsig(dm_list,"4s",1)
+tsig4s2=tsig(dm_list,"4s",2)
+tsig3dz21=tsig(dm_list,"3dz2",1)
+tsig3dz22=tsig(dm_list,"3dz2",2)
+tsig3d1=tsig(dm_list,"3d",1)
+tsig3d2=tsig(dm_list,"3d",2)
+
+tp3dxy1=tpi(dm_list,"3dxy",1)
+tp3dxy2=tpi(dm_list,"3dxy",2)
+tz3dxz1=tz(dm_list,"3dxz",1)
+tz3dxz2=tz(dm_list,"3dxz",2)
+
 data=np.concatenate(((e_list-e_list[0])[:,np.newaxis]*27.2114,nsum,
-  tsig3d1[:,np.newaxis],tsig3d2[:,np.newaxis],
-  tsig4s1[:,np.newaxis],tsig4s2[:,np.newaxis],
-  tsig3dz1[:,np.newaxis],tsig3dz2[:,np.newaxis],
-  ts3d1[:,np.newaxis],ts3d2[:,np.newaxis],
   ts4s1[:,np.newaxis],ts4s2[:,np.newaxis],
-  ts3dz1[:,np.newaxis],ts3dz2[:,np.newaxis],
+  ts3dz21[:,np.newaxis],ts3dz22[:,np.newaxis],
+  ts3d1[:,np.newaxis],ts3d2[:,np.newaxis],
+  
+  tsig4s1[:,np.newaxis],tsig4s2[:,np.newaxis],
+  tsig3dz21[:,np.newaxis],tsig3dz22[:,np.newaxis],
+  tsig3d1[:,np.newaxis],tsig3d2[:,np.newaxis],
+  
   tp3dxy1[:,np.newaxis],tp3dxy2[:,np.newaxis],
-  tz3dyz1[:,np.newaxis],tz3dyz2[:,np.newaxis]),
+  tz3dxz1[:,np.newaxis],tz3dxz2[:,np.newaxis]),
   axis=1)
+
 labels=["E","5s","2s","2psg","2ppi","2pz","4s1","3dxy1",
         "3dyz1","3dz21","3dxz1","3d1","4s2","3dxy2",
         "3dyz2","3dz22","3dxz2","3d2",
-        "tsig3d1","tsig3d2","tsig4s1","tsig4s2","tsig3dz1","tsig3dz2",
-        "ts3d1","ts3d2","ts4s1","ts4s2","ts3dz1","ts3dz2",
-        "tp3dxy1","tp3dxy2","tz3dyz1","tz3dyz2"]
+        "ts4s1","ts4s2","ts3dz21","ts3dz22","ts3d1","ts3d2",
+        "tsig4s1","tsig4s2","tsig3dz21","tsig3dz22","tsig3d1","tsig3d2",
+        "tp3dxy1","tp3dxy2","tz3dxz1","tz3dxz2"]
 df=pd.DataFrame(data=data,columns=labels)
 
 #Correlation matrix
@@ -96,16 +102,16 @@ plt.plot(y,y,'-')
 plt.show()
 
 #PCA
-'''
 from sklearn.decomposition import PCA
 X=df.drop("E",axis=1)
 pca = PCA()
 pca.fit(X)
 
-print(pca.explained_variance_ratio_)
+plt.plot(pca.explained_variance_ratio_,'s-')
+plt.show()
+
 plt.matshow(pca.components_,vmin=-1,vmax=1,cmap=plt.cm.bwr)
 plt.xticks(np.arange(pca.components_.shape[0]),labels[1:],rotation=90)
 plt.yticks(np.arange(pca.components_.shape[0]))
 plt.colorbar()
 plt.show()
-'''
