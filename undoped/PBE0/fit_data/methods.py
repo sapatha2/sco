@@ -150,38 +150,325 @@ def nsum(n):
   output: 
   nsum - returns sum of n based on symmetry
   '''
-  
   sr5s=  np.arange(4)
   o2s=   np.arange(44,76,4)
   o2pz=  np.arange(47,76,4)
   o2psg= np.array([45,49,53,57,62,66,70,74]) 
   o2ppi= np.array([46,50,54,58,61,65,69,73])
-  cu4s1= np.array([5,35])
-  cu4s2= np.array([15,25])
+  cu4s1= np.array([5,35])  #Occupation of spin parallel to local moment
+  cu4s2= np.array([15,25]) #Occupation of spin antiparallel to local moment 
 
   nsum_u=np.zeros((n.shape[0],17))
   nsum_d=np.zeros((n.shape[0],17))
   T=np.zeros((17,n.shape[2]))
-  T[0,:][sr5s]=1
-  T[1,:][o2s]=1
-  T[2,:][o2psg]=1
-  T[3,:][o2ppi]=1
-  T[4,:][o2pz]=1
-  T[5,:][cu4s1]=1
-  T[11,:][cu4s2]=1
+  T[0,:][sr5s]=1./4
+  T[1,:][o2s]=1./8
+  T[2,:][o2psg]=1./8
+  T[3,:][o2ppi]=1./8
+  T[4,:][o2pz]=1./8
+  R=np.array(T,copy=True)
+  
+  T[5,:][cu4s1]=1./4
+  T[11,:][cu4s2]=1./4
   for i in range(6,11):
-    T[i,:][cu4s1+i-2]=1
-    T[i+6,:][cu4s2+i-2]=1
+    T[i,:][cu4s1+i-2]=1./4
+    T[i+6,:][cu4s2+i-2]=1./4
   nsum_u=np.einsum('ik,lk->il',n[:,0,:],T)
 
-  T[5:,:]=0
-  T[5,:][cu4s2]=1
-  T[11,:][cu4s1]=1
+  R[5,:][cu4s2]=1./4
+  R[11,:][cu4s1]=1./4
   for i in range(6,11):
-    T[i,:][cu4s2+i-2]=1
-    T[i+6,:][cu4s1+i-2]=1
-  nsum_d=np.einsum('ik,lk->il',n[:,1,:],T)
+    R[i,:][cu4s2+i-2]=1./4
+    R[i+6,:][cu4s1+i-2]=1./4
+  nsum_d=np.einsum('ik,lk->il',n[:,1,:],R)
 
-  return nsum_u + nsum_d
+  return nsum_u+nsum_d
 
+#HOPPINGS
+def tsig3d2(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[23,[49,57,62,66]]=[-1,1,-1,1]
+  T[33,[45,53,70,74]]=[1,-1,1,-1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
 
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[13,[45,53,62,66]]=[-1,1,1,-1]
+  T[43,[49,57,70,74]]=[1,-1,-1,1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def tsig3d1(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[13,[45,53,62,66]]=[-1,1,1,-1]
+  T[43,[49,57,70,74]]=[1,-1,-1,1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[23,[49,57,62,66]]=[-1,1,-1,1]
+  T[33,[45,53,70,74]]=[1,-1,1,-1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def tsig4s2(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[15,[49,57,62,66]]=[-1,1,1,-1]
+  T[25,[45,53,70,74]]=[1,-1,-1,1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[5,[45,53,62,66]]=[-1,1,-1,1]
+  T[35,[49,57,70,74]]=[1,-1,1,-1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def tsig4s1(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[5,[45,53,62,66]]=[-1,1,-1,1]
+  T[35,[49,57,70,74]]=[1,-1,1,-1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[15,[49,57,62,66]]=[-1,1,1,-1]
+  T[25,[45,53,70,74]]=[1,-1,-1,1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def tsig3dz2(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[21,[49,57,62,66]]=[-1,1,1,-1]
+  T[31,[45,53,70,74]]=[1,-1,-1,1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[11,[45,53,62,66]]=[-1,1,-1,1]
+  T[41,[49,57,70,74]]=[1,-1,1,-1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def tsig3dz1(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[11,[45,53,62,66]]=[-1,1,-1,1]
+  T[41,[49,57,70,74]]=[1,-1,1,-1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[21,[49,57,62,66]]=[-1,1,1,-1]
+  T[31,[45,53,70,74]]=[1,-1,-1,1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def ts3d2(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[23,[48,56,60,64]]=[1,1,-1,-1]
+  T[33,[44,52,68,72]]=[1,1,-1,-1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[13,[44,52,60,64]]=[1,1,-1,-1]
+  T[43,[48,56,68,72]]=[1,1,-1,-1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def ts3d1(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[13,[44,52,60,64]]=[1,1,-1,-1]
+  T[43,[48,56,68,72]]=[1,1,-1,-1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[23,[48,56,60,64]]=[1,1,-1,-1]
+  T[33,[44,52,68,72]]=[1,1,-1,-1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def ts4s2(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[15,[48,56,60,64]]=1
+  T[25,[44,52,68,72]]=1
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[5,[44,52,60,64]]=1
+  T[35,[48,56,68,72]]=1
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def ts4s1(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[5,[44,52,60,64]]=1
+  T[35,[48,56,68,72]]=1
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[15,[48,56,60,64]]=1
+  T[25,[44,52,68,72]]=1
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def ts3dz2(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[21,[48,56,60,64]]=1
+  T[31,[44,52,68,72]]=1
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[11,[44,52,60,64]]=1
+  T[41,[48,56,68,72]]=1
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def ts3dz1(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[11,[44,52,60,64]]=1
+  T[41,[48,56,68,72]]=1
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[21,[48,56,60,64]]=1
+  T[31,[44,52,68,72]]=1
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def tp3dxy2(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[19,[50,58,61,65]]=[1,-1,-1,1]
+  T[29,[46,54,69,73]]=[-1,1,1,-1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[9,[46,54,61,65]]=[1,-1,1,-1]
+  T[39,[48,58,69,73]]=[-1,1,-1,1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def tp3dxy1(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[9,[46,54,61,65]]=[1,-1,1,-1]
+  T[39,[48,58,69,73]]=[-1,1,-1,1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[19,[50,58,61,65]]=[1,-1,-1,1]
+  T[29,[46,54,69,73]]=[-1,1,1,-1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def tz3dyz2(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[20,[63,67]]=[1,-1]
+  T[30,[71,75]]=[-1,1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[10,[63,67]]=[-1,1]
+  T[40,[71,75]]=[1,-1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
+
+def tz3dyz1(dm_list):
+  '''
+  calculates hopping between 2psig and 3dx2y2 2
+  '''
+  #Up channel
+  T=np.zeros(dm_list.shape[2:])
+  T[10,[63,67]]=[-1,1]
+  T[40,[71,75]]=[1,-1]
+  tsig_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)*2
+
+  #Down channel
+  T=np.zeros(dm_list.shape[2:])
+  T[20,[63,67]]=[1,-1]
+  T[30,[71,75]]=[-1,1]
+  tsig_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)*2
+
+  return tsig_u+tsig_d
