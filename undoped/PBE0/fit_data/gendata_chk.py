@@ -14,9 +14,22 @@ from sklearn.linear_model import LinearRegression
 ###########################################################################################
 #Build IAO 
 direc="../CHK"
-occ=[i for i in range(72)]
+#occ=[i for i in range(72)]
+occ=[i for i in range(69)]
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=0)
 a=calcIAO(cell,mf,minbasis,occ)
+
+'''
+h=hIAO(mf,a)
+w,vr=np.linalg.eigh(h[0])
+plt.plot(mf.mo_energy[0][0][:len(w)],'go',label='pbe0')
+plt.plot(w,'bo',label='rot')
+plt.ylabel("E (eV)")
+plt.xlabel("Eigenvalue")
+plt.legend(loc=2)
+plt.show()
+exit(0)
+'''
 
 #Build excitations
 occ=np.arange(24,66)
@@ -25,6 +38,15 @@ ex='singles'
 ex_list=genex(mf.mo_occ,[occ,occ],[virt,virt],ex=ex)
 e_list,dm_list=data_from_ex(mf,a,ex_list)
 print(ex_list.shape,e_list.shape,dm_list.shape)
+
+'''
+tr=np.einsum('ijkk->ij',dm_list)
+tr=tr[:,0]+tr[:,1]
+plt.plot(tr,'o')
+plt.ylabel("Trace")
+plt.xlabel("Excited state")
+plt.show()
+'''
 
 #Analysis
 n=getn(dm_list)
@@ -92,11 +114,16 @@ plt.show()
 
 #Multilinear regression 
 y=df["E"]
+#X=df.drop("E","5s",axis=1) #Use all! Big collinearity among occupations, might need to do PCA there
 X=df.drop("E",axis=1) #Use all! Big collinearity among occupations, might need to do PCA there
+X=df.drop("5s",axis=1) #Use all! Big collinearity among occupations, might need to do PCA there
 reg = LinearRegression().fit(X, y)
 print(reg.coef_)
 print(reg.intercept_)
 print(reg.score(X,y))
+plt.ylabel("E - E(CHK), eV")
+plt.xlabel("E_pred")
+plt.title("R^2="+str(reg.score(X,y)))
 plt.plot(reg.predict(X),y,'o')
 plt.plot(y,y,'-')
 plt.show()
@@ -108,6 +135,8 @@ pca = PCA()
 pca.fit(X)
 
 plt.plot(pca.explained_variance_ratio_,'s-')
+plt.ylabel("Explained variance ratio")
+plt.xlabel("PCA component")
 plt.show()
 
 plt.matshow(pca.components_,vmin=-1,vmax=1,cmap=plt.cm.bwr)
