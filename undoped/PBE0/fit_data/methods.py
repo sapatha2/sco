@@ -1,5 +1,6 @@
 from pyscf import lo
 import numpy as np 
+import pandas as pd
 from functools import reduce
 
 #BASE
@@ -8,7 +9,7 @@ def calcIAO(cell,mf,basis,occ):
   input: 
   cell and scf (PBC SCF) objects from pyscf and basis
   to calculate IAOs on
-  occupied MOs which IAOs should span
+  occ is MOs which IAOs should span
   output:
   Calculates 1RDM on orthog atomic orbitals, orthogonalized
   using Lowdin S^1/2
@@ -29,7 +30,7 @@ def printIAO(mf,a):
     mf.mo_coeff[0][0][:,i]=a[:,i]
   print_qwalk_mol(cell,mf,basename="./iao/qwalk_iao")
 
-#SINGLE STATE CALCULATION
+#DFT CALCULATION
 def rdmIAO(mf,a):
   ''' 
   input:
@@ -54,6 +55,7 @@ def hIAO(mf,a):
   output: 
   eigenvalue matrix in IAO basis 
   '''
+
   s=mf.get_ovlp()[0]
   H1=np.diag(mf.mo_energy[0][0])
   e1u=reduce(np.dot,(a.T,s,mf.mo_coeff[0][0],H1,mf.mo_coeff[0][0].T,s.T,a))
@@ -61,7 +63,46 @@ def hIAO(mf,a):
   H1=np.diag(mf.mo_energy[1][0])
   e1d=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1,mf.mo_coeff[1][0].T,s.T,a))
   e1d=(e1d+e1d.T)/2
+  
   return np.array([e1u,e1d])
+
+def group(r,cut,m,labels,out=0,fout="groupH.txt"):
+  '''   
+  input:
+  r - rounding for parameters
+  cut - cutoff for parameters
+  m - matrices to group up  (spin up and spin down)
+  labels - labels of the matrix elements 
+  fout - file to print out to 
+  output:
+  df - data frame with all the data
+  unique_vals - unique rounded values
+  save groups to groupH.txt
+  '''
+  ls=[]
+  ii=[]
+  for i in range(len(labels)):
+    for j in range(len(labels)):
+      ls.append([labels[i],labels[j]])
+      ii.append(([i,j]))
+  s=np.array([0]*len(ls)+[1]*len(ls))
+  data=list(m[0].flatten())+list(m[1].flatten())
+  ls=np.array(ls+ls)
+  ii=np.array(ii+ii)
+  data=np.array(data)
+  data[np.abs(data)<cut]=0
+  d={'i1':ii.T[0],'i2':ii.T[1],'c1':ls.T[0],'c2':ls.T[1],'s':s,'e':data,'abs':np.abs(data),'round':np.round(np.abs(data),r)}
+  df=pd.DataFrame(d)
+  #Unique values 
+  unique_vals=sorted(list(set(df['round'].values)))
+  if(out):
+    f=open(fout,"a")
+    for u in unique_vals:
+      print(df[df['round']==u],file=f)
+    print("Cutoff ",cut,file=f)
+    print("Rounding ",r,file=f)
+    print("Nblocks ",len(unique_vals),file=f)
+  return df, unique_vals
 
 #EXCITATION CALCULATIONS
 def genex(mo_occ,occ,virt,ex='singles'):
@@ -75,7 +116,7 @@ def genex(mo_occ,occ,virt,ex='singles'):
   output: 
   ex_list - list of mo_occ objects of type ex
   '''
-  print("Generating excitations") 
+  print("-- Generating excitations") 
   if(ex=='singles'): ex_list=gensingles(mo_occ,occ,virt)
   else: pass
   return ex_list
@@ -90,7 +131,7 @@ def gensingles(mo_occ,occ,virt):
   output: 
   ex_list - list of mo_occ objects for singles excitations
   '''
-  print("Singles excitations")
+  print("-- Singles excitations")
   ex_list=[]
   ex_list.append(mo_occ)
   for s in [0,1]:
@@ -116,10 +157,10 @@ def data_from_ex(mf,a,ex_list):
   dm - list of 1rdms (spin separated) for excitations
   '''
   
-  print("Generating energies")
+  print("-- Generating energies")
   el=np.einsum('ijk,jk->i',ex_list[:,:,0,:],mf.mo_energy[:,0,:])
 
-  print("Generating 1rdms")
+  print("-- Generating 1rdms")
   s=mf.get_ovlp()[0]
   M=reduce(np.dot,(a.T, s, mf.mo_coeff[0][0])) 
   R=np.einsum('ik,jk->ijk',ex_list[:,0,0,:],M)

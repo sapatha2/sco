@@ -60,7 +60,7 @@ E0={"../CHK":-9.2123749620223E+02,
 "../FM":-9.2121137910381E+02}
 e_list=[]
 dm_list=[]
-for direc in ["../CHK","../COL","../FLP","../FM"]:
+for direc in ["../CHK","../COL"]:
   print(direc)
   ex='singles'
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=totspin[direc])
