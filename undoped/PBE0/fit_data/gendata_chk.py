@@ -15,8 +15,7 @@ import find_connect
 ###########################################################################################
 #Build IAO 
 direc="../CHK"
-#occ=[i for i in range(72)]
-occ=[i for i in range(69)]
+occ=[i for i in range(72)]
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=0)
 a=calcIAO(cell,mf,minbasis,occ)
 
@@ -33,14 +32,48 @@ exit(0)
 '''
 
 #Build excitations
+'''
 occ=np.arange(24,66)
 virt=np.arange(66,72)
 ex='singles'
 ex_list=genex(mf.mo_occ,[occ,occ],[virt,virt],ex=ex)
 e_list,dm_list=data_from_ex(mf,a,ex_list)
 print(ex_list.shape,e_list.shape,dm_list.shape)
+print(e_list)
+plt.scatter(np.arange(505),e_list-e_list[0])
+plt.show()
+exit(0)
+'''
+
+#Build excitations
+occ={"../CHK":[np.arange(24,66),np.arange(24,66)],
+     "../COL":[np.arange(24,66),np.arange(24,66)],
+     "../FLP":[np.arange(24,67),np.arange(24,65)],
+     "../FM": [np.arange(24,68),np.arange(24,64)]}
+virt={"../CHK":[np.arange(66,72),np.arange(66,72)],
+      "../COL":[np.arange(66,72),np.arange(66,72)],
+      "../FLP":[np.arange(67,72),np.arange(65,72)],
+      "../FM": [np.arange(68,72),np.arange(64,72)]}
+totspin={"../CHK":0,"../COL":0,"../FLP":2,"../FM":4}
+E0={"../CHK":-9.2123749620223E+02,
+"../COL":-9.2122638412999E+02,"../FLP":-9.2122636552756E+02,
+"../FM":-9.2121137910381E+02}
+e_list=[]
+dm_list=[]
+for direc in ["../CHK","../COL","../FLP","../FM"]:
+  print(direc)
+  ex='singles'
+  cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=totspin[direc])
+  ex_list=genex(mf.mo_occ,occ[direc],virt[direc],ex=ex)
+  tmp_e,tmp_dm=data_from_ex(mf,a,ex_list)
+  tmp_e+=(E0[direc]-E0["../CHK"])
+  e_list.append(list(tmp_e))
+  dm_list.append(list(tmp_dm))
+e_list=np.concatenate(e_list)
+dm_list=np.concatenate(dm_list)
 
 '''
+#Trace
 tr=np.einsum('ijkk->ij',dm_list)
 tr=tr[:,0]+tr[:,1]
 plt.plot(tr,'o')
@@ -79,30 +112,6 @@ tzz=too(dm_list,"z","z")
 tss=too(dm_list,"s","s")
 tsigpi=too(dm_list,"sig","pi")
 
-'''
-data=np.concatenate(((e_list-e_list[0])[:,np.newaxis]*27.2114,nsum,
-  ts4s1[:,np.newaxis],ts4s2[:,np.newaxis],
-  ts3dz21[:,np.newaxis],ts3dz22[:,np.newaxis],
-  ts3d1[:,np.newaxis],ts3d2[:,np.newaxis],
-  
-  tsig4s1[:,np.newaxis],tsig4s2[:,np.newaxis],
-  tsig3dz21[:,np.newaxis],tsig3dz22[:,np.newaxis],
-  tsig3d1[:,np.newaxis],tsig3d2[:,np.newaxis],
-  
-  tp3dxy1[:,np.newaxis],tp3dxy2[:,np.newaxis],
-  tz3dxz1[:,np.newaxis],tz3dxz2[:,np.newaxis],
-  Usum),
-  axis=1)
-
-labels=np.array(["E","5s","2s","2psg","2ppi","2pz","4s1","3dxy1",
-        "3dyz1","3dz21","3dxz1","3d1","4s2","3dxy2",
-        "3dyz2","3dz22","3dxz2","3d2",
-        "ts4s1","ts4s2","ts3dz21","ts3dz22","ts3d1","ts3d2",
-        "tsig4s1","tsig4s2","tsig3dz21","tsig3dz22","tsig3d1","tsig3d2",
-        "tp3dxy1","tp3dxy2","tz3dxz1","tz3dxz2",
-        "5sU","2sU","2pxU","2pyU","2pzU","4sU","3dxyU",
-        "3dyzU","3dz2U","3dxzU","3dU"])
-'''
 data=np.concatenate(((e_list-e_list[0])[:,np.newaxis]*27.2114,nsum,
   ts4s1[:,np.newaxis],ts4s2[:,np.newaxis],
   ts3dz21[:,np.newaxis],ts3dz22[:,np.newaxis],
@@ -128,9 +137,10 @@ labels=np.array(["E","5s","2s","2psg","2ppi","2pz","4s1","3dxy1",
         "tsigsig","tpipi","tss","tzz","tsigpi"])
 df=pd.DataFrame(data=data,columns=labels)
 y=df["E"]
-X=df.drop(["E","3dyz1","3dyz2"],axis=1)
+X=df.drop(["E"],axis=1)
 labels=np.array(list(X))
 
+'''
 #Correlation matrix
 plt.matshow(X.corr(),vmin=-1,vmax=1,cmap=plt.cm.bwr)
 plt.xticks(np.arange(len(labels)),labels,rotation=90)
@@ -147,8 +157,25 @@ plt.yticks(np.arange(len(labels)),labels)
 plt.colorbar()
 plt.show()
 exit(0)
+'''
 
-#Multilinear regression 
+#Weighted multilinear regression  (https://www.statsmodels.org/dev/examples/notebooks/generated/wls.html)
+import statsmodels.api as sm
+from statsmodels.sandbox.regression.predstd import wls_prediction_std
+wls = sm.WLS(y, X, weights=np.exp(-1*y))
+res_wls = wls.fit()
+#print(res_wls.summary())
+prstd, iv_l, iv_u = wls_prediction_std(res_wls)
+plt.plot(y,y,'k--')
+plt.plot(y, res_wls.fittedvalues, 'bo')
+plt.plot(y, iv_u, 'g.', label="WLS")
+plt.plot(y, iv_l, 'g.')
+plt.legend(loc="best")
+plt.show()
+
+exit(0)
+
+'''
 reg = LinearRegression().fit(X, y)
 print(reg.coef_)
 print(reg.intercept_)
@@ -159,6 +186,7 @@ plt.title("R^2="+str(reg.score(X,y)))
 plt.plot(reg.predict(X),y,'o')
 plt.plot(y,y,'-')
 plt.show()
+'''
 
 #PCA
 from sklearn.decomposition import PCA

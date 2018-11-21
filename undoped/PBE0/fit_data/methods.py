@@ -117,8 +117,8 @@ def data_from_ex(mf,a,ex_list):
   '''
   
   print("Generating energies")
-  e=np.einsum('ijk,jk->i',ex_list[:,:,0,:],mf.mo_energy[:,0,:])
-  
+  el=np.einsum('ijk,jk->i',ex_list[:,:,0,:],mf.mo_energy[:,0,:])
+
   print("Generating 1rdms")
   s=mf.get_ovlp()[0]
   M=reduce(np.dot,(a.T, s, mf.mo_coeff[0][0])) 
@@ -129,7 +129,7 @@ def data_from_ex(mf,a,ex_list):
   dm_d=np.einsum('ijl,ikl->ijk',R,R)
   dm=np.einsum('ijkl->jikl',np.array([dm_u,dm_d]))
 
-  return e,dm
+  return el-el[0],dm
 
 #OCCUPATIONS
 def getn(dm_list):
