@@ -10,6 +10,7 @@ from basis import basis, minbasis, basis_order
 import seaborn as sns
 sns.set_style("white")
 from sklearn.linear_model import LinearRegression
+import find_connect
 
 ###########################################################################################
 #Build IAO 
@@ -74,7 +75,7 @@ tz3dxz2=tz(dm_list,"3dxz",2)
 
 tsigsig=too(dm_list,"sig","sig")
 tpipi=too(dm_list,"pi","pi")
-tzz=too(dm_list,"pi","pi")
+tzz=too(dm_list,"z","z")
 tss=too(dm_list,"s","s")
 tsigpi=too(dm_list,"sig","pi")
 
@@ -126,17 +127,28 @@ labels=np.array(["E","5s","2s","2psg","2ppi","2pz","4s1","3dxy1",
         "tp3dxy1","tp3dxy2","tz3dxz1","tz3dxz2",
         "tsigsig","tpipi","tss","tzz","tsigpi"])
 df=pd.DataFrame(data=data,columns=labels)
+y=df["E"]
+X=df.drop(["E","3dyz1","3dyz2"],axis=1)
+labels=np.array(list(X))
 
 #Correlation matrix
-plt.matshow(df.corr(),vmin=-1,vmax=1,cmap=plt.cm.bwr)
+plt.matshow(X.corr(),vmin=-1,vmax=1,cmap=plt.cm.bwr)
 plt.xticks(np.arange(len(labels)),labels,rotation=90)
 plt.yticks(np.arange(len(labels)),labels)
 plt.colorbar()
 plt.show()
 
+#Block correlation matrix
+ordering = find_connect.recursive_order(X.corr().values,[1e-10,1e-4,0.2,0.3,0.4,0.5,0.6,0.8,0.9,1])
+rearrange = X.corr().values[ordering][:,ordering]
+plt.matshow(rearrange,vmin=-1,vmax=1,cmap=plt.cm.bwr)
+plt.xticks(np.arange(len(labels)),labels,rotation=90)
+plt.yticks(np.arange(len(labels)),labels)
+plt.colorbar()
+plt.show()
+exit(0)
+
 #Multilinear regression 
-y=df["E"]
-X=df.drop(["E"],axis=1)
 reg = LinearRegression().fit(X, y)
 print(reg.coef_)
 print(reg.intercept_)
@@ -159,18 +171,15 @@ plt.xlabel("PCA component")
 plt.show()
 
 plt.matshow(pca.components_,vmin=-1,vmax=1,cmap=plt.cm.bwr)
-plt.xticks(np.arange(pca.components_.shape[0]),labels[1:],rotation=90)
+plt.xticks(np.arange(pca.components_.shape[0]),labels,rotation=90)
 plt.yticks(np.arange(pca.components_.shape[0]))
 plt.colorbar()
 plt.show()
 
-'''
 #General feature selection 
 #Variance Thresholding
 from sklearn.model_selection import cross_val_score
 from sklearn.feature_selection import VarianceThreshold
-y=df["E"]
-X=df.drop(["E"],axis=1)
 cscores=[]
 cscores_err=[]
 scores=[]
@@ -205,7 +214,7 @@ for i in range(1,len(labels)):
   omp.fit(X, y)
   nparms.append(sum(np.abs(omp.coef_)>0)+1)
   scores.append(omp.score(X,y))
-  Xr=X.drop(labels[1:][omp.coef_==0],axis=1)
+  Xr=X.drop(labels[omp.coef_==0],axis=1)
   conds.append(np.linalg.cond(Xr))
   
   tmp=cross_val_score(omp,X,y,cv=5) 
@@ -229,7 +238,7 @@ for i in range(1,len(labels)):
   omp.fit(X, y)
   nparms.append(sum(np.abs(omp.coef_)>0)+1)
   scores.append(omp.score(X,y))
-  Xr=X.drop(labels[1:][omp.coef_==0],axis=1)
+  Xr=X.drop(labels[omp.coef_==0],axis=1)
   conds.append(np.linalg.cond(Xr))
   
   tmp=cross_val_score(omp,X,y,cv=5) 
@@ -250,9 +259,6 @@ import matplotlib as mpl
 n_lines=10
 ax = plt.axes()
 ax.set_color_cycle([plt.cm.Blues(i) for i in np.linspace(0, 1, n_lines)])
-y=df["E"][1:]
-X=df.drop(["E"],axis=1)[1:] #Use all! Big collinearity among occupations, might need to do PCA there
-cmap=plt.get_cmap("bwr")
 for i in range(12,22):
   omp = OrthogonalMatchingPursuit(n_nonzero_coefs=i,fit_intercept=True)
   omp.fit(X,y)
@@ -260,6 +266,5 @@ for i in range(12,22):
 plt.legend(loc=2)
 labels[0]="E0"
 plt.axhline(0,color='k',linestyle='--')
-plt.xticks(np.arange(len(labels)),labels,rotation=90)
+plt.xticks(np.arange(len(list(X))+1),["E0"]+list(X),rotation=90)
 plt.show()
-'''
