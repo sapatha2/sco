@@ -42,6 +42,7 @@ for i in range(len(labels)):
   else: my_labels.append(labels[i])
 labels=my_labels[:]
 
+###########################################################################################
 #Build H1 on CHK state
 h=hIAO(mf,a)        
 df,unique_vals=group(3,0.0,h,labels,out=1)
@@ -70,12 +71,13 @@ psums=np.array(psums)
 parameters=np.array(parameters)
 print("Finished parameters build")
 
-#Plot fit
+#Plot
 pred=np.einsum('ji,j->i',psums,parameters)
 pred-=pred[0]
-plt.title("Nparms="+str(len(parameters))+", R2 score="+str(r2_score(pred,e_list)))
+print(len(parameters),r2_score(pred,e_list))
+plt.plot(e_list,pred,'o')
+plt.plot(e_list,e_list,'--')
 plt.ylabel("Predicted energy")
 plt.xlabel("PBE0 eigenvalue differences")
-plt.plot(e_list,pred-pred[0],'o')
-plt.plot(e_list,e_list,'--')
 plt.show()
+
