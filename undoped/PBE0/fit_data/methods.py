@@ -135,7 +135,7 @@ def data_from_ex(mf,a,ex_list):
 def getn(dm_list):
   '''
   returns diagonals of dm_list
-  intput: 
+  input: 
   dm_list - list of 1rdms
   output:
   n - list of diagonals of 1rdms
@@ -183,6 +183,27 @@ def nsum(n):
   nsum_d=np.einsum('ik,lk->il',n[:,1,:],R)
 
   return nsum_u+nsum_d
+
+def Usum(n):
+  Usig=n[:,0,:]*n[:,1,:]
+  sr5s=  np.arange(4)
+  o2s=   np.arange(44,76,4)
+  o2pz=  np.arange(47,76,4)
+  o2psg= np.array([45,49,53,57,62,66,70,74]) 
+  o2ppi= np.array([46,50,54,58,61,65,69,73])
+  cu4s= np.array([5,15,25,35])  #Occupation of spin parallel to local moment
+  
+  T=np.zeros((11,n.shape[2]))
+  T[0,:][sr5s]=1.
+  T[1,:][o2s]=1.
+  T[2,:][o2psg]=1.
+  T[3,:][o2ppi]=1.
+  T[4,:][o2pz]=1.
+  T[5,:][cu4s]=1.
+  for i in range(6,11):
+    T[i,:][cu4s+i-2]=1.
+  ret=np.einsum('ik,jk->ij',Usig,T)
+  return ret
 
 #HOPPINGS
 def ts(dm_list,orbital,n):
@@ -308,6 +329,57 @@ def tz(dm_list,orbital,n):
   T[culist[sw[2]],olist[sw[2]]]=sign
   T[culist[sw[3]],olist[sw[3]]]=sign
   T+=T.T
+  t_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)
+
+  return t_u + t_d
+
+def too(dm_list,a,b):
+  onn=np.array([[7,8,5,6],
+       [8,7,6,5],
+       [6,5,8,7],
+       [5,6,7,8],
+       [1,2,3,4],
+       [2,1,3,4],
+       [4,3,1,2],
+       [3,4,2,1]])-1
+
+  oos=np.array([[44,45,46,47],
+       [48,49,50,51],
+       [52,53,54,55],
+       [56,57,58,59],
+       [60,62,61,63],
+       [64,66,65,67],
+       [68,70,69,71],
+       [72,74,73,75]])
+  
+  T=np.zeros(dm_list.shape[2:])
+  if(a=="sig" and b=="sig"):
+    sign=[1,-1,1,-1]
+    for i in range(8):
+      T[oos[i][1],oos[onn[i],1]]=sign
+    T+=T.T
+  elif(a=="pi" and b=="pi"):
+    sign=[1,-1,1,-1]
+    for i in range(8):
+      T[oos[i][2],oos[onn[i],2]]=sign
+    T+=T.T
+  elif(a=="z" and b=="z"):
+    sign=1
+    for i in range(8):
+      T[oos[i][3],oos[onn[i],3]]=sign
+    T+=T.T
+  elif(a=="s" and b=="s"):
+    sign=1
+    for i in range(8):
+      T[oos[i][0],oos[onn[i],0]]=sign
+    T+=T.T
+  elif(a=="sig" and b=="pi"):
+    sign=-1
+    for i in range(8):
+      T[oos[i][1],oos[onn[i],2]]=sign
+    T+=T.T
+
+  t_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)
   t_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)
 
   return t_u + t_d
