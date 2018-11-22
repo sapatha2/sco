@@ -117,9 +117,9 @@ def genex(mo_occ,occ,virt,ex='singles'):
   ex_list - list of mo_occ objects of type ex
   '''
   print("-- Generating excitations") 
-  if(ex=='singles'): ex_list=gensingles(mo_occ,occ,virt)
+  if('singles' in ex): ex_list,q,r,spin=gensingles(mo_occ,occ,virt)
   else: pass
-  return ex_list
+  return ex_list,q,r,spin
 
 def gensingles(mo_occ,occ,virt):
   '''
@@ -133,7 +133,12 @@ def gensingles(mo_occ,occ,virt):
   '''
   print("-- Singles excitations")
   ex_list=[]
+  de_occ=[]
+  new_occ=[]
+  spin=[]
   ex_list.append(mo_occ)
+  de_occ.append(0)
+  new_occ.append(0)
   for s in [0,1]:
     for j in occ[s]:
       for k in virt[s]:
@@ -142,8 +147,44 @@ def gensingles(mo_occ,occ,virt):
         assert(tmp[s][0][k]==0)
         tmp[s][0][j]=0
         tmp[s][0][k]=1
+        de_occ.append(j)
+        new_occ.append(k)
         ex_list.append(tmp)
-  return np.array(ex_list)
+        spin.append(s)
+  return np.array(ex_list),np.array(de_occ),np.array(new_occ),np.array(spin)
+
+def gen_sumsingles(e,dm,c,Ndet,N,q,r,spin):
+  print("-- Sum singles excitations")
+  n=dm.shape[2]
+  M=np.einsum('ij,kl->ikjl', np.eye(n,n), np.eye(n,n))
+  print(M.shape)    
+  
+  e_list=[]
+  dm_list=[]
+  for n in range(N):
+    #Calculate energy
+    ind=np.random.choice(e.shape[0],size=Ndet+1,replace=False)
+    w=np.ones(Ndet+1)*c*((-1)**np.random.randint(2,size=Ndet+1))
+    ind[0]=0
+    w[0]=np.sqrt(1-Ndet*c**2)
+    el=np.dot(e[ind],w**2)
+    e_list.append(el)
+
+    #Calculate 1RDM
+    dl=np.einsum('ijkl,i->jkl',dm[ind,:,:,:],w**2)
+    '''
+    mat=M[q[[spin==0]][ind[1:]],r[[spin==0]][ind[1:]],:,:]
+    dl[0]+=(np.einsum('i,ijk->jk',w[0]*w[1:],mat))
+    mat=M[q[[spin==1]][ind[1:]],r[[spin==1]][ind[1:]],:,:]
+    dl[1]+=(np.einsum('i,ijk->jk',w[0]*w[1:],mat))
+    '''
+    #dl+=(np.einsum('i,lijk->ljk',w[0]*w[1:],mat)+np.einsum('i,lijk->lkj',w[0]*w[1:],mat))
+    dm_list.append(dl)
+ 
+  e_list=np.array(e_list)
+  dm_list=np.array(dm_list)
+  print(e_list.shape,dm_list.shape)
+  return e_list,dm_list
 
 def data_from_ex(mf,a,ex_list):
   '''
