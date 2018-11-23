@@ -139,6 +139,7 @@ def gensingles(mo_occ,occ,virt):
   ex_list.append(mo_occ)
   de_occ.append(0)
   new_occ.append(0)
+  spin.append(0)
   for s in [0,1]:
     for j in occ[s]:
       for k in virt[s]:
@@ -153,34 +154,70 @@ def gensingles(mo_occ,occ,virt):
         spin.append(s)
   return np.array(ex_list),np.array(de_occ),np.array(new_occ),np.array(spin)
 
-def gen_sumsingles(e,dm,c,Ndet,N,q,r,spin):
+def gen_sumsingles(e,dm,ex,c,Ndet,N,q,r,spin,mf,a):
   print("-- Sum singles excitations")
-  n=dm.shape[2]
-  M=np.einsum('ij,kl->ikjl', np.eye(n,n), np.eye(n,n))
-  print(M.shape)    
-  
   e_list=[]
   dm_list=[]
-  for n in range(N):
+
+  mo_dm=np.einsum('ijk,kl->ijkl',ex[:,:,0,:],np.eye(ex.shape[3],ex.shape[3]))
+  s=mf.get_ovlp()[0]
+  M0=reduce(np.dot,(a.T, s, mf.mo_coeff[0][0]))
+  M1=reduce(np.dot,(a.T, s, mf.mo_coeff[1][0]))
+  
+  for n in range(N+1):
+    #Indices and weights
+    if(n==0): 
+      ind=np.arange(Ndet+1)
+      w=np.zeros(Ndet+1)
+      w[0]=1
+    else:
+      ind=np.random.choice(e.shape[0],size=Ndet+1,replace=False)
+      w=np.ones(Ndet+1)*c*((-1)**np.random.randint(2,size=Ndet+1))
+      ind[0]=0
+      w[0]=np.sqrt(1-Ndet*c**2)
+
     #Calculate energy
-    ind=np.random.choice(e.shape[0],size=Ndet+1,replace=False)
-    w=np.ones(Ndet+1)*c*((-1)**np.random.randint(2,size=Ndet+1))
-    ind[0]=0
-    w[0]=np.sqrt(1-Ndet*c**2)
     el=np.dot(e[ind],w**2)
-    e_list.append(el)
 
     #Calculate 1RDM
-    dl=np.einsum('ijkl,i->jkl',dm[ind,:,:,:],w**2)
-    '''
-    mat=M[q[[spin==0]][ind[1:]],r[[spin==0]][ind[1:]],:,:]
-    dl[0]+=(np.einsum('i,ijk->jk',w[0]*w[1:],mat))
-    mat=M[q[[spin==1]][ind[1:]],r[[spin==1]][ind[1:]],:,:]
-    dl[1]+=(np.einsum('i,ijk->jk',w[0]*w[1:],mat))
-    '''
-    #dl+=(np.einsum('i,lijk->ljk',w[0]*w[1:],mat)+np.einsum('i,lijk->lkj',w[0]*w[1:],mat))
-    dm_list.append(dl)
+    dl=np.zeros((2,400,400))
+    rdl=np.zeros((2,76,76))
+    
+    #MO VERSION
+    for i in range(Ndet+1):
+      #Regular
+      dl+=mo_dm[ind[i],:,:,:]*w[i]**2
+      #Cross terms
+      if(i>0): 
+        diag0=np.diag(mo_dm[ind[i],0,:,:]-mo_dm[0,0,:,:])  
+        diag1=np.diag(mo_dm[ind[i],1,:,:]-mo_dm[0,1,:,:])  
+        i0=np.where(diag0!=0)[0]
+        i1=np.where(diag1!=0)[0]
+        if(i0.shape[0]>0): 
+          dl[0,i0[0],i0[1]]+=w[0]*w[i]
+          dl[0,i0[1],i0[0]]+=w[0]*w[i]
+        if(i1.shape[0]>0): 
+          dl[1,i1[0],i1[1]]+=w[0]*w[i]
+          dl[1,i1[1],i1[0]]+=w[0]*w[i]
+
+    rdl[0]=reduce(np.dot,(M0,dl[0],M0.T))
+    rdl[1]=reduce(np.dot,(M1,dl[1],M1.T))
  
+    '''
+    #IAO VERSION
+    rdl=np.einsum('ijkl,i->jkl',dm[ind,:,:,:],w**2)
+    tmp0=np.einsum('in,jn->nij',M0[:,q[ind[1:]]],M0[:,r[ind[1:]]])
+    tmp0+=np.einsum('ijk->ikj',tmp0)
+    rdl[0]+=np.einsum('i,ijk->jk',w[0]*w[1:]*np.mod(spin[ind[1:]]+1,2),tmp0)
+    
+    tmp1=np.einsum('in,jn->nij',M1[:,q[ind[1:]]],M1[:,r[ind[1:]]])
+    tmp1+=np.einsum('ijk->ikj',tmp1)
+    rdl[1]+=np.einsum('i,ijk->jk',w[0]*w[1:]*spin[ind[1:]],tmp1)
+    '''
+
+    e_list.append(el)
+    dm_list.append(rdl)
+
   e_list=np.array(e_list)
   dm_list=np.array(dm_list)
   print(e_list.shape,dm_list.shape)
@@ -211,7 +248,7 @@ def data_from_ex(mf,a,ex_list):
   dm_d=np.einsum('ijl,ikl->ijk',R,R)
   dm=np.einsum('ijkl->jikl',np.array([dm_u,dm_d]))
 
-  return el-el[0],dm
+  return el,dm
 
 #OCCUPATIONS
 def getn(dm_list):

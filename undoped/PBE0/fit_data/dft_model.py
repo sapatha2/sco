@@ -65,7 +65,7 @@ occ=np.arange(16,66) #2s - homo
 virt=np.arange(66,72) #homo - Sr occup
 ex_list,q,r,spin=genex(mf.mo_occ,[occ,occ],[virt,virt],ex=ex)
 e_list,dm_list=data_from_ex(mf,a,ex_list)
-e_list,dm_list=gen_sumsingles(e_list,dm_list,c=c,Ndet=Ndet,N=N,q=q,r=r,spin=spin)
+e_list,dm_list=gen_sumsingles(e_list,dm_list,ex_list,c=c,Ndet=Ndet,N=N,q=q,r=r,spin=spin,mf=mf,a=a)
 print("Finished excitation build")
 
 #Collect unique parameters and parameter sums for those 
@@ -88,11 +88,9 @@ print("Finished parameters build")
 
 #Plot
 pred=np.einsum('ji,j->i',psums,parameters)
-pred-=pred[0]
-print(len(parameters),r2_score(pred,e_list))
-plt.plot(e_list,pred,'o')
-plt.plot(e_list,e_list,'-')
-plt.ylim((0,0.05))
+print(len(parameters),r2_score(pred-pred[0],e_list-e_list[0]))
+plt.plot(e_list-e_list[0],pred-pred[0],'o')
+plt.plot(e_list-e_list[0],e_list-e_list[0],'-')
 plt.ylabel("Predicted energy")
 plt.xlabel("PBE0 eigenvalue differences")
 plt.show()
