@@ -58,9 +58,9 @@ e_list,dm_list=data_from_ex(mf,a,ex_list)
 '''
 
 ex='sum_singles'
-Ndet=10
-c=0.1
-N=500
+Ndet=1
+c=0.9
+N=10
 occ=np.arange(16,66) #2s - homo
 virt=np.arange(66,72) #homo - Sr occup
 ex_list,q,r,spin=genex(mf.mo_occ,[occ,occ],[virt,virt],ex=ex)

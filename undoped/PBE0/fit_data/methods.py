@@ -172,9 +172,11 @@ def gen_sumsingles(e,dm,ex,c,Ndet,N,q,r,spin,mf,a):
       w[0]=1
     else:
       ind=np.random.choice(e.shape[0],size=Ndet+1,replace=False)
-      w=np.ones(Ndet+1)*c*((-1)**np.random.randint(2,size=Ndet+1))
       ind[0]=0
-      w[0]=np.sqrt(1-Ndet*c**2)
+      w=np.ones(Ndet+1)*np.sqrt((1-c)/Ndet)*((-1)**np.random.randint(2,size=Ndet+1))
+      w[0]=np.sqrt(c)
+      #w=np.ones(Ndet+1)*c*((-1)**np.random.randint(2,size=Ndet+1))
+      #w[0]=np.sqrt(1-Ndet*c**2)
 
     #Calculate energy
     el=np.dot(e[ind],w**2)
