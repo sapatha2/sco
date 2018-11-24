@@ -45,6 +45,21 @@ def genex(mf,a,ncore,act,nact,N,Ndet,detgen,c):
         r=np.random.randint(low=ncore+nact[spin],high=act[spin][-1])
         det_list[i,spin,q]=0
         det_list[i,spin,r]=1
+      #Doubles excitations only (Also a bit slow)
+      elif(detgen=='d'):
+        det_list[i,:,:]=mf.mo_occ[:,0,:]
+        spin=np.random.randint(3)
+        if(spin<2):
+          q=np.random.choice(np.arange(ncore,ncore+nact[spin]),size=2,replace=False)
+          r=np.random.choice(np.arange(ncore+nact[spin],act[spin][-1]),size=2,replace=False)
+          det_list[i,spin,q]=0
+          det_list[i,spin,r]=1
+        else:
+          for sp in range(spin):
+            q=np.random.randint(low=ncore,high=ncore+nact[sp])
+            r=np.random.randint(low=ncore+nact[sp],high=act[sp][-1])
+            det_list[i,sp,q]=0
+            det_list[i,sp,r]=1
       else: 
         print(detgen+" not implemented yet")
         exit(0)
@@ -58,7 +73,7 @@ def genex(mf,a,ncore,act,nact,N,Ndet,detgen,c):
     dl_v=np.einsum('ijk,i->jk',det_list,w**2)
     dl[0]=np.diag(dl_v[0])
     dl[1]=np.diag(dl_v[1])
-    
+
     offd=np.einsum('ikl,jkl->kij',det_list,det_list)
     for s in [0,1]:
       for a in range(Ndet):
