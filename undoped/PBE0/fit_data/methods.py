@@ -105,7 +105,7 @@ def group(r,cut,m,labels,out=0,fout="groupH.txt"):
   return df, unique_vals
 
 #EXCITATION CALCULATIONS
-def genex(mo_occ,occ,virt,ex='singles'):
+def genex(mo_occ,occ,virt,ex='s'):
   '''
   generates an excitation list 
   input: 
@@ -117,7 +117,8 @@ def genex(mo_occ,occ,virt,ex='singles'):
   ex_list - list of mo_occ objects of type ex
   '''
   print("-- Generating excitations") 
-  if('singles' in ex): ex_list,q,r,spin=gensingles(mo_occ,occ,virt)
+  if(ex=='s'): ex_list,q,r,spin=gensingles(mo_occ,occ,virt)
+  elif(ex=='sd'): ex_list,q,r,spin=gensinglesdoubles(mo_occ,occ,virt)
   else: pass
   return ex_list,q,r,spin
 
@@ -155,7 +156,7 @@ def gensingles(mo_occ,occ,virt):
   return np.array(ex_list),np.array(de_occ),np.array(new_occ),np.array(spin)
 
 def gen_sumsingles(e,dm,ex,c,Ndet,N,q,r,spin,mf,a):
-  print("-- Sum singles excitations")
+  print("-- Sum excitations")
   e_list=[]
   dm_list=[]
 
@@ -173,7 +174,11 @@ def gen_sumsingles(e,dm,ex,c,Ndet,N,q,r,spin,mf,a):
     else:
       ind=np.random.choice(e.shape[0],size=Ndet+1,replace=False)
       ind[0]=0
-      w=np.ones(Ndet+1)*np.sqrt((1-c)/Ndet)*((-1)**np.random.randint(2,size=Ndet+1))
+      #w=np.ones(Ndet+1)*np.sqrt((1-c)/Ndet)*((-1)**np.random.randint(2,size=Ndet+1))
+      gauss=np.random.normal(size=Ndet)
+      gauss/=np.sqrt(np.dot(gauss,gauss))
+      w=np.zeros(Ndet+1)
+      w[1:]=gauss*np.sqrt(1-c)
       w[0]=np.sqrt(c)
       #w=np.ones(Ndet+1)*c*((-1)**np.random.randint(2,size=Ndet+1))
       #w[0]=np.sqrt(1-Ndet*c**2)
