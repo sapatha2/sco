@@ -56,70 +56,85 @@ df,unique_vals=group(4,0.0,h,labels,out=1)
 print("Finished H1 build")
 
 #Generate excitations on CHK
-Ndet=2
+Ndet=10
+c=0.99
 N=500
 detgen='s'
 ncore=16 #Core orbitals
 act=[np.arange(16,72),np.arange(16,72)] #List of active orbitals, spin separated
 nact=[50,50] #Number of active electrons
 
-for c in [1.0,0.75,0.50,0.25,0.0]:
-  e_list,mo_dm_list,dm_list=genex(mf,a,ncore,act,nact,N,Ndet,detgen,c)
-  print("Finished excitation build")
-  
-  #Collect full parameters
-  full_parameters=[]
-  full_psums=[]
-  full_labels=[]
-  for u in unique_vals[::-1]:
-    dfs=df[df['round']==u][["s","i1","i2","e"]].values.T
-    s=dfs[0].astype(int)
-    i1=dfs[1].astype(int)
-    i2=dfs[2].astype(int)
-    sign=np.sign(dfs[3])
-    full_psums.append(np.dot(dm_list[:,s,i1,i2],sign/sign[0]))
-    full_parameters.append(dfs[3][0])
-    ldf=df[df['round']==u][["s","c1","c2"]].values.T
-    full_labels.append(ldf[1][0]+"-"+ldf[2][0]+"_"+str(ldf[0][0]))
-  full_psums=np.array(full_psums)
-  full_parameters=np.array(full_parameters)
-  print("Finished parameters build")
+e_list,mo_dm_list,dm_list=genex(mf,a,ncore,act,nact,N,Ndet,detgen,c)
+print("Finished excitation build")
 
-  #Collect selected parameters
-  psums=[]
-  parameters=[]
-  labels=[]
-  for i in range(len(full_labels)):
-    if(("3s" in full_labels[i]) or ("3p" in full_labels[i])
-    or ("5s" in full_labels[i])): pass #Remove 3p, 3s, 5s
-    else: 
-      psums.append(full_psums[i])
-      parameters.append(full_parameters[i])
-      labels.append(full_labels[i])
-  psums=np.array(psums)
-  parameters=np.array(parameters)
+#Collect full parameters
+full_parameters=[]
+full_psums=[]
+full_labels=[]
+for u in unique_vals[::-1]:
+  dfs=df[df['round']==u][["s","i1","i2","e"]].values.T
+  s=dfs[0].astype(int)
+  i1=dfs[1].astype(int)
+  i2=dfs[2].astype(int)
+  sign=np.sign(dfs[3])
+  full_psums.append(np.dot(dm_list[:,s,i1,i2],sign/sign[0]))
+  full_parameters.append(dfs[3][0])
+  ldf=df[df['round']==u][["s","c1","c2"]].values.T
+  full_labels.append(ldf[1][0]+"-"+ldf[2][0]+"-"+str(ldf[0][0]))
+full_psums=np.array(full_psums)
+full_parameters=np.array(full_parameters)
+print("Finished parameters build")
 
-  print(full_psums.shape,full_parameters.shape,len(full_labels))
-  print(psums.shape,parameters.shape,len(labels))
+#Collect selected parameters
+psums=[]
+parameters=[]
+labels=[]
+for i in range(len(full_labels)):
+  if(("3s" in full_labels[i]) or ("3p" in full_labels[i])): pass #Remove 3s, 3p
+  else: 
+    psums.append(full_psums[i])
+    parameters.append(full_parameters[i])
+    labels.append(full_labels[i])
+psums=np.array(psums)
+parameters=np.array(parameters)
 
-  #PCA
-  X=psums.T
-  y=e_list[:,np.newaxis]*27.2114
-  
-  pca=PCA()
-  pca.fit(X)
-  plt.plot(np.cumsum(pca.explained_variance_ratio_),'o-',label=str(c))
-  '''
-  Xr=pca.transform(X)
-  for i in range(Xr.shape[0]):
-    plt.plot(Xr[i,:],'o',label=str(c))
-  '''
+print(full_psums.shape,full_parameters.shape,len(full_labels))
+print(psums.shape,parameters.shape,len(labels))
 
-plt.legend(loc=1)
+X=psums.T
+y=e_list[:,np.newaxis]*27.2114
+
+#PCA
+'''
+pca=PCA()
+pca.fit(X)
+plt.plot(np.cumsum(pca.explained_variance_ratio_),'o-',label=str(c))
+Xr=pca.transform(X)
+for i in range(Xr.shape[0]):
+  plt.plot(Xr[i,:],'o',label=str(c))
 plt.show()
-exit(0)
+'''
+
 ###########################################################################################
 #ANALYSIS
+#Plot changes in number occupation 
+'''
+n_labels=[]
+n_psums=[]
+for i in range(len(full_labels)):
+  l=full_labels[i].split("-")
+  if(l[0]==l[1]): 
+    n_labels.append(full_labels[i])
+    n_psums.append(full_psums[i])
+n_psums=np.array(n_psums)
+n_labels=np.array(n_labels)
+print(n_psums.shape,n_labels.shape)
+
+for i in range(n_psums.shape[1]):
+  plt.plot(n_psums[:,i],'.')
+plt.xticks(np.arange(n_labels.shape[0]),n_labels,rotation=90)
+plt.show()
+
 #Plot fit from rotated H1
 #Full parameters
 full_pred=np.einsum('ji,j->i',full_psums,full_parameters)
@@ -139,6 +154,7 @@ plt.plot(b,b,'-')
 plt.ylabel("Predicted energy")
 plt.xlabel("PBE0 eigenvalue differences")
 plt.show()
+'''
 
 #OMP
 from sklearn.model_selection import cross_val_score
@@ -148,9 +164,9 @@ cscores_err=[]
 scores=[]
 conds=[]
 nparms=[]
-'''
 #Full OMP
-for i in range(1,X.shape[1]):
+for i in range(1,X.shape[1]+1):
+  print("n_nonzero_coefs="+str(i))
   omp = OrthogonalMatchingPursuit(n_nonzero_coefs=i,fit_intercept=True)
   omp.fit(X,y)
   nparms.append(i)
@@ -168,7 +184,7 @@ plt.errorbar(nparms,cscores,yerr=cscores_err,fmt='gs')
 plt.subplot(133)
 plt.plot(nparms,conds,'r*')
 plt.show()
-'''
+
 '''
 #Restricted OMP
 n_lines=X.shape[1]
