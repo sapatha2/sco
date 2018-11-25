@@ -33,17 +33,17 @@ oxlabels=["2s","2px","2py","2pz"]
 srlabels=["5s"]
 orig_labels=[]
 for i in range(4):
-  orig_labels+=[x+"_"+str(i+1) for x in srlabels]
+  orig_labels+=["sr"+x+"_"+str(i+1) for x in srlabels]
 for i in range(4):
-  orig_labels+=[x+"_"+str(i+1) for x in culabels]
+  orig_labels+=["cu"+x+"_"+str(i+1) for x in culabels]
 for i in range(8):
-  orig_labels+=[x+"_"+str(i+1) for x in oxlabels]
+  orig_labels+=["o"+x+"_"+str(i+1) for x in oxlabels]
 labels=orig_labels
 
 my_labels=[]
 for i in range(len(labels)):
-  if(labels[i] in siglist): my_labels.append('2psig_'+labels[i].split("_")[1])
-  elif(labels[i] in pilist): my_labels.append('2ppi_'+labels[i].split("_")[1])
+  if(labels[i][1:] in siglist): my_labels.append('o2psig_'+labels[i].split("_")[1])
+  elif(labels[i][1:] in pilist): my_labels.append('o2ppi_'+labels[i].split("_")[1])
   else: my_labels.append(labels[i])
 labels=my_labels[:]
 
@@ -56,8 +56,8 @@ df,unique_vals=group(4,0.0,h,labels,out=1)
 print("Finished H1 build")
 
 #Generate excitations on CHK
-Ndet=10
-c=0.99
+Ndet=2
+c=0.0
 N=500
 detgen='s'
 ncore=16 #Core orbitals
@@ -90,19 +90,35 @@ psums=[]
 parameters=[]
 labels=[]
 for i in range(len(full_labels)):
+  sp=full_labels[i].split("-")
   if(("3s" in full_labels[i]) or ("3p" in full_labels[i])): pass #Remove 3s, 3p
+  elif(("5s" in full_labels[i])): pass #Remove 5s
   else: 
+    #Number, Cu-O hopping only 
+    '''
+    if((sp[0]==sp[1]) or ((sp[0][0]=="c") and (sp[1][0]=="o")) or
+    ((sp[1][0]=="c") and (sp[0][0]=="o"))):
+    '''
     psums.append(full_psums[i])
     parameters.append(full_parameters[i])
     labels.append(full_labels[i])
 psums=np.array(psums)
 parameters=np.array(parameters)
 
-print(full_psums.shape,full_parameters.shape,len(full_labels))
-print(psums.shape,parameters.shape,len(labels))
+print("Full size: ",full_psums.shape,full_parameters.shape,len(full_labels))
+print("Without 3s, 3p: ",psums.shape,parameters.shape,len(labels))
 
 X=psums.T
 y=e_list[:,np.newaxis]*27.2114
+
+#Correlation matrix
+data=np.concatenate((y,X),axis=1)
+print(data.shape)
+df=pd.DataFrame(data,columns=["E"]+labels)
+plt.matshow(df.corr(),vmax=1,vmin=-1,cmap=plt.cm.bwr)
+plt.xticks(np.arange(len(labels)+1),["E"]+labels,rotation=90)
+plt.yticks(np.arange(len(labels)+1),["E"]+labels)
+plt.show()
 
 #PCA
 '''
@@ -165,6 +181,9 @@ scores=[]
 conds=[]
 nparms=[]
 #Full OMP
+n_lines=X.shape[1]
+ax = plt.axes()
+ax.set_color_cycle([plt.cm.Blues(i) for i in np.linspace(0, 1, n_lines)])
 for i in range(1,X.shape[1]+1):
   print("n_nonzero_coefs="+str(i))
   omp = OrthogonalMatchingPursuit(n_nonzero_coefs=i,fit_intercept=True)
@@ -174,9 +193,17 @@ for i in range(1,X.shape[1]+1):
   tmp=cross_val_score(omp,X,y,cv=5)
   cscores.append(tmp.mean())
   cscores_err.append(tmp.std()*2)
+  print("R2CV: ",tmp.mean(),"(",tmp.std()*2,")")
   ind=np.abs(omp.coef_)>0
   Xr=X[:,ind]
   conds.append(np.linalg.cond(Xr))
+  #Low condition number, high R2
+  if((conds[-1] < 100000) and (tmp.mean()>0.90)): plt.plot(np.arange(len(omp.coef_)),omp.coef_,'o-')
+plt.plot(np.arange(len(omp.coef_)),parameters*27.2114,'k*-')
+plt.axhline(0,color='k',linestyle='--')
+plt.xticks(np.arange(len(labels)),labels,rotation=60)
+plt.show()
+
 plt.subplot(131)
 plt.plot(nparms,scores,'o')
 plt.subplot(132)
