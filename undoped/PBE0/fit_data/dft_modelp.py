@@ -9,7 +9,6 @@ def genex(mf,a,ncore,act,nact,N,Ndet,detgen,c):
   assert(Ndet>1)
   assert(N>0)
   assert(c<=1.0)
-  assert(c>=0.0)
   s=mf.get_ovlp()[0]
   M0=reduce(np.dot,(a.T, s, mf.mo_coeff[0][0])) #IAO -> MO for spin up
   M1=reduce(np.dot,(a.T, s, mf.mo_coeff[1][0])) #IAO -> MO for spin down 
@@ -22,16 +21,27 @@ def genex(mf,a,ncore,act,nact,N,Ndet,detgen,c):
       w=np.zeros(Ndet)
       w[0]=1
     else:
-      gauss=np.random.normal(size=Ndet-1)
-      gauss/=np.sqrt(np.dot(gauss,gauss))
-      w=np.zeros(Ndet)+np.sqrt(c)
-      w[1:]=gauss*np.sqrt(1-c)
+      if(c<0): 
+        w=np.random.normal(size=Ndet)
+        w/=np.sqrt(np.dot(w,w))
+      else:
+        gauss=np.random.normal(size=Ndet-1)
+        gauss/=np.sqrt(np.dot(gauss,gauss))
+        w=np.zeros(Ndet)+np.sqrt(c)
+        w[1:]=gauss*np.sqrt(1-c)
 
     #Create det_list object [ CAN BE CHANGED FOR SINGLES, DOUBLES, ... ] 
     det_list=np.zeros((Ndet,2,mf.mo_occ.shape[2]))
     det_list[0]=mf.mo_occ[:,0,:]
     for i in range(1,Ndet): 
       det_list[i,:,:ncore]=1
+      
+
+      if(detgen=='sd'):
+        mydetgen=detgen #Going to hold this until later
+        detgen=['s','d'][np.random.randint(2)]
+      else:
+        mydetgen="NaN"
       
       #Generate determinant through all active space (Very fast)
       if(detgen=='a'):
@@ -63,6 +73,9 @@ def genex(mf,a,ncore,act,nact,N,Ndet,detgen,c):
       else: 
         print(detgen+" not implemented yet")
         exit(0)
+
+      if(mydetgen=='sd'):
+        detgen='sd'
 
     #Calculate energy 
     el_v=np.einsum('ijk,jk->i',det_list,mf.mo_energy[:,0,:])
