@@ -12,6 +12,8 @@ from sklearn.metrics import r2_score, mean_squared_error
 import find_connect
 from dft_modelp import genex
 from sklearn.decomposition import PCA 
+from functools import reduce 
+
 ###########################################################################################
 #Build IAO 
 direc="../CHK"
@@ -20,9 +22,9 @@ cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED
 a=calcIAO(cell,mf,minbasis,occ)
 print("Finished IAO build")
 
-a1=np.round(mf.mo_energy[0][0][16:72],5)
-b1=np.round(mf.mo_energy[1][0][16:72],5)
-e1=set(list(a1)+list(b1))
+a1=np.round(mf.mo_energy[0][0][24:72],5)
+b1=np.round(mf.mo_energy[1][0][24:72],5)
+e1=set(list(a1))
 print(len(e1))
 
 #Labels
@@ -51,9 +53,22 @@ labels=my_labels[:]
 #DATA GENERATION
 
 #Build H1 on CHK state
-h=hIAO(mf,a)        
+h=hIAO(mf,a)
+
+'''
+s=mf.get_ovlp()[0]
+p=reduce(np.dot,(mf.mo_coeff[0][0].T,s.T,a))
+s=np.round(np.abs(p.flatten()),10)
+l=set(s)
+print(len(l))
+plt.matshow(p[:72,:],vmin=-1,vmax=1,cmap=plt.cm.bwr)
+plt.colorbar()
+plt.show()
+'''
+
 df,unique_vals=group(3,0.0,h,labels,out=1)
 print("Finished H1 build")
+print(len(unique_vals))
 
 #Generate excitations on CHK
 Ndet=10
@@ -62,10 +77,36 @@ N=500
 detgen='s'
 ncore=24 #Core orbitals (no 3s, 3p, 2s)
 act=[np.arange(24,72),np.arange(24,72)] #List of active orbitals, spin separated
+#act=[np.arange(66,68),np.arange(66,68)] #List of active orbitals, spin separated
 nact=[42,42] #Number of active electrons
 
 e_list,mo_dm_list,dm_list=genex(mf,a,ncore,act,nact,N,Ndet,detgen,c)
 print("Finished excitation build")
+
+'''
+diag0=[]
+diag1=[]
+
+w0,vr0=np.linalg.eigh(dm_list[0,0,:,:])
+w1,vr1=np.linalg.eigh(dm_list[0,1,:,:])
+print(reduce(np.dot,(vr0.T,dm_list[0,0,:,:],vr0)))
+
+for i in range(dm_list.shape[0]):
+  dm0=reduce(np.dot,(vr0.T,dm_list[i,0,:,:],vr0))
+  dm1=reduce(np.dot,(vr1.T,dm_list[i,1,:,:],vr1))
+  #plt.subplot(211)
+  #plt.plot(np.diag(dm0),'g.')
+  #plt.subplot(212)
+  #plt.plot(np.diag(dm1),'b.')
+  diag0.append(np.diag(dm0))
+  diag1.append(np.diag(dm1))
+
+v0=np.var(np.array(diag0).T,axis=1)
+v1=np.var(np.array(diag1).T,axis=1)
+plt.plot(-1*np.sort(-v0),'ob')
+plt.plot(-1*np.sort(-v1),'og')
+plt.show()
+'''
 
 #Collect full parameters
 full_parameters=[]
@@ -89,4 +130,4 @@ X=full_psums.T
 y=e_list[:,np.newaxis]
 data=np.concatenate((y,X),axis=1)
 df=pd.DataFrame(data,columns=["E"]+full_labels)
-df.to_pickle("dft_model.pickle")
+df.to_pickle("dft_model_iao3_24.pickle")

@@ -59,6 +59,7 @@ def genex(mf,a,ncore,act,nact,N,Ndet,detgen,c):
       elif(detgen=='d'):
         det_list[i,:,:]=mf.mo_occ[:,0,:]
         spin=np.random.randint(3)
+        if(nact[0]==1 and nact[1]==1): spin=2
         if(spin<2):
           q=np.random.choice(np.arange(ncore,ncore+nact[spin]),size=2,replace=False)
           r=np.random.choice(np.arange(ncore+nact[spin],act[spin][-1]),size=2,replace=False)
