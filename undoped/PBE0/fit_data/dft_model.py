@@ -72,13 +72,12 @@ print(len(unique_vals))
 
 #Generate excitations on CHK
 Ndet=10
-c=0.9
+c=0.7
 N=500
-detgen='s'
-ncore=24 #Core orbitals (no 3s, 3p, 2s)
-act=[np.arange(24,72),np.arange(24,72)] #List of active orbitals, spin separated
-#act=[np.arange(66,68),np.arange(66,68)] #List of active orbitals, spin separated
-nact=[42,42] #Number of active electrons
+detgen='sd'
+ncore=16 #Core orbitals (no 3s, 3p, 2s)
+act=[np.arange(16,72),np.arange(16,72)] #List of active orbitals, spin separated
+nact=[50,50] #Number of active electrons
 
 e_list,mo_dm_list,dm_list=genex(mf,a,ncore,act,nact,N,Ndet,detgen,c)
 print("Finished excitation build")
@@ -130,4 +129,4 @@ X=full_psums.T
 y=e_list[:,np.newaxis]
 data=np.concatenate((y,X),axis=1)
 df=pd.DataFrame(data,columns=["E"]+full_labels)
-df.to_pickle("dft_model_iao3_24.pickle")
+df.to_pickle("dft_model_iao3_"+detgen+"_"+str(ncore)+"_"+str(Ndet)+"_"+str(c)+".pickle")
