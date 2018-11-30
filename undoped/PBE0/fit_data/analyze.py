@@ -27,12 +27,10 @@ df["E"]-=df["E"][0]
 X=df.drop(columns=["E"])
 zind=[]
 for i in list(X):
-  if(("3s" in i) or ("3p" in i) or ("5s" in i)): 
+  if(("3s" in i) or ("3p" in i) or ("5s" in i) or ("cu4s_1-cu4s_1-0" in i)): 
     zind.append(i)
 X=X.drop(columns=zind)
-X=sm.add_constant(X)
 y=df["E"]
-
 
 #Rank checking
 u,s,v=np.linalg.svd(X)
@@ -47,7 +45,7 @@ scores=[]
 conds=[]
 nparms=[]
 #for i in range(1,X.shape[1]+1):
-for i in range(39,40):
+for i in range(41,42):
   print("n_nonzero_coefs="+str(i))
   omp = OrthogonalMatchingPursuit(n_nonzero_coefs=i)
   omp.fit(X,y)
@@ -64,12 +62,13 @@ for i in range(39,40):
   print("Cond: ",np.linalg.cond(Xr))
   print(np.array(list(X))[ind])
   print(omp.coef_[ind])
+  
   plt.title(fname)
   plt.xlabel("Predicted energy (eV)")
   plt.ylabel("DFT Energy (eV)")
   plt.plot(omp.predict(X),y,'og')
   plt.plot(y,y,'b-')
-  plt.savefig(fname.split("p")[0][:-1]+".fit.pdf",bbox_inches='tight')
+  plt.savefig(fname.split("p")[0][:-1]+".fit_fix.pdf",bbox_inches='tight')
   #plt.plot(np.arange(len(omp.coef_)),omp.coef_,'o-',label="Nparms= "+str(i))
 '''
 plt.axhline(0,color='k',linestyle='--')
@@ -77,5 +76,5 @@ plt.xticks(np.arange(len(list(X))),list(X),rotation=90)
 plt.title(fname)
 plt.ylabel("Parameter (eV)")
 plt.legend(loc='best')
-plt.savefig(fname.split("p")[0]+".pdf",bbox_inches='tight')
+plt.savefig(fname.split("p")[0][:-1]+".omp_fix.pdf",bbox_inches='tight')
 '''
