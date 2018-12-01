@@ -17,22 +17,19 @@ structure.to(filename="SrCuO2_221sc.cif")
 
 #Read CIF file and write output
 write=CrystalWriter()
-#write.xml_name='../../../../../Documents/Research/GitHub/autogenv2/BFD_Library.xml'
-write.xml_name='../../../../../Documents/Research/GitHub/autogenv2/BFD_PBC0.20.xml'
 fname="SrCuO2_221sc.cif"
 myfile=open(fname,"r")
 write.set_struct_fromcif(myfile.read(),primitive=False)
-write.write_crys_input("crys_pbe0.in")
 
-#Need to add
-'''
-SYMMETRY GROUP
-SUPERCON (vs SUPERCEL)
-MODISYMM
-Make sure basis cutoff is okay
-SHRINK 
-MAXCYCL
-ATOMSPIN
-'''
+#write.xml_name='../../../../../../../Documents/Research/GitHub/bus_autogenv2/BFD_Library.xml'
+#write.xml_name='../../../../../../../Documents/Research/GitHub/bus_autogenv2/BFD_PBC0.20.xml'
+write.xml_name='../../../../../../../Documents/Research/GitHub/bus_autogenv2/BFD_PBC.xml'
+write.cutoff=0.15
 
+write.functional={'exchange':'PBE','correlation':'PBE','hybrid':25,'predefined':None}
+write.kmesh=[6,6,4]
+write.gmesh=12
 
+write.write_crys_input("crys_BFD_PBC.in")
+
+#After this, still need to edit calculation properties and symmetries
