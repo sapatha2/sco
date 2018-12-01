@@ -1,0 +1,10 @@
+--------------------------------------------------------------------------
+mpiexec was unable to launch the specified application as it could not access
+or execute an executable:
+
+Executable: ../../../../../CRYSTAL17/bin/Linux-ifort14_XE_emt64/v1.0.1/Pcrystal
+Node: golub129
+
+while attempting to start process rank 0.
+--------------------------------------------------------------------------
+16 total processes failed to start
