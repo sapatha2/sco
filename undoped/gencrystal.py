@@ -17,8 +17,8 @@ structure.to(filename="SrCuO2_221sc.cif")
 
 #Read CIF file and write output
 write=CrystalWriter()
-#write.xml_name='../../../../../Documents/Research/GitHub/autogenv2/BFD_Library.xml'
-write.xml_name='../../../../../Documents/Research/GitHub/autogenv2/BFD_PBC0.20.xml'
+write.xml_name='../../../../../Documents/Research/GitHub/autogenv2/BFD_Library.xml'
+#write.xml_name='../../../../../Documents/Research/GitHub/autogenv2/BFD_PBC0.20.xml'
 fname="SrCuO2_221sc.cif"
 myfile=open(fname,"r")
 write.set_struct_fromcif(myfile.read(),primitive=False)
