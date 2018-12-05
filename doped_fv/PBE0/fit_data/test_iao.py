@@ -73,11 +73,15 @@ def makelabels():
 
 ###########################################################################################
 #Build IAO 
-#Single state
 direc="../FLP_ns"
 act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
 a=calcIAO(cell,mf,minbasis,act_mo)
+
+#Spin state to work with 
+direc="../FM_ns"
+act_mo=[np.arange(68,73)-1,np.arange(65,73)-1]
+cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=3)
 dm=rdmIAO(mf,a,act_mo)
 
 ###########################################################################################
@@ -87,6 +91,13 @@ print(direc)
 print("Nelectron, MO RDM: ",sum(mf.mo_occ[0][0][act_mo[0]]),sum(mf.mo_occ[1][0][act_mo[1]]))
 print("Nelectron, IAO RDM: ",np.trace(dm[0]),np.trace(dm[1]))
 print("Finished IAO build")
+'''
+IAO basis: FLP1
+Tr FLP1    0.9980959566006015 0.9970811630848089
+Tr COL1    0.9979964219133656 0.9936417711415055
+Tr COL2    0.9976157716115474 0.9987198122216554   
+Tr FM   -  HAS SOME BIG ISSUES, NEED TO THINK
+'''
 
 #Plot IAO
 '''
@@ -119,7 +130,7 @@ plt.show()
 '''
 
 #Build excitations on base state
-ncore=[66,65]
+ncore=[67,64]
 nact=[1,1]
 N=50
 Ndet=2
@@ -128,15 +139,12 @@ detgen='sd'
 e_list,dm_list,iao_dm_list=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
 tr=np.einsum('isjj->is',iao_dm_list)
 
-'''
 plt.plot(tr[:,0],'bo')
 plt.plot(tr[:,1],'go')
 plt.xlabel("Excitation")
 plt.ylabel("Trace")
 plt.show()
-'''
 
-'''
 labels=makelabels()
 for i in range(N):
   plt.plot(np.diag(iao_dm_list[i,0,:,:]),'bo')
@@ -144,4 +152,3 @@ for i in range(N):
 plt.xticks(np.arange(len(labels)),labels,rotation=90)
 plt.ylabel("Occupation")
 plt.show()
-'''
