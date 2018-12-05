@@ -1,511 +1,116 @@
-from pyscf import lo
+#Generate excitations, energies and rdms for excitations built on CHK state
 import numpy as np 
-import pandas as pd
 from functools import reduce
 
-#BASE
-def calcIAO(cell,mf,basis,occ):
-  ''' 
-  input: 
-  cell and scf (PBC SCF) objects from pyscf and basis
-  to calculate IAOs on
-  occ is MOs which IAOs should span
-  output:
-  Calculates 1RDM on orthog atomic orbitals, orthogonalized
-  using Lowdin S^1/2
-  Returns coefficient matrix for IAOs 
-  '''
-  s=mf.get_ovlp()[0]
-
-  mo_occ = mf.mo_coeff[0][0][:,occ]
-  mo_occ2 = mf.mo_coeff[1][0][:,occ]
-  mo_occ=np.concatenate((mo_occ,mo_occ2),axis=1)
-  a = lo.iao.iao(cell, mo_occ, minao=basis)
-  a = lo.vec_lowdin(a, s)
- 
-  return a
-
-def printIAO(mf,a):
-  for i in range(a.shape[1]):
-    mf.mo_coeff[0][0][:,i]=a[:,i]
-  print_qwalk_mol(cell,mf,basename="./iao/qwalk_iao")
-
-#DFT CALCULATION
-def rdmIAO(mf,a):
-  ''' 
-  input:
-  mf object for calculation
-  output:
-  1rdm for spin up and down 
-  '''
-  s=mf.get_ovlp()[0]
-  mo_occ = mf.mo_coeff[0][0][:,mf.mo_occ[0][0]>0]
-  mo_occ = reduce(np.dot, (a.T, s, mo_occ))
-  dm_u = np.dot(mo_occ, mo_occ.T)
-  mo_occ = mf.mo_coeff[1][0][:,mf.mo_occ[1][0]>0]
-  mo_occ = reduce(np.dot, (a.T, s, mo_occ))
-  dm_d = np.dot(mo_occ, mo_occ.T)
-  return np.array([dm_u,dm_d])
-
-def hIAO(mf,a):
-  '''
-  input: 
-  mf object for calculation
-  IAO vector a
-  output: 
-  eigenvalue matrix in IAO basis 
-  '''
-
-  s=mf.get_ovlp()[0]
-  H1=np.diag(mf.mo_energy[0][0])
-  e1u=reduce(np.dot,(a.T,s,mf.mo_coeff[0][0],H1,mf.mo_coeff[0][0].T,s.T,a))
-  e1u=(e1u+e1u.T)/2
-  H1=np.diag(mf.mo_energy[1][0])
-  e1d=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1,mf.mo_coeff[1][0].T,s.T,a))
-  e1d=(e1d+e1d.T)/2
-  
-  return np.array([e1u,e1d])
-
-def group(r,cut,m,labels,out=0,fout="groupH.txt"):
-  '''   
-  input:
-  r - rounding for parameters
-  cut - cutoff for parameters
-  m - matrices to group up  (spin up and spin down)
-  labels - labels of the matrix elements 
-  fout - file to print out to 
-  output:
-  df - data frame with all the data
-  unique_vals - unique rounded values
-  save groups to groupH.txt
-  '''
-  ls=[]
-  ii=[]
-  for i in range(len(labels)):
-    for j in range(len(labels)):
-      ls.append([labels[i],labels[j]])
-      ii.append(([i,j]))
-  s=np.array([0]*len(ls)+[1]*len(ls))
-  data=list(m[0].flatten())+list(m[1].flatten())
-  ls=np.array(ls+ls)
-  ii=np.array(ii+ii)
-  data=np.array(data)
-  data[np.abs(data)<cut]=0
-  d={'i1':ii.T[0],'i2':ii.T[1],'c1':ls.T[0],'c2':ls.T[1],'s':s,'e':data,'abs':np.abs(data),'round':np.round(np.abs(data),r)}
-  df=pd.DataFrame(d)
-  #Unique values 
-  unique_vals=sorted(list(set(df['round'].values)))
-  if(out):
-    f=open(fout,"a")
-    for u in unique_vals:
-      print(df[df['round']==u],file=f)
-    print("Cutoff ",cut,file=f)
-    print("Rounding ",r,file=f)
-    print("Nblocks ",len(unique_vals),file=f)
-  return df, unique_vals
-
-#EXCITATION CALCULATIONS
-def genex(mo_occ,occ,virt,ex='s'):
-  '''
-  generates an excitation list 
-  input: 
-  mo_occ - molecular orbital occupancy of base state
-  occ - a list of occupied orbitals in up and down channels (occ[0],occ[1])
-  virt - a list of virtual orbitals in up and down channels (occ[0],occ[1])
-  ex - excitation type
-  output: 
-  ex_list - list of mo_occ objects of type ex
-  '''
-  print("-- Generating excitations") 
-  if(ex=='s'): ex_list,q,r,spin=gensingles(mo_occ,occ,virt)
-  elif(ex=='sd'): ex_list,q,r,spin=gensinglesdoubles(mo_occ,occ,virt)
-  else: pass
-  return ex_list,q,r,spin
-
-def gensingles(mo_occ,occ,virt):
-  '''
-  generates a singles excitation list
-  input: 
-  mo_occ - molecular orbital occupancy of base state
-  occ - a list of occupied orbitals in up and down channels (occ[0],occ[1])
-  virt - a list of virtual orbitals in up and down channels (occ[0],occ[1])
-  output: 
-  ex_list - list of mo_occ objects for singles excitations
-  '''
-  print("-- Singles excitations")
-  ex_list=[]
-  de_occ=[]
-  new_occ=[]
-  spin=[]
-  ex_list.append(mo_occ)
-  de_occ.append(0)
-  new_occ.append(0)
-  spin.append(0)
-  for s in [0,1]:
-    for j in occ[s]:
-      for k in virt[s]:
-        tmp=np.array(mo_occ,copy=True)
-        assert(tmp[s][0][j]==1)
-        assert(tmp[s][0][k]==0)
-        tmp[s][0][j]=0
-        tmp[s][0][k]=1
-        de_occ.append(j)
-        new_occ.append(k)
-        ex_list.append(tmp)
-        spin.append(s)
-  return np.array(ex_list),np.array(de_occ),np.array(new_occ),np.array(spin)
-
-def gen_sumsingles(e,dm,ex,c,Ndet,N,q,r,spin,mf,a):
-  print("-- Sum excitations")
+def genex(mf,a,ncore,nact,act,N,Ndet,detgen,c):
   e_list=[]
   dm_list=[]
-
-  mo_dm=np.einsum('ijk,kl->ijkl',ex[:,:,0,:],np.eye(ex.shape[3],ex.shape[3]))
+  iao_dm_list=[]
+  assert(Ndet>1)
+  assert(N>0)
+  assert(c<=1.0)
   s=mf.get_ovlp()[0]
-  M0=reduce(np.dot,(a.T, s, mf.mo_coeff[0][0]))
-  M1=reduce(np.dot,(a.T, s, mf.mo_coeff[1][0]))
+  M0=reduce(np.dot,(a.T, s, mf.mo_coeff[0][0])) #IAO -> MO for spin up
+  M1=reduce(np.dot,(a.T, s, mf.mo_coeff[1][0])) #IAO -> MO for spin down 
   
+  #Loop states to calculate N+1 states of Ndet+1 determinants
+  #First state is always just GS, next are added to GS
   for n in range(N+1):
-    #Indices and weights
-    if(n==0): 
-      ind=np.arange(Ndet+1)
-      w=np.zeros(Ndet+1)
+    #Generate weight object [ CAN BE CHANGED, USING THIS FOR NOWM ... ]
+    if(n==0):
+      w=np.zeros(Ndet)
       w[0]=1
     else:
-      ind=np.random.choice(e.shape[0],size=Ndet+1,replace=False)
-      ind[0]=0
-      #w=np.ones(Ndet+1)*np.sqrt((1-c)/Ndet)*((-1)**np.random.randint(2,size=Ndet+1))
-      gauss=np.random.normal(size=Ndet)
-      gauss/=np.sqrt(np.dot(gauss,gauss))
-      w=np.zeros(Ndet+1)
-      w[1:]=gauss*np.sqrt(1-c)
-      w[0]=np.sqrt(c)
-      #w=np.ones(Ndet+1)*c*((-1)**np.random.randint(2,size=Ndet+1))
-      #w[0]=np.sqrt(1-Ndet*c**2)
+      if(c<0): 
+        w=np.random.normal(size=Ndet)
+        w/=np.sqrt(np.dot(w,w))
+      else:
+        gauss=np.random.normal(size=Ndet-1)
+        gauss/=np.sqrt(np.dot(gauss,gauss))
+        w=np.zeros(Ndet)+np.sqrt(c)
+        w[1:]=gauss*np.sqrt(1-c)
 
-    #Calculate energy
-    el=np.dot(e[ind],w**2)
+    #Create det_list object [ CAN BE CHANGED FOR SINGLES, DOUBLES, ... ] 
+    det_list=np.zeros((Ndet,2,mf.mo_occ.shape[2]))
+    det_list[0]=mf.mo_occ[:,0,:]
+    for i in range(1,Ndet): 
+      det_list[i,0,:ncore[0]]=1
+      det_list[i,1,:ncore[1]]=1
 
-    #Calculate 1RDM
-    dl=np.zeros((2,400,400))
-    rdl=np.zeros((2,76,76))
-    
-    #MO VERSION
-    for i in range(Ndet+1):
-      #Regular
-      dl+=mo_dm[ind[i],:,:,:]*w[i]**2
-      #Cross terms
-      if(i>0): 
-        diag0=np.diag(mo_dm[ind[i],0,:,:]-mo_dm[0,0,:,:])  
-        diag1=np.diag(mo_dm[ind[i],1,:,:]-mo_dm[0,1,:,:])  
-        i0=np.where(diag0!=0)[0]
-        i1=np.where(diag1!=0)[0]
-        if(i0.shape[0]>0): 
-          dl[0,i0[0],i0[1]]+=w[0]*w[i]
-          dl[0,i0[1],i0[0]]+=w[0]*w[i]
-        if(i1.shape[0]>0): 
-          dl[1,i1[0],i1[1]]+=w[0]*w[i]
-          dl[1,i1[1],i1[0]]+=w[0]*w[i]
+      if(detgen=='sd'):
+        mydetgen=detgen #Going to hold this until later
+        detgen=['s','d'][np.random.randint(2)]
+      else:
+        mydetgen="NaN"
+      
+      #Generate determinant through all active space (Very fast)
+      if(detgen=='a'):
+        det_list[i,0,np.random.choice(act[0],size=nact[0],replace=False)]=1
+        det_list[i,1,np.random.choice(act[1],size=nact[1],replace=False)]=1
+      #Singles excitations only (A bit slow)
+      elif(detgen=='s'):
+        det_list[i,:,:]=mf.mo_occ[:,0,:]
+        spin=np.random.randint(2)
+        q=np.random.randint(low=ncore[spin],high=ncore[spin]+nact[spin])
+        r=np.random.randint(low=ncore[spin]+nact[spin],high=act[spin][-1])
+        det_list[i,spin,q]=0
+        det_list[i,spin,r]=1
+      #Doubles excitations only (Also a bit slow)
+      elif(detgen=='d'):
+        det_list[i,:,:]=mf.mo_occ[:,0,:]
+        spin=np.random.randint(3)
+        if(nact[0]==1 and nact[1]==1): spin=2
+        if(spin<2):
+          q=np.random.choice(np.arange(ncore[spin],ncore[spin]+nact[spin]),size=2,replace=False)
+          r=np.random.choice(np.arange(ncore[spin]+nact[spin],act[spin][-1]),size=2,replace=False)
+          det_list[i,spin,q]=0
+          det_list[i,spin,r]=1
+        else:
+          for sp in range(spin):
+            q=np.random.randint(low=ncore[sp],high=ncore[sp]+nact[sp])
+            r=np.random.randint(low=ncore[sp]+nact[sp],high=act[sp][-1])
+            det_list[i,sp,q]=0
+            det_list[i,sp,r]=1
+      else: 
+        print(detgen+" not implemented yet")
+        exit(0)
 
+      if(mydetgen=='sd'):
+        detgen='sd'
+
+    #Calculate energy 
+    el_v=np.einsum('ijk,jk->i',det_list,mf.mo_energy[:,0,:])
+    el=np.dot(el_v,w**2)
+
+    #Calculate 1rdm on MO basis 
+    dl=np.zeros((det_list.shape[1],det_list.shape[2],det_list.shape[2]))
+    dl_v=np.einsum('ijk,i->jk',det_list,w**2)
+    dl[0]=np.diag(dl_v[0])
+    dl[1]=np.diag(dl_v[1])
+
+    offd=np.einsum('ikl,jkl->kij',det_list,det_list)
+    for s in [0,1]:
+      for a in range(Ndet):
+        for b in range(a,Ndet):
+          if(offd[s,a,b]==(ncore[s]+nact[s]-1)): #Check for singles excitation
+            ind=np.where((det_list[a,s,:]-det_list[b,s,:])!=0)[0]
+            M=np.zeros(dl[s].shape)
+            M[ind[0],ind[1]]=1
+            M[ind[1],ind[0]]=1
+            dl[s]+=w[a]*w[b]*M
+      dl[s][:ncore[s],:ncore[s]]=0 #Reduce to just active space
+
+    #Rotate to IAO basis
+    rdl=np.zeros((2,M0.shape[0],M0.shape[0]))
     rdl[0]=reduce(np.dot,(M0,dl[0],M0.T))
     rdl[1]=reduce(np.dot,(M1,dl[1],M1.T))
- 
-    '''
-    #IAO VERSION
-    rdl=np.einsum('ijkl,i->jkl',dm[ind,:,:,:],w**2)
-    tmp0=np.einsum('in,jn->nij',M0[:,q[ind[1:]]],M0[:,r[ind[1:]]])
-    tmp0+=np.einsum('ijk->ikj',tmp0)
-    rdl[0]+=np.einsum('i,ijk->jk',w[0]*w[1:]*np.mod(spin[ind[1:]]+1,2),tmp0)
-    
-    tmp1=np.einsum('in,jn->nij',M1[:,q[ind[1:]]],M1[:,r[ind[1:]]])
-    tmp1+=np.einsum('ijk->ikj',tmp1)
-    rdl[1]+=np.einsum('i,ijk->jk',w[0]*w[1:]*spin[ind[1:]],tmp1)
-    '''
 
+    #Append data to list
     e_list.append(el)
-    dm_list.append(rdl)
+    dm_list.append(dl)
+    iao_dm_list.append(rdl)
 
   e_list=np.array(e_list)
   dm_list=np.array(dm_list)
-  print(e_list.shape,dm_list.shape)
-  return e_list,dm_list
-
-def data_from_ex(mf,a,ex_list):
-  '''
-  generates energies and 1rdms from excitation list provided
-  input: 
-  mf - scf object of base state
-  a - basis to calculate 1RDM on 
-  ex_list - excitation list of states to calculate for
-  output:
-  e - list of energies for excitations 
-  dm - list of 1rdms (spin separated) for excitations
-  '''
-  
-  print("-- Generating energies")
-  el=np.einsum('ijk,jk->i',ex_list[:,:,0,:],mf.mo_energy[:,0,:])
-
-  print("-- Generating 1rdms")
-  s=mf.get_ovlp()[0]
-  M=reduce(np.dot,(a.T, s, mf.mo_coeff[0][0])) 
-  R=np.einsum('ik,jk->ijk',ex_list[:,0,0,:],M)
-  dm_u=np.einsum('ijl,ikl->ijk',R,R)
-  M=reduce(np.dot,(a.T, s, mf.mo_coeff[1][0])) 
-  R=np.einsum('ik,jk->ijk',ex_list[:,1,0,:],M)
-  dm_d=np.einsum('ijl,ikl->ijk',R,R)
-  dm=np.einsum('ijkl->jikl',np.array([dm_u,dm_d]))
-
-  return el,dm
-
-#OCCUPATIONS
-def getn(dm_list):
-  '''
-  returns diagonals of dm_list
-  input: 
-  dm_list - list of 1rdms
-  output:
-  n - list of diagonals of 1rdms
-  '''
-  return np.einsum('ijkk->ijk',dm_list)
-
-def nsum(n):
-  '''
-  takes output from getn, groups by symmetry
-  input: 
-  n - output from get n 
-  output: 
-  nsum - returns sum of n based on symmetry
-  '''
-  sr5s=  np.arange(4)
-  o2s=   np.arange(44,76,4)
-  o2pz=  np.arange(47,76,4)
-  o2psg= np.array([45,49,53,57,62,66,70,74]) 
-  o2ppi= np.array([46,50,54,58,61,65,69,73])
-  cu4s1= np.array([5,35])  #Occupation of spin parallel to local moment
-  cu4s2= np.array([15,25]) #Occupation of spin antiparallel to local moment 
-
-  nsum_u=np.zeros((n.shape[0],17))
-  nsum_d=np.zeros((n.shape[0],17))
-  T=np.zeros((17,n.shape[2]))
-  T[0,:][sr5s]=1./4
-  T[1,:][o2s]=1./8
-  T[2,:][o2psg]=1./8
-  T[3,:][o2ppi]=1./8
-  T[4,:][o2pz]=1./8
-  R=np.array(T,copy=True)
-  
-  T[5,:][cu4s1]=1./4
-  T[11,:][cu4s2]=1./4
-  for i in range(6,11):
-    T[i,:][cu4s1+i-2]=1./4
-    T[i+6,:][cu4s2+i-2]=1./4
-  nsum_u=np.einsum('ik,lk->il',n[:,0,:],T)
-
-  R[5,:][cu4s2]=1./4
-  R[11,:][cu4s1]=1./4
-  for i in range(6,11):
-    R[i,:][cu4s2+i-2]=1./4
-    R[i+6,:][cu4s1+i-2]=1./4
-  nsum_d=np.einsum('ik,lk->il',n[:,1,:],R)
-
-  return nsum_u+nsum_d
-
-def Usum(n):
-  Usig=n[:,0,:]*n[:,1,:]
-  sr5s=  np.arange(4)
-  o2s=   np.arange(44,76,4)
-  o2pz=  np.arange(47,76,4)
-  o2psg= np.array([45,49,53,57,62,66,70,74]) 
-  o2ppi= np.array([46,50,54,58,61,65,69,73])
-  cu4s= np.array([5,15,25,35])  #Occupation of spin parallel to local moment
-  
-  T=np.zeros((11,n.shape[2]))
-  T[0,:][sr5s]=1.
-  T[1,:][o2s]=1.
-  T[2,:][o2psg]=1.
-  T[3,:][o2ppi]=1.
-  T[4,:][o2pz]=1.
-  T[5,:][cu4s]=1.
-  for i in range(6,11):
-    T[i,:][cu4s+i-2]=1.
-  ret=np.einsum('ik,jk->ij',Usig,T)
-  return ret
-
-#HOPPINGS
-def ts(dm_list,orbital,n):
-  olist=[[44,60,52,64],
-         [48,64,56,60],
-         [52,72,44,68],
-         [56,68,48,72]]
-  if(orbital=="4s"): 
-    culist=[5,15,25,35]
-    sign=[1,1,1,1]
-  elif(orbital=="3dz2"): 
-    culist=[11,21,31,41]
-    sign=[1,1,1,1]
-  elif(orbital=="3d"): 
-    culist=[13,23,33,43]
-    sign=[1,-1,1,-1]
-  else: 
-    print("Hopping for orbital "+orbital+" not implemented")
-  
-  if(n==1): sw=[0,3,1,2]
-  else: sw=[1,2,0,3]
-  
-  T=np.zeros(dm_list.shape[2:])
-  T[culist[sw[0]],olist[sw[0]]]=sign
-  T[culist[sw[1]],olist[sw[1]]]=sign
-  T+=T.T
-  t_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)
-  
-  T=np.zeros(dm_list.shape[2:])
-  T[culist[sw[2]],olist[sw[2]]]=sign
-  T[culist[sw[3]],olist[sw[3]]]=sign
-  T+=T.T
-  t_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)
-  
-  return t_u + t_d
- 
-def tsig(dm_list,orbital,n):
-  olist=[[45,62,53,66],
-         [49,66,57,62],
-         [53,74,45,70],
-         [57,70,49,74]]
-  if(orbital=="4s"): 
-    culist=[5,15,25,35]
-    sign=[-1,-1,1,1]
-  elif(orbital=="3dz2"): 
-    culist=[11,21,31,41]
-    sign=[-1,-1,1,1]
-  elif(orbital=="3d"): 
-    culist=[13,23,33,43]
-    sign=[-1,1,1,-1]
-  else: 
-    print("Hopping for orbital "+orbital+" not implemented")
-    return -1
-
-  if(n==1): sw=[0,3,1,2]
-  else: sw=[1,2,0,3]
-
-  T=np.zeros(dm_list.shape[2:])
-  T[culist[sw[0]],olist[sw[0]]]=sign
-  T[culist[sw[1]],olist[sw[1]]]=sign
-  T+=T.T
-  t_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)
-
-  T=np.zeros(dm_list.shape[2:])
-  T[culist[sw[2]],olist[sw[2]]]=sign
-  T[culist[sw[3]],olist[sw[3]]]=sign
-  T+=T.T
-  t_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)
-
-  return t_u + t_d
-
-def tpi(dm_list,orbital,n):
-  olist=[[46,61,54,65],
-         [50,65,58,61],
-         [54,73,46,69],
-         [58,69,50,73]]
-  if(orbital=="3dxy"): 
-    culist=[9,19,29,39]
-    sign=[1,1,-1,-1]
-  else: 
-    print("Hopping for orbital "+orbital+" not implemented")
-    return -1
-
-  if(n==1): sw=[0,3,1,2]
-  else: sw=[1,2,0,3]
-
-  T=np.zeros(dm_list.shape[2:])
-  T[culist[sw[0]],olist[sw[0]]]=sign
-  T[culist[sw[1]],olist[sw[1]]]=sign
-  T+=T.T
-  t_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)
-
-  T=np.zeros(dm_list.shape[2:])
-  T[culist[sw[2]],olist[sw[2]]]=sign
-  T[culist[sw[3]],olist[sw[3]]]=sign
-  T+=T.T
-  t_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)
-
-  return t_u + t_d
-
-def tz(dm_list,orbital,n):
-  olist=[[47,55],
-         [51,59],
-         [55,47],
-         [59,51]]
-  if(orbital=="3dxz"): 
-    culist=[12,22,32,42]
-    sign=[1,-1]
-  else: 
-    print("Hopping for orbital "+orbital+" not implemented")
-    return -1
-
-  if(n==1): sw=[0,3,1,2]
-  else: sw=[1,2,0,3]
-
-  T=np.zeros(dm_list.shape[2:])
-  T[culist[sw[0]],olist[sw[0]]]=sign
-  T[culist[sw[1]],olist[sw[1]]]=sign
-  T+=T.T
-  t_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)
-
-  T=np.zeros(dm_list.shape[2:])
-  T[culist[sw[2]],olist[sw[2]]]=sign
-  T[culist[sw[3]],olist[sw[3]]]=sign
-  T+=T.T
-  t_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)
-
-  return t_u + t_d
-
-def too(dm_list,a,b):
-  onn=np.array([[7,8,5,6],
-       [8,7,6,5],
-       [6,5,8,7],
-       [5,6,7,8],
-       [1,2,3,4],
-       [2,1,3,4],
-       [4,3,1,2],
-       [3,4,2,1]])-1
-
-  oos=np.array([[44,45,46,47],
-       [48,49,50,51],
-       [52,53,54,55],
-       [56,57,58,59],
-       [60,62,61,63],
-       [64,66,65,67],
-       [68,70,69,71],
-       [72,74,73,75]])
-  
-  T=np.zeros(dm_list.shape[2:])
-  if(a=="sig" and b=="sig"):
-    sign=[1,-1,1,-1]
-    for i in range(8):
-      T[oos[i][1],oos[onn[i],1]]=sign
-    T+=T.T
-  elif(a=="pi" and b=="pi"):
-    sign=[1,-1,1,-1]
-    for i in range(8):
-      T[oos[i][2],oos[onn[i],2]]=sign
-    T+=T.T
-  elif(a=="z" and b=="z"):
-    sign=1
-    for i in range(8):
-      T[oos[i][3],oos[onn[i],3]]=sign
-    T+=T.T
-  elif(a=="s" and b=="s"):
-    sign=1
-    for i in range(8):
-      T[oos[i][0],oos[onn[i],0]]=sign
-    T+=T.T
-  elif(a=="sig" and b=="pi"):
-    sign=-1
-    for i in range(8):
-      T[oos[i][1],oos[onn[i],2]]=sign
-    T+=T.T
-
-  t_u=np.einsum('ikl,kl->i',dm_list[:,0,:,:],T)
-  t_d=np.einsum('ikl,kl->i',dm_list[:,1,:,:],T)
-
-  return t_u + t_d
+  iao_dm_list=np.array(iao_dm_list)
+  return e_list,dm_list,iao_dm_list
