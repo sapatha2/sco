@@ -9,6 +9,7 @@ import seaborn as sns
 sns.set_style("white")
 from pyscf import lo
 from functools import reduce 
+from pyscf2qwalk import print_qwalk_pbc
 
 def calcIAO(cell,mf,basis,occ):
   ''' 
@@ -73,7 +74,7 @@ def makelabels():
 ###########################################################################################
 #Build IAO 
 #Single state
-direc="../COL_ns"
+direc="../FLP_ns"
 act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
 a=calcIAO(cell,mf,minbasis,act_mo)
@@ -88,7 +89,11 @@ print("Nelectron, IAO RDM: ",np.trace(dm[0]),np.trace(dm[1]))
 print("Finished IAO build")
 
 #Plot IAO
-
+'''
+for i in range(a.shape[1]):
+  mf.mo_coeff[0][0][:,i]=a[:,i]
+print_qwalk_pbc(cell,mf,basename='FLP1_iao')
+'''
 
 #Occupations 
 '''
@@ -103,6 +108,10 @@ plt.show()
 '''
 s=mf.get_ovlp()[0]
 labels=makelabels()
+M0=reduce(np.dot,(a.T,s,mf.mo_coeff[0][0])).T
+plt.matshow(M0[act_mo[0],:],vmin=-1,vmax=1,cmap=plt.cm.bwr)
+plt.xticks(np.arange(len(labels)),labels,rotation=90)
+plt.show()
 M0=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0])).T
 plt.matshow(M0[act_mo[1],:],vmin=-1,vmax=1,cmap=plt.cm.bwr)
 plt.xticks(np.arange(len(labels)),labels,rotation=90)
@@ -110,7 +119,6 @@ plt.show()
 '''
 
 #Build excitations on base state
-'''
 ncore=[66,65]
 nact=[1,1]
 N=50
@@ -119,7 +127,21 @@ c=0.0
 detgen='sd'
 e_list,dm_list,iao_dm_list=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
 tr=np.einsum('isjj->is',iao_dm_list)
+
+'''
 plt.plot(tr[:,0],'bo')
 plt.plot(tr[:,1],'go')
+plt.xlabel("Excitation")
+plt.ylabel("Trace")
+plt.show()
+'''
+
+'''
+labels=makelabels()
+for i in range(N):
+  plt.plot(np.diag(iao_dm_list[i,0,:,:]),'bo')
+  plt.plot(np.diag(iao_dm_list[i,1,:,:]),'go')
+plt.xticks(np.arange(len(labels)),labels,rotation=90)
+plt.ylabel("Occupation")
 plt.show()
 '''
