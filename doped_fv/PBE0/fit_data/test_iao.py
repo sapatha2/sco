@@ -73,13 +73,58 @@ def makelabels():
 
 ###########################################################################################
 #Build IAO 
+
+'''
 direc="../FLP_ns"
 act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
-a=calcIAO(cell,mf,minbasis,act_mo)
+mo_occ = mf.mo_coeff[0][0][:,act_mo[0]]
+mo_occ2 = mf.mo_coeff[1][0][:,act_mo[1]]
+full_mo_occ=np.concatenate((mo_occ,mo_occ2),axis=1)
+
+direc="../COL_ns"
+act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
+cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
+mo_occ = mf.mo_coeff[0][0][:,act_mo[0]]
+mo_occ2 = mf.mo_coeff[1][0][:,act_mo[1]]
+full_mo_occ=np.concatenate((full_mo_occ,mo_occ,mo_occ2),axis=1)
+
+direc="../COL2_ns"
+act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
+cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
+mo_occ = mf.mo_coeff[0][0][:,act_mo[0]]
+mo_occ2 = mf.mo_coeff[1][0][:,act_mo[1]]
+full_mo_occ=np.concatenate((full_mo_occ,mo_occ,mo_occ2),axis=1)
+
+direc="../FLP3_ns"
+act_mo=[np.arange(68,73)-1,np.arange(65,73)-1]
+cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=3)
+mo_occ = mf.mo_coeff[0][0][:,act_mo[0]]
+mo_occ2 = mf.mo_coeff[1][0][:,act_mo[1]]
+full_mo_occ=np.concatenate((full_mo_occ,mo_occ,mo_occ2),axis=1)
+
+direc="../FM_ns"
+act_mo=[np.arange(68,73)-1,np.arange(65,73)-1]
+cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=3)
+mo_occ = mf.mo_coeff[0][0][:,act_mo[0]]
+mo_occ2 = mf.mo_coeff[1][0][:,act_mo[1]]
+full_mo_occ=np.concatenate((full_mo_occ,mo_occ,mo_occ2),axis=1)
+
+s=mf.get_ovlp()[0]
+a = lo.iao.iao(cell, full_mo_occ, minao=minbasis)
+a = lo.vec_lowdin(a, s)
+print(a.shape)
+#a=calcIAO(cell,mf,minbasis,act_mo)
+'''
+
+#Dump IAO
+#a.dump('FLP3iao.pickle')
+
+#Load IAO
+a=np.load('FLP1iao.pickle')
 
 #Spin state to work with 
-direc="../COL_ns"
+direc="../FLP1_ns"
 act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
 dm=rdmIAO(mf,a,act_mo)
@@ -91,19 +136,35 @@ print(direc)
 print("Nelectron, MO RDM: ",sum(mf.mo_occ[0][0][act_mo[0]]),sum(mf.mo_occ[1][0][act_mo[1]]))
 print("Nelectron, IAO RDM: ",np.trace(dm[0]),np.trace(dm[1]))
 print("Finished IAO build")
+
 '''
 IAO basis: FLP1
 Tr FLP1    0.9980959566006015 0.9970811630848089
 Tr COL1    0.9979964219133656 0.9936417711415055
 Tr COL2    0.9976157716115474 0.9987198122216554   
-Tr FM   -  HAS SOME BIG ISSUES, NEED TO THINK
+Tr FLP3    0.9995832783613403 0.9868498844745311 
+Tr FM      0.9997054354406514 0.9875878439948709
+
+IAO basis: FLP3
+Tr FLP1    0.9997510767556955 0.9998781553061968 
+Tr COL1    0.9998243159567000 0.9997055238327422 
+Tr COL2    0.9997301253797404 0.999318652324652
+Tr FLP3    0.9998609722025374 0.9999943922635566
+Tr FM      0.9998139393957506 0.9999556864542535
+
+IAO basis: Full
+Tr FLP1    0.9997854762105697 0.9997954467870576 
+Tr COL1    0.9998169261410627 0.9997764207052119 
+Tr COL2    0.9998305557570519 0.999489028972492 
+Tr FLP3    0.9997138757456009 0.9996904657959916 
+Tr FM      0.9996893337462488 0.9996963806312003 
 '''
 
 #Plot IAO
 '''
 for i in range(a.shape[1]):
   mf.mo_coeff[0][0][:,i]=a[:,i]
-print_qwalk_pbc(cell,mf,basename='FLP1_iao')
+print_qwalk_pbc(cell,mf,basename='FULL_iao')
 '''
 
 #Occupations 
@@ -116,7 +177,6 @@ plt.show()
 '''
 
 #MO to IAO matrix
-'''
 s=mf.get_ovlp()[0]
 labels=makelabels()
 M0=reduce(np.dot,(a.T,s,mf.mo_coeff[0][0])).T
@@ -127,17 +187,18 @@ M0=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0])).T
 plt.matshow(M0[act_mo[1],:],vmin=-1,vmax=1,cmap=plt.cm.bwr)
 plt.xticks(np.arange(len(labels)),labels,rotation=90)
 plt.show()
-'''
 
 #Build excitations on base state
+'''
 ncore=[66,65]
 nact=[1,1]
 N=50
 Ndet=2
 c=0.0
 detgen='sd'
-e_list,dm_list,iao_dm_list=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
+e_list,dm_list,iao_dm_list,__=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
 tr=np.einsum('isjj->is',iao_dm_list)
+'''
 
 '''
 plt.plot(tr[:,0],'bo')
