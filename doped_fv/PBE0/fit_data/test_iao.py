@@ -50,6 +50,23 @@ def rdmIAO(mf,a,occ):
   dm_d = np.dot(mo_occ, mo_occ.T)
   return np.array([dm_u,dm_d])
 
+def hIAO(mf,a):
+  ''' 
+  input: 
+  mf object for calculation
+  IAO vector a
+  output: 
+  eigenvalue matrix in IAO basis 
+  '''
+  s=mf.get_ovlp()[0]
+  H1=np.diag(mf.mo_energy[0][0])
+  e1u=reduce(np.dot,(a.T,s,mf.mo_coeff[0][0],H1,mf.mo_coeff[0][0].T,s.T,a))
+  e1u=(e1u+e1u.T)/2
+  H1=np.diag(mf.mo_energy[1][0])
+  e1d=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0],H1,mf.mo_coeff[1][0].T,s.T,a))
+  e1d=(e1d+e1d.T)/2
+  return np.array([e1u,e1d])
+
 #Labels
 def makelabels():
   siglist=["2px_1","2px_2","2px_3","2px_4","2py_5","2py_6","2py_7","2py_8"]
@@ -121,12 +138,12 @@ print(a.shape)
 #a.dump('FLP3iao.pickle')
 
 #Load IAO
-a=np.load('FLP1iao.pickle')
+a=np.load('FULLiao.pickle')
 
 #Spin state to work with 
-direc="../FLP1_ns"
-act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
-cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
+direc="../FLP3_ns"
+act_mo=[np.arange(68,73)-1,np.arange(65,73)-1]
+cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=3)
 dm=rdmIAO(mf,a,act_mo)
 
 ###########################################################################################
@@ -177,6 +194,7 @@ plt.show()
 '''
 
 #MO to IAO matrix
+'''
 s=mf.get_ovlp()[0]
 labels=makelabels()
 M0=reduce(np.dot,(a.T,s,mf.mo_coeff[0][0])).T
@@ -187,10 +205,10 @@ M0=reduce(np.dot,(a.T,s,mf.mo_coeff[1][0])).T
 plt.matshow(M0[act_mo[1],:],vmin=-1,vmax=1,cmap=plt.cm.bwr)
 plt.xticks(np.arange(len(labels)),labels,rotation=90)
 plt.show()
+'''
 
 #Build excitations on base state
-'''
-ncore=[66,65]
+ncore=[67,64]
 nact=[1,1]
 N=50
 Ndet=2
@@ -198,15 +216,14 @@ c=0.0
 detgen='sd'
 e_list,dm_list,iao_dm_list,__=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
 tr=np.einsum('isjj->is',iao_dm_list)
-'''
 
-'''
 plt.plot(tr[:,0],'bo')
 plt.plot(tr[:,1],'go')
 plt.xlabel("Excitation")
 plt.ylabel("Trace")
 plt.show()
 
+'''
 labels=makelabels()
 for i in range(N):
   plt.plot(np.diag(iao_dm_list[i,0,:,:]),'bo')
@@ -215,3 +232,14 @@ plt.xticks(np.arange(len(labels)),labels,rotation=90)
 plt.ylabel("Occupation")
 plt.show()
 '''
+
+#Eigenvalues 
+e=hIAO(mf,a)
+w,vr=np.linalg.eigh(e[0])
+plt.plot(mf.mo_energy[0][0],'go')
+plt.plot(w,'b*')
+plt.show()
+w,vr=np.linalg.eigh(e[1])
+plt.plot(mf.mo_energy[1][0],'go')
+plt.plot(w,'b*')
+plt.show()

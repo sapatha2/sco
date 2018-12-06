@@ -11,6 +11,8 @@ from pyscf import lo
 from functools import reduce 
 from pyscf2qwalk import print_qwalk_pbc
 import statsmodels.api as sm
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import OrthogonalMatchingPursuit
 
 def calcIAO(cell,mf,basis,occ):
   ''' 
@@ -170,11 +172,9 @@ def gett(dm,min_dist=0.0,max_dist=4.5):
 
 ###########################################################################################
 #Build IAO 
-direc="../FLP_ns"
-act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
-cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
-a=calcIAO(cell,mf,minbasis,act_mo)
-print("IAO built on "+str(direc))
+f="FULLiao.pickle"
+a=np.load(f)
+print("IAOs built from "+f)
 
 ###########################################################################################
 #Sample States
@@ -188,7 +188,7 @@ Ndet=5
 c=0.9
 detgen='sd'
 
-#cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
+cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=ncore[0]+nact[0]-ncore[1]-nact[1])
 e_list,dm_list,iao_dm_list,sigu_list=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
 print("Excitations built on "+str(direc))
 
@@ -216,7 +216,8 @@ plt.show()
 '''
 
 #Hopping analysis
-sigT,sigTlabels=gett(iao_dm_list,min_dist=0.25,max_dist=0.25)
+#sigT,sigTlabels=gett(iao_dm_list,min_dist=0.25,max_dist=0.25)
+sigT,sigTlabels=gett(iao_dm_list,min_dist=1e-10)
 
 #Variation
 '''
@@ -237,7 +238,65 @@ df=pd.DataFrame(data,columns=["E"]+list(nlabels)+list(sigulabels)+list(sigTlabel
 
 #LinReg
 y=df["E"]
-X=df[["c3dx2y2","o2psig","c3dx2y2-o2psig-0.25","c3dx2y2_u"]]
+X=df.drop(columns=["E"])
+ind=[]
+for x in list(df):
+  if(("3s" in x) or ("3p" in x) or ("3dxz" in x) or ("3dyz" in x) or ("2pz" in x) or ("2ppi" in x)): ind.append(x)
+X=X.drop(columns=ind)
+X=df[["c3dx2y2","o2psig","c3dx2y2-o2psig-0.25","c3dx2y2_u","o2psig_u"]]
 X=sm.add_constant(X)
 model=sm.OLS(y,X).fit()
 print(model.summary())
+exit(0)
+
+#plt.plot(y,model.predict(X),'og')
+#plt.plot(y,y,'-')
+#plt.show()
+
+#Rank checking
+u,s,v=np.linalg.svd(X)
+print(s)
+print(X.shape)
+print(np.linalg.matrix_rank(X,tol=1e-6))
+
+#OMP
+cscores=[]
+cscores_err=[]
+scores=[]
+conds=[]
+nparms=[]
+for i in range(1,X.shape[1]+1):
+  print("n_nonzero_coefs="+str(i))
+  omp = OrthogonalMatchingPursuit(n_nonzero_coefs=i)
+  omp.fit(X,y)
+  nparms.append(i)
+  scores.append(omp.score(X,y))
+  tmp=cross_val_score(omp,X,y,cv=5)
+  cscores.append(tmp.mean())
+  cscores_err.append(tmp.std()*2)
+  print("R2: ",omp.score(X,y))
+  print("R2CV: ",tmp.mean(),"(",tmp.std()*2,")")
+  ind=np.abs(omp.coef_)>0
+  Xr=X.values[:,ind]
+  conds.append(np.linalg.cond(Xr))
+  print("Cond: ",np.linalg.cond(Xr))
+  print(np.array(list(X))[ind])
+  print(omp.coef_[ind])
+  
+  '''
+  plt.title(fname)
+  plt.xlabel("Predicted energy (eV)")
+  plt.ylabel("DFT Energy (eV)")
+  plt.plot(omp.predict(X),y,'og')
+  plt.plot(y,y,'b-')
+  #plt.savefig(fname.split("p")[0][:-1]+".fit_fix.pdf",bbox_inches='tight')
+  plt.plot(np.arange(len(omp.coef_)),omp.coef_,'o-',label="Nparms= "+str(i))
+  '''
+'''
+plt.axhline(0,color='k',linestyle='--')
+plt.xticks(np.arange(len(list(X))),list(X),rotation=90)
+plt.title(fname)
+plt.ylabel("Parameter (eV)")
+plt.legend(loc='best')
+plt.savefig(fname.split("p")[0][:-1]+".omp_fix.pdf",bbox_inches='tight')
+'''
