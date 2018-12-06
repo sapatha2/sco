@@ -79,9 +79,9 @@ cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED
 a=calcIAO(cell,mf,minbasis,act_mo)
 
 #Spin state to work with 
-direc="../FM_ns"
-act_mo=[np.arange(68,73)-1,np.arange(65,73)-1]
-cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=3)
+direc="../COL_ns"
+act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
+cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
 dm=rdmIAO(mf,a,act_mo)
 
 ###########################################################################################
@@ -130,7 +130,7 @@ plt.show()
 '''
 
 #Build excitations on base state
-ncore=[67,64]
+ncore=[66,65]
 nact=[1,1]
 N=50
 Ndet=2
@@ -139,6 +139,7 @@ detgen='sd'
 e_list,dm_list,iao_dm_list=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
 tr=np.einsum('isjj->is',iao_dm_list)
 
+'''
 plt.plot(tr[:,0],'bo')
 plt.plot(tr[:,1],'go')
 plt.xlabel("Excitation")
@@ -152,3 +153,4 @@ for i in range(N):
 plt.xticks(np.arange(len(labels)),labels,rotation=90)
 plt.ylabel("Occupation")
 plt.show()
+'''

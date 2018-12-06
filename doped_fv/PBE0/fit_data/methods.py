@@ -6,6 +6,7 @@ def genex(mf,a,ncore,nact,act,N,Ndet,detgen,c):
   e_list=[]
   dm_list=[]
   iao_dm_list=[]
+  sigu_list=[]
   assert(Ndet>1)
   assert(N>0)
   assert(c<=1.0)
@@ -109,8 +110,10 @@ def genex(mf,a,ncore,nact,act,N,Ndet,detgen,c):
     e_list.append(el)
     dm_list.append(dl)
     iao_dm_list.append(rdl)
+    sigu_list.append(np.diag(rdl[0])*np.diag(rdl[1]))
 
   e_list=np.array(e_list)
   dm_list=np.array(dm_list)
   iao_dm_list=np.array(iao_dm_list)
-  return e_list,dm_list,iao_dm_list
+  sigu_list=np.array(sigu_list)
+  return e_list,dm_list,iao_dm_list,sigu_list
