@@ -75,24 +75,6 @@ def makelabels():
   return labels
 
 #Parameter sums
-def getn(diag):
-  n=np.zeros((diag.shape[0],diag.shape[2]))
-  nlabels=[]
-
-  labels=makelabels()
-  labels=np.array([x.split("_")[0] for x in labels])
-  u,indices=np.unique(labels,return_inverse=True)
-  
-  j=0
-  for un in u:
-    i=np.where(labels==un)[0]
-    n[:,j]=np.sum(diag[:,0,i],axis=1)+np.sum(diag[:,1,i],axis=1)
-    nlabels.append(un)
-    j+=1
-
-  nlabels=np.array(nlabels)
-  return n[:,:nlabels.shape[0]],nlabels
-
 def getu(sigu_list):
   sigu=np.zeros((sigu_list.shape[0],sigu_list.shape[1]))
   sigulabels=[]
@@ -204,29 +186,34 @@ print("IAOs built from "+f)
 ###########################################################################################
 #Sample States
 #Calculation parameters
-direc="../FLP_ns"
 act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
 ncore=[66,65]
 nact=[1,1]
-N=20
+N=50
 Ndet=2
 c=0.0
 detgen='sd'
 
-cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=ncore[0]+nact[0]-ncore[1]-nact[1])
-e_list,dm_list,iao_dm_list,sigu_list=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
-print("Excitations built on "+str(direc))
-
-#Number occupation analysis
-diag=np.einsum('isjj->isj',iao_dm_list)
-n,nlabels=getn(diag)
-#Variation
-'''
-for i in range(n.shape[0]):
-  plt.plot(n[i,:],'.')
-plt.xticks(np.arange(nlabels.shape[0]),nlabels,rotation=90)
-plt.show()
-'''
+direclist=["../FLP_ns"] #COL2, FM, FLP3
+E=[-9.2092669022287E+02,-9.2092063265454E+02,-9.2091969201655E+02,-9.2091264054414E+02,-9.2091219109429E+02]
+e_list=[]
+dm_list=[]
+iao_dm_list=[]
+sigu_list=[]
+zz=0
+for direc in direclist:
+  cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=ncore[0]+nact[0]-ncore[1]-nact[1])
+  e,dm,iao_dm,sigu=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
+  e_list.append(e-e[0]+E[zz])
+  dm_list.append(dm)
+  iao_dm_list.append(iao_dm)
+  sigu_list.append(sigu)
+  zz+=1
+  print("Finished excitations for "+direc)
+e_list=np.array([j for i in e_list for j in i])
+dm_list=np.array([j for i in dm_list for j in i])
+iao_dm_list=np.array([j for i in iao_dm_list for j in i])
+sigu_list=np.array([j for i in sigu_list for j in i])
 
 #Double occupancy analysis
 sigu,sigulabels=getu(sigu_list)
@@ -260,9 +247,10 @@ y=df["E"]
 X=df.drop(columns=["E"])
 ind=[]
 for x in list(df):
-  if(("o2s" in x) or ("4s" in x) or ("3dz2" in x) or ("3s" in x) or ("3p" in x) or ("3dxy" in x) or ("3dxz" in x) or ("3dyz" in x) or ("2pz" in x) or ("2ppi" in x)): ind.append(x)
+  #if(("4s" in x) or ("3dz2" in x) or ("3s" in x) or ("3p" in x) or ("3dxy" in x) or ("3dxz" in x) or ("3dyz" in x) or ("2pz" in x) or ("2ppi" in x)): ind.append(x)
+  if(("3s" in x) or ("3p" in x) or ("3dxy" in x) or ("3dxz" in x) or ("3dyz" in x) or ("2pz" in x) or ("2ppi" in x)): ind.append(x)
 X=X.drop(columns=ind)
-#X=df[["c3dx2y2","o2psig","c3dx2y2-o2psig-0.25","c3dx2y2_u"]]
+#X=X.drop(columns=["o2psig-o2s-0.00"])
 X=sm.add_constant(X)
 model=sm.OLS(y,X).fit()
 print(model.summary())
@@ -270,15 +258,17 @@ print(model.summary())
 plt.plot(y,model.predict(X),'og')
 plt.plot(y,y,'-')
 plt.show()
-exit(0)
 
+'''
 #Rank checking
 u,s,v=np.linalg.svd(X)
 print(s)
 print(X.shape)
 print(np.linalg.matrix_rank(X,tol=1e-6))
+'''
 
 #OMP
+'''
 cscores=[]
 cscores_err=[]
 scores=[]
@@ -301,8 +291,8 @@ for i in range(1,X.shape[1]+1):
   print("Cond: ",np.linalg.cond(Xr))
   print(np.array(list(X))[ind])
   print(omp.coef_[ind])
-  
-  '''
+'''  
+'''
   plt.title(fname)
   plt.xlabel("Predicted energy (eV)")
   plt.ylabel("DFT Energy (eV)")
@@ -310,7 +300,7 @@ for i in range(1,X.shape[1]+1):
   plt.plot(y,y,'b-')
   #plt.savefig(fname.split("p")[0][:-1]+".fit_fix.pdf",bbox_inches='tight')
   plt.plot(np.arange(len(omp.coef_)),omp.coef_,'o-',label="Nparms= "+str(i))
-  '''
+'''
 '''
 plt.axhline(0,color='k',linestyle='--')
 plt.xticks(np.arange(len(list(X))),list(X),rotation=90)

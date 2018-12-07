@@ -103,9 +103,8 @@ def genex(mf,a,ncore,nact,act,N,Ndet,detgen,c):
 
     #U sum calculation
     cncm=np.einsum('isn,jsm->ijsnm',det_list,det_list)
-    M=np.array([M0,M1])
-    tmp=np.einsum('ijsnm,skm->ijsnk',cncm,M)
-    MU=np.einsum('ijsnk,skn->ksij',tmp,M)
+    tmp=np.einsum('ijsnm,skm->ijsnk',cncm,np.array([M0,M1]))
+    MU=np.einsum('ijsnk,skn->ksij',tmp,np.array([M0,M1]))
     
     sigu=np.einsum('ksij,i->ksj',MU,w)
     sigu=np.einsum('ksj,j->ks',sigu,w)
