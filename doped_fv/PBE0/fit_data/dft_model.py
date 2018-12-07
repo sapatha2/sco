@@ -85,8 +85,8 @@ def getn(diag):
   
   j=0
   for un in u:
-    i=np.where(labels==un)
-    n[:,j]=np.sum(diag[:,0,i],axis=2)[:,0]+np.sum(diag[:,1,i],axis=2)[:,0]
+    i=np.where(labels==un)[0]
+    n[:,j]=np.sum(diag[:,0,i],axis=1)+np.sum(diag[:,1,i],axis=1)
     nlabels.append(un)
     j+=1
 
@@ -112,6 +112,8 @@ def getu(sigu_list):
   return sigu[:,:sigulabels.shape[0]],sigulabels
 
 def gett(dm,min_dist=0.0,max_dist=4.5):
+  #SIGN STRUCTURE ONLY CORRECT FOR NEAREST NEIGHBOR
+  #I.E. MAX_DIST=0.25
   labels=makelabels()
   labels2=makelabels()
   labels=np.array([x.split("_")[0] for x in labels])
@@ -144,7 +146,11 @@ def gett(dm,min_dist=0.0,max_dist=4.5):
           for n in i2:
             coord1=coords[labels2[m][0]+"_"+labels2[m][-1]]
             coord2=coords[labels2[n][0]+"_"+labels2[n][-1]]
-            dist=np.mod(abs(coord1[0]-coord2[0]),2)**2 + np.mod(abs(coord1[1]-coord2[1]),2)**2
+            #dist=np.mod(abs(coord1[0]-coord2[0]),2)**2 + np.mod(abs(coord1[1]-coord2[1]),2)**2
+            #dist=np.mod(abs(coord1[0]-coord2[0]),2)**2 + np.mod(abs(coord1[1]-coord2[1]),2)**2
+            q1=min(abs(coord1[0]-coord2[0]),abs(abs(coord1[0]-coord2[0])-2))
+            q2=min(abs(coord1[1]-coord2[1]),abs(abs(coord1[1]-coord2[1])-2))
+            dist=q1**2+q2**2
             assert(dist<=4.5)
             assert(dist>=0.0)
             if((dist<=max_dist) and (dist>=min_dist)):
@@ -161,9 +167,28 @@ def gett(dm,min_dist=0.0,max_dist=4.5):
   j=0
   for un in u:
     i=np.where(hoplabels==un)[0]
-    sigtlabels.append(un)
-    sigt[:,j]=np.sum(np.abs(dm[:,0,indices[i,0],indices[i,1]]),axis=1)+\
-      np.sum(np.abs(dm[:,1,indices[i,0],indices[i,1]]),axis=1)
+   
+    #Number parameters
+    if(un.split("-")[2]=="0.00"):
+      sigt[:,j]=np.sum(dm[:,0,indices[i,0],indices[i,1]],axis=1)+\
+        np.sum(dm[:,1,indices[i,0],indices[i,1]],axis=1)
+      sigtlabels.append(un)
+    #NN hopping parameters
+    elif(un.split("-")[2]=="0.25"):
+      one=un.split("-")[0]
+      two=un.split("-")[1]
+      #Sign sequence: [R,L,U,D, R,L,D,U, L,R,U,D L,R,D,U]
+      if(("c3dx2y2" in one) and ("2psig" in two)): sgn=[1,-1,-1,1, 1,-1,1,-1, -1,1,-1,1, -1,1,1,-1]
+      elif(("c3dx2y2" in one) and ("2s" in two)):  sgn=[1,1,-1,-1, 1,1,-1,-1, 1,1,-1,-1, 1,1,-1,-1]
+      elif((("c3dz2" in one) or ("c4s" in one)) and ("2psig" in two)): sgn=[1,-1,1,-1, 1,-1,-1,1, -1,1,1,-1, -1,1,-1,1]
+      elif((("c3dz2" in one) or ("c4s" in one)) and ("2s" in two)):    sgn=[1,1,1,1,   1,1,1,1,   1,1,1,1,   1,1,1,1]
+      else: sgn=np.zeros(16)
+      sigt[:,j]=np.dot(dm[:,0,indices[i,0],indices[i,1]],sgn)+\
+                np.dot(dm[:,1,indices[i,0],indices[i,1]],sgn)
+      sigtlabels.append(un)
+    else: 
+      print("Don't have hopping for distance "+un.split("_")[2])
+      pass
     j+=1
 
   sigtlabels=np.array(sigtlabels)
@@ -183,9 +208,9 @@ direc="../FLP_ns"
 act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
 ncore=[66,65]
 nact=[1,1]
-N=100
-Ndet=5
-c=0.9
+N=20
+Ndet=2
+c=0.0
 detgen='sd'
 
 cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=ncore[0]+nact[0]-ncore[1]-nact[1])
@@ -195,7 +220,6 @@ print("Excitations built on "+str(direc))
 #Number occupation analysis
 diag=np.einsum('isjj->isj',iao_dm_list)
 n,nlabels=getn(diag)
-
 #Variation
 '''
 for i in range(n.shape[0]):
@@ -217,7 +241,7 @@ plt.show()
 
 #Hopping analysis
 #sigT,sigTlabels=gett(iao_dm_list,min_dist=0.25,max_dist=0.25)
-sigT,sigTlabels=gett(iao_dm_list,min_dist=1e-10)
+sigT,sigTlabels=gett(iao_dm_list,min_dist=0,max_dist=0.25)
 
 #Variation
 '''
@@ -228,30 +252,25 @@ plt.show()
 '''
 
 #Pairplot
-data=np.concatenate((e_list[:,np.newaxis]*27.2114,n,sigu,sigT),axis=1)
-df=pd.DataFrame(data,columns=["E"]+list(nlabels)+list(sigulabels)+list(sigTlabels))
-#sns.pairplot(df[["E","cu3dx2y2","cu3dz2","cu4s","o2psig","o2s",
-#"cu3dx2y2_u","cu3dz2_u","cu4s_u","o2psig_u","o2s_u"]])
-#sns.pairplot(df[["E","c3dx2y2-o2s-0.25","c3dx2y2-o2psig-0.25","c3dz2-o2s-0.25","c3dz2-o2psig-0.25",
-#"c4s-o2s-0.25","c4s-o2psig-0.25"]])
-#plt.show()
+data=np.concatenate((e_list[:,np.newaxis]*27.2114,sigu,sigT),axis=1)
+df=pd.DataFrame(data,columns=["E"]+list(sigulabels)+list(sigTlabels))
 
 #LinReg
 y=df["E"]
 X=df.drop(columns=["E"])
 ind=[]
 for x in list(df):
-  if(("3s" in x) or ("3p" in x) or ("3dxz" in x) or ("3dyz" in x) or ("2pz" in x) or ("2ppi" in x)): ind.append(x)
+  if(("o2s" in x) or ("4s" in x) or ("3dz2" in x) or ("3s" in x) or ("3p" in x) or ("3dxy" in x) or ("3dxz" in x) or ("3dyz" in x) or ("2pz" in x) or ("2ppi" in x)): ind.append(x)
 X=X.drop(columns=ind)
-X=df[["c3dx2y2","o2psig","c3dx2y2-o2psig-0.25","c3dx2y2_u","o2psig_u"]]
+#X=df[["c3dx2y2","o2psig","c3dx2y2-o2psig-0.25","c3dx2y2_u"]]
 X=sm.add_constant(X)
 model=sm.OLS(y,X).fit()
 print(model.summary())
-exit(0)
 
-#plt.plot(y,model.predict(X),'og')
-#plt.plot(y,y,'-')
-#plt.show()
+plt.plot(y,model.predict(X),'og')
+plt.plot(y,y,'-')
+plt.show()
+exit(0)
 
 #Rank checking
 u,s,v=np.linalg.svd(X)

@@ -101,6 +101,15 @@ def genex(mf,a,ncore,nact,act,N,Ndet,detgen,c):
             dl[s]+=w[a]*w[b]*M
       dl[s][:ncore[s],:ncore[s]]=0 #Reduce to just active space
 
+    #U sum calculation
+    cncm=np.einsum('isn,jsm->ijsnm',det_list,det_list)
+    M=np.array([M0,M1])
+    tmp=np.einsum('ijsnm,skm->ijsnk',cncm,M)
+    MU=np.einsum('ijsnk,skn->ksij',tmp,M)
+    
+    sigu=np.einsum('ksij,i->ksj',MU,w)
+    sigu=np.einsum('ksj,j->ks',sigu,w)
+
     #Rotate to IAO basis
     rdl=np.zeros((2,M0.shape[0],M0.shape[0]))
     rdl[0]=reduce(np.dot,(M0,dl[0],M0.T))
@@ -110,8 +119,8 @@ def genex(mf,a,ncore,nact,act,N,Ndet,detgen,c):
     e_list.append(el)
     dm_list.append(dl)
     iao_dm_list.append(rdl)
-    sigu_list.append(np.diag(rdl[0])*np.diag(rdl[1]))
-
+    sigu_list.append(sigu[:,0]*sigu[:,1])
+  
   e_list=np.array(e_list)
   dm_list=np.array(dm_list)
   iao_dm_list=np.array(iao_dm_list)
