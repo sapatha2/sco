@@ -52,10 +52,11 @@ def genex(mf,a,ncore,nact,act,N,Ndet,detgen,c):
       elif(detgen=='s'):
         det_list[i,:,:]=mf.mo_occ[:,0,:]
         spin=np.random.randint(2)
-        q=np.random.randint(low=ncore[spin],high=ncore[spin]+nact[spin])
-        r=np.random.randint(low=ncore[spin]+nact[spin],high=act[spin][-1])
-        det_list[i,spin,q]=0
-        det_list[i,spin,r]=1
+        if(nact[spin]>0):
+          q=np.random.randint(low=ncore[spin],high=ncore[spin]+nact[spin])
+          r=np.random.randint(low=ncore[spin]+nact[spin],high=act[spin][-1]+1)
+          det_list[i,spin,q]=0
+          det_list[i,spin,r]=1
       #Doubles excitations only (Also a bit slow)
       elif(detgen=='d'):
         det_list[i,:,:]=mf.mo_occ[:,0,:]
@@ -63,13 +64,13 @@ def genex(mf,a,ncore,nact,act,N,Ndet,detgen,c):
         if(nact[0]==1 and nact[1]==1): spin=2
         if(spin<2):
           q=np.random.choice(np.arange(ncore[spin],ncore[spin]+nact[spin]),size=2,replace=False)
-          r=np.random.choice(np.arange(ncore[spin]+nact[spin],act[spin][-1]),size=2,replace=False)
+          r=np.random.choice(np.arange(ncore[spin]+nact[spin],act[spin][-1]+1),size=2,replace=False)
           det_list[i,spin,q]=0
           det_list[i,spin,r]=1
         else:
           for sp in range(spin):
             q=np.random.randint(low=ncore[sp],high=ncore[sp]+nact[sp])
-            r=np.random.randint(low=ncore[sp]+nact[sp],high=act[sp][-1])
+            r=np.random.randint(low=ncore[sp]+nact[sp],high=act[sp][-1]+1)
             det_list[i,sp,q]=0
             det_list[i,sp,r]=1
       else: 

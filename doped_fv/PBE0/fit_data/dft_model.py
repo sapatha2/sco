@@ -186,15 +186,13 @@ print("IAOs built from "+f)
 ###########################################################################################
 #Sample States
 #Calculation parameters
-act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
-ncore=[66,65]
-nact=[1,1]
-N=50
-Ndet=2
-c=0.0
-detgen='sd'
 
-direclist=["../FLP_ns"] #COL2, FM, FLP3
+N=100
+Ndet=3
+c=0.7
+detgen='s'
+
+direclist=["../FLP_ns","../COL_ns","../COL2_ns","../FM_ns","../FLP3_ns"] #COL2, FM, FLP3
 E=[-9.2092669022287E+02,-9.2092063265454E+02,-9.2091969201655E+02,-9.2091264054414E+02,-9.2091219109429E+02]
 e_list=[]
 dm_list=[]
@@ -202,6 +200,25 @@ iao_dm_list=[]
 sigu_list=[]
 zz=0
 for direc in direclist:
+  if(zz<3):
+    '''
+    act_mo=[np.arange(67,73)-1,np.arange(66,73)-1]
+    ncore=[66,65]
+    nact=[1,1]
+    '''
+    act_mo=[np.arange(67,67)-1,np.arange(66,68)-1]
+    ncore=[67,65]
+    nact=[0,1]
+  else:
+    '''
+    act_mo=[np.arange(68,73)-1,np.arange(65,73)-1]
+    ncore=[67,64]
+    nact=[1,1]
+    '''
+    act_mo=[np.arange(68,68)-1,np.arange(65,68)-1]
+    ncore=[68,64]
+    nact=[0,1]
+  
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=ncore[0]+nact[0]-ncore[1]-nact[1])
   e,dm,iao_dm,sigu=genex(mf,a,ncore,nact,act_mo,N,Ndet,detgen,c)
   e_list.append(e-e[0]+E[zz])
@@ -228,7 +245,25 @@ plt.show()
 
 #Hopping analysis
 #sigT,sigTlabels=gett(iao_dm_list,min_dist=0.25,max_dist=0.25)
-sigT,sigTlabels=gett(iao_dm_list,min_dist=0,max_dist=0.25)
+#sigT,sigTlabels=gett(iao_dm_list,min_dist=0,max_dist=0.25)
+psums_df=pd.read_pickle("PSUMS.pickle")
+unique_vals=sorted(list(set(psums_df['round'].values)))
+full_psums=[]
+full_labels=[]
+for u in unique_vals[::-1]:
+  dfs=psums_df[psums_df['round']==u][["s","i1","i2","e"]].values.T
+  s=dfs[0].astype(int)
+  i1=dfs[1].astype(int)
+  i2=dfs[2].astype(int)
+  sign=np.sign(dfs[3])
+  full_psums.append(np.dot(dm_list[:,s,i1,i2],sign/sign[0]))
+  ldf=psums_df[psums_df['round']==u][["s","c1","c2"]].values.T
+  label=ldf[1][0]+"-"+ldf[2][0]+"-"+str(ldf[0][0])
+  full_labels.append(ldf[1][0]+"-"+ldf[2][0]+"-"+str(ldf[0][0]))
+full_psums=np.array(full_psums)
+full_labels=np.array(full_labels)
+sigT=full_psums.T
+sigTlabels=full_labels
 
 #Variation
 '''
@@ -238,74 +273,7 @@ plt.xticks(np.arange(sigTlabels.shape[0]),sigTlabels,rotation=90)
 plt.show()
 '''
 
-#Pairplot
+#Build DF
 data=np.concatenate((e_list[:,np.newaxis]*27.2114,sigu,sigT),axis=1)
 df=pd.DataFrame(data,columns=["E"]+list(sigulabels)+list(sigTlabels))
-
-#LinReg
-y=df["E"]
-X=df.drop(columns=["E"])
-ind=[]
-for x in list(df):
-  #if(("4s" in x) or ("3dz2" in x) or ("3s" in x) or ("3p" in x) or ("3dxy" in x) or ("3dxz" in x) or ("3dyz" in x) or ("2pz" in x) or ("2ppi" in x)): ind.append(x)
-  if(("3s" in x) or ("3p" in x) or ("3dxy" in x) or ("3dxz" in x) or ("3dyz" in x) or ("2pz" in x) or ("2ppi" in x)): ind.append(x)
-X=X.drop(columns=ind)
-#X=X.drop(columns=["o2psig-o2s-0.00"])
-X=sm.add_constant(X)
-model=sm.OLS(y,X).fit()
-print(model.summary())
-
-plt.plot(y,model.predict(X),'og')
-plt.plot(y,y,'-')
-plt.show()
-
-'''
-#Rank checking
-u,s,v=np.linalg.svd(X)
-print(s)
-print(X.shape)
-print(np.linalg.matrix_rank(X,tol=1e-6))
-'''
-
-#OMP
-'''
-cscores=[]
-cscores_err=[]
-scores=[]
-conds=[]
-nparms=[]
-for i in range(1,X.shape[1]+1):
-  print("n_nonzero_coefs="+str(i))
-  omp = OrthogonalMatchingPursuit(n_nonzero_coefs=i)
-  omp.fit(X,y)
-  nparms.append(i)
-  scores.append(omp.score(X,y))
-  tmp=cross_val_score(omp,X,y,cv=5)
-  cscores.append(tmp.mean())
-  cscores_err.append(tmp.std()*2)
-  print("R2: ",omp.score(X,y))
-  print("R2CV: ",tmp.mean(),"(",tmp.std()*2,")")
-  ind=np.abs(omp.coef_)>0
-  Xr=X.values[:,ind]
-  conds.append(np.linalg.cond(Xr))
-  print("Cond: ",np.linalg.cond(Xr))
-  print(np.array(list(X))[ind])
-  print(omp.coef_[ind])
-'''  
-'''
-  plt.title(fname)
-  plt.xlabel("Predicted energy (eV)")
-  plt.ylabel("DFT Energy (eV)")
-  plt.plot(omp.predict(X),y,'og')
-  plt.plot(y,y,'b-')
-  #plt.savefig(fname.split("p")[0][:-1]+".fit_fix.pdf",bbox_inches='tight')
-  plt.plot(np.arange(len(omp.coef_)),omp.coef_,'o-',label="Nparms= "+str(i))
-'''
-'''
-plt.axhline(0,color='k',linestyle='--')
-plt.xticks(np.arange(len(list(X))),list(X),rotation=90)
-plt.title(fname)
-plt.ylabel("Parameter (eV)")
-plt.legend(loc='best')
-plt.savefig(fname.split("p")[0][:-1]+".omp_fix.pdf",bbox_inches='tight')
-'''
+df.to_pickle("singlesR_0.7_fix.pickle")
