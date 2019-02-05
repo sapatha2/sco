@@ -1,0 +1,21 @@
+~/sco/undoped/NEW$ cp ../PBE0/CHK/plots/qwalk_000.orb ./chk.orb
+~/sco/undoped/NEW$ cp ../PBE0/CHK/plots/qwalk_000.slater ./chk.slater
+~/sco/undoped/NEW$ cp ../PBE0/CHK/plots/qwalk_000.sys ./chk.sys
+~/sco/undoped/NEW$ cp ../PBE0/CHK/plots/qwalk.basis ./chk.basis
+~/sco/undoped/NEW$ cp ../PBE0/CHK/plots/qwalk.jast2 ./chk.jast2
+
+~/sco/undoped/NEW$ cp ../PBE0/COL/plots/qwalk_000.orb ./col.orb
+~/sco/undoped/NEW$ cp ../PBE0/COL/plots/qwalk_000.slater ./col.slater
+~/sco/undoped/NEW$ cp ../PBE0/COL/plots/qwalk_000.sys ./col.sys
+~/sco/undoped/NEW$ cp ../PBE0/COL/plots/qwalk.basis ./col.basis
+~/sco/undoped/NEW$ cp ../PBE0/COL/plots/qwalk.jast2 ./col.jast2
+
+diff col.basis chk.basis
+mv col.basis basis 
+
+diff col.sys chk.sys
+mv col.sys sys
+
+diff col.jast2 chk.jast2
+mv col.jast2 jast2
+

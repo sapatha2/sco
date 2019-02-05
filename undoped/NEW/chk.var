@@ -1,0 +1,12 @@
+method { optimize iterations 10 } 
+method { optimize iterations 10 } 
+method { optimize iterations 10 } 
+method { optimize iterations 10 } 
+
+include sys 
+
+trialfunc {
+  slater-jastrow
+  wf1 { include chk.slater }
+  wf2 { include jast3 }
+}

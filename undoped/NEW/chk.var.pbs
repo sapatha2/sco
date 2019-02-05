@@ -1,0 +1,11 @@
+#!/bin/bash 
+#PBS -q low 
+#PBS -l nodes=8:ppn=32:xe 
+#PBS -l walltime=08:00:00 
+#PBS -N var 
+#PBS -e var.perr 
+#PBS -o var.pout 
+mkdir -p /scratch/scitem/$USER/sco/undoped/NEW
+cd /scratch/sciteam/$USER/sco/undoped/NEW
+cp -u /u/sciteam/$USER/sco/undoped/NEW/* .
+aprun -n 256 /u/sciteam/$USER/fork/bin/qwalk chk.var &> chk.var.out

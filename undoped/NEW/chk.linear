@@ -1,0 +1,12 @@
+method { linear total_nstep 1000 total_fit 1000 }
+method { linear total_nstep 4000 total_fit 4000 } 
+method { linear total_nstep 16000 total_fit 16000 } 
+method { linear total_nstep 64000 total_fit 64000 } 
+
+include sys 
+
+trialfunc { 
+  slater-jastrow
+  wf1 { include chk.slater } 
+  wf2 { include jast3 } 
+}
