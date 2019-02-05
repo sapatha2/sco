@@ -25,25 +25,25 @@ group {
     o
     polypade
     beta0 0.2
-    nfunc 3
+    nfunc 4
     rcut 3.2444691770948113
   }
   eibasis {
     cu
     polypade
     beta0 0.2
-    nfunc 3
+    nfunc 4
     rcut 3.2444691770948113
   }
   eibasis {
     sr
     polypade
     beta0 0.2
-    nfunc 3
+    nfunc 4
     rcut 3.2444691770948113
   }
   onebody {
-    coefficients { o 0.0 0.0 0.0 0.0 }
+    coefficients { o  0.0 0.0 0.0 0.0 }
     coefficients { cu 0.0 0.0 0.0 0.0 }
     coefficients { sr 0.0 0.0 0.0 0.0 }
   }
@@ -51,14 +51,14 @@ group {
     ee
     polypade
     beta0 0.5
-    nfunc 3
+    nfunc 3 
     rcut 3.2444691770948113
   }
   twobody {
     coefficients { 0.0 0.0 0.0 }
   }
   threebody { 
-    coefficients { o 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 }
+    coefficients { o  0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 }
     coefficients { cu 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 }
     coefficients { sr 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 }
 }

@@ -6,7 +6,8 @@ method { linear total_nstep 64000 total_fit 64000 }
 include sys 
 
 trialfunc { 
-  slater-jastrow
-  wf1 { include chk.slater } 
-  wf2 { include jast3 } 
+  #slater-jastrow
+  #wf1 { include chk.slater } 
+  #wf2 { include jast3 } 
+  include chk.var.wfout
 }
