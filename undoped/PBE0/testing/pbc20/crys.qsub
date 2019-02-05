@@ -1,0 +1,12 @@
+#PBS -q wagner 
+#PBS -l nodes=1,flags=allprocs
+#PBS -l walltime=24:00:00
+#PBS -N chk_pbc20
+#PBS -j oe
+#PBS -o chk_pbc20.jobout  
+#PBS -e chk_pbc20.err 
+
+module load intel/18.0
+module load openmpi/3.1.1-intel-18.0
+cd ${PBS_O_WORKDIR}  
+mpiexec ../../../../../CRYSTAL17/bin/Linux-ifort17_XE_emt64/v1.0.2/Pcrystal INPUT &> OUTPUT

@@ -1,5 +1,15 @@
-PATO 
-0 
-1
+NEWK
+0 12
+5 5 4
+1 0
+BAND
+SCO PBE0 x=0 CHK
+6 2 120 1 150 1 0
+0 0 0 0 1 0 G X
+0 1 0 1 1 0 X M 
+1 1 0 0 0 0 M G
+0 0 0 0 0 1 G Z
+0 0 1 1 1 1 Z A
+1 1 1 1 1 0 A M
 CRYAPI_OUT
 END
