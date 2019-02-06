@@ -1,0 +1,11 @@
+#!/bin/bash 
+#PBS -q low 
+#PBS -l nodes=4:ppn=32:xe 
+#PBS -l walltime=04:00:00 
+#PBS -N vmc 
+#PBS -e vmc.perr 
+#PBS -o vmc.pout 
+mkdir -p /scratch/scitem/$USER/sco/undoped/NEW
+cd /scratch/sciteam/$USER/sco/undoped/NEW
+cp -u /u/sciteam/$USER/sco/undoped/NEW/* .
+aprun -n 128 /u/sciteam/$USER/fork/bin/qwalk chk.vmc &> chk.vmc.out
