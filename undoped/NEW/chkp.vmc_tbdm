@@ -30,6 +30,6 @@ include sys
 
 trialfunc { 
   slater-jastrow
-  wf1 { include chk.slater } 
+  wf1 { include chkp.slater } 
   wf2 { include optjast3 } 
 }

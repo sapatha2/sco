@@ -8,4 +8,4 @@
 mkdir -p /scratch/scitem/$USER/sco/undoped/NEW
 cd /scratch/sciteam/$USER/sco/undoped/NEW
 cp -u /u/sciteam/$USER/sco/undoped/NEW/* .
-aprun -n 256 /u/sciteam/$USER/fork/bin/qwalk chk.vmc_tbdm &> chk.vmc_tbdm.out
+aprun -n 256 /u/sciteam/$USER/fork/bin/qwalk col.vmc_tbdm &> col.vmc_tbdm.out
