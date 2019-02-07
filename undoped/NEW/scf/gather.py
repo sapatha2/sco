@@ -58,7 +58,9 @@ name=['CHK','CHKp','COL','COLp']
 U=[1.43,2.11,1.30,2.07]
 J=[-0.76,-0.33,-0.02,0.04]
 T=[3.91,3.53,3.58,3.33]
-df=pd.DataFrame({'U':U,'J':J,'T':T,'state':name})
+df=pd.DataFrame({'sigU':U,'sigJ':J,'sigT':T,'state':name})
+df.to_pickle('base_scf.pickle')
+exit(0)
 sns.pairplot(df,vars=['T','U','J'],hue='state',markers=['o','o','o','.'])
 #plt.show()
 plt.savefig('../plots/base_dft.pdf',bbox_inches='tight')
