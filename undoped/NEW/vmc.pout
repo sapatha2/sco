@@ -1,14 +1,14 @@
 ----------------------------------------
-Begin Torque Prologue on nid25254
-at Wed Feb  6 15:38:28 CST 2019
-Job Id:			9589956.bw
+Begin Torque Prologue on nid25353
+at Thu Feb  7 01:05:36 CST 2019
+Job Id:			9591662.bw
 Username:		sapatha2
 Group:			ILL_batr
 Job name:		vmc
-Requested resources:	nodes=8:ppn=32:xe,walltime=01:00:00,neednodes=8:ppn=32:xe
+Requested resources:	nodes=8:ppn=32:xe,walltime=08:00:00,neednodes=8:ppn=32:xe
 Queue:			low
 Account:		batr
-End Torque Prologue:  0.113 elapsed
+End Torque Prologue:  0.161 elapsed
 ----------------------------------------
 
 

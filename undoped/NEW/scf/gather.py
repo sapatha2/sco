@@ -2,12 +2,14 @@
 import numpy as np 
 import pandas as pd
 import matplotlib.pyplot as plt
+'''
 from crystal2pyscf import crystal2pyscf_cell
 from pyscf2qwalk import print_qwalk_pbc
 from basis import basis, minbasis, basis_order
 from pyscf import lo
 from functools import reduce 
 from downfold_tools import gen_slater_tbdm, sum_onebody, sum_J, sum_U
+'''
 import seaborn as sns 
 
 '''
@@ -47,15 +49,16 @@ for direc in ['../../PBE0/CHK','../../PBE0/COL']:
     print('sigU: ',sigU)
 
     orb1=np.array([14,14,24,24,34,34,44,44])-1
-    orb2=np.array([24,34,14,44,11,44,24,34])-1
+    orb2=np.array([24,34,14,44,14,44,24,34])-1
     sigJ=np.sum(sum_J(tbdm,orb1,orb2))
     print('sigJ: ',sigJ)
 '''
 
 name=['CHK','CHKp','COL','COLp']
 U=[1.43,2.11,1.30,2.07]
-J=[-0.66,-0.28,-0.12,0.04]
-T=[3.90,3.53,3.58,3.33]
+J=[-0.76,-0.33,-0.02,0.04]
+T=[3.91,3.53,3.58,3.33]
 df=pd.DataFrame({'U':U,'J':J,'T':T,'state':name})
-sns.pairplot(df,vars=['T','J','U'],hue='state',markers=['o','o','o','.'])
-plt.show()
+sns.pairplot(df,vars=['T','U','J'],hue='state',markers=['o','o','o','.'])
+#plt.show()
+plt.savefig('../plots/base_dft.pdf',bbox_inches='tight')
