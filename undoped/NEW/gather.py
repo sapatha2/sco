@@ -14,11 +14,12 @@ def gather_base():
   for file in ['base/chk','base/col','base/chkp',
   'p1/gsw0.25','p1/gsw0.5','p1/gsw0.75',
   'p2/gsw0.25','p2/gsw0.5','p2/gsw0.75',
-  'p3/gsw0.25','p3/gsw0.5','p3/gsw0.75']:
+  'p2/gsw-0.25','p2/gsw-0.5','p2/gsw-0.75',
+  'p3/gsw0.25','p3/gsw0.5','p3/gsw0.75',
+  'p3/gsw-0.25','p3/gsw-0.5','p3/gsw-0.75']:
     if("base" in file): f=file+'.vmc_tbdm.gosling.json'
     else: f=file+'.vmc.gosling.json'
     print(f)
-
     data=json.load(open(f,'r'))
     __,__,tbdm,__=get_qwalk_dm(data['properties']['tbdm_basis'])
     obdm,__=get_qwalk_dm(data['properties']['tbdm_basis2'])
@@ -45,8 +46,10 @@ def gather_base():
     if('chkp' in file): d['path']='chkp'
     elif('col' in file): d['path']='col'
     elif('chk' in file): d['path']='chk'
+    if('base' in f): d['gsw']='1'
+    else: d['gsw']=f.split(".")[0]+f.split(".")[1]
     if(df is None): df=d
-    else: df=pd.concat((df,d),axis=0)      
+    else: df=pd.concat((df,d),axis=0)   
   fout='p_gosling.pickle'
   df.to_pickle(fout)
   return df
@@ -55,4 +58,4 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import seaborn as sns 
 if __name__=='__main__':
-  gather_base()
+  df=gather_base()
