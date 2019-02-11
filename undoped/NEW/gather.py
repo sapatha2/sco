@@ -39,6 +39,11 @@ def gather_base():
     sigT=sum_onebody(obdm,orb1,orb2)
     sigT=np.dot(sign,sigT)
 
+
+    orb1=np.array([0,0,1,1,2,2,3,3])
+    orb2=np.array([1,2,0,3,0,3,1,2])
+    sigTd=np.sum(sum_onebody(obdm,orb1,orb2))
+  
     orb1=np.array([0,1,2,3])
     orb2=np.array([0,1,2,3])
     sigNd=np.sum(sum_onebody(obdm,orb1,orb2))
@@ -47,8 +52,8 @@ def gather_base():
     orb2=np.array([4,5,6,7,8,9,10,11])
     sigNps=np.sum(sum_onebody(obdm,orb1,orb2))
 
-    dat=np.array([energy,energy_err,sigT,sigU,sigJ,sigNd,sigNps])
-    d=pd.DataFrame(dat[:,np.newaxis].T,columns=['energy','energy_err','sigT','sigU','sigJ','sigNd','sigNps'])
+    dat=np.array([energy,energy_err,sigT,sigTd,sigU,sigJ,sigNd,sigNps])
+    d=pd.DataFrame(dat[:,np.newaxis].T,columns=['energy','energy_err','sigT','sigTd','sigU','sigJ','sigNd','sigNps'])
     d=d.astype('double')
     d['path']=file[1]
     if('chkp' in file): d['path']='chkp'
