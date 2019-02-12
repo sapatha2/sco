@@ -39,7 +39,6 @@ def gather_base():
     sigT=sum_onebody(obdm,orb1,orb2)
     sigT=np.dot(sign,sigT)
 
-
     orb1=np.array([0,0,1,1,2,2,3,3])
     orb2=np.array([1,2,0,3,0,3,1,2])
     sigTd=np.sum(sum_onebody(obdm,orb1,orb2))
