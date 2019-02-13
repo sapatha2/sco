@@ -24,7 +24,7 @@ group {
 group {
   optimizebasis
   eibasis {
-    Sr
+    Cu
     polypade
     beta0 0.2
     nfunc 4
@@ -38,21 +38,21 @@ group {
     rcut 3.2444545770565147
   }
   eibasis {
-    Cu
+    Sr
     polypade
     beta0 0.2
     nfunc 4
     rcut 3.2444545770565147
   }
   onebody {
-    coefficients { Sr 0.0 0.0 0.0 0.0 }
-    coefficients { O 0.0 0.0 0.0 0.0 }
     coefficients { Cu 0.0 0.0 0.0 0.0 }
+    coefficients { O 0.0 0.0 0.0 0.0 }
+    coefficients { Sr 0.0 0.0 0.0 0.0 }
   }
 threebody {
-    coefficients { Sr 0. 0. 0. 0.  0. 0. 0. 0.  0. 0. 0. 0.  }
-    coefficients { O 0. 0. 0. 0.  0. 0. 0. 0.  0. 0. 0. 0.  }
     coefficients { Cu 0. 0. 0. 0.  0. 0. 0. 0.  0. 0. 0. 0.  }
+    coefficients { O 0. 0. 0. 0.  0. 0. 0. 0.  0. 0. 0. 0.  }
+    coefficients { Sr 0. 0. 0. 0.  0. 0. 0. 0.  0. 0. 0. 0.  }
 }
   eebasis {
     ee
