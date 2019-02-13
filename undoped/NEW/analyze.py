@@ -21,11 +21,12 @@ def analyze(df):
   '''
 
   #Pairplot
-  #df['sigNd+sigNps']=df['sigNd']+df['sigNps']
-  #sns.pairplot(df,vars=['energy','sigTd','sigU'],hue='path',markers=['s']*3+['o']*3)
+  df['sigNd+sigNps']=df['sigNd']+df['sigNps']
+  sns.pairplot(df,vars=['energy','sigTd','sigU','sigNd','sigNps','sigNd+sigNps'],hue='path')
   #plt.savefig('plots/vmc_pairplot.pdf',bbox_inches='tight')
   #plt.close()
-  #plt.show()
+  plt.show()
+  exit(0)
 
   #Fit
   y=df['energy']
@@ -34,14 +35,15 @@ def analyze(df):
   ols=sm.OLS(y,X).fit()
   print(ols.summary())
   df['pred']=ols.predict(X)
-  for p in np.arange(1,7):
+  for p in np.arange(1,10):
     d=df[df['path']==str(p)]
     plt.errorbar(d['pred'],d['energy'],yerr=d['energy_err'],fmt='o',label='path '+str(p))
   plt.plot(df['energy'],df['energy'],'g-')
   plt.ylabel('energy (eV)')
   plt.xlabel('pred (eV)')
   plt.legend(loc='best')
-  plt.savefig('plots/vmc_pred_Td.pdf',bbox_inches='tight')
+  #plt.savefig('plots/vmc_pred_Td.pdf',bbox_inches='tight')
+  plt.show()
   exit(0)
 
   from mpl_toolkits.mplot3d import Axes3D
@@ -56,7 +58,7 @@ def analyze(df):
   indSz0=18
 
   ax.plot([fx[0]], [fy[0]], [fz[0]], "bo",label='Sz=0')
-  ax.plot([fx[indSz0]], [fy[indSz0]], [fz[indSz0]], "go",label='Sz=1')
+  ax.plot([fx[indSz0]], [fy[indSz0]], [fz[indSz0]], "go",label='Sz=2')
   for i in np.arange(indSz0):
     ax.plot([fx[i]], [fy[i]], [fz[i]], "bo")
     ax.plot([fx[i], fx[i]], [fy[i], fy[i]], [fz[i]+zerror[i], fz[i]-zerror[i]], "b_")
