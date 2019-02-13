@@ -3,7 +3,7 @@ import numpy as np
 
 def subpbs(path):
   basename='p'+str(path)
-  for gsw in [0.0,0.25,0.50,0.75,1.0,-0.25,-0.50,-0.75]:  
+  for gsw in [0.25,0.50,0.75,1.0]:  
     fname=basename+'/'+'gsw'+str(gsw)+'.vmc.pbs'
     os.system('qsub '+fname)
 

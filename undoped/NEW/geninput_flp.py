@@ -29,14 +29,14 @@ def geninput(path):
   return 
 
 def genpbs(basename):
-  for gsw in [0.0,0.25,0.50,0.75,1.0,-0.25,-0.50,-0.75]:
+  for gsw in [0.25,0.50,0.75,1.0]:
     fname='gsw'+str(gsw)
    
     #Blue waters input  
     string='#!/bin/bash\n'+\
     '#PBS -q low\n'+\
     '#PBS -l nodes=8:ppn=32:xe\n'+\
-    '#PBS -l walltime=10:00:00\n'+\
+    '#PBS -l walltime=08:00:00\n'+\
     '#PBS -N '+basename+'/'+fname+'.vmc\n'\
     '#PBS -e '+basename+'/'+fname+'.vmc.perr\n'+\
     '#PBS -o '+basename+'/'+fname+'.vmc.pout\n'+\
@@ -51,7 +51,7 @@ def genpbs(basename):
   return 1
 
 def genvmc(basename):
-  for gsw in [0.0,0.25,0.50,0.75,1.0,-0.25,-0.50,-0.75]:
+  for gsw in [0.25,0.50,0.75,1.0]:
     fname='gsw'+str(gsw)
     
     string='method {\n'+\
@@ -94,37 +94,37 @@ def genvmc(basename):
   return 1
 
 def genslater(basename):
-  for gsw in [0.0,0.25,0.50,0.75,1.0,-0.25,-0.50,-0.75]:
+  for gsw in [0.25,0.50,0.75,1.0]:
     fname='gsw'+str(gsw)
     w=[np.sign(gsw)*np.sqrt(abs(gsw)),np.sqrt(1-abs(gsw))]
 
     #FLP
     flpu=np.arange(1,68)
     flpd=np.arange(401,466)
-    flp='  '+' '.join([str(x) for x in chku])
+    flp='  '+' '.join([str(x) for x in flpu])
     flp+='\n'
-    flp+='  '+' '.join([str(x) for x in chkd])
+    flp+='  '+' '.join([str(x) for x in flpd])
     flp+='\n\n'    
 
     #FLPp
     flppu=np.arange(1,68)
     flppd=list(np.arange(401,465))+[466]
-    flpp='  '+' '.join([str(x) for x in chkpu])
+    flpp='  '+' '.join([str(x) for x in flppu])
     flpp+='\n'
-    flpp+='  '+' '.join([str(x) for x in chkpd])
+    flpp+='  '+' '.join([str(x) for x in flppd])
     flpp+='\n\n'    
 
     #FLPpp
     flpppu=np.arange(1,68)
     flpppd=list(np.arange(401,465))+[467]
-    flppp='  '+' '.join([str(x) for x in colu])
+    flppp='  '+' '.join([str(x) for x in flpppu])
     flppp+='\n'
-    flppp+='  '+' '.join([str(x) for x in cold])
+    flppp+='  '+' '.join([str(x) for x in flpppd])
     flppp+='\n\n'    
 
     if("4" in basename): states=flp+flpp
     elif("5" in basename): states=flpp+flppp
-    elif("6" in basename): states=flp+flppp
+    elif("6" in basename): states=flppp+flp
     else:
       print("Dont have this path: ", basename)
       exit(0)
@@ -133,7 +133,7 @@ def genslater(basename):
     string='SLATER\n'+\
     'ORBITALS  {\n'+\
     '  MAGNIFY 1.0\n'+\
-    '  NMO 465\n'+\
+    '  NMO 467\n'+\
     '  ORBFILE flp.orb\n'+\
     '  INCLUDE flp.basis\n'+\
     '  CENTERS { USEGLOBAL }\n'+\
