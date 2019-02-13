@@ -12,7 +12,7 @@ from pyscf import lo
 mo=None
 #for direc in ['../../PBE0/CHK','../../PBE0/COL']:
 for direc in ['../../PBE0/FLP']:
-  cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=0)
+  cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=1)
   if(mo is None): mo=mf.mo_coeff[:,:,:,:67]
   else: mo=np.concatenate((mo,mf.mo_coeff[:,:,:,:67]),axis=3)
 

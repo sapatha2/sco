@@ -33,13 +33,16 @@ def analyze(df):
   X=sm.add_constant(X)
   ols=sm.OLS(y,X).fit()
   print(ols.summary())
-  '''
-  plt.errorbar(ols.predict(X),df['energy'],yerr=df['energy_err'],fmt='bo')
+  df['pred']=ols.predict(X)
+  for p in np.arange(1,7):
+    d=df[df['path']==str(p)]
+    plt.errorbar(d['pred'],d['energy'],yerr=d['energy_err'],fmt='o',label='path '+str(p))
   plt.plot(df['energy'],df['energy'],'g-')
   plt.ylabel('energy (eV)')
   plt.xlabel('pred (eV)')
+  plt.legend(loc='best')
   plt.savefig('plots/vmc_pred_Td.pdf',bbox_inches='tight')
-  '''
+  exit(0)
 
   from mpl_toolkits.mplot3d import Axes3D
   fig = plt.figure()
@@ -50,10 +53,17 @@ def analyze(df):
   fy=f[:,4] #sigU
   fz=f[:,0] #energy
   zerror=f[:,1] #energy_err
-  ax.plot(fx, fy, fz, "bo")
-  for i in np.arange(0, len(fx)):
+  indSz0=18
+
+  ax.plot([fx[0]], [fy[0]], [fz[0]], "bo",label='Sz=0')
+  ax.plot([fx[indSz0]], [fy[indSz0]], [fz[indSz0]], "go",label='Sz=1')
+  for i in np.arange(indSz0):
+    ax.plot([fx[i]], [fy[i]], [fz[i]], "bo")
     ax.plot([fx[i], fx[i]], [fy[i], fy[i]], [fz[i]+zerror[i], fz[i]-zerror[i]], "b_")
-  
+  for i in np.arange(indSz0,len(fx)):
+    ax.plot([fx[i]], [fy[i]], [fz[i]], "go")
+    ax.plot([fx[i], fx[i]], [fy[i], fy[i]], [fz[i]+zerror[i], fz[i]-zerror[i]], "g_")
+
   #Plane!
   gridx=np.linspace(min(fx),max(fx),100)
   gridy=np.linspace(min(fy),max(fy),100)
@@ -64,6 +74,7 @@ def analyze(df):
   ax.set_xlabel('sigTd')
   ax.set_ylabel('sigU')
   ax.set_zlabel('E (eV)')
+  plt.legend(loc='best')
   plt.show()
 
 if __name__=='__main__':
