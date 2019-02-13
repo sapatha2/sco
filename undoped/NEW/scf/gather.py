@@ -13,8 +13,8 @@ import seaborn as sns
 a=np.load('iao.pickle')
 
 df=None
-direcs=['../../PBE0/CHK']*3+['../../PBE0/COL']*3+['../../PBE0/FLP']*3
-totspin=[0]*6+[2]*3
+direcs=['../../PBE0/CHK']*3+['../../PBE0/COL']*3+['../../PBE0/FLP']*3+['../../PBE0/FM']*3
+totspin=[0]*6+[2]*3+[4]*3
 rem=[[[],[]],   
      [[],[65]],  
      [[],[65]], 
@@ -23,7 +23,10 @@ rem=[[[],[]],
      [[],[65]],  
      [[],[]],
      [[],[64]],  
-     [[],[64]]]  
+     [[],[64]],
+     [[],[]],
+     [[],[63]],
+     [[],[63]]]
 add=[[[],[]],   
      [[],[66]],  
      [[],[68]], 
@@ -32,8 +35,11 @@ add=[[[],[]],
      [[],[68]],  
      [[],[]],
      [[],[65]],  
-     [[],[66]]]  
-for run in range(6):
+     [[],[66]],
+     [[],[]],
+     [[],[64]],  
+     [[],[65]]]
+for run in range(12):
   direc=direcs[run]
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=totspin[run])
   s=mf.get_ovlp()[0]
@@ -93,7 +99,7 @@ for run in range(6):
   sigJ=np.sum(sum_J(tbdm,orb1,orb2))
 
   d=pd.DataFrame({'sigT':sigT,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
-  'sigN4s':sigN4s,'sigN2s':sigN2s,'sigNps':sigNps,'sigNpp':sigNpp,'sigNd':sigNd,'sigU':sigU,'sigJ':sigJ,'state':direc.split("/")[-1]+str(run)},index=[0])
+  'sigN4s':sigN4s,'sigN2s':sigN2s,'sigNps':sigNps,'sigNpp':sigNpp,'sigNd':sigNd,'sigU':sigU,'sigJ':sigJ,'Sz':totspin[run]},index=[0])
   if(df is None): df=d
   else: df=pd.concat((df,d),axis=0)
 
