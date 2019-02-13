@@ -81,7 +81,7 @@ def genvmc(basename):
     '  }\n'+\
     '}\n'+\
     '\n'+\
-    'include flp.sys\n'+\
+    'include all_flp.sys\n'+\
     'trialfunc {\n'+\
     '  slater-jastrow\n'+\
     '  wf1 { include '+fname+'.slater }\n'+\
@@ -100,7 +100,7 @@ def genslater(basename):
 
     #FLP
     flpu=np.arange(1,68)
-    flpd=np.arange(401,466)
+    flpd=np.arange(68,68+65)
     flp='  '+' '.join([str(x) for x in flpu])
     flp+='\n'
     flp+='  '+' '.join([str(x) for x in flpd])
@@ -108,7 +108,7 @@ def genslater(basename):
 
     #FLPp
     flppu=np.arange(1,68)
-    flppd=list(np.arange(401,465))+[466]
+    flppd=list(np.arange(68,68+64))+[133]
     flpp='  '+' '.join([str(x) for x in flppu])
     flpp+='\n'
     flpp+='  '+' '.join([str(x) for x in flppd])
@@ -116,7 +116,7 @@ def genslater(basename):
 
     #FLPpp
     flpppu=np.arange(1,68)
-    flpppd=list(np.arange(401,465))+[467]
+    flpppd=list(np.arange(68,68+64))+[134]
     flppp='  '+' '.join([str(x) for x in flpppu])
     flppp+='\n'
     flppp+='  '+' '.join([str(x) for x in flpppd])
@@ -133,9 +133,9 @@ def genslater(basename):
     string='SLATER\n'+\
     'ORBITALS  {\n'+\
     '  MAGNIFY 1.0\n'+\
-    '  NMO 467\n'+\
-    '  ORBFILE flp.orb\n'+\
-    '  INCLUDE flp.basis\n'+\
+    '  NMO 134\n'+\
+    '  ORBFILE all_flp.orb\n'+\
+    '  INCLUDE all_flp.basis\n'+\
     '  CENTERS { USEGLOBAL }\n'+\
     '}\n'+\
     '\n'+\

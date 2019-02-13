@@ -10,13 +10,17 @@ def gather_base():
   Gathers all your data and stores into 
   '''
   df=None
-  
-  for file in ['base/chk','base/col','base/chkp',
-  'p1/gsw0.25','p1/gsw0.5','p1/gsw0.75',
-  'p2/gsw0.25','p2/gsw0.5','p2/gsw0.75',
+ 
+  for file in [
+  'p1/gsw0.25','p1/gsw0.5','p1/gsw0.75','p1/gsw1.0',
+  'p2/gsw0.25','p2/gsw0.5','p2/gsw0.75','p2/gsw1.0',
   'p2/gsw-0.25','p2/gsw-0.5','p2/gsw-0.75',
-  'p3/gsw0.25','p3/gsw0.5','p3/gsw0.75',
-  'p3/gsw-0.25','p3/gsw-0.5','p3/gsw-0.75']:
+  'p3/gsw0.25','p3/gsw0.5','p3/gsw0.75','p3/gsw1.0',
+  'p3/gsw-0.25','p3/gsw-0.5','p3/gsw-0.75',
+  'p4/gsw0.25','p4/gsw0.5','p4/gsw0.75','p4/gsw1.0',
+  'p5/gsw0.25','p5/gsw0.5','p5/gsw0.75','p5/gsw1.0',
+  'p6/gsw0.25','p6/gsw0.5','p6/gsw0.75','p6/gsw1.0',
+  ]:
     if("base" in file): f=file+'.vmc_tbdm.gosling.json'
     else: f=file+'.vmc.gosling.json'
     print(f)
