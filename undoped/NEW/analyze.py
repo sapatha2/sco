@@ -4,33 +4,25 @@ import pandas as pd
 import seaborn as sns 
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
-
 def analyze(df):
-  print(df)
-
-  '''
-  #Residuals
-  y=df['energy']
-  X=df[['sigU']]
-  X=sm.add_constant(X)
-  ols=sm.OLS(y,X).fit()
-  print(ols.summary())
-  df['resid']=df['energy']-ols.predict(X)
-  sns.pairplot(df,vars=['resid','sigT','sigU','sigJ'],hue='path',markers=['s']*3+['o']*3)
-  plt.show()
-  '''
-
   #Pairplot
-  df['sigNd+sigNps']=df['sigNd']+df['sigNps']
-  sns.pairplot(df,vars=['energy','sigTd','sigU','sigNd','sigNps','sigNd+sigNps'],hue='path')
+  df['Sz']=np.zeros(df.shape[0])
+  df['Sz'][df['path']=='4']=2
+  df['Sz'][df['path']=='5']=2
+  df['Sz'][df['path']=='6']=2
+  df['Sz'][df['path']=='7']=4
+  df['Sz'][df['path']=='8']=4
+  df['Sz'][df['path']=='9']=4
+  sns.pairplot(df,vars=['energy','sigT','sigU','sigNps'],hue='Sz',palette=sns.color_palette("husl", 3))
   #plt.savefig('plots/vmc_pairplot.pdf',bbox_inches='tight')
   #plt.close()
   plt.show()
   exit(0)
-
+  
+  '''
   #Fit
   y=df['energy']
-  X=df[['sigTd','sigU']]
+  X=df[['sigTd','sigU','sigNps']]
   X=sm.add_constant(X)
   ols=sm.OLS(y,X).fit()
   print(ols.summary())
@@ -45,7 +37,6 @@ def analyze(df):
   #plt.savefig('plots/vmc_pred_Td.pdf',bbox_inches='tight')
   plt.show()
   exit(0)
-
   from mpl_toolkits.mplot3d import Axes3D
   fig = plt.figure()
   ax = fig.add_subplot(111, projection='3d')
@@ -78,7 +69,7 @@ def analyze(df):
   ax.set_zlabel('E (eV)')
   plt.legend(loc='best')
   plt.show()
-
+  '''
 if __name__=='__main__':
   df=np.load('p_gosling.pickle')
   analyze(df)
