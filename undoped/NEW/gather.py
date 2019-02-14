@@ -23,6 +23,11 @@ def gather_base():
   'p7/gsw0.25','p7/gsw0.5','p7/gsw0.75','p7/gsw1.0',
   'p8/gsw0.25','p8/gsw0.5','p8/gsw0.75','p8/gsw1.0',
   'p9/gsw0.25','p9/gsw0.5','p9/gsw0.75','p9/gsw1.0',
+  'p10/gsw0.25','p10/gsw0.5','p10/gsw0.75','p10/gsw1.0',
+  'p11/gsw0.25','p11/gsw0.5','p11/gsw0.75','p11/gsw1.0',
+  'p12/gsw0.25','p12/gsw0.5','p12/gsw0.75','p12/gsw1.0',
+  'p13/gsw0.25','p13/gsw0.5','p13/gsw0.75','p13/gsw1.0',
+  'p14/gsw0.25','p14/gsw0.5','p14/gsw0.75','p14/gsw1.0',
   ]:
     if("base" in file): f=file+'.vmc_tbdm.gosling.json'
     else: f=file+'.vmc.gosling.json'

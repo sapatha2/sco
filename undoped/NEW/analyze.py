@@ -13,6 +13,10 @@ def analyze(df):
   df['Sz'][df['path']=='7']=4
   df['Sz'][df['path']=='8']=4
   df['Sz'][df['path']=='9']=4
+  df['Sz'][df['path']=='11']=2
+  df['Sz'][df['path']=='12']=2
+  df['Sz'][df['path']=='13']=4
+  df['Sz'][df['path']=='14']=4
   sns.pairplot(df,vars=['energy','sigT','sigU','sigNps'],hue='Sz',palette=sns.color_palette("husl", 3))
   #plt.savefig('plots/vmc_pairplot.pdf',bbox_inches='tight')
   #plt.close()
