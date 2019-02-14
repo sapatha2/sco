@@ -66,7 +66,7 @@ def gather_base():
     dat=np.array([energy,energy_err,sigT,sigTd,sigU,sigJ,sigNd,sigNps])
     d=pd.DataFrame(dat[:,np.newaxis].T,columns=['energy','energy_err','sigT','sigTd','sigU','sigJ','sigNd','sigNps'])
     d=d.astype('double')
-    d['path']=file[1]
+    d['path']=file.split("/")[0][1:]
     if('chkp' in file): d['path']='chkp'
     elif('col' in file): d['path']='col'
     elif('chk' in file): d['path']='chk'
