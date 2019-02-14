@@ -13,33 +13,41 @@ import seaborn as sns
 a=np.load('iao.pickle')
 
 df=None
-direcs=['../../PBE0/CHK']*3+['../../PBE0/COL']*3+['../../PBE0/FLP']*3+['../../PBE0/FM']*3
-totspin=[0]*6+[2]*3+[4]*3
+direcs=['../../PBE0/CHK']*3+['../../PBE0/COL']*3+['../../PBE0/FLP']*5+['../../PBE0/FM']*5
+totspin=[0]*6+[2]*5+[4]*5
 rem=[[[],[]],   
      [[],[65]],  
-     [[],[65]], 
+     [[],[62]],  
      [[],[]],
      [[],[65]],  
-     [[],[65]],  
+     [[],[62]],  
      [[],[]],
      [[],[64]],  
      [[],[64]],
+     [[],[62]],  
+     [[],[62]], 
      [[],[]],
      [[],[63]],
-     [[],[63]]]
+     [[],[63]],
+     [[],[62]],  
+     [[],[62]]] 
 add=[[[],[]],   
      [[],[66]],  
-     [[],[68]], 
-     [[],[]],
+     [[],[66]], 
+     [[],[]],  
+     [[],[66]], 
      [[],[66]],  
-     [[],[68]],  
      [[],[]],
      [[],[65]],  
-     [[],[66]],
+     [[],[66]],  
+     [[],[65]],  
+     [[],[66]],  
      [[],[]],
      [[],[64]],  
+     [[],[65]],
+     [[],[64]],  
      [[],[65]]]
-for run in range(12):
+for run in range(len(totspin)):
   direc=direcs[run]
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=totspin[run])
   s=mf.get_ovlp()[0]
