@@ -9,6 +9,7 @@ def geninput(path):
   path == 1 - CHK to CHKp
   path == 2 - CHK to COL
   path == 3 - COL to CHKp  
+  path == 10 - CHKpLO to CHKp
   output:
   slater files
   vmc files 
@@ -29,7 +30,7 @@ def geninput(path):
   return 
 
 def genpbs(basename):
-  for gsw in [0.25,0.50,0.75,-0.25,-0.50,-0.75]:
+  for gsw in [0.25,0.50,0.75,1.0,-0.25,-0.50,-0.75]:
     fname='gsw'+str(gsw)
    
     #Blue waters input  
@@ -51,7 +52,7 @@ def genpbs(basename):
   return 1
 
 def genvmc(basename):
-  for gsw in [0.25,0.50,0.75,-0.25,-0.50,-0.75]:
+  for gsw in [0.25,0.50,0.75,1.0,-0.25,-0.50,-0.75]:
     fname='gsw'+str(gsw)
     
     string='method {\n'+\
@@ -94,7 +95,7 @@ def genvmc(basename):
   return 1
 
 def genslater(basename):
-  for gsw in [0.25,0.50,0.75,-0.25,-0.50,-0.75]:
+  for gsw in [0.25,0.50,0.75,1.0,-0.25,-0.50,-0.75]:
     fname='gsw'+str(gsw)
     w=[np.sign(gsw)*np.sqrt(abs(gsw)),np.sqrt(1-abs(gsw))]
  
@@ -122,7 +123,18 @@ def genslater(basename):
     col+='  '+' '.join([str(x) for x in cold])
     col+='\n\n'    
 
-    if("1" in basename): states=chk+chkp
+    #CHKpLO
+    chkplou=list(np.arange(1,63))+[64,65,66,67]
+    chkplod=np.arange(135,135+66)
+    chkplo='  '+' '.join([str(x) for x in chkplou])
+    chkplo+='\n'
+    chkplo+='  '+' '.join([str(x) for x in chkplod])
+    chkplo+='\n\n'
+
+    if("10" in basename): 
+      print("Yup")
+      states=chkplo+chkp
+    elif("1" in basename): states=chk+chkp
     elif("2" in basename): states=chk+col    
     elif("3" in basename): states=col+chkp
     else:
@@ -151,5 +163,6 @@ def genslater(basename):
 
 if __name__=='__main__':
   #for path in np.arange(1,4):      
-  for path in np.arange(2,4): 
+  #for path in np.arange(2,4): 
+  for path in [10]:
     geninput(path)

@@ -122,9 +122,27 @@ def genslater(basename):
     flppp+='  '+' '.join([str(x) for x in flpppd])
     flppp+='\n\n'    
 
+    #FLPpLO
+    flpplou=np.arange(1,68)
+    flpplod=list(np.arange(68,68+62))+[131,132,133]
+    flpplo='  '+' '.join([str(x) for x in flpplou])
+    flpplo+='\n'
+    flpplo+='  '+' '.join([str(x) for x in flpplod])
+    flpplo+='\n\n'    
+
+    #FLPppLO
+    flppplou=np.arange(1,68)
+    flppplod=list(np.arange(68,68+62))+[131,132,134]
+    flppplo='  '+' '.join([str(x) for x in flppplou])
+    flppplo+='\n'
+    flppplo+='  '+' '.join([str(x) for x in flppplod])
+    flppplo+='\n\n'    
+
     if("4" in basename): states=flp+flpp
     elif("5" in basename): states=flpp+flppp
     elif("6" in basename): states=flppp+flp
+    elif("11" in basename): states=flpplo+flpp
+    elif("12" in basename): states=flppplo+flppp
     else:
       print("Dont have this path: ", basename)
       exit(0)
@@ -150,5 +168,6 @@ def genslater(basename):
   return 1
 
 if __name__=='__main__':
-  for path in np.arange(4,7): 
+  #for path in np.arange(4,7): 
+  for path in [11,12]:
     geninput(path)
