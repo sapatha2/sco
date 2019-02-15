@@ -6,6 +6,13 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 def analyze(df):
   #Pairplot
+  '''
+  boolean=df['gsw']=='p1/gsw10'
+  for p in range(2,15):
+    boolean+=(df['gsw']=='p'+str(p)+'/gsw10')
+  df=df[boolean]
+  '''
+
   df['Sz']=np.zeros(df.shape[0])
   df['Sz'][df['path']=='4']=2
   df['Sz'][df['path']=='5']=2
@@ -13,25 +20,30 @@ def analyze(df):
   df['Sz'][df['path']=='7']=4
   df['Sz'][df['path']=='8']=4
   df['Sz'][df['path']=='9']=4
-  df['Sz'][df['path']=='11']=2
-  df['Sz'][df['path']=='12']=2
-  df['Sz'][df['path']=='13']=4
-  df['Sz'][df['path']=='14']=4
-  sns.pairplot(df,vars=['energy','sigT','sigU','sigNps'],hue='Sz',palette=sns.color_palette("husl", 3))
+  ind=np.where(pd.to_numeric(df['path'])<10)[0]
+  df=df.iloc[ind]
+  #print(list(df))
+  #sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps','sigNd'],hue='Sz',palette=sns.color_palette("husl", 4))
+  sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps'],hue='Sz',palette=sns.color_palette("husl", 4))
   #plt.savefig('plots/vmc_pairplot.pdf',bbox_inches='tight')
   #plt.close()
   plt.show()
   exit(0)
-  
-  '''
+
   #Fit
   y=df['energy']
-  X=df[['sigTd','sigU','sigNps']]
+  X=df[['sigTd','sigU']]
   X=sm.add_constant(X)
   ols=sm.OLS(y,X).fit()
   print(ols.summary())
   df['pred']=ols.predict(X)
-  for p in np.arange(1,10):
+  df['resid']=df['energy']-df['pred']
+  #df=df[df['Sz']==4]
+  sns.pairplot(df,vars=['energy','pred','resid','sigNps'],hue='path',palette=sns.color_palette("husl", 3))
+  plt.show()
+  exit(0)
+  '''
+  for p in np.arange(1,15):
     d=df[df['path']==str(p)]
     plt.errorbar(d['pred'],d['energy'],yerr=d['energy_err'],fmt='o',label='path '+str(p))
   plt.plot(df['energy'],df['energy'],'g-')
@@ -41,6 +53,9 @@ def analyze(df):
   #plt.savefig('plots/vmc_pred_Td.pdf',bbox_inches='tight')
   plt.show()
   exit(0)
+  '''
+ 
+  '''
   from mpl_toolkits.mplot3d import Axes3D
   fig = plt.figure()
   ax = fig.add_subplot(111, projection='3d')

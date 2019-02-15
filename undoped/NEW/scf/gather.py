@@ -13,56 +13,54 @@ import seaborn as sns
 a=np.load('iao.pickle')
 
 df=None
-direcs=['../../PBE0/CHK']*3+['../../PBE0/COL']*3+['../../PBE0/FLP']*5+['../../PBE0/FM']*5
-totspin=[0]*6+[2]*5+[4]*5
+direcs=['../../PBE0/CHK']*4+['../../PBE0/COL']*4+['../../PBE0/FLP']*4+['../../PBE0/FM']*2
+totspin=[0]*8+[2]*4+[4]*2
 rem=[[[],[]],   
      [[],[65]],  
-     [[],[62]],  
+     [[],[26]],
+     [[],[26]],
      [[],[]],
      [[],[65]],  
-     [[],[62]],  
+     [[],[26]],  
+     [[],[26]],  
      [[],[]],
      [[],[64]],  
-     [[],[64]],
-     [[],[62]],  
-     [[],[62]], 
+     [[],[24]],
+     [[],[24]],
      [[],[]],
-     [[],[63]],
-     [[],[63]],
-     [[],[62]],  
-     [[],[62]]] 
+     [[],[63]]]
 add=[[[],[]],   
      [[],[66]],  
-     [[],[66]], 
+     [[],[66]],
+     [[],[68]],
      [[],[]],  
      [[],[66]], 
-     [[],[66]],  
+     [[],[66]], 
+     [[],[68]],
      [[],[]],
      [[],[65]],  
-     [[],[66]],  
      [[],[65]],  
-     [[],[66]],  
+     [[],[68]],
      [[],[]],
-     [[],[64]],  
-     [[],[65]],
-     [[],[64]],  
-     [[],[65]]]
+     [[],[64]]] 
 for run in range(len(totspin)):
   direc=direcs[run]
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=totspin[run])
   s=mf.get_ovlp()[0]
   obdm=np.zeros((2,a.shape[1],a.shape[1]))
+  e=0
   for spin in [0,1]:
     mo_rdm=mf.mo_occ[spin][0]
     mo_to_iao=reduce(np.dot,(a.T, s, mf.mo_coeff[spin][0]))
     if(len(rem[run][spin])>0):
       mo_rdm[rem[run][spin]]=0
       mo_rdm[add[run][spin]]=1
+      e+=(mf.mo_energy[spin][0][add[run][spin]]-mf.mo_energy[spin][0][rem[run][spin]])
     obdm[spin]=reduce(np.dot,(mo_to_iao,np.diag(mo_rdm),mo_to_iao.T))
-    tbdm,__=gen_slater_tbdm(obdm)
-
+  tbdm,__=gen_slater_tbdm(obdm)
+  e*=27.2114
   print(np.trace(obdm[0]),np.trace(obdm[1]),np.trace(obdm[0]+obdm[1]))
-  
+
   #Hopping
   orb1=np.array([14,14,14,14,24,24,24,24,34,34,34,34,44,44,44,44])-1
   orb2=np.array([46,63,54,67,50,67,58,63,54,71,46,75,58,75,50,71])-1
@@ -106,7 +104,7 @@ for run in range(len(totspin)):
   orb2=np.array([24,34,14,44,11,44,24,34])-1
   sigJ=np.sum(sum_J(tbdm,orb1,orb2))
 
-  d=pd.DataFrame({'sigT':sigT,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
+  d=pd.DataFrame({'energy':e,'sigT':sigT,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
   'sigN4s':sigN4s,'sigN2s':sigN2s,'sigNps':sigNps,'sigNpp':sigNpp,'sigNd':sigNd,'sigU':sigU,'sigJ':sigJ,'Sz':totspin[run]},index=[0])
   if(df is None): df=d
   else: df=pd.concat((df,d),axis=0)
