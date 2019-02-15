@@ -131,12 +131,21 @@ def genslater(basename):
     chkplo+='  '+' '.join([str(x) for x in chkplod])
     chkplo+='\n\n'
 
-    if("10" in basename): 
-      print("Yup")
-      states=chkplo+chkp
+    #CHKpp
+    chkppu=list(np.arange(1,27))+list(np.arange(28,68))
+    chkppd=np.arange(135,135+66)
+    chkpp='  '+' '.join([str(x) for x in chkppu])
+    chkpp+='\n'
+    chkpp+='  '+' '.join([str(x) for x in chkppd])
+    chkpp+='\n\n'    
+  
+    if("10" in basename): states=chkplo+chkp
+    elif("15" in basename): states=chk+chkpp
+    elif("16" in basename): states=chkpp+chkp
     elif("1" in basename): states=chk+chkp
     elif("2" in basename): states=chk+col    
     elif("3" in basename): states=col+chkp
+
     else:
       print("Dont have this path: ", basename)
       exit(0)
@@ -164,5 +173,5 @@ def genslater(basename):
 if __name__=='__main__':
   #for path in np.arange(1,4):      
   #for path in np.arange(2,4): 
-  for path in [10]:
+  for path in [15,16]:
     geninput(path)
