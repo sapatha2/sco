@@ -6,9 +6,10 @@ import numpy as np
 def geninput(path):
   '''
   input:
-  path == 1 - FLP to FLPp
-  path == 2 - FLPp to FLPpp
-  path == 3 - FLPpp to FLP  
+  path == 4 - FLP to FLPp
+  path == 5 - FLPp to FLPpp
+  path == 6 - FLPpp to FLP  
+  path == 17 - FLPup to FLP
   output:
   slater files
   vmc files 
@@ -100,7 +101,7 @@ def genslater(basename):
 
     #FLP
     flpu=np.arange(1,68)
-    flpd=np.arange(68,68+65)
+    flpd=np.arange(69,69+65)
     flp='  '+' '.join([str(x) for x in flpu])
     flp+='\n'
     flp+='  '+' '.join([str(x) for x in flpd])
@@ -108,7 +109,7 @@ def genslater(basename):
 
     #FLPp
     flppu=np.arange(1,68)
-    flppd=list(np.arange(68,68+64))+[133]
+    flppd=list(np.arange(69,69+64))+[134]
     flpp='  '+' '.join([str(x) for x in flppu])
     flpp+='\n'
     flpp+='  '+' '.join([str(x) for x in flppd])
@@ -116,7 +117,7 @@ def genslater(basename):
 
     #FLPpp
     flpppu=np.arange(1,68)
-    flpppd=list(np.arange(68,68+64))+[134]
+    flpppd=list(np.arange(69,69+64))+[135]
     flppp='  '+' '.join([str(x) for x in flpppu])
     flppp+='\n'
     flppp+='  '+' '.join([str(x) for x in flpppd])
@@ -124,7 +125,7 @@ def genslater(basename):
 
     #FLPpLO
     flpplou=np.arange(1,68)
-    flpplod=list(np.arange(68,68+62))+[131,132,133]
+    flpplod=list(np.arange(69,69+62))+[132,133,134]
     flpplo='  '+' '.join([str(x) for x in flpplou])
     flpplo+='\n'
     flpplo+='  '+' '.join([str(x) for x in flpplod])
@@ -132,17 +133,26 @@ def genslater(basename):
 
     #FLPppLO
     flppplou=np.arange(1,68)
-    flppplod=list(np.arange(68,68+62))+[131,132,134]
+    flppplod=list(np.arange(69,69+62))+[132,133,136]
     flppplo='  '+' '.join([str(x) for x in flppplou])
     flppplo+='\n'
     flppplo+='  '+' '.join([str(x) for x in flppplod])
     flppplo+='\n\n'    
+
+    #FLPup
+    flpupu=list(np.arange(1,67))+[68]
+    flpupd=np.arange(69,69+65)
+    flpup='  '+' '.join([str(x) for x in flpupu])
+    flpup+='\n'
+    flpup+='  '+' '.join([str(x) for x in flpupd])
+    flpup+='\n\n'    
 
     if("4" in basename): states=flp+flpp
     elif("5" in basename): states=flpp+flppp
     elif("6" in basename): states=flppp+flp
     elif("11" in basename): states=flpplo+flpp
     elif("12" in basename): states=flppplo+flppp
+    elif("17" in basename): states=flpup+flp
     else:
       print("Dont have this path: ", basename)
       exit(0)
@@ -151,7 +161,7 @@ def genslater(basename):
     string='SLATER\n'+\
     'ORBITALS  {\n'+\
     '  MAGNIFY 1.0\n'+\
-    '  NMO 134\n'+\
+    '  NMO 136\n'+\
     '  ORBFILE all_flp.orb\n'+\
     '  INCLUDE all_flp.basis\n'+\
     '  CENTERS { USEGLOBAL }\n'+\
@@ -169,5 +179,5 @@ def genslater(basename):
 
 if __name__=='__main__':
   #for path in np.arange(4,7): 
-  for path in [11,12]:
+  for path in [17]:
     geninput(path)
