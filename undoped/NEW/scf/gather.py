@@ -13,36 +13,16 @@ import seaborn as sns
 a=np.load('iao.pickle')
 
 df=None
-direcs=['../../PBE0/CHK']*4+['../../PBE0/COL']*4+['../../PBE0/FLP']*4+['../../PBE0/FM']*2
-totspin=[0]*8+[2]*4+[4]*2
+direcs=['../../PBE0/CHK']*1+['../../PBE0/COL']*1+['../../PBE0/FLP']*1+['../../PBE0/FM']*1
+totspin=[0]*2+[2]*1+[4]*1
 rem=[[[],[]],   
-     [[],[65]],  
-     [[],[26]],
-     [[],[26]],
      [[],[]],
-     [[],[65]],  
-     [[],[26]],  
-     [[],[26]],  
      [[],[]],
-     [[],[64]],  
-     [[],[24]],
-     [[],[24]],
-     [[],[]],
-     [[],[63]]]
+     [[],[]]]
 add=[[[],[]],   
-     [[],[66]],  
-     [[],[66]],
-     [[],[68]],
-     [[],[]],  
-     [[],[66]], 
-     [[],[66]], 
-     [[],[68]],
      [[],[]],
-     [[],[65]],  
-     [[],[65]],  
-     [[],[68]],
      [[],[]],
-     [[],[64]]] 
+     [[],[]]]
 for run in range(len(totspin)):
   direc=direcs[run]
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=totspin[run])

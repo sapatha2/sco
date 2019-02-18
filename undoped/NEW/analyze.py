@@ -24,11 +24,11 @@ def analyze(df):
   df=df.iloc[ind]
   #print(list(df))
   #sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps','sigNd'],hue='Sz',palette=sns.color_palette("husl", 4))
-  sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps'],hue='Sz',palette=sns.color_palette("husl", 4))
+  #sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps'],hue='Sz',palette=sns.color_palette("husl", 4))
   #plt.savefig('plots/vmc_pairplot.pdf',bbox_inches='tight')
   #plt.close()
-  plt.show()
-  exit(0)
+  #plt.show()
+  #exit(0)
 
   #Fit
   y=df['energy']
