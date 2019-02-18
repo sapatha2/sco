@@ -5,16 +5,34 @@ import pandas as pd
 import statsmodels.api as sm
 
 df=pd.read_pickle('scf_gosling.pickle')
-df=df.iloc[:5]
-#df.iloc[3:5]['Sz']=2
-#df.iloc[5:7]['Sz']=3
-#df['N']=df['sigNpp']+df['sigNd']+df['sigNps']#+df['sigN4s']+df['sigN2s'] #Last two terms get the leftover 25% of electron under excitation
-#print(np.sqrt(df['N'].var()))
-#df=df[df['Sz']==0]
-sns.pairplot(df,vars=['energy','sigU','sigNps','sigT','sigNd'],hue='Sz',markers='o')
-#X=df[['sigU','sigT','sigNps']]
-#y=df['energy']
-#X=sm.add_constant(X)
-#ols=sm.OLS(y,X).fit()
-#print(ols.summary())
+
+'''
+df['N']=df['sigNpp']+df['sigNd']+df['sigNps']
+sns.pairplot(df,vars=['energy','sigNpp','sigNd','sigNps','N'],hue='Sz',markers='o')
 plt.show()
+'''
+
+#sns.pairplot(df,vars=['energy','sigNpp','sigU','sigT'],hue='Sz',markers='o')
+#plt.show()
+
+#Number
+#sns.pairplot(df,vars=['energy','sigNdz','sigNdpi','sigNpz','sigNdz2','sigN2s'],hue='Sz',markers='o')
+#plt.show()
+#plt.close()
+sns.pairplot(df,vars=['energy','sigN4s','sigN2s'],hue='Sz',markers='o')
+plt.show()
+plt.close()
+#Hopping + 2body
+sns.pairplot(df,vars=['energy','sigU','sigTd','sigT','sigNd','sigNpp','sigNps'],hue='Sz',markers='o')
+plt.show()
+exit()
+
+'''
+y=df['energy']
+X=df[['sigTd','sigU']]
+X=sm.add_constant(X)
+ols=sm.OLS(y,X).fit()
+plt.plot(ols.predict(),y,'o')
+plt.plot(y,y,'--')
+plt.show()
+'''

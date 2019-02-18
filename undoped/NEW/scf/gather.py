@@ -13,22 +13,39 @@ import seaborn as sns
 a=np.load('iao.pickle')
 
 df=None
-direcs=['../../PBE0/CHK']*1+['../../PBE0/COL']*1+['../../PBE0/FLP']*1+['../../PBE0/FM']*1
-totspin=[0]*2+[2]*1+[4]*1
-rem=[[[],[]],   
+direcs=['../../PBE0/CHK']*5+['../../PBE0/COL']*2+['../../PBE0/FLP']*3+['../../PBE0/FM']*2
+totspin=[0]*7+[2]*3+[4]*2
+base_energy=[-9.2123749620223E+02]*5+[-9.2122638412999E+02]*2+[-9.2122636552756E+02]*3+[-9.2121137910381E+02]*2
+rem=[[[],[]],
+     [[],[65]],
+     [[],[62]],
+     [[],[51]],
+     [[],[47]],
      [[],[]],
+     [[],[65]],
      [[],[]],
-     [[],[]]]
-add=[[[],[]],   
+     [[],[64]],
+     [[66],[]],
      [[],[]],
+     [[],[63]]]
+add=[[[],[]], 
+     [[],[66]],
+     [[],[66]],
+     [[],[66]],
+     [[],[66]],
      [[],[]],
-     [[],[]]]
-for run in range(len(totspin)):
+     [[],[66]],
+     [[],[]],
+     [[],[65]],
+     [[67],[]],
+     [[],[]],
+     [[],[64]]]
+for run in range(6):
   direc=direcs[run]
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=totspin[run])
   s=mf.get_ovlp()[0]
   obdm=np.zeros((2,a.shape[1],a.shape[1]))
-  e=0
+  e=base_energy[run]
   for spin in [0,1]:
     mo_rdm=mf.mo_occ[spin][0]
     mo_to_iao=reduce(np.dot,(a.T, s, mf.mo_coeff[spin][0]))
@@ -47,6 +64,10 @@ for run in range(len(totspin)):
   sign=np.array([-1,1,1,-1]*4)
   sigT=sum_onebody(obdm,orb1,orb2)
   sigT=np.dot(sign,sigT)
+
+  orb1=np.array([14,14,24,24,34,34,44,44])-1
+  orb2=np.array([24,34,14,44,14,44,24,34])-1
+  sigTd=np.sum(sum_onebody(obdm,orb1,orb2))
 
   #Number occupations
   orb1=np.array([6,16,26,36])-1
@@ -84,7 +105,7 @@ for run in range(len(totspin)):
   orb2=np.array([24,34,14,44,11,44,24,34])-1
   sigJ=np.sum(sum_J(tbdm,orb1,orb2))
 
-  d=pd.DataFrame({'energy':e,'sigT':sigT,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
+  d=pd.DataFrame({'energy':e,'sigTd':sigTd,'sigT':sigT,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
   'sigN4s':sigN4s,'sigN2s':sigN2s,'sigNps':sigNps,'sigNpp':sigNpp,'sigNd':sigNd,'sigU':sigU,'sigJ':sigJ,'Sz':totspin[run]},index=[0])
   if(df is None): df=d
   else: df=pd.concat((df,d),axis=0)
