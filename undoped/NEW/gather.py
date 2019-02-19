@@ -43,7 +43,7 @@ def gather_base():
 
     orb=np.array([0,1,2,3])
     sigU=np.sum(sum_U(tbdm,orb))
-   
+ 
     orb1=np.array([0,0,1,1,2,2,3,3])
     orb2=np.array([1,2,0,3,0,3,1,2])
     sigJ=np.sum(sum_J(tbdm,orb1,orb2))
