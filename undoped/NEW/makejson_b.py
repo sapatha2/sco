@@ -27,4 +27,4 @@ def makejson(path):
     json_o.write('\n'.join(json_f))
 
 if __name__=='__main__':
-  for path in np.arange(5,6): makejson(path)
+  for path in np.arange(6,7): makejson(path)

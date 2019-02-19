@@ -1,0 +1,11 @@
+#!/bin/bash
+#PBS -q low
+#PBS -l nodes=8:ppn=32:xe
+#PBS -l walltime=04:00:00
+#PBS -N b9/gsw1e-06.vmc
+#PBS -e b9/gsw1e-06.vmc.perr
+#PBS -o b9/gsw1e-06.vmc.pout
+mkdir -p /scratch/sciteam/$USER/sco/undoped/NEW/b9
+cd /scratch/sciteam/$USER/sco/undoped/NEW/b9
+cp -u /u/sciteam/$USER/sco/undoped/NEW/b9/* .
+aprun -n 256 /u/sciteam/$USER/fork/bin/qwalk gsw1e-06.vmc &> gsw1e-06.vmc.out

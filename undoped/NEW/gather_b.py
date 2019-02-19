@@ -18,6 +18,7 @@ def gather_base():
   'b3/gsw0.25','b3/gsw0.5','b3/gsw0.75','b3/gsw1.0',
   'b4/gsw0.25','b4/gsw0.5','b4/gsw0.75','b4/gsw1.0',
   'b5/gsw0.25','b5/gsw0.5','b5/gsw0.75','b5/gsw1.0',
+  'b6/gsw0.25','b6/gsw0.5','b6/gsw0.75','b6/gsw1.0',
   ]:
     f=file+'.vmc.gosling.json'
     print(f)
