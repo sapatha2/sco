@@ -10,6 +10,8 @@ def geninput(path):
   path == 2 - CHK1 to CHK
   path == 3 - CHK2 to CHK  
   path == 4 - CHK3 to CHK
+  path == 5 - COL1 to COL
+  path == 6 - COL2 to COL
   output:
   slater files
   vmc files 
@@ -40,7 +42,7 @@ def genpbs(basename,gsws):
     string='#!/bin/bash\n'+\
     '#PBS -q low\n'+\
     '#PBS -l nodes=8:ppn=32:xe\n'+\
-    '#PBS -l walltime=10:00:00\n'+\
+    '#PBS -l walltime=04:00:00\n'+\
     '#PBS -N '+basename+'/'+fname+'.vmc\n'\
     '#PBS -e '+basename+'/'+fname+'.vmc.perr\n'+\
     '#PBS -o '+basename+'/'+fname+'.vmc.pout\n'+\
@@ -154,10 +156,28 @@ def genslater(basename,gsws):
     chk3+='  '+' '.join([str(x) for x in chk3d])
     chk3+='\n\n'    
 
+    #COL1
+    col1u=list(np.arange(68,68+65))+[68+66]
+    col1d=np.arange(202,202+66)
+    col1='  '+' '.join([str(x) for x in col1u])
+    col1+='\n'
+    col1+='  '+' '.join([str(x) for x in col1d])
+    col1+='\n\n'    
+
+    #COL2
+    col2u=list(np.arange(68,68+46))+list(np.arange(68+47,68+66))+[68+66]
+    col2d=np.arange(202,202+66)
+    col2='  '+' '.join([str(x) for x in col2u])
+    col2+='\n'
+    col2+='  '+' '.join([str(x) for x in col2d])
+    col2+='\n\n'    
+
     if("1" in basename): states=chk+col
     elif("2" in basename): states=chk1+chk
     elif("3" in basename): states=chk2+chk
     elif("4" in basename): states=chk3+chk
+    elif("5" in basename): states=col1+col
+    elif("6" in basename): states=col2+col
     else:
       print("Dont have this path: ", basename)
       exit(0)
@@ -183,5 +203,5 @@ def genslater(basename,gsws):
   return 1
 
 if __name__=='__main__':
-  for path in [1,2,3,4]:
+  for path in [6]:
     geninput(path)
