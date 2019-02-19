@@ -30,11 +30,8 @@ def gather_base():
     #2-body (needs to be edited!)
     orb=np.array([0,1,2,3])
     def sum_U_diag(tbdm,orb):
-      return 0.5*(tbdm[0,1,orb*4] + tbdm[1,0,orb*4]) 
-    #sigU=np.sum(sum_U_diag(tbdm,orb))
-    sigU=(sum_U_diag(tbdm,orb))
-    print(sigU) 
-    exit(0)
+      return 0.5*(tbdm[0,1,orb*5] + tbdm[1,0,orb*5]) 
+    sigU=np.sum(sum_U_diag(tbdm,orb))
 
     #Hopping
     orb1=np.array([0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3])

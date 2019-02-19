@@ -25,7 +25,6 @@ def makejson(path):
         i+=1
     json_o=open(fname+'.gosling.json','w')
     json_o.write('\n'.join(json_f))
-    exit(0)
 
 if __name__=='__main__':
   for path in np.arange(1,5): makejson(path)
