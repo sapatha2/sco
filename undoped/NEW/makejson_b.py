@@ -6,7 +6,7 @@ import numpy as np
 def makejson(path):
   basename='b'+str(path)
   if(path==1): gsws=[1e-06,0.25,0.50,0.75,1.0,-0.25,-0.50,-0.75] #t/J sampling
-  elif(path==7): gsws=[1e-6,0.25,0.50,0.75,1.0]
+  elif((path==7) or (path==9)): gsws=[1e-6,0.25,0.50,0.75,1.0]
   else: gsws=[0.25,0.50,0.75,1.0]
 
   for gsw in gsws:
@@ -28,4 +28,4 @@ def makejson(path):
     json_o.write('\n'.join(json_f))
 
 if __name__=='__main__':
-  for path in np.arange(7,8): makejson(path)
+  for path in np.arange(8,10): makejson(path)
