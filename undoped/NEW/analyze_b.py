@@ -14,14 +14,18 @@ def analyze(df):
   '''
 
   #print(list(df))
-  #sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps','sigNd'],hue='Sz',palette=sns.color_palette("husl", 4))
+  sns.pairplot(df,vars=['energy','sigTd','sigT','sigU'],hue='path',palette=sns.color_palette("husl", 4))
+  plt.show()
+  plt.close()
+  sns.pairplot(df,vars=['energy','sigNd','sigNpp','sigNps','sigN4s'],hue='path',palette=sns.color_palette("husl", 4))
+  plt.show()
+  plt.close()
   #sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps'],hue='Sz',palette=sns.color_palette("husl", 4))
   #plt.savefig('plots/vmc_pairplot.pdf',bbox_inches='tight')
-  #plt.close()
-  #plt.show()
   #exit(0)
 
   #Fit
+  '''
   y=df['energy']
   X=df[['sigTd','sigU']]
   X=sm.add_constant(X)
@@ -33,6 +37,7 @@ def analyze(df):
   sns.pairplot(df,vars=['energy','pred','resid','sigNps'],hue='path',palette=sns.color_palette("husl", 3))
   plt.show()
   exit(0)
+  '''
   '''
   for p in np.arange(1,15):
     d=df[df['path']==str(p)]
