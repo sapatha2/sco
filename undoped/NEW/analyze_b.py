@@ -6,12 +6,8 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 def analyze(df):
   #Pairplot
-  '''
-  boolean=df['gsw']=='p1/gsw10'
-  for p in range(2,15):
-    boolean+=(df['gsw']=='p'+str(p)+'/gsw10')
-  df=df[boolean]
-  '''
+  df=df.iloc[[0,4]+list(np.arange(8,df.shape[0]))]
+  print(df.shape)
 
   #print(list(df))
   sns.pairplot(df,vars=['energy','sigTd','sigT','sigU'],hue='path',palette=sns.color_palette("husl", 4))
