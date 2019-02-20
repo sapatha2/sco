@@ -6,34 +6,43 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 def analyze(df):
   #Pairplot
-  df=df.iloc[[0,4]+list(np.arange(8,df.shape[0]))]
-  print(df.shape)
-
+  #print(df.shape)
+  boolean=(df['path']=='1')
+  for p in [1,2,3,4]:
+    boolean+=df['path']==str(p)
+  df=df[boolean]
   #print(list(df))
-  sns.pairplot(df,vars=['energy','sigTd','sigT','sigU'],hue='path',palette=sns.color_palette("husl", 4))
+  '''
+  sns.pairplot(df,vars=['energy','sigT','sigTd','sigU','sigNpp','sigNps','sigN4s'],hue='path',palette=sns.color_palette("husl", 9))
   plt.show()
   plt.close()
+  exit(0)
   sns.pairplot(df,vars=['energy','sigNd','sigNpp','sigNps','sigN4s'],hue='path',palette=sns.color_palette("husl", 4))
   plt.show()
   plt.close()
-  #sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps'],hue='Sz',palette=sns.color_palette("husl", 4))
+  '''
+  sns.pairplot(df,vars=['energy','sigT','sigU','sigNpp','sigNps'],hue='path',palette=sns.color_palette("husl", 9))
+  plt.show()
   #plt.savefig('plots/vmc_pairplot.pdf',bbox_inches='tight')
-  #exit(0)
+  exit(0)
 
   #Fit
-  '''
   y=df['energy']
-  X=df[['sigTd','sigU']]
+  X=df[['sigT','sigU','sigNpp','sigNps']]
+  #X=df[['sigTd','sigU','sigNpp']]
   X=sm.add_constant(X)
-  ols=sm.OLS(y,X).fit()
+  beta=0.5
+  ols=sm.WLS(y,X,weights=np.exp(-beta*(y-min(y)))).fit()
   print(ols.summary())
   df['pred']=ols.predict(X)
-  df['resid']=df['energy']-df['pred']
-  #df=df[df['Sz']==4]
-  sns.pairplot(df,vars=['energy','pred','resid','sigNps'],hue='path',palette=sns.color_palette("husl", 3))
+  #df['resid']=df['energy']-df['pred']
+  #sns.pairplot(df,vars=['energy','pred'],hue='path',palette=sns.color_palette("husl", 9))
+  #sns.regplot(x='pred',y='energy',data=df)
+  plt.errorbar(df['pred'],df['energy'],yerr=df['energy_err'],fmt='o')
+  plt.errorbar(df['energy'],df['energy'],yerr=df['energy_err'],fmt='--')
   plt.show()
-  exit(0)
-  '''
+  #exit(0)
+  
   '''
   for p in np.arange(1,15):
     d=df[df['path']==str(p)]

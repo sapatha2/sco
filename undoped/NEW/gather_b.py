@@ -32,7 +32,6 @@ def gather_base():
     energy=data['properties']['total_energy']['value'][0]*27.2114
     energy_err=data['properties']['total_energy']['error'][0]*27.2114
 
-    #2-body (needs to be edited!)
     orb=np.array([0,1,2,3])
     def sum_U_diag(tbdm,orb):
       return 0.5*(tbdm[0,1,orb*5] + tbdm[1,0,orb*5]) 
