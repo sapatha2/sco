@@ -12,6 +12,11 @@ def geninput(path):
   path == 4 - CHK3 to CHK
   path == 5 - COL1 to COL
   path == 6 - COL2 to COL
+  path == 10 - CHK4 to CHK *
+  path == 11 - CHK5 to CHK
+  path == 12 - CHK5 to CHK1 *
+  path == 13 - CHK4 to CHK5 
+  path == 14 - CHK4 to CHK1
   output:
   slater files
   vmc files 
@@ -118,15 +123,15 @@ def genslater(basename,gsws):
  
     #CHK
     chku=np.arange(1,67)
-    chkd=np.arange(135,135+66)
+    chkd=np.arange(139,139+66)
     chk='  '+' '.join([str(x) for x in chku])
     chk+='\n'
     chk+='  '+' '.join([str(x) for x in chkd])
     chk+='\n\n'    
 
     #COL
-    colu=np.arange(68,68+66)
-    cold=np.arange(202,202+66)
+    colu=np.arange(70,70+66)
+    cold=np.arange(208,208+66)
     col='  '+' '.join([str(x) for x in colu])
     col+='\n'
     col+='  '+' '.join([str(x) for x in cold])
@@ -134,7 +139,7 @@ def genslater(basename,gsws):
     
     #CHK1
     chk1u=list(np.arange(1,66))+[67]
-    chk1d=np.arange(135,135+66)
+    chk1d=np.arange(139,139+66)
     chk1='  '+' '.join([str(x) for x in chk1u])
     chk1+='\n'
     chk1+='  '+' '.join([str(x) for x in chk1d])
@@ -142,7 +147,7 @@ def genslater(basename,gsws):
 
     #CHK2
     chk2u=list(np.arange(1,52))+list(np.arange(53,67))+[67]
-    chk2d=np.arange(135,135+66)
+    chk2d=np.arange(139,139+66)
     chk2='  '+' '.join([str(x) for x in chk2u])
     chk2+='\n'
     chk2+='  '+' '.join([str(x) for x in chk2d])
@@ -150,34 +155,56 @@ def genslater(basename,gsws):
     
     #CHK3
     chk3u=list(np.arange(1,48))+list(np.arange(49,67))+[67]
-    chk3d=np.arange(135,135+66)
+    chk3d=np.arange(139,139+66)
     chk3='  '+' '.join([str(x) for x in chk3u])
     chk3+='\n'
     chk3+='  '+' '.join([str(x) for x in chk3d])
     chk3+='\n\n'    
 
+    #CHK4
+    chk4u=list(np.arange(1,56))+list(np.arange(57,67))+[67]
+    chk4d=np.arange(139,139+66)
+    chk4='  '+' '.join([str(x) for x in chk4u])
+    chk4+='\n'
+    chk4+='  '+' '.join([str(x) for x in chk4d])
+    chk4+='\n\n'    
+
+    #CHK5
+    chk5u=list(np.arange(1,66))+[69]
+    chk5d=np.arange(139,139+66)
+    chk5='  '+' '.join([str(x) for x in chk5u])
+    chk5+='\n'
+    chk5+='  '+' '.join([str(x) for x in chk5d])
+    chk5+='\n\n'    
+
     #COL1
-    col1u=list(np.arange(68,68+65))+[68+66]
-    col1d=np.arange(202,202+66)
+    col1u=list(np.arange(70,70+65))+[70+66]
+    col1d=np.arange(208,208+66)
     col1='  '+' '.join([str(x) for x in col1u])
     col1+='\n'
     col1+='  '+' '.join([str(x) for x in col1d])
     col1+='\n\n'    
 
     #COL2
-    col2u=list(np.arange(68,68+46))+list(np.arange(68+47,68+66))+[68+66]
-    col2d=np.arange(202,202+66)
+    col2u=list(np.arange(70,70+46))+list(np.arange(70+47,70+66))+[70+66]
+    col2d=np.arange(208,208+66)
     col2='  '+' '.join([str(x) for x in col2u])
     col2+='\n'
     col2+='  '+' '.join([str(x) for x in col2d])
     col2+='\n\n'    
 
-    if("1" in basename): states=chk+col
+    if("10" in basename):  states=chk4+chk       
+    elif("11" in basename):  states=chk5+chk
+    elif("12" in basename):  states=chk5+chk1   #*
+    elif("13" in basename):  states=chk5+chk4   
+    elif("14" in basename):  states=chk4+chk1   #*
+    elif("1" in basename): states=chk+col
     elif("2" in basename): states=chk1+chk
     elif("3" in basename): states=chk2+chk
     elif("4" in basename): states=chk3+chk
     elif("5" in basename): states=col1+col
     elif("6" in basename): states=col2+col
+
     else:
       print("Dont have this path: ", basename)
       exit(0)
@@ -186,7 +213,7 @@ def genslater(basename,gsws):
     string='SLATER\n'+\
     'ORBITALS  {\n'+\
     '  MAGNIFY 1.0\n'+\
-    '  NMO 268\n'+\
+    '  NMO 276\n'+\
     '  ORBFILE all_0.orb\n'+\
     '  INCLUDE all.basis\n'+\
     '  CENTERS { USEGLOBAL }\n'+\
@@ -203,5 +230,5 @@ def genslater(basename,gsws):
   return 1
 
 if __name__=='__main__':
-  for path in [6]:
+  for path in [12,14,10,11,13]:
     geninput(path)

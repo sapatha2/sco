@@ -10,4 +10,4 @@ def subpbs(path):
     os.system('qsub '+fname)
 
 if __name__=='__main__':
-  for path in [9]: subpbs(path)
+  for path in [12,14,10,11,13]: subpbs(path)

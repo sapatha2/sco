@@ -28,4 +28,4 @@ def makejson(path):
     json_o.write('\n'.join(json_f))
 
 if __name__=='__main__':
-  for path in np.arange(8,10): makejson(path)
+  for path in np.arange(10,15): makejson(path)
