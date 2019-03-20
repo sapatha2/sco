@@ -1,4 +1,4 @@
-#COLLECT T, U, J FOR MY 4 RELEVANT STATES
+#Collect single determinant excitations
 import numpy as np 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,7 +13,7 @@ import seaborn as sns
 a=np.load('iao.pickle')
 
 df=None
-direcs=['../../PBE0/CHK']*73+['../../PBE0/COL']*1+['../../PBE0/FLP']*1+['../../PBE0/FM']*1
+direcs=['../../../PBE0/CHK']*73+['../../../PBE0/COL']*1+['../../../PBE0/FLP']*1+['../../../PBE0/FM']*1
 totspin=[0]*73+[1]*1+[2]*1+[4]*1
 base_energy=[-9.2123749620223E+02]*73+[-9.2122638412999E+02]*1+[-9.2122636552756E+02]*1+[-9.2121137910381E+02]*1
 rem=[[[],[]],
@@ -239,4 +239,4 @@ for run in range(len(totspin)):
   else: df=pd.concat((df,d),axis=0)
 
 print(df)
-df.to_pickle('scf_gosling.pickle')
+df.to_pickle('big_gosling.pickle')
