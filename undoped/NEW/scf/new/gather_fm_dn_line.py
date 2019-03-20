@@ -118,9 +118,11 @@ def gather_line_fm(rem,add,gsws):
     #Get MO RDM
     w=np.array([np.sqrt(gsw),np.sqrt(1-gsw)])
     mo_occ1=np.zeros((fm_mocoeff.shape[:-1]))
-    mo_occ1[:,:68]=1
+    mo_occ1[0,:68]=1
+    mo_occ1[1,:64]=1
     mo_occ2=np.zeros((fm_mocoeff.shape[:-1]))
-    mo_occ2[:,:64]=1
+    mo_occ2[0,:68]=1
+    mo_occ2[1,:64]=1
     mo_occ2[1,rem]=0
     mo_occ2[1,add]=1
     dl=mo_rdm_fm(mo_occ1,mo_occ2,w)
@@ -149,7 +151,7 @@ if __name__=='__main__':
   #Smallest sample set, sigma only, no pi or dz2,4s
   rem_list=list(np.arange(24,64))*8
   add_list=[64]*40+[65]*40+[66]*40+[67]*40+[68]*40+[69]*40+[70]*40+[71]*40
-  gsws=np.arange(0,1.1,0.1)
+  gsws=np.arange(1.0,-0.1,-0.1)
 
   full_df=None
   for rem,add in zip(rem_list,add_list):

@@ -7,23 +7,39 @@ from statsmodels.sandbox.regression.predstd import wls_prediction_std
 from sklearn.decomposition import PCA
 
 #LINE SAMPLING
-spin_df=pd.read_pickle('sd_big_gosling.pickle')  #Add on COL,FLP,FM
-spin_df['rem']=0
-spin_df['add']=0
-df=pd.read_pickle('line_small_gosling.pickle')
-df['Sz']=0
-df['energy']+=min(spin_df['energy'])
-df=pd.concat((df,spin_df.iloc[[-1,-2,-3]]),axis=0)
+zz=0
+E=[-9.2123749620223E+02,
+   -9.2122638412999E+02,
+   -9.2122636552756E+02,
+   -9.2122636552756E+02,
+   -9.2121137910381E+02,
+   -9.2121137910381E+02]
+df=None
+for name in ['chk','col','flp_up','flp_dn','fm_up','fm_dn']:
+  d=pd.read_pickle(name+'_line_gosling.pickle')
+  d['name']=name.split("_")[0]
+  d['energy']+=E[zz]
+  d['n']=d['sigNd']+d['sigNps']
+  print(d[d['energy']==min(d['energy'])][['n','name']].iloc[0])
+  if(df is None): df=d
+  else: df=pd.concat((df,d),axis=0)
+  zz+=1
+
+df=pd.read_pickle('sd_big_gosling.pickle').iloc[[0,-1,-2,-3]]
+df['name']=df['Sz']
+
 df['n']=df['sigNd']+df['sigNps']
 df['n_tot']=df['sigNd']+df['sigNps']+df['sigN4s']
+print(df[['n','Sz']])
 
 #PAIRPLOT: On small data set, Nd + Nps + N4s is constant,
 #there is a strong negative correlation with Nd + Nps and N4s,
 #implying that we would want to trace cut Nd + Nps, hence not
 #including states which have too much N4s occupation!
 #sns.pairplot(df,vars=['energy','sigT','sigNps','sigNd','sigU'],hue='rem')
-#sns.pairplot(df,vars=['energy','n','sigN4s','n_tot'],hue='rem')
+#sns.pairplot(df,vars=['energy','n'],hue='name',markers='.')
 #plt.show()
+exit(0)
 
 #APPLYING THE CUTOFF:
 cutoff=0.05
