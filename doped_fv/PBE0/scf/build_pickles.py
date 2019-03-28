@@ -21,16 +21,22 @@ for direc in ['FLP','COL','COL2','FM']:
   mf.mo_occ[:,0,:].dump('pickles/'+str(direc)+'_mo_occ_g.pickle')
   mf.mo_coeff[:,0,:,:].dump('pickles/'+str(direc)+'_mo_coeff_g.pickle')
   mf.mo_energy[:,0,:].dump('pickles/'+str(direc)+'_mo_energy_g.pickle')
-  mf.get_ovlp().dump('pickles/'+str(direc)+'_s_g.pickle')
+  mf.get_ovlp()[0].dump('pickles/'+str(direc)+'_s_g.pickle')
   new_mo=np.concatenate((mf.mo_coeff[0][0][:,active[direc][0]],mf.mo_coeff[1][0][:,active[direc][1]]),axis=1)
   if(mo is None): mo=new_mo
   else: mo=np.concatenate((mo,new_mo),axis=1)
 
 #Build IAO pickle
 print(mo.shape)
-s=mf.get_ovlp()
+s=mf.get_ovlp()[0]
 print(s.shape)
 a=lo.iao.iao(cell,mo,minao=minbasis)
 a=lo.vec_lowdin(a,s)
 print(a.shape)
 a.dump('pickles/iao_g.pickle')
+
+#Plot IAOs
+a=np.load('pickles/iao_g.pickle')
+mf.mo_coeff=np.zeros((2,1,a.shape[0],a.shape[1]))
+mf.mo_coeff[0,0,:,:]=a
+print_qwalk_pbc(cell,mf,basename='orbs/iao_g')
