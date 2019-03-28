@@ -6,23 +6,13 @@ from functools import reduce
 import matplotlib.pyplot as plt
 from downfold_tools import sum_onebody
 
-#from crystal2pyscf import crystal2pyscf_cell
-#from basis import basis, minbasis, basis_order
-#direc='../../../PBE0/CHK'
-#cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=direc+"/GRED.DAT",kred=direc+"/KRED.DAT",totspin=0)
-#mf.mo_coeff.dump('chk_mocoeff.pickle')
-#mf.get_ovlp().dump('s.pickle')
-#mf.mo_energy.dump('chk_moenergy.pickle')
-#print(mf.mo_energy.shape)
-#exit(0)
-
 #Builds mo rdms for a two determinant state
 #with given ground state weight
 def mo_rdm_chk(mo_occ1,mo_occ2,w):
   #Preliminary load ins
-  a=np.load('iao.pickle')
-  chk_mocoeff=np.load('chk_mocoeff.pickle')[:,0,:,:]
-  s=np.load('s.pickle')
+  a=np.load('iao_g.pickle')
+  chk_mocoeff=np.load('FLP_mo_coeff_g.pickle')[:,0,:,:]
+  s=np.load('FLP_s_g.pickle')
   
   #RDM for each determinant
   mo_dm1=np.einsum('si,ij->sij',mo_occ1,np.eye(mo_occ1.shape[1],mo_occ1.shape[1]))
@@ -106,10 +96,10 @@ def get_U_chk(mo_occ1,mo_occ2,w,M0,M1):
 #gsws are a list of gsws that you want to calculate the sum with 
 def gather_line_chk(rem,add,gsws):
   #Preliminary load ins
-  a=np.load('iao.pickle')
-  chk_mocoeff=np.load('chk_mocoeff.pickle')[:,0,:,:]
-  chk_moenergy=np.load('chk_moenergy.pickle')[:,0,:]
-  s=np.load('s.pickle')
+  a=np.load('iao_g.pickle')
+  chk_mocoeff=np.load('FLP_mo_coeff_g.pickle')[:,0,:,:]
+  chk_moenergy=np.load('FLP_mo_energy_g.pickle')[:,0,:]
+  s=np.load('FLP_s_g.pickle')
   M0=reduce(np.dot,(a.T, s, chk_mocoeff[0])) 
   M1=reduce(np.dot,(a.T, s, chk_mocoeff[1])) 
 
@@ -163,4 +153,4 @@ if __name__=='__main__':
 
   print(full_df)
   print(full_df.shape)
-  full_df.to_pickle('chk_line_gosling.pickle')
+  full_df.to_pickle('pickles/FLP_line_gosling_g.pickle')
