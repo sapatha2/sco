@@ -141,7 +141,7 @@ if __name__=='__main__':
   #Smallest sample set, sigma only, no pi or dz2,4s
   rem_list=list(np.arange(24,67))*5
   add_list=[67]*43+[68]*43+[69]*43+[70]*43+[71]*43
-  gsws=np.arange(1.0,-0.1,-0.1)
+  gsws=np.arange(0.90,1.01,0.01)
 
   full_df=None
   for rem,add in zip(rem_list,add_list):
