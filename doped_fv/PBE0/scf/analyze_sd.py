@@ -6,42 +6,19 @@ import statsmodels.api as sm
 from statsmodels.sandbox.regression.predstd import wls_prediction_std
 from sklearn.decomposition import PCA
 
-#LINE SAMPLING
-zz=0
-E=[-9.2123749620223E+02,
-   -9.2122638412999E+02,
-   -9.2122636552756E+02,
-   -9.2122636552756E+02,
-   -9.2121137910381E+02,
-   -9.2121137910381E+02]
-Sz=[0,1,2,2,4,4]
-df=None
-for name in ['chk','col','flp_up','flp_dn','fm_up','fm_dn']:
-  d=pd.read_pickle(name+'_line_gosling.pickle')
-  d['name']=name.split("_")[0]
-  d['energy']+=E[zz]*27.2114
-  d['Sz']=Sz[zz]
-  d['basestate']=(d['energy']==min(d['energy']))
-  if(df is None): df=d
-  else: df=pd.concat((df,d),axis=0)
-  zz+=1
-df['n']=df['sigNd']+df['sigNps']
-df['n_tot']=df['sigNd']+df['sigNps']+df['sigN4s']
+df=pd.read_pickle('pickles/sd_gosling.pickle')
+var=df.var()
+ind=np.argsort(var.values)
+print(var.iloc[ind])
 
-plt.plot(np.arange(df.shape[0]),df['energy'],'o')
+#PAIRPLOTS
+#sns.pairplot(df,vars=['energy','sigNdpi','sigNdz','sigNpp','sigNpz'],hue='basestate')
+#sns.pairplot(df,vars=['energy','sigN2s','sigNdz2'],hue='basestate')
+#sns.pairplot(df,vars=['energy','sigNps','sigNd','sigN4s'],hue='basestate')
+#sns.pairplot(df,vars=['energy','sigTd','sigT','sigU','sigJ'],hue='basestate')
+sns.pairplot(df,vars=['energy','sigT','sigU','sigJ','sigNd','sigNps','sigN4s'],hue='basestate')
 plt.show()
-
-print(max(df['energy'])-min(df['energy']))
 exit(0)
-
-#PAIRPLOT: On small data set, Nd + Nps + N4s is constant,
-#there is a strong negative correlation with Nd + Nps and N4s,
-#implying that we would want to trace cut Nd + Nps, hence not
-#including states which have too much N4s occupation!
-#sns.pairplot(df,vars=['energy','sigT','sigNps','sigNd','sigU'],hue='rem')
-#sns.pairplot(df,vars=['energy','n'],hue='name',markers='.')
-#plt.show()
-#exit(0)
 
 #APPLYING THE CUTOFFS:
 ind=np.where(df['energy']==min(df['energy']))[0][0]

@@ -10,9 +10,9 @@ from downfold_tools import sum_onebody
 #with given ground state weight
 def mo_rdm_chk(mo_occ1,mo_occ2,w):
   #Preliminary load ins
-  a=np.load('iao_g.pickle')
-  chk_mocoeff=np.load('FLP_mo_coeff_g.pickle')[:,0,:,:]
-  s=np.load('FLP_s_g.pickle')
+  a=np.load('pickles/iao_g.pickle')
+  chk_mocoeff=np.load('pickles/FLP_mo_coeff_g.pickle')
+  s=np.load('pickles/FLP_s_g.pickle')
   
   #RDM for each determinant
   mo_dm1=np.einsum('si,ij->sij',mo_occ1,np.eye(mo_occ1.shape[1],mo_occ1.shape[1]))
@@ -96,10 +96,10 @@ def get_U_chk(mo_occ1,mo_occ2,w,M0,M1):
 #gsws are a list of gsws that you want to calculate the sum with 
 def gather_line_chk(rem,add,gsws):
   #Preliminary load ins
-  a=np.load('iao_g.pickle')
-  chk_mocoeff=np.load('FLP_mo_coeff_g.pickle')[:,0,:,:]
-  chk_moenergy=np.load('FLP_mo_energy_g.pickle')[:,0,:]
-  s=np.load('FLP_s_g.pickle')
+  a=np.load('pickles/iao_g.pickle')
+  chk_mocoeff=np.load('pickles/FLP_mo_coeff_g.pickle')
+  chk_moenergy=np.load('pickles/FLP_mo_energy_g.pickle')
+  s=np.load('pickles/FLP_s_g.pickle')
   M0=reduce(np.dot,(a.T, s, chk_mocoeff[0])) 
   M1=reduce(np.dot,(a.T, s, chk_mocoeff[1])) 
 
@@ -108,9 +108,11 @@ def gather_line_chk(rem,add,gsws):
     #Get MO RDM
     w=np.array([np.sqrt(gsw),np.sqrt(1-gsw)])
     mo_occ1=np.zeros((chk_mocoeff.shape[:-1]))
-    mo_occ1[:,:66]=1
+    mo_occ1[0,:67]=1
+    mo_occ1[1,:66]=1
     mo_occ2=np.zeros((chk_mocoeff.shape[:-1]))
-    mo_occ2[:,:66]=1
+    mo_occ2[0,:67]=1
+    mo_occ2[1,:66]=1
     mo_occ2[1,rem]=0
     mo_occ2[1,add]=1
     dl=mo_rdm_chk(mo_occ1,mo_occ2,w)
@@ -137,8 +139,8 @@ def gather_line_chk(rem,add,gsws):
 
 if __name__=='__main__':
   #Smallest sample set, sigma only, no pi or dz2,4s
-  rem_list=list(np.arange(24,66))*6
-  add_list=[66]*42+[67]*42+[68]*42+[69]*42+[70]*42+[71]*42
+  rem_list=[65]*7
+  add_list=[66,67,68,69,70,71]
   gsws=np.arange(0.90,1.01,0.01)
   print(gsws)
 
@@ -153,4 +155,4 @@ if __name__=='__main__':
 
   print(full_df)
   print(full_df.shape)
-  full_df.to_pickle('pickles/FLP_line_gosling_g.pickle')
+  full_df.to_pickle('pickles/FLP_dn_line_gosling_g.pickle')
