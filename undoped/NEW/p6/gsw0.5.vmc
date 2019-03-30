@@ -25,7 +25,7 @@ method {
   }
 }
 
-include flp.sys
+include all_flp.sys
 trialfunc {
   slater-jastrow
   wf1 { include gsw0.5.slater }

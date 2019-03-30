@@ -4,28 +4,31 @@ import pandas as pd
 import seaborn as sns 
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
-
 def analyze(df):
-  print(df)
-
-  '''
-  #Residuals
-  y=df['energy']
-  X=df[['sigU']]
-  X=sm.add_constant(X)
-  ols=sm.OLS(y,X).fit()
-  print(ols.summary())
-  df['resid']=df['energy']-ols.predict(X)
-  sns.pairplot(df,vars=['resid','sigT','sigU','sigJ'],hue='path',markers=['s']*3+['o']*3)
-  plt.show()
-  '''
-
   #Pairplot
-  #df['sigNd+sigNps']=df['sigNd']+df['sigNps']
-  #sns.pairplot(df,vars=['energy','sigTd','sigU'],hue='path',markers=['s']*3+['o']*3)
+  '''
+  boolean=df['gsw']=='p1/gsw10'
+  for p in range(2,15):
+    boolean+=(df['gsw']=='p'+str(p)+'/gsw10')
+  df=df[boolean]
+  '''
+
+  df['Sz']=np.zeros(df.shape[0])
+  df['Sz'][df['path']=='4']=2
+  df['Sz'][df['path']=='5']=2
+  df['Sz'][df['path']=='6']=2
+  df['Sz'][df['path']=='7']=4
+  df['Sz'][df['path']=='8']=4
+  df['Sz'][df['path']=='9']=4
+  ind=np.where(pd.to_numeric(df['path'])<10)[0]
+  df=df.iloc[ind]
+  #print(list(df))
+  #sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps','sigNd'],hue='Sz',palette=sns.color_palette("husl", 4))
+  #sns.pairplot(df,vars=['energy','sigTd','sigU','sigNps'],hue='Sz',palette=sns.color_palette("husl", 4))
   #plt.savefig('plots/vmc_pairplot.pdf',bbox_inches='tight')
   #plt.close()
   #plt.show()
+  #exit(0)
 
   #Fit
   y=df['energy']
@@ -33,14 +36,26 @@ def analyze(df):
   X=sm.add_constant(X)
   ols=sm.OLS(y,X).fit()
   print(ols.summary())
+  df['pred']=ols.predict(X)
+  df['resid']=df['energy']-df['pred']
+  #df=df[df['Sz']==4]
+  sns.pairplot(df,vars=['energy','pred','resid','sigNps'],hue='path',palette=sns.color_palette("husl", 3))
+  plt.show()
+  exit(0)
   '''
-  plt.errorbar(ols.predict(X),df['energy'],yerr=df['energy_err'],fmt='bo')
+  for p in np.arange(1,15):
+    d=df[df['path']==str(p)]
+    plt.errorbar(d['pred'],d['energy'],yerr=d['energy_err'],fmt='o',label='path '+str(p))
   plt.plot(df['energy'],df['energy'],'g-')
   plt.ylabel('energy (eV)')
   plt.xlabel('pred (eV)')
-  plt.savefig('plots/vmc_pred_Td.pdf',bbox_inches='tight')
+  plt.legend(loc='best')
+  #plt.savefig('plots/vmc_pred_Td.pdf',bbox_inches='tight')
+  plt.show()
+  exit(0)
   '''
-
+ 
+  '''
   from mpl_toolkits.mplot3d import Axes3D
   fig = plt.figure()
   ax = fig.add_subplot(111, projection='3d')
@@ -50,10 +65,17 @@ def analyze(df):
   fy=f[:,4] #sigU
   fz=f[:,0] #energy
   zerror=f[:,1] #energy_err
-  ax.plot(fx, fy, fz, "bo")
-  for i in np.arange(0, len(fx)):
+  indSz0=18
+
+  ax.plot([fx[0]], [fy[0]], [fz[0]], "bo",label='Sz=0')
+  ax.plot([fx[indSz0]], [fy[indSz0]], [fz[indSz0]], "go",label='Sz=2')
+  for i in np.arange(indSz0):
+    ax.plot([fx[i]], [fy[i]], [fz[i]], "bo")
     ax.plot([fx[i], fx[i]], [fy[i], fy[i]], [fz[i]+zerror[i], fz[i]-zerror[i]], "b_")
-  
+  for i in np.arange(indSz0,len(fx)):
+    ax.plot([fx[i]], [fy[i]], [fz[i]], "go")
+    ax.plot([fx[i], fx[i]], [fy[i], fy[i]], [fz[i]+zerror[i], fz[i]-zerror[i]], "g_")
+
   #Plane!
   gridx=np.linspace(min(fx),max(fx),100)
   gridy=np.linspace(min(fy),max(fy),100)
@@ -64,8 +86,9 @@ def analyze(df):
   ax.set_xlabel('sigTd')
   ax.set_ylabel('sigU')
   ax.set_zlabel('E (eV)')
+  plt.legend(loc='best')
   plt.show()
-
+  '''
 if __name__=='__main__':
   df=np.load('p_gosling.pickle')
   analyze(df)

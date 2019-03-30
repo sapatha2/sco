@@ -8,4 +8,4 @@ def subpbs(path):
     os.system('qsub '+fname)
 
 if __name__=='__main__':
-  for path in [4,5,6]: subpbs(path)     
+  for path in [17]: subpbs(path)     

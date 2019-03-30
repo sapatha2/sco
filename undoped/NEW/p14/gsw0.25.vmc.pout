@@ -1,0 +1,16 @@
+----------------------------------------
+Begin Torque Prologue on nid27639
+at Wed Feb 13 22:08:01 CST 2019
+Job Id:			9614960.bw
+Username:		sapatha2
+Group:			ILL_batr
+Job name:		p14/gsw0.25.vmc
+Requested resources:	nodes=8:ppn=32:xe,walltime=08:00:00,neednodes=8:ppn=32:xe
+Queue:			low
+Account:		batr
+End Torque Prologue:  0.123 elapsed
+----------------------------------------
+
+
+
+

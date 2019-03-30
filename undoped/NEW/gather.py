@@ -10,13 +10,28 @@ def gather_base():
   Gathers all your data and stores into 
   '''
   df=None
-  
-  for file in ['base/chk','base/col','base/chkp',
-  'p1/gsw0.25','p1/gsw0.5','p1/gsw0.75',
-  'p2/gsw0.25','p2/gsw0.5','p2/gsw0.75',
+ 
+  for file in [
+  'p1/gsw0.25','p1/gsw0.5','p1/gsw0.75','p1/gsw1.0',
+  'p2/gsw0.25','p2/gsw0.5','p2/gsw0.75','p2/gsw1.0',
   'p2/gsw-0.25','p2/gsw-0.5','p2/gsw-0.75',
-  'p3/gsw0.25','p3/gsw0.5','p3/gsw0.75',
-  'p3/gsw-0.25','p3/gsw-0.5','p3/gsw-0.75']:
+  'p3/gsw0.25','p3/gsw0.5','p3/gsw0.75','p3/gsw1.0',
+  'p3/gsw-0.25','p3/gsw-0.5','p3/gsw-0.75',
+  'p4/gsw0.25','p4/gsw0.5','p4/gsw0.75','p4/gsw1.0',
+  'p5/gsw0.25','p5/gsw0.5','p5/gsw0.75','p5/gsw1.0',
+  'p6/gsw0.25','p6/gsw0.5','p6/gsw0.75','p6/gsw1.0',
+  'p7/gsw0.25','p7/gsw0.5','p7/gsw0.75','p7/gsw1.0',
+  'p8/gsw0.25','p8/gsw0.5','p8/gsw0.75','p8/gsw1.0',
+  'p9/gsw0.25','p9/gsw0.5','p9/gsw0.75','p9/gsw1.0',
+  'p10/gsw0.25','p10/gsw0.5','p10/gsw0.75','p10/gsw1.0',
+  'p11/gsw0.25','p11/gsw0.5','p11/gsw0.75','p11/gsw1.0',
+  'p12/gsw0.25','p12/gsw0.5','p12/gsw0.75','p12/gsw1.0',
+  'p13/gsw0.25','p13/gsw0.5','p13/gsw0.75','p13/gsw1.0',
+  'p14/gsw0.25','p14/gsw0.5','p14/gsw0.75','p14/gsw1.0',
+  'p15/gsw0.25','p15/gsw0.5','p15/gsw0.75','p15/gsw1.0',
+  'p16/gsw0.25','p16/gsw0.5','p16/gsw0.75','p16/gsw1.0',
+  'p17/gsw0.25','p17/gsw0.5','p17/gsw0.75','p17/gsw1.0',
+  ]:
     if("base" in file): f=file+'.vmc_tbdm.gosling.json'
     else: f=file+'.vmc.gosling.json'
     print(f)
@@ -28,7 +43,7 @@ def gather_base():
 
     orb=np.array([0,1,2,3])
     sigU=np.sum(sum_U(tbdm,orb))
-   
+ 
     orb1=np.array([0,0,1,1,2,2,3,3])
     orb2=np.array([1,2,0,3,0,3,1,2])
     sigJ=np.sum(sum_J(tbdm,orb1,orb2))
@@ -54,7 +69,7 @@ def gather_base():
     dat=np.array([energy,energy_err,sigT,sigTd,sigU,sigJ,sigNd,sigNps])
     d=pd.DataFrame(dat[:,np.newaxis].T,columns=['energy','energy_err','sigT','sigTd','sigU','sigJ','sigNd','sigNps'])
     d=d.astype('double')
-    d['path']=file[1]
+    d['path']=file.split("/")[0][1:]
     if('chkp' in file): d['path']='chkp'
     elif('col' in file): d['path']='col'
     elif('chk' in file): d['path']='chk'

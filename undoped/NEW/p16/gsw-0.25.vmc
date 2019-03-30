@@ -1,0 +1,33 @@
+method {
+  vmc
+  nblock 250
+  nstep 25
+  average { tbdm_basis
+    orbitals {
+      magnify 1
+      nmo 76
+      orbfile iao_0.orb
+      include iao.basis
+      centers { useglobal }
+    }
+    states { 14 24 34 44 }
+  }
+  average { tbdm_basis
+    mode obdm
+    orbitals {
+      magnify 1
+      nmo 76
+      orbfile iao_0.orb
+      include iao.basis
+      centers { useglobal }
+    }
+    states { 14 24 34 44 46 50 54 58 63 67 71 75 }
+  }
+}
+
+include sys
+trialfunc {
+  slater-jastrow
+  wf1 { include gsw-0.25.slater }
+  wf2 { include optjast3 }
+}
