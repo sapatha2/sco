@@ -7,19 +7,36 @@ from statsmodels.sandbox.regression.predstd import wls_prediction_std
 from sklearn.decomposition import PCA
 
 df=pd.read_pickle('pickles/sd_gosling.pickle')
+#df=df.iloc[[0,12,24,36]]
 var=df.var()
 ind=np.argsort(var.values)
 print(var.iloc[ind])
+
+def plot_parm(parm):
+  for i in range(12):
+    plt.plot(df.iloc[[0,i]][parm],df.iloc[[0,i]]['energy'],'bo-')
+  for i in range(12,24):
+    plt.plot(df.iloc[[12,i]][parm],df.iloc[[12,i]]['energy'],'go-')
+  for i in range(24,36):
+    plt.plot(df.iloc[[24,i]][parm],df.iloc[[24,i]]['energy'],'ro-')
+  for i in range(36,48):
+    plt.plot(df.iloc[[36,i]][parm],df.iloc[[36,i]]['energy'],'ko-')
+  plt.show()
+  return 
+plot_parm('sigNps')
+exit(0)
 
 #PAIRPLOTS
 #sns.pairplot(df,vars=['energy','sigNdpi','sigNdz','sigNpp','sigNpz'],hue='basestate')
 #sns.pairplot(df,vars=['energy','sigN2s','sigNdz2'],hue='basestate')
 #sns.pairplot(df,vars=['energy','sigNps','sigNd','sigN4s'],hue='basestate')
 #sns.pairplot(df,vars=['energy','sigTd','sigT','sigU','sigJ'],hue='basestate')
-sns.pairplot(df,vars=['energy','sigT','sigU','sigJ','sigNd','sigNps','sigN4s'],hue='basestate')
+#sns.pairplot(df,vars=['energy','sigT','sigTd','sigJ','sigNps'],hue='basestate')
+sns.pairplot(df,vars=['energy','sigN4s','sigU','sigNd'],hue='basestate')
 plt.show()
 exit(0)
 
+'''
 #APPLYING THE CUTOFFS:
 ind=np.where(df['energy']==min(df['energy']))[0][0]
 
@@ -41,11 +58,13 @@ sns.pairplot(select_df,vars=['energy','sigTd','sigT','sigNps','sigU'],hue='Sz')
 #sns.pairplot(select_df,vars=['energy','n','sigN4s','n_tot'],hue='Sz')
 plt.show()
 exit(0)
+'''
 
 #REGRESSION
+select_df=df
 y=select_df['energy']
-X=select_df[['sigT','sigU']]  #Do t and U have to be divided by stuff because of the super cell?
-X=sm.add_constant(X)
+X=select_df[['sigJ','sigT']]  #Do t and U have to be divided by stuff because of the super cell?
+#X=sm.add_constant(X)
 beta=0
 weights=np.exp(-beta*(y-min(y)))
 ols=sm.WLS(y,X,weights).fit()

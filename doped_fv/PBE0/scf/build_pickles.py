@@ -14,14 +14,17 @@ active={'FLP':[np.arange(67,73)-1,np.arange(66,73)-1],
         'COL':[np.arange(67,73)-1,np.arange(66,73)-1],
         'COL2':[np.arange(67,73)-1,np.arange(66,73)-1],
         'FM':[np.arange(68,73)-1,np.arange(65,73)-1]}
-totspin={'FLP':1,'COL':1,'COL2':1,'FM':3}
-for direc in ['FLP','COL','COL2','FM']:
-  d='../'+direc+'_ns'
+totspin={'FLP':1,'COL':1,'COL2':1,'FM':3,'UNPOL':1}
+#for direc in ['FLP','COL','COL2','FM']:
+for direc in ['UNPOL']:
+  #d='../'+direc+'_ns'
+  d='../'+direc
   cell,mf=crystal2pyscf_cell(basis=basis,basis_order=basis_order,gred=d+"/GRED.DAT",kred=d+"/KRED.DAT",totspin=totspin[direc])
   mf.mo_occ[:,0,:].dump('pickles/'+str(direc)+'_mo_occ_g.pickle')
   mf.mo_coeff[:,0,:,:].dump('pickles/'+str(direc)+'_mo_coeff_g.pickle')
   mf.mo_energy[:,0,:].dump('pickles/'+str(direc)+'_mo_energy_g.pickle')
   mf.get_ovlp()[0].dump('pickles/'+str(direc)+'_s_g.pickle')
+  exit(0)
   new_mo=np.concatenate((mf.mo_coeff[0][0][:,active[direc][0]],mf.mo_coeff[1][0][:,active[direc][1]]),axis=1)
   if(mo is None): mo=new_mo
   else: mo=np.concatenate((mo,new_mo),axis=1)
