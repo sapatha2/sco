@@ -31,6 +31,18 @@ for comp_f in comp:
   
   #Active polarized MOs
   zz+=1
+  act=np.arange(67,73)-1
+  if(comp_f=='FM'): act=np.arange(68,73)-1
+  plt.subplot(140+zz)
+  plt.matshow(comp_matrix[0,act,:72].T,vmax=2,vmin=-2,cmap=plt.cm.bwr,fignum=False)
+  plt.ylabel('Polarized')
+  plt.xlabel('Unpolarized')
+  plt.title('Up spin '+comp_f)
+plt.savefig('plots/act_pol_s0.pdf',bbox_inches='tight')
+plt.close()
+  
+'''
+  zz+=1
   act=np.arange(66,73)-1
   if(comp_f=='FM'): act=np.arange(65,73)-1
   plt.subplot(140+zz)
@@ -40,3 +52,4 @@ for comp_f in comp:
   plt.title('Dn spin '+comp_f)
 plt.savefig('plots/act_pol_s1.pdf',bbox_inches='tight')
 plt.close()
+'''
