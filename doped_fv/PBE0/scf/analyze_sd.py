@@ -7,6 +7,8 @@ from statsmodels.sandbox.regression.predstd import wls_prediction_std
 from sklearn.decomposition import PCA
 
 df=pd.read_pickle('pickles/sd_gosling.pickle')
+print(df)
+exit(0)
 #df=df.iloc[[0,12,24,36]]
 var=df.var()
 ind=np.argsort(var.values)

@@ -8,7 +8,7 @@ from downfold_tools import sum_onebody
 
 #Builds mo rdms for a two determinant state
 #with given ground state weight
-def mo_rdm_chk(mo_occ1,mo_occ2,w):
+def mo_rdm(mo_occ1,mo_occ2,w):
   #Preliminary load ins
   a=np.load('pickles/iao_g.pickle')
   chk_mocoeff=np.load('pickles/FLP_mo_coeff_g.pickle')
@@ -39,42 +39,19 @@ def mo_rdm_chk(mo_occ1,mo_occ2,w):
   return dl
 
 def get_df_row(obdm,sigU,e):
-  #Hopping
-  orb1=np.array([14,14,14,14,24,24,24,24,34,34,34,34,44,44,44,44])-1
-  orb2=np.array([46,63,54,67,50,67,58,63,54,71,46,75,58,75,50,71])-1
-  sign=np.array([-1,1,1,-1]*4)
-  sigT=sum_onebody(obdm,orb1,orb2)
-  sigT=2*np.dot(sign,sigT)
-  orb1=np.array([14,14,24,24,34,34,44,44])-1
-  orb2=np.array([24,34,14,44,14,44,24,34])-1
-  sigTd=2*np.sum(sum_onebody(obdm,orb1,orb2))
-  
-  #Number occupations
-  orb1=np.array([6,16,26,36])-1
-  sigN4s=np.sum(sum_onebody(obdm,orb1,orb1))
-  orb1=np.array([45,49,53,57,61,65,69,73])-1
-  sigN2s=np.sum(sum_onebody(obdm,orb1,orb1))
-  orb1=np.array([46,50,54,58,63,67,71,75])-1
-  sigNps=np.sum(sum_onebody(obdm,orb1,orb1))
-  orb1=np.array([47,51,55,59,62,66,70,74])-1
-  sigNpp=np.sum(sum_onebody(obdm,orb1,orb1))
-  orb1=np.array([48,52,56,60,64,68,72,76])-1
-  sigNpz=np.sum(sum_onebody(obdm,orb1,orb1))
-  orb1=np.array([11,13,21,23,31,33,41,43])-1
-  sigNdz=np.sum(sum_onebody(obdm,orb1,orb1))
-  orb1=np.array([14,24,34,44])-1
-  sigNd=np.sum(sum_onebody(obdm,orb1,orb1))
-  orb1=np.array([12,22,32,42])-1
-  sigNdz2=np.sum(sum_onebody(obdm,orb1,orb1))
-  orb1=np.array([10,20,30,40])-1
-  sigNdpi=np.sum(sum_onebody(obdm,orb1,orb1))
-  
-  d=pd.DataFrame({'energy':e*27.2114,'sigTd':sigTd,'sigT':sigT,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
-  'sigN4s':sigN4s,'sigN2s':sigN2s,'sigNps':sigNps,'sigNpp':sigNpp,'sigNd':sigNd,'sigU':sigU},index=[0])
+  #1-body terms
+  orb1=np.array([0,1,2,3,4,5,6,7,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,5,5,6])
+  orb2=np.array([0,1,2,3,4,5,6,7,1,2,3,4,5,6,7,2,3,4,5,6,7,3,4,5,6,7,4,5,6,7,5,6,7,6,7,7])
+  sigN=sum_onebody(obdm,orb1,orb2)
+  sigN_labels=['sigN_'+str(orb1[i])+'_'+str(orb2[i]) for i in range(len(orb1))]
+  #print("Mo Tr: "+str(sum(sigN)))
+
+  data=np.array([e]+list(sigN)+[sigU])
+  d=pd.DataFrame(data[:,np.newaxis].T,columns=['energy']+sigN_labels+['sigU'],index=[0])
   return d 
 
 #Generate sigU for a sum of two determinants 
-def get_U_chk(mo_occ1,mo_occ2,w,M0,M1):
+def get_U(mo_occ1,mo_occ2,w,M0,M1):
   M=np.array([M0,M1])
   mo_dm1=np.einsum('si,ij->sij',mo_occ1,np.eye(mo_occ1.shape[1],mo_occ1.shape[1]))
   mo_dm2=np.einsum('si,ij->sij',mo_occ2,np.eye(mo_occ2.shape[1],mo_occ2.shape[1]))
@@ -94,14 +71,20 @@ def get_U_chk(mo_occ1,mo_occ2,w,M0,M1):
 #Singles excitations on checkerboard state
 #rem, add are floats, should be what you want to remove and add
 #gsws are a list of gsws that you want to calculate the sum with 
-def gather_line_chk(rem,add,gsws):
+def gather_line(rem,add,gsws):
   #Preliminary load ins
-  a=np.load('pickles/iao_g.pickle')
+  a=np.load('pickles/UNPOL_mo_coeff_g.pickle')[0]
+  a=a[:,[55,65,66,67,68,69,70,71]]
+  b=np.load('pickles/iao_g.pickle')
   chk_mocoeff=np.load('pickles/FLP_mo_coeff_g.pickle')
   chk_moenergy=np.load('pickles/FLP_mo_energy_g.pickle')
   s=np.load('pickles/FLP_s_g.pickle')
-  M0=reduce(np.dot,(a.T, s, chk_mocoeff[0])) 
-  M1=reduce(np.dot,(a.T, s, chk_mocoeff[1])) 
+  #pol to unpol
+  m0=reduce(np.dot,(a.T, s, chk_mocoeff[0])) 
+  m1=reduce(np.dot,(a.T, s, chk_mocoeff[1])) 
+  #pol to iao
+  M0=reduce(np.dot,(b.T, s, chk_mocoeff[0])) 
+  M1=reduce(np.dot,(b.T, s, chk_mocoeff[1])) 
 
   df=None
   for gsw in gsws:
@@ -115,17 +98,17 @@ def gather_line_chk(rem,add,gsws):
     mo_occ2[0,:66]=1
     mo_occ2[0,rem]=0
     mo_occ2[0,add]=1
-    dl=mo_rdm_chk(mo_occ1,mo_occ2,w)
+    dl=mo_rdm(mo_occ1,mo_occ2,w)
 
     #Convert to IAO RDM
-    R=np.einsum('ij,jk->ik',dl[0],M0.T)
-    dm_u=np.einsum('ij,jk->ik',M0,R)
-    R=np.einsum('ij,jk->ik',dl[1],M1.T)
-    dm_d=np.einsum('ij,jk->ik',M1,R)
+    R=np.einsum('ij,jk->ik',dl[0],m0.T)
+    dm_u=np.einsum('ij,jk->ik',m0,R)
+    R=np.einsum('ij,jk->ik',dl[1],m1.T)
+    dm_d=np.einsum('ij,jk->ik',m1,R)
     obdm=np.array([dm_u,dm_d])
 
     #Generate sigU separately since we no longer have single determinant
-    sigU=get_U_chk(mo_occ1,mo_occ2,w,M0,M1)
+    sigU=get_U(mo_occ1,mo_occ2,w,M0,M1)
 
     #Get energy from eigenvalues 
     e=w[1]**2*(chk_moenergy[0,add]-chk_moenergy[0,rem])
@@ -139,15 +122,15 @@ def gather_line_chk(rem,add,gsws):
 
 if __name__=='__main__':
   #Smallest sample set, sigma only, no pi or dz2,4s
-  rem_list=[66]*6
+  rem_list=[66]*5
   add_list=[67,68,69,70,71]
-  gsws=np.arange(0.90,1.01,0.01)
+  gsws=np.arange(-1.00,1.10,0.1)
   print(gsws)
 
   full_df=None
   for rem,add in zip(rem_list,add_list):
     print(rem,add)
-    df=gather_line_chk(rem,add,gsws)
+    df=gather_line(rem,add,gsws)
     df['add']=add
     df['rem']=rem
     if(full_df is None): full_df=df
