@@ -63,7 +63,7 @@ def get_U(mo_occ1,mo_occ2,w,M0,M1):
     dm_u=np.einsum('ij,jk->ik',M0,R)
     R=np.einsum('ij,jk->ik',dl[1],M1.T)
     dm_d=np.einsum('ij,jk->ik',M1,R)
-    sigU.append(np.sum(dm_u[[13,23,33,43]]*dm_d[[13,23,33,43]]))
+    sigU.append(np.sum(dm_u[[13,23,33,43],[13,23,33,43]]*dm_d[[13,23,33,43],[13,23,33,43]]))
 
   sigU=np.array(sigU)
   return np.dot(sigU,w**2)
@@ -89,13 +89,13 @@ def gather_line(rem,add,gsws):
   df=None
   for gsw in gsws:
     #Get MO RDM
-    w=np.array([np.sqrt(gsw),np.sqrt(1-gsw)])
+    w=np.array([np.sqrt(np.abs(gsw))*np.sign(gsw),np.sqrt(1-np.abs(gsw))])
     mo_occ1=np.zeros((chk_mocoeff.shape[:-1]))
     mo_occ1[0,:67]=1
-    mo_occ1[0,:66]=1
+    mo_occ1[1,:66]=1
     mo_occ2=np.zeros((chk_mocoeff.shape[:-1]))
     mo_occ2[0,:67]=1
-    mo_occ2[0,:66]=1
+    mo_occ2[1,:66]=1
     mo_occ2[0,rem]=0
     mo_occ2[0,add]=1
     dl=mo_rdm(mo_occ1,mo_occ2,w)
@@ -115,7 +115,7 @@ def gather_line(rem,add,gsws):
 
     #Gather df row
     d=get_df_row(obdm,sigU,e)
-
+    d['gsw']=gsw
     if(df is None): df=d
     else: df=pd.concat((df,d),axis=0)
   return df

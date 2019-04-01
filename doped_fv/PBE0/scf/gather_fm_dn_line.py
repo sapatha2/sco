@@ -11,8 +11,8 @@ from downfold_tools import sum_onebody
 def mo_rdm(mo_occ1,mo_occ2,w):
   #Preliminary load ins
   a=np.load('pickles/iao_g.pickle')
-  chk_mocoeff=np.load('pickles/FLP_mo_coeff_g.pickle')
-  s=np.load('pickles/FLP_s_g.pickle')
+  chk_mocoeff=np.load('pickles/FM_mo_coeff_g.pickle')
+  s=np.load('pickles/FM_s_g.pickle')
   
   #RDM for each determinant
   mo_dm1=np.einsum('si,ij->sij',mo_occ1,np.eye(mo_occ1.shape[1],mo_occ1.shape[1]))
@@ -76,9 +76,9 @@ def gather_line(rem,add,gsws):
   a=np.load('pickles/UNPOL_mo_coeff_g.pickle')[0]
   a=a[:,[55,65,66,67,68,69,70,71]]
   b=np.load('pickles/iao_g.pickle')
-  chk_mocoeff=np.load('pickles/FLP_mo_coeff_g.pickle')
-  chk_moenergy=np.load('pickles/FLP_mo_energy_g.pickle')
-  s=np.load('pickles/FLP_s_g.pickle')
+  chk_mocoeff=np.load('pickles/FM_mo_coeff_g.pickle')
+  chk_moenergy=np.load('pickles/FM_mo_energy_g.pickle')
+  s=np.load('pickles/FM_s_g.pickle')
   #pol to unpol
   m0=reduce(np.dot,(a.T, s, chk_mocoeff[0])) 
   m1=reduce(np.dot,(a.T, s, chk_mocoeff[1])) 
@@ -91,11 +91,11 @@ def gather_line(rem,add,gsws):
     #Get MO RDM
     w=np.array([np.sqrt(np.abs(gsw))*np.sign(gsw),np.sqrt(1-np.abs(gsw))])
     mo_occ1=np.zeros((chk_mocoeff.shape[:-1]))
-    mo_occ1[0,:67]=1
-    mo_occ1[1,:66]=1
+    mo_occ1[0,:68]=1
+    mo_occ1[1,:65]=1
     mo_occ2=np.zeros((chk_mocoeff.shape[:-1]))
-    mo_occ2[0,:67]=1
-    mo_occ2[1,:66]=1
+    mo_occ2[0,:68]=1
+    mo_occ2[1,:65]=1
     mo_occ2[1,rem]=0
     mo_occ2[1,add]=1
     dl=mo_rdm(mo_occ1,mo_occ2,w)
@@ -122,8 +122,8 @@ def gather_line(rem,add,gsws):
 
 if __name__=='__main__':
   #Smallest sample set, sigma only, no pi or dz2,4s
-  rem_list=[65]*6
-  add_list=[66,67,68,69,70,71]
+  rem_list=[64]*7
+  add_list=[65,66,67,68,69,70,71]
   gsws=np.arange(-1.00,1.10,0.1)
   print(gsws)
 
@@ -138,4 +138,4 @@ if __name__=='__main__':
 
   print(full_df)
   print(full_df.shape)
-  full_df.to_pickle('pickles/FLP_dn_line_gosling_g.pickle')
+  full_df.to_pickle('pickles/FM_dn_line_gosling_g.pickle')

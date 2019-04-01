@@ -18,6 +18,11 @@ print(var.iloc[ind])
 #REGRESSION
 select_df=df
 y=select_df['energy']
+#plt.plot(df['sigN_0_0'],df['energy'],'o')
+plt.plot(select_df['sigU'],select_df['energy'],'o')
+plt.show()
+exit(0)
+
 #X=select_df[['sigN_1_1','sigN_2_2','sigN_3_3','sigN_4_4','sigN_5_5','sigN_6_6','sigN_7_7',
 #'sigN_0_1','sigN_0_2','sigN_1_2','sigN_1_4','sigN_5_6','sigN_5_7','sigN_6_7','sigU']]
 #X=select_df[['sigN_1_1','sigN_2_2','sigN_3_3','sigN_4_4','sigN_5_5','sigN_6_6','sigN_7_7','sigN_6_7','sigU']]
