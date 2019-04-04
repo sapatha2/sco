@@ -3,53 +3,53 @@ import pandas as pd
 from functools import reduce 
 import matplotlib.pyplot as plt
 
+
+#Project active pol onto unpolarized
+zz=0
+base_coeff=pd.read_pickle('pickles/FLP_mo_coeff_g.pickle')
+s=pd.read_pickle('pickles/FLP_s_g.pickle')
+comp = ['FLP','COL','COL2','FM']
+for spin in [0,1]:
+  zz=0
+  for comp_f in comp:
+    zz+=1
+    comp_coeff=pd.read_pickle('pickles/'+comp_f+'_mo_coeff_g.pickle')
+    M=np.einsum('ij,sjk->sik',s,base_coeff)
+    comp_matrix=np.einsum('sji,sjk->sik',comp_coeff,M) #[s, pol, FLP]
+
+    if(spin==0):
+      act=np.arange(67,73)-1
+      if(comp_f=='FM'): act=np.arange(68,73)-1
+    else:
+      act=np.arange(66,73)-1
+      if(comp_f=='FM'): act=np.arange(65,73)-1
+    plt.subplot(410+zz)
+    plt.matshow(comp_matrix[spin,act,:72],vmax=1,vmin=-1,cmap=plt.cm.bwr,fignum=False)
+    plt.ylabel(comp_f)
+    plt.xlabel('FLP')
+  plt.suptitle('Active bands S='+str(spin))
+  plt.show()
+  #plt.savefig('plots/act_unpol_s'+str(spin)+'.pdf',bbox_inches='tight')
+
+'''
+#Project active unpol to polarized
 zz=0
 base_coeff=pd.read_pickle('pickles/UNPOL_mo_coeff_g.pickle')
 s=pd.read_pickle('pickles/UNPOL_s_g.pickle')
 comp = ['FLP','COL','COL2','FM']
-for comp_f in comp:
-  comp_coeff=pd.read_pickle('pickles/'+comp_f+'_mo_coeff_g.pickle')
-  M=np.einsum('ij,sjk->sik',s,base_coeff)
-  comp_matrix=np.einsum('sji,sjk->sik',comp_coeff,M) #[s, pol, unpol]
- 
-  '''
-  #No block plots
-  plt.matshow(comp_matrix[0,:72,:72],vmax=2,vmin=-2,cmap=plt.cm.bwr)
-  plt.xlabel('Polarized')
-  plt.ylabel('Unpolarized')
-  plt.title('Up channel '+comp_f)
-  plt.savefig('plots/'+comp_f+'_s0.pdf',bbox_inches='tight')
-  plt.close()
+for spin in [0,1]:
+  zz=0
+  for comp_f in comp:
+    zz+=1
+    comp_coeff=pd.read_pickle('pickles/'+comp_f+'_mo_coeff_g.pickle')
+    M=np.einsum('ij,sjk->sik',s,base_coeff)
+    comp_matrix=np.einsum('sji,sjk->sik',comp_coeff,M) #[s, pol, FLP]
 
-  plt.matshow(comp_matrix[1,:72,:72],vmax=2,vmin=-2,cmap=plt.cm.bwr)
-  plt.xlabel('Polarized')
-  plt.ylabel('Unpolarized')
-  plt.title('Down channel '+comp_f)
-  plt.savefig('plots/'+comp_f+'_s1.pdf',bbox_inches='tight')
-  plt.close()
-  ''' 
-  
-  #Active polarized MOs
-  zz+=1
-  act=np.arange(67,73)-1
-  if(comp_f=='FM'): act=np.arange(68,73)-1
-  plt.subplot(140+zz)
-  plt.matshow(comp_matrix[0,act,:72].T,vmax=2,vmin=-2,cmap=plt.cm.bwr,fignum=False)
-  plt.ylabel('Polarized')
-  plt.xlabel('Unpolarized')
-  plt.title('Up spin '+comp_f)
-plt.savefig('plots/act_pol_s0.pdf',bbox_inches='tight')
-plt.close()
-  
-'''
-  zz+=1
-  act=np.arange(66,73)-1
-  if(comp_f=='FM'): act=np.arange(65,73)-1
-  plt.subplot(140+zz)
-  plt.matshow(comp_matrix[1,act,:72].T,vmax=2,vmin=-2,cmap=plt.cm.bwr,fignum=False)
-  plt.ylabel('Polarized')
-  plt.xlabel('Unpolarized')
-  plt.title('Dn spin '+comp_f)
-plt.savefig('plots/act_pol_s1.pdf',bbox_inches='tight')
-plt.close()
+    act=[55,65,66,67,68,69,70,71]
+    plt.subplot(410+zz)
+    plt.matshow(comp_matrix[spin,:72,act],vmax=1,vmin=-1,cmap=plt.cm.bwr,fignum=False)
+    plt.ylabel('Unpol')
+    plt.xlabel(comp_f)
+  plt.suptitle('Active bands S='+str(spin))
+  plt.savefig('plots/act_pol_s'+str(spin)+'.pdf',bbox_inches='tight')
 '''

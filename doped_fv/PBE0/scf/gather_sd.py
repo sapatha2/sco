@@ -10,7 +10,8 @@ from functools import reduce
 from downfold_tools import gen_slater_tbdm,sum_onebody,sum_J,sum_U
 import seaborn as sns 
 
-a=np.load('pickles/iao_g.pickle')
+#a=np.load('pickles/iao_g.pickle')
+a=np.load('pickles/UNPOL_mo_coeff_g.pickle')[:,:72]
 
 df=None
 direcs=['FLP']*12+['COL']*12+['COL2']*12+['FM']*12
@@ -128,8 +129,14 @@ for run in range(len(direcs)):
       mo_rdm[add[run][spin]]=1
       e+=(mo_energy[spin][add[run][spin]]-mo_energy[spin][rem[run][spin]])*27.2114
     obdm[spin]=reduce(np.dot,(mo_to_iao,np.diag(mo_rdm),mo_to_iao.T))
-  tbdm,__=gen_slater_tbdm(obdm)
+  #tbdm,__=gen_slater_tbdm(obdm)
+  
+  orb1=np.arange(72)
+  sigN=sum_onebody(obdm,orb1,orb1)
+  sigNlabels=['sigN_'+str(i) for i in range(len(orb1))]
+  d=pd.DataFrame(
 
+  '''
   #Hopping
   orb1=np.array([14,14,14,14,24,24,24,24,34,34,34,34,44,44,44,44])-1
   orb2=np.array([46,63,54,67,50,67,58,63,54,71,46,75,58,75,50,71])-1
@@ -180,6 +187,8 @@ for run in range(len(direcs)):
   d=pd.DataFrame({'energy':e,'sigTd':sigTd,'sigT':sigT,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
   'sigN4s':sigN4s,'sigN2s':sigN2s,'sigNps':sigNps,'sigNpp':sigNpp,'sigNd':sigNd,'sigU':sigU,'sigJ':sigJ,
   'basestate':direcs[run]},index=[0])
+  '''
+
   if(df is None): df=d
   else: df=pd.concat((df,d),axis=0)
 

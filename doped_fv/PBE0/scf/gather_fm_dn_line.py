@@ -122,9 +122,10 @@ def gather_line(rem,add,gsws):
 
 if __name__=='__main__':
   #Smallest sample set, sigma only, no pi or dz2,4s
-  rem_list=[64]*7
-  add_list=[65,66,67,68,69,70,71]
+  rem_list=[64]*4
+  add_list=[65,66,67,68]#,69,70,71]
   gsws=np.arange(-1.00,1.10,0.1)
+  #gsws=[-1.00,-0.95,-0.90,0.90,0.95,1.00]
   print(gsws)
 
   full_df=None

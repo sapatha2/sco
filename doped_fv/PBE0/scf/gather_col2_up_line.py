@@ -38,7 +38,7 @@ def mo_rdm(mo_occ1,mo_occ2,w):
       dl[1,i1[1],i1[0]]+=w[0]*w[n]
   return dl
 
-def get_df_row(obdm,sigU,e):
+def get_df_row(obdm,sigU,sigUp,e):
   #1-body terms
   orb1=np.array([0,1,2,3,4,5,6,7,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,5,5,6])
   orb2=np.array([0,1,2,3,4,5,6,7,1,2,3,4,5,6,7,2,3,4,5,6,7,3,4,5,6,7,4,5,6,7,5,6,7,6,7,7])
@@ -46,8 +46,8 @@ def get_df_row(obdm,sigU,e):
   sigN_labels=['sigN_'+str(orb1[i])+'_'+str(orb2[i]) for i in range(len(orb1))]
   #print("Mo Tr: "+str(sum(sigN)))
 
-  data=np.array([e]+list(sigN)+[sigU])
-  d=pd.DataFrame(data[:,np.newaxis].T,columns=['energy']+sigN_labels+['sigU'],index=[0])
+  data=np.array([e]+list(sigN)+[sigU,sigUp])
+  d=pd.DataFrame(data[:,np.newaxis].T,columns=['energy']+sigN_labels+['sigU','sigUp'],index=[0])
   return d 
 
 #Generate sigU for a sum of two determinants 
@@ -58,15 +58,18 @@ def get_U(mo_occ1,mo_occ2,w,M0,M1):
   mo_dm=np.array([mo_dm1,mo_dm2])
   
   sigU=[]
+  sigUp=[]
   for dl in mo_dm:
     R=np.einsum('ij,jk->ik',dl[0],M0.T)
     dm_u=np.einsum('ij,jk->ik',M0,R)
     R=np.einsum('ij,jk->ik',dl[1],M1.T)
     dm_d=np.einsum('ij,jk->ik',M1,R)
     sigU.append(np.sum(dm_u[[13,23,33,43],[13,23,33,43]]*dm_d[[13,23,33,43],[13,23,33,43]]))
+    sigUp.append(np.sum(dm_u[[45,49,53,57,62,66,70,74],[45,49,53,57,62,66,70,74]]*dm_d[[45,49,53,57,62,66,70,74],[45,49,53,57,62,66,70,74]]))
 
   sigU=np.array(sigU)
-  return np.dot(sigU,w**2)
+  sigUp=np.array(sigUp)
+  return np.dot(sigU,w**2), np.dot(sigUp,w**2)
 
 #Singles excitations on checkerboard state
 #rem, add are floats, should be what you want to remove and add
@@ -108,24 +111,24 @@ def gather_line(rem,add,gsws):
     obdm=np.array([dm_u,dm_d])
 
     #Generate sigU separately since we no longer have single determinant
-    sigU=get_U(mo_occ1,mo_occ2,w,M0,M1)
+    sigU,sigUp=get_U(mo_occ1,mo_occ2,w,M0,M1)
 
     #Get energy from eigenvalues 
     e=w[1]**2*(chk_moenergy[0,add]-chk_moenergy[0,rem])
 
     #Gather df row
-    d=get_df_row(obdm,sigU,e)
+    d=get_df_row(obdm,sigU,sigUp,e)
     d['gsw']=gsw
-    
     if(df is None): df=d
     else: df=pd.concat((df,d),axis=0)
   return df
 
 if __name__=='__main__':
   #Smallest sample set, sigma only, no pi or dz2,4s
-  rem_list=[66]*5
-  add_list=[67,68,69,70,71]
+  rem_list=[66]*2
+  add_list=[67,68]#,69,70,71]
   gsws=np.arange(-1.00,1.10,0.1)
+  #gsws=[-1.00,-0.95,-0.90,0.90,0.95,1.00]
   print(gsws)
 
   full_df=None

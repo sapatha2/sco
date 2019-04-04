@@ -11,7 +11,7 @@ from downfold_tools import gen_slater_tbdm,sum_onebody,sum_J,sum_U
 import seaborn as sns 
 
 a=np.load('pickles/UNPOL_mo_coeff_g.pickle')[0]
-a=a[:,[55,65,66,67,68,69,70,71]]
+a=a[:,:72]
 b=np.load('pickles/iao_g.pickle')
 
 df=None
@@ -143,11 +143,20 @@ for run in range(len(direcs)):
   tbdm,__=gen_slater_tbdm(obdm2)
 
   #1-body terms
-  orb1=np.array([0,1,2,3,4,5,6,7,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,5,5,6])
-  orb2=np.array([0,1,2,3,4,5,6,7,1,2,3,4,5,6,7,2,3,4,5,6,7,3,4,5,6,7,4,5,6,7,5,6,7,6,7,7])
+  #orb1=np.array([0,1,2,3,4,5,6,7,0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,5,5,6])
+  #orb2=np.array([0,1,2,3,4,5,6,7,1,2,3,4,5,6,7,2,3,4,5,6,7,3,4,5,6,7,4,5,6,7,5,6,7,6,7,7])
+  orb1=np.arange(72)
+  orb2=orb1
   sigN=sum_onebody(obdm,orb1,orb2)
   sigN_labels=['sigN_'+str(orb1[i])+'_'+str(orb2[i]) for i in range(len(orb1))]
   #print("Mo Tr: "+str(sum(sigN)))
+
+  obdm=obdm[:,[55,65,66,67,68,69,70,71],:]
+  obdm=obdm[:,:,[55,65,66,67,68,69,70,71]]
+  orb1=np.array([0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,5,5,6])
+  orb2=np.array([1,2,3,4,5,6,7,2,3,4,5,6,7,3,4,5,6,7,4,5,6,7,5,6,7,6,7,7])
+  sigT=sum_onebody(obdm,orb1,orb2)
+  sigT_labels=['sigT_'+str(orb1[i])+'_'+str(orb2[i]) for i in range(len(orb1))]
 
   #2-body terms
   orb=np.array([14,24,34,44])-1
@@ -157,8 +166,11 @@ for run in range(len(direcs)):
   orb2=np.array([24,34,14,44,11,44,24,34])-1
   sigJ=np.sum(sum_J(tbdm,orb1,orb2))
 
-  data=np.array([e]+list(sigN)+[sigU]+[sigJ]+[basestate[run]])
-  d=pd.DataFrame(data[:,np.newaxis].T,columns=['energy']+sigN_labels+['sigU']+['sigJ']+['basestate'],index=[run])
+  orb=np.array([46,50,54,58,63,67,71,75])-1
+  sigUp=np.sum(sum_U(tbdm,orb))
+
+  data=np.array([e]+list(sigN)+list(sigT)+[sigU]+[sigUp]+[sigJ]+[basestate[run]])
+  d=pd.DataFrame(data[:,np.newaxis].T,columns=['energy']+sigN_labels+sigT_labels+['sigU','sigUp','sigJ']+['basestate'],index=[run])
   #d=pd.DataFrame({'energy':e,'sigTd':sigTd,'sigT':sigT,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
   #'sigN4s':sigN4s,'sigN2s':sigN2s,'sigNps':sigNps,'sigNpp':sigNpp,'sigNd':sigNd,'sigU':sigU,'sigJ':sigJ,
   #'basestate':direcs[run]},index=[0])
