@@ -8,12 +8,10 @@ from sklearn.decomposition import PCA
 
 df=pd.read_pickle('pickles/sd_gosling.pickle')
 print(df)
-exit(0)
-#df=df.iloc[[0,12,24,36]]
 var=df.var()
 ind=np.argsort(var.values)
 print(var.iloc[ind])
-
+'''
 def plot_parm(parm):
   for i in range(12):
     plt.plot(df.iloc[[0,i]][parm],df.iloc[[0,i]]['energy'],'bo-')
@@ -27,6 +25,7 @@ def plot_parm(parm):
   return 
 plot_parm('sigNps')
 exit(0)
+'''
 
 #PAIRPLOTS
 #sns.pairplot(df,vars=['energy','sigNdpi','sigNdz','sigNpp','sigNpz'],hue='basestate')
@@ -34,8 +33,10 @@ exit(0)
 #sns.pairplot(df,vars=['energy','sigNps','sigNd','sigN4s'],hue='basestate')
 #sns.pairplot(df,vars=['energy','sigTd','sigT','sigU','sigJ'],hue='basestate')
 #sns.pairplot(df,vars=['energy','sigT','sigTd','sigJ','sigNps'],hue='basestate')
-sns.pairplot(df,vars=['energy','sigN4s','sigU','sigNd'],hue='basestate')
-plt.show()
+#sns.pairplot(df,vars=['energy','sigN4s','sigU','sigNd'],hue='basestate')
+sns.pairplot(df,vars=['sigNps','sigN4s','sigTdp','sigTps','sigUd','sigUp','sigUs'],hue='basestate')
+plt.savefig('HubbardPPIAO.pdf',bbox_inches='tight')
+#plt.show()
 exit(0)
 
 '''

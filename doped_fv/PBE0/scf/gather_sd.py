@@ -10,8 +10,7 @@ from functools import reduce
 from downfold_tools import gen_slater_tbdm,sum_onebody,sum_J,sum_U
 import seaborn as sns 
 
-#a=np.load('pickles/iao_g.pickle')
-a=np.load('pickles/UNPOL_mo_coeff_g.pickle')[:,:72]
+a=np.load('pickles/iao_g.pickle')
 
 df=None
 direcs=['FLP']*12+['COL']*12+['COL2']*12+['FM']*12
@@ -129,20 +128,20 @@ for run in range(len(direcs)):
       mo_rdm[add[run][spin]]=1
       e+=(mo_energy[spin][add[run][spin]]-mo_energy[spin][rem[run][spin]])*27.2114
     obdm[spin]=reduce(np.dot,(mo_to_iao,np.diag(mo_rdm),mo_to_iao.T))
-  #tbdm,__=gen_slater_tbdm(obdm)
-  
-  orb1=np.arange(72)
-  sigN=sum_onebody(obdm,orb1,orb1)
-  sigNlabels=['sigN_'+str(i) for i in range(len(orb1))]
-  d=pd.DataFrame(
+  tbdm,__=gen_slater_tbdm(obdm)
 
-  '''
   #Hopping
   orb1=np.array([14,14,14,14,24,24,24,24,34,34,34,34,44,44,44,44])-1
   orb2=np.array([46,63,54,67,50,67,58,63,54,71,46,75,58,75,50,71])-1
   sign=np.array([-1,1,1,-1]*4)
-  sigT=sum_onebody(obdm,orb1,orb2)
-  sigT=2*np.dot(sign,sigT)
+  sigTdp=sum_onebody(obdm,orb1,orb2)
+  sigTdp=2*np.dot(sign,sigTdp)
+
+  orb1=np.array([ 6, 6, 6, 6,16,16,16,16,26,26,26,26,36,36,36,36])-1
+  orb2=np.array([46,63,54,67,50,67,58,63,54,71,46,75,58,75,50,71])-1
+  sign=np.array([-1,-1,1,1]*4)
+  sigTps=sum_onebody(obdm,orb1,orb2)
+  sigTps=2*np.dot(sign,sigTps)
 
   orb1=np.array([14,14,24,24,34,34,44,44])-1
   orb2=np.array([24,34,14,44,14,44,24,34])-1
@@ -178,16 +177,21 @@ for run in range(len(direcs)):
   
   #2-body terms
   orb=np.array([14,24,34,44])-1
-  sigU=np.sum(sum_U(tbdm,orb))
+  sigUd=np.sum(sum_U(tbdm,orb))
+
+  orb=np.array([46,50,54,58,63,67,71,75])-1
+  sigUp=np.sum(sum_U(tbdm,orb))
+  
+  orb=np.array([6,16,26,36])-1
+  sigUs=np.sum(sum_U(tbdm,orb))
 
   orb1=np.array([14,14,24,24,34,34,44,44])-1
   orb2=np.array([24,34,14,44,11,44,24,34])-1
   sigJ=np.sum(sum_J(tbdm,orb1,orb2))
 
-  d=pd.DataFrame({'energy':e,'sigTd':sigTd,'sigT':sigT,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
-  'sigN4s':sigN4s,'sigN2s':sigN2s,'sigNps':sigNps,'sigNpp':sigNpp,'sigNd':sigNd,'sigU':sigU,'sigJ':sigJ,
+  d=pd.DataFrame({'energy':e,'sigTd':sigTd,'sigTdp':sigTdp,'sigTps':sigTps,'sigNdz':sigNdz,'sigNdpi':sigNdpi,'sigNpz':sigNpz,'sigNdz2':sigNdz2,
+  'sigN4s':sigN4s,'sigN2s':sigN2s,'sigNps':sigNps,'sigNpp':sigNpp,'sigNd':sigNd,'sigUd':sigUd,'sigUp':sigUp,'sigUs':sigUs,'sigJ':sigJ,
   'basestate':direcs[run]},index=[0])
-  '''
 
   if(df is None): df=d
   else: df=pd.concat((df,d),axis=0)

@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+
+\begin{document}
+\section{Well understood concepts}
+\subsection{SCF spin states and band structures}
+For the 4 unit cell doped calculation there are 4 unique spin states that we end up with in SCF. These states are what I call FLP, COL, COL2 and FM, with energies respectively 0 eV, 0.16 eV, 0.19 eV, and 0.38 eV. The spin densities for these states are shown in Figure \ref{fig:SpinDens}. The directories which contain the calculation outputs, plotting files, etc are suffixed with \texttt{\_ns} to indicate that it's a symmetry broken calculation. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{ALL_spin.pdf}
+\caption{Spin densities of the different SCF ground states used in this calculation.}
+\label{fig:SpinDens}
+\end{figure}
+
+We also calculated the band structure for these different states. The band structures can be seen in Figure \ref{fig:Bands}. All of the band structures have similar features. The bands are broken into three clusters: 1) A set of bands which have relatively small bandwidth, and start around -2.5 eV below the Fermi level, 2) A set of bands above 7.5 eV which are nearly spin degenerate and look almost identical regardless of spin state, 3) A set of bands in a window -2.5 to 5 eV around the Fermi level. I will name the bands as follows, 1) "Core" bands as they look like nearly localized core states, 2) "Strontium" bands since they have large Sr occupation, and 3) "Active" bands as these are the bands which cross the Fermi level. The active bands for the FLP, COL, and COL2 states are therefore bands 67 - 72 in the up channel and 66 - 72 in the down channel. For the FM state the active bands are 68 - 72 and 65 - 72 in the up and down channels respectively. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{ALL_bands.pdf}
+\caption{Band structures of the different SCF ground states used in this calculation.}
+\label{fig:Bands}
+\end{figure}
+
+\subsection{Goal 1: Internal consistency}
+Before moving onto matching experimental evidence, we would like to have a model which is at least internally consistent. Namely, we want a model which can describe a chosen active space accurately. From the results above it is clear that our \textbf{active space should be the four different SCF spin states and excitations upon those SCF states within the respective active bands.} 
+
+\subsection{Structure of the active space}
+Before generating any type of model, it is necessary to understand what varies within our chosen active space. I looked at the 1-rdm elements of the different single determinant states in our active space evaluated on an IAO basis constructed on the active space. Only singles excitations were chosen in our sample set, but this will not affect the results since we are only looking at occupation descriptor for this section. From here, we see that the major variations in number occupations within the active space are $n_{d_{x^2-y^2}}, n_{p_\sigma}, n_{4s}$. The variations in these parameters are O(0.1). The next smallest variation in occupations are O(0.001), nearly 100 times smaller, and correspond to $n_{d_{z^2}}$. \textbf{This indicates our active space is going to be primarily spanned by the orbitals $\text{Cu}{d_{x^2-y^2}}, \text{O}{p_\sigma}, \text{and Cu}{4s}$}. These variances can were calculated using the \texttt{analyze\_sd.py} script, and the data was gathered using \texttt{gather\_sd.py}. IAOs were calculated using the script \texttt{build\_pickles.py}. These text files are all present in the directory \texttt{scf/}.
+
+\section{In progress}
+\subsection{Possible models: Hubbard model}
+The Hubbard model is pretty versatile and can capture a lot of behavior, including spin-charge coupling. The simplest Hubbard-like model which could accurately describe our active space would require the following terms: 
+
+$$\epsilon_{d},\epsilon_{p}, \epsilon_{s}, t_{ds}, t_{dp}, t_{ps}, U_d, U_p, U_s$$
+
+Here d, p, and s correspond to $d_{x^2-y2}, p_\sigma, 4s$ respectively. Since we know that the total number of electrons in fixed, and that variation outside of the d, p, s space is small, we can drop one of the occupation energies. It's beneficial to drop $\epsilon_d$ since this correlates strongly with $U_d$. Further, $t_{ds}$ cannot occur on-site due to symmetry, and we will be ignoring non-nearest neighbor hopping for now. Therefore our minimal, NN Hubbard-like model for this system should take this form:
+
+\begin{equation}
+\boxed{\text{NN-Hubbard model: }\epsilon_{p}, \epsilon_{s}, t_{dp}, t_{ps}, U_d, U_p, U_s}
+\end{equation}
+
+A pairplot showing the (co)-variations of these parameters evaluated using our IAO basis, as calculated in SCF, is shown in Figure \ref{fig:HubbardPPIAO}. Only singles excitations on the different spin states are included, and therefore \textbf{does not include the full active space}. Apart from the strong correlations between $n \propto U$, which are because we are not sampling doubles/triples/etc, there is a pretty strong correlation between $n_p, t_{dp}$ parameters. Additionally, the descriptor related to $U_s$ does not change much within this data set, indicating that this parameter may not be relevant. However, we have not yet studied the full active space so it is hard to say which parameters are irrelevant and whether the correlations shown here are present in the full active space data set or not. Plots generated using \texttt{analyze\_sd.py}.
+
+\pagebreak
+\paragraph{Next steps}
+
+\begin{enumerate}
+\item \textbf{Include the full active space into our sample set, i.e. include doubles, triples, etc.} This may resolve the correlation between parameters, but also increases the energy scale for regression enormously. Maybe a weighted linear regression can deal with this.
+\item \textbf{If including higher order excitations cannot remove the correlations in the data (correlations are inherent to low-energy space), consider a different basis for the 1-body parameters}. For example the unpolarized active orbitals, which we know span the active space.
+\item \textbf{If we can figure out the above and the regression still does not look good enough, we can extend the Hubbard model}. This can be done by including longer-range hopping or density-density interactions between different orbitals, $V$. 
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{HubbardPPIAO.pdf}
+\caption{Pairplot of parameters in equation (1) using singles excitations in the active space defined in section 1.2.}
+\label{fig:HubbardPPIAO}
+\end{figure}
+
+\subsection{Possible models: Spin-fermion model}
+A spin-fermion model may be a nice alternative to the Hubbard model, since it explicitly encodes the spin-charge coupling in the system. However, fitting a spin-fermion model would require sample states which are separable, namely states $|\Psi\rangle = |\Psi_s\rangle |\Psi_f\rangle$, where the spaces for the different parts of the wave functions are independent. The SCF spin states that we have do not have a simple separation into two different spaces, one for the localized spins and one for the conduction fermions. This is because in the cuprates the $d_{x^2-y^2}$ orbitals host both the localized spins and conduction electrons. Therefore, a band which is in the active space for COL may have contributions from some core and some active bands of the FLP state. This concept is shown in Figure \ref{fig:Proj_FLP}. Here we show the projection of the active orbitals at the gamma point for the different SCF spin states onto the full set of core and active orbitals of the FLP calculation. Bright red corresponds to +1, and bright blue to -1, whereas white is a value of zero. For a given non-FLP state active orbital there are clearly contributions from core FLP orbitals, indicating that these SCF states are not separable into spin- and fermion- spaces in the MO basis. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{Proj_FLP.pdf}
+\caption{Projection of active gamma-point MOs for different spin states onto the FLP core + active orbitals.}
+\label{fig:Proj_FLP}
+\end{figure}
+\pagebreak
+\paragraph{Next steps}
+\begin{enumerate}
+\item \textbf{Consider how to generate low-energy states which are separable into spin- and fermion- spaces}. Just because our current SCF states don't have this property does not remove the possibility that low-energy states which are separable exist.
+\end{enumerate}
+\end{document}
