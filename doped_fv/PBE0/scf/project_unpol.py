@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 #Project active pol onto unpolarized
 zz=0
-base_coeff=pd.read_pickle('pickles/FLP_mo_coeff_g.pickle')
+base_coeff=pd.read_pickle('pickles/UNPOL_mo_coeff_g.pickle')
 s=pd.read_pickle('pickles/FLP_s_g.pickle')
 comp = ['FLP','COL','COL2','FM']
 for spin in [0,1]:
@@ -24,12 +24,12 @@ for spin in [0,1]:
       act=np.arange(66,73)-1
       if(comp_f=='FM'): act=np.arange(65,73)-1
     plt.subplot(410+zz)
-    plt.matshow(comp_matrix[spin,act,:72],vmax=1,vmin=-1,cmap=plt.cm.bwr,fignum=False)
+    plt.matshow(comp_matrix[spin,act,:],vmax=1,vmin=-1,cmap=plt.cm.bwr,fignum=False)
     plt.ylabel(comp_f)
-    plt.xlabel('FLP')
+    plt.xlabel('Unpol')
   plt.suptitle('Active bands S='+str(spin))
-  plt.show()
-  #plt.savefig('plots/act_unpol_s'+str(spin)+'.pdf',bbox_inches='tight')
+  #plt.show()
+  plt.savefig('plots/act_unpol_s'+str(spin)+'_full.pdf',bbox_inches='tight')
 
 '''
 #Project active unpol to polarized
