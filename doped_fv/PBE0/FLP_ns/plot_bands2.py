@@ -40,13 +40,26 @@ for p in panels:
   ax.annotate(p[1],xy=(p[0],0.0),ha='center',fontsize=9)
 ax.axhline(0.0,color='gray',linestyle="--")
 conv=27.2116
-for b in range(66,nband):
-  ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')
-  ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
-P.ylim([-2,2])
+for b in range(1,80):
+  if(bands[0][0,b]<0): print(b,"spin up")
+  if(bands[1][0,b]<0): print(b,"spin down")
+  ax.annotate(str(b), xy=(0, conv*bands[0][0,b]),fontsize=14, color='k')
+  ax.annotate(str(b), xy=(120, conv*bands[1][-1,b]),fontsize=14, color='r')
+  #ax.annotate(0, conv*bands[1][0,b], str(b), transform=ax.transAxes, fontsize=14,
+  #        verticalalignment='top', color='r')
+  ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')#,ls='--')
+  ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')#,ls='--')
+  '''
+  if(b==66): ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
+  if(b==67): 
+    ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')
+    ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
+  if(b==68): ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')
+  if(b==69): ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
+  '''
+P.ylim([-10,10])
 P.ylabel("Energy (eV) ")
 if len(sys.argv) < 2: 
   P.show()
 else:
   P.savefig(sys.argv[1])
-

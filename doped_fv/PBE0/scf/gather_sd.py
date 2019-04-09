@@ -12,7 +12,7 @@ import seaborn as sns
 import itertools 
 
 a=np.load('pickles/iao_g.pickle')
-b=np.load('pickles/UNPOL_mo_coeff_g.pickle')[0][[55,65,66,67,68,69,70,71]].T
+b=np.load('pickles/UNPOL_mo_coeff_g.pickle')[0][:,[55,65,66,67,68,69,70,71]]
 df=None
 
 #Generates doubles excitations given 
