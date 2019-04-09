@@ -157,7 +157,10 @@ for run in range(len(excit_list)):
 
   orb1=np.arange(8)
   sigN_unp=sum_onebody(obdm2,orb1,orb1)
-  
+
+  orb1=np.arange(4)
+  sigNsr=np.sum(sum_onebody(obdm,orb1,orb1))
+
   #2-body terms
   orb=np.array([14,24,34,44])-1
   sigUd=np.sum(sum_U(tbdm,orb))
@@ -174,7 +177,7 @@ for run in range(len(excit_list)):
 
   data={'energy':e,
   'sigTds':sigTds,'sigTdp':sigTdp,'sigTps':sigTps,
-  'Nd':sigNd,'Np':sigNps,'Ns':sigN4s,
+  'Nd':sigNd,'Np':sigNps,'Ns':sigN4s,'Nsr':sigNsr,
   'sigUd':sigUd,'sigUp':sigUp,'sigUs':sigUs,'sigJd':sigJd,
   'N2s':sigN2s,'Ndz':sigNdz,'Ndpi':sigNdpi,'Ndz2':sigNdz2,'Npz':sigNpz,'Npp':sigNpp,
   'basestate':direcs[run]}

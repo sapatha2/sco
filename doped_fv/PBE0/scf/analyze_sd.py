@@ -9,7 +9,7 @@ from sklearn.decomposition import PCA
 df=pd.read_pickle('pickles/full_sd_gosling.pickle')
 
 #TRACE CHECK
-df['tr']=df['Nd']+df['Ns']+df['Np']
+df['tr']=df['Nd']+df['Ns']+df['Np']#+df['Nsr']#+df['Ndz2']+df['Ndz']+df['Ndpi']+df['Npz']+df['Npp']+df['N2s']
 df['tr_group']=0
 df['tr_group'][df['tr']<=20.7]=-1
 df['tr_group'][df['tr']>=21]=1

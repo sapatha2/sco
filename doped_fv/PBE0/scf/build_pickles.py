@@ -24,6 +24,7 @@ for direc in ['UNPOL']:
   mf.mo_coeff[:,0,:,:].dump('pickles/'+str(direc)+'_mo_coeff_g.pickle')
   mf.mo_energy[:,0,:].dump('pickles/'+str(direc)+'_mo_energy_g.pickle')
   mf.get_ovlp()[0].dump('pickles/'+str(direc)+'_s_g.pickle')
+  
   exit(0)
   new_mo=np.concatenate((mf.mo_coeff[0][0][:,active[direc][0]],mf.mo_coeff[1][0][:,active[direc][1]]),axis=1)
   if(mo is None): mo=new_mo
