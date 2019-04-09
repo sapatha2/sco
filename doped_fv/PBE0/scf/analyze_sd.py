@@ -16,6 +16,10 @@ df['tr_group'][df['tr']>=21]=1
 
 df['tr_unp']=df['N0']+df['N1']+df['N2']+df['N3']+df['N4']+df['N5']+df['N6']+df['N7']
 
+#COMPOSITE VARS
+df['N1']+=df['N2']
+df['N5']+=df['N6']
+
 #"BAD" EXCITATIONS
 #for g in [-1,0,1]:
 #  ind=np.where(df['tr_group'].values==g)[0]
@@ -29,21 +33,26 @@ print(var.iloc[ind])
 #exit(0)
 
 #PAIRPLOTS
-sns.pairplot(df,vars=['energy','tr','tr_unp'],hue='tr_group')
-#sns.pairplot(df,vars=['energy','tr','Ndz2','Ndz','Ndpi','Npz','Npp','N2s'],hue='tr_group')
-#sns.pairplot(df,vars=['energy','Np','Ns','sigTdp','sigTps','sigTds','sigUd','sigUp','sigUs'],hue='basestate')
-#plt.savefig('HubbardPPIAO_full.pdf',bbox_inches='tight')
-plt.show()
-exit(0)
-
+#sns.pairplot(df,vars=['energy','tr','tr_unp'],hue='tr_group')
+#plt.show()
 '''
+sns.pairplot(df,vars=['energy','Nd','Np','Ns','Nsr','sigTdp','sigTps','sigTds','sigUd','sigUp','sigUs'],hue='basestate')
+plt.savefig('HubbardPPIAO_full.pdf',bbox_inches='tight')
+plt.close()
+sns.pairplot(df,vars=['energy','N0','N1','N3','N4','N5','N7','sigUd','sigUp','sigUs'],hue='basestate')
+plt.savefig('HubbardPPMO_full.pdf',bbox_inches='tight')
+plt.close()
+exit(0)
+'''
+
 #REGRESSION
 select_df=df
 y=select_df['energy']
-X=select_df[['Ns','Np','sigTdp','sigTps','sigTds','sigUd']] 
-#X=select_df[['Np','Ns','sigTdp','sigTds','sigTps','sigUd','sigJd']]  #Do t and U have to be divided by stuff because of the super cell?
+#X=select_df[['sigN4s','sigNps','sigTdp','sigTps','sigUd']] 
+#X=select_df[['Ns','Np','sigTdp','sigTps','sigUd']]  #Do t and U have to be divided by stuff because of the super cell?
+X=select_df[['N1','N3','N4','N5','N7','sigUd']]  #Do t and U have to be divided by stuff because of the super cell?
 X=sm.add_constant(X)
-beta=0.
+beta=0.5
 weights=np.exp(-beta*(y-min(y)))
 ols=sm.WLS(y,X,weights).fit()
 print(ols.summary())
@@ -54,9 +63,8 @@ select_df['pred']=ols.predict(X)
 select_df['pred_err']=(u_ols-l_ols)/2
 select_df['resid']=select_df['energy']-select_df['pred']
 
-g = sns.FacetGrid(select_df,hue='tr_group')
+g = sns.FacetGrid(select_df,hue='basestate')
 g.map(plt.errorbar, "pred", "energy", "energy_err",fmt='o').add_legend()
 plt.plot(select_df['energy'],select_df['energy'],'k--')
 plt.show()
 exit(0)
-'''
