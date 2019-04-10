@@ -155,11 +155,16 @@ for run in range(len(excit_list)):
   orb1=np.array([10,20,30,40])-1
   sigNdpi=np.sum(sum_onebody(obdm,orb1,orb1))
 
+  orb1=np.arange(4)
+  sigNsr=np.sum(sum_onebody(obdm,orb1,orb1))
+
   orb1=np.arange(8)
   sigN_unp=sum_onebody(obdm2,orb1,orb1)
 
-  orb1=np.arange(4)
-  sigNsr=np.sum(sum_onebody(obdm,orb1,orb1))
+  orb1=[0,0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,4,5,5,6]
+  orb2=[1,2,3,4,5,6,7,2,3,4,5,6,7,3,4,5,6,7,4,5,6,7,5,6,7,6,7,7]
+  sigT_unp=sum_onebody(obdm2,orb1,orb2)
+  sigT_unp_lab=['sigT_'+str(orb1[i])+'_'+str(orb2[i]) for i in range(len(orb1))]
 
   #2-body terms
   orb=np.array([14,24,34,44])-1
@@ -183,6 +188,9 @@ for run in range(len(excit_list)):
   'basestate':direcs[run]}
   for i in range(len(sigN_unp)):
     data['N'+str(i)]=sigN_unp[i]
+  for i in range(len(sigT_unp)):
+    data[sigT_unp_lab[i]]=sigT_unp[i]
+
   d=pd.DataFrame(data,index=[run])
 
   if(df is None): df=d

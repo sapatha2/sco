@@ -5,6 +5,7 @@ import pandas as pd
 import statsmodels.api as sm
 from statsmodels.sandbox.regression.predstd import wls_prediction_std
 from sklearn.decomposition import PCA
+from mpl_toolkits.mplot3d import Axes3D
 
 df=pd.read_pickle('pickles/full_sd_gosling.pickle')
 
@@ -19,12 +20,18 @@ df['tr_unp']=df['N0']+df['N1']+df['N2']+df['N3']+df['N4']+df['N5']+df['N6']+df['
 #COMPOSITE VARS
 df['N1']+=df['N2']
 df['N5']+=df['N6']
-
-#"BAD" EXCITATIONS
-#for g in [-1,0,1]:
-#  ind=np.where(df['tr_group'].values==g)[0]
-#  print(ind)
-#exit(0)
+df['sigT_0_2']+=df['sigT_0_3']
+df['sigT_0_5']+=df['sigT_0_6']
+df['sigT_1_2']+=df['sigT_1_3']
+df['sigT_1_5']+=df['sigT_1_6']
+df['sigT_2_4']+=df['sigT_3_4']
+df['sigT_2_5']+=df['sigT_3_5']+df['sigT_2_6']+df['sigT_3_6']
+df['sigT_2_7']+=df['sigT_3_7']
+df['sigT_4_5']+=df['sigT_4_6']
+df['sigT_5_7']+=df['sigT_6_7']
+df=df.drop(columns=['N2','N6','sigT_0_3','sigT_0_6',
+'sigT_1_3','sigT_1_6','sigT_3_4','sigT_3_5','sigT_2_6',
+'sigT_3_6','sigT_3_7','sigT_4_6','sigT_6_7','sigT_2_3','sigT_5_6'])
 
 #VARIANCES
 var=df.var()
@@ -32,7 +39,29 @@ ind=np.argsort(var.values)
 print(var.iloc[ind])
 #exit(0)
 
+#PCA
+var=['Nd','Np','Ns','Nsr','sigTdp','sigTps','sigTds','sigUd','sigUp','sigUs']
+X=df[var]
+X=sm.add_constant(X)
+pca=PCA(n_components=len(list(X)))
+pca.fit(X)
+print(list(X))
+for i in range(pca.components_.shape[0]):
+  print(np.around(pca.explained_variance_ratio_[i],3),
+  np.around(pca.components_[i,:],3)) #(component, feature)
+#exit(0)
+
+#CORR MATRIX
+#var=['energy','Nd','Np','Ns','Nsr','sigTdp','sigTps','sigTds','sigUd','sigUp','sigUs']
+#var=['energy','Nd','Np','Ns','Nsr','sigTdp','sigTps','sigTds']
+#plt.matshow(df[var].corr(),vmin=-1,vmax=1,cmap=plt.cm.bwr)
+#plt.show()
+#exit(0)
+
 #PAIRPLOTS
+#sns.pairplot(df,vars=['energy','Np','sigTdp','sigTps'],hue='basestate')
+#plt.show()
+#exit(0)
 #sns.pairplot(df,vars=['energy','tr','tr_unp'],hue='tr_group')
 #plt.show()
 '''
@@ -45,12 +74,36 @@ plt.close()
 exit(0)
 '''
 
+#CORRELATION SCATTER
+'''
+df=sm.add_constant(df)
+fig = plt.figure()
+
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(df['sigTdp'], df['sigTps'], df['Np'])
+ax.set_xlabel('sigTdp')
+ax.set_ylabel('sigTps')
+ax.set_zlabel('Np')
+plt.show()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(df['sigTdp'], df['sigTps'], df['sigUd'])
+ax.set_xlabel('sigTdp')
+ax.set_ylabel('sigTps')
+ax.set_zlabel('sigUd')
+plt.show()
+'''
+#exit(0)
+
 #REGRESSION
 select_df=df
+#y=select_df['Np']
+#X=select_df[['sigTdp','sigTps']] 
+
 y=select_df['energy']
-#X=select_df[['sigN4s','sigNps','sigTdp','sigTps','sigUd']] 
-#X=select_df[['Ns','Np','sigTdp','sigTps','sigUd']]  #Do t and U have to be divided by stuff because of the super cell?
-X=select_df[['N1','N3','N4','N5','N7','sigUd']]  #Do t and U have to be divided by stuff because of the super cell?
+var=['N1','N3','N4','N5','N7','sigUd']
+#for i in list(select_df):
+#  if('sigT_' in i): var+=[i]
+X=select_df[var]  #Do t and U have to be divided by stuff because of the super cell?
 X=sm.add_constant(X)
 beta=0.5
 weights=np.exp(-beta*(y-min(y)))
