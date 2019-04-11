@@ -49,6 +49,16 @@ print(list(X))
 for i in range(pca.components_.shape[0]):
   print(np.around(pca.explained_variance_ratio_[i],3),
   np.around(pca.components_[i,:],3)) #(component, feature)
+
+var=['N1','N3','N4','N5','N7','sigUd','sigUp','sigUs']
+X=df[var]
+X=sm.add_constant(X)
+pca=PCA(n_components=len(list(X)))
+pca.fit(X)
+print(list(X))
+for i in range(pca.components_.shape[0]):
+  print(np.around(pca.explained_variance_ratio_[i],3),
+  np.around(pca.components_[i,:],3)) #(component, feature)
 #exit(0)
 
 #CORR MATRIX
@@ -95,22 +105,47 @@ plt.show()
 #exit(0)
 
 #REGRESSION
-select_df=df
-#y=select_df['Np']
-#X=select_df[['sigTdp','sigTps']] 
-
+select_df=sm.add_constant(df)
 y=select_df['energy']
-var=['N1','N3','N4','N5','N7','sigUd']
+
+#MULTICOLLINEARITY CHECKS 
+#y=select_df['Np']
+#var=['Ns','Np','Nsr','sigTdp','sigTps','sigTds','sigUd','sigUs']
+#y=select_df['sigUs']
+#var=['N1','N3','N4','N5','N7','sigUd','sigUp','sigUd']
+
+#IAO REGRESSION 
+var=['Np','Ns','Nsr','sigTdp','sigTds','sigTps','sigUd','sigUp','sigUs']
+#var=['Np','Ns','Nsr','sigTdp','sigTds','sigTps','sigUd']
+
+#MO REGRESSION 
+#var=['N1','N3','N4','N5','N7','sigUd','sigUp','sigUs']
+#var=['N1','N3','N4','N5','N7','sigUd','sigUp','sigUs']
 #for i in list(select_df):
 #  if('sigT_' in i): var+=[i]
-X=select_df[var]  #Do t and U have to be divided by stuff because of the super cell?
-X=sm.add_constant(X)
-beta=0.5
-weights=np.exp(-beta*(y-min(y)))
-ols=sm.WLS(y,X,weights).fit()
-print(ols.summary())
-__,l_ols,u_ols=wls_prediction_std(ols,alpha=0.10)
 
+X=select_df[var]  #Do t and U have to be divided by stuff because of the super cell?
+
+#ADD NOISE 
+for mag in [0.25]:
+  for run in range(50):
+    #X=select_df[var]  #Do t and U have to be divided by stuff because of the super cell?
+    #X+=np.random.normal(scale=mag,size=X.shape)
+    y=select_df['energy']
+    y+=np.random.normal(scale=mag,size=y.shape)
+    X=sm.add_constant(X)
+    
+    beta=0.0
+    weights=np.exp(-beta*(y-min(y)))
+    ols=sm.WLS(y,X,weights).fit()
+ 
+    zz=(ols.conf_int()[0]-ols.conf_int()[1])/2
+    plt.errorbar(np.arange(len(ols.params)),ols.params,zz.values,marker='.',c='b',ls='None')
+plt.xticks(np.arange(len(list(X))),list(X))
+plt.show()
+exit(0)
+
+__,l_ols,u_ols=wls_prediction_std(ols,alpha=0.10)
 select_df['energy_err']=0
 select_df['pred']=ols.predict(X)
 select_df['pred_err']=(u_ols-l_ols)/2
