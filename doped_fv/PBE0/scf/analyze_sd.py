@@ -115,19 +115,26 @@ y=select_df['energy']
 #var=['N1','N3','N4','N5','N7','sigUd','sigUp','sigUd']
 
 #IAO REGRESSION 
-var=['Np','Ns','Nsr','sigTdp','sigTds','sigTps','sigUd','sigUp','sigUs']
+#var=['Np','Ns','Nsr','sigTdp','sigTds','sigTps','sigUd','sigUp','sigUs']
 #var=['Np','Ns','Nsr','sigTdp','sigTds','sigTps','sigUd']
 
 #MO REGRESSION 
-#var=['N1','N3','N4','N5','N7','sigUd','sigUp','sigUs']
+var=['N1','N3','N4','N5','N7','sigUd','sigUs']#'sigUp','sigUs']
 #var=['N1','N3','N4','N5','N7','sigUd','sigUp','sigUs']
 #for i in list(select_df):
 #  if('sigT_' in i): var+=[i]
 
 X=select_df[var]  #Do t and U have to be divided by stuff because of the super cell?
+y=select_df['energy']
+X=sm.add_constant(X)
+
+beta=0.0
+weights=np.exp(-beta*(y-min(y)))
+ols=sm.WLS(y,X,weights).fit()
+print(ols.summary())
 
 #ADD NOISE 
-for mag in [0.25]:
+for mag in [0.10]:
   for run in range(50):
     #X=select_df[var]  #Do t and U have to be divided by stuff because of the super cell?
     #X+=np.random.normal(scale=mag,size=X.shape)
@@ -140,8 +147,8 @@ for mag in [0.25]:
     ols=sm.WLS(y,X,weights).fit()
  
     zz=(ols.conf_int()[0]-ols.conf_int()[1])/2
-    plt.errorbar(np.arange(len(ols.params)),ols.params,zz.values,marker='.',c='b',ls='None')
-plt.xticks(np.arange(len(list(X))),list(X))
+    plt.errorbar(np.arange(len(ols.params)-1),ols.params[1:],zz.values[1:],marker='.',c='b',ls='None')
+plt.xticks(np.arange(len(list(X))-1),list(X)[1:])
 plt.show()
 exit(0)
 
