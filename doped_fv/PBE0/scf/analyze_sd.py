@@ -6,6 +6,7 @@ import statsmodels.api as sm
 from statsmodels.sandbox.regression.predstd import wls_prediction_std
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
+from log import log_fit_bootstrap
 
 df=pd.read_pickle('pickles/full_sd_gosling.pickle')
 
@@ -36,9 +37,10 @@ df=df.drop(columns=['N2','N6','sigT_0_3','sigT_0_6',
 #VARIANCES
 var=df.var()
 ind=np.argsort(var.values)
-print(var.iloc[ind])
+#print(var.iloc[ind])
 #exit(0)
 
+'''
 #PCA
 var=['Nd','Np','Ns','Nsr','sigTdp','sigTps','sigTds','sigUd','sigUp','sigUs']
 X=df[var]
@@ -60,6 +62,7 @@ for i in range(pca.components_.shape[0]):
   print(np.around(pca.explained_variance_ratio_[i],3),
   np.around(pca.components_[i,:],3)) #(component, feature)
 #exit(0)
+'''
 
 #CORR MATRIX
 #var=['energy','Nd','Np','Ns','Nsr','sigTdp','sigTps','sigTds','sigUd','sigUp','sigUs']
@@ -119,20 +122,58 @@ y=select_df['energy']
 #var=['Np','Ns','Nsr','sigTdp','sigTds','sigTps','sigUd']
 
 #MO REGRESSION 
-var=['N1','N3','N4','N5','N7','sigUd','sigUs']#'sigUp','sigUs']
+var=['N1','N3','N4','N5','N7','sigUd']
 #var=['N1','N3','N4','N5','N7','sigUd','sigUp','sigUs']
 #for i in list(select_df):
 #  if('sigT_' in i): var+=[i]
 
+
+#OLS - ------------------------------------------------
+'''
 X=select_df[var]  #Do t and U have to be divided by stuff because of the super cell?
 y=select_df['energy']
 X=sm.add_constant(X)
 
-beta=0.0
+beta=1.0
 weights=np.exp(-beta*(y-min(y)))
 ols=sm.WLS(y,X,weights).fit()
 print(ols.summary())
 
+__,l_ols,u_ols=wls_prediction_std(ols,alpha=0.05)
+select_df['energy_err']=0
+select_df['pred']=ols.predict(X)
+select_df['pred_err']=(u_ols-l_ols)/2
+select_df['resid']=select_df['energy']-select_df['pred']
+
+g = sns.FacetGrid(select_df,hue='basestate')
+g.map(plt.errorbar, "pred", "energy", "energy_err","pred_err",fmt='o').add_legend()
+plt.plot(select_df['energy'],select_df['energy'],'k--')
+plt.show()
+exit(0)
+'''
+
+#LOG - ------------------------------------------------
+beta=1.0
+weights=np.exp(-beta*(y-min(y)))
+X=select_df[var+['energy']]  #Do t and U have to be divided by stuff because of the super cell?
+X=sm.add_constant(X)
+X['weights']=weights
+coef, pred_mu, pred_err_u, pred_err_l = log_fit_bootstrap(X)
+print(var)
+print(np.mean(coef,axis=0))
+print(np.std(coef,axis=0))
+
+select_df['energy_err']=0
+select_df['pred']=pred_mu
+select_df['pred_err']=(pred_err_u - pred_err_l)/2
+
+g = sns.FacetGrid(select_df,hue='basestate')
+g.map(plt.errorbar, "pred", "energy", "energy_err","pred_err",fmt='o').add_legend()
+plt.plot(select_df['energy'],select_df['energy'],'k--')
+plt.show()
+exit(0)
+
+'''
 #ADD NOISE 
 for mag in [0.10]:
   for run in range(50):
@@ -151,15 +192,4 @@ for mag in [0.10]:
 plt.xticks(np.arange(len(list(X))-1),list(X)[1:])
 plt.show()
 exit(0)
-
-__,l_ols,u_ols=wls_prediction_std(ols,alpha=0.10)
-select_df['energy_err']=0
-select_df['pred']=ols.predict(X)
-select_df['pred_err']=(u_ols-l_ols)/2
-select_df['resid']=select_df['energy']-select_df['pred']
-
-g = sns.FacetGrid(select_df,hue='basestate')
-g.map(plt.errorbar, "pred", "energy", "energy_err",fmt='o').add_legend()
-plt.plot(select_df['energy'],select_df['energy'],'k--')
-plt.show()
-exit(0)
+'''
