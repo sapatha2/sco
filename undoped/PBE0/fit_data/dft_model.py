@@ -74,7 +74,7 @@ print(len(unique_vals))
 Ndet=10
 c=0.7
 N=500
-detgen='sd'
+detgen='s'
 ncore=16 #Core orbitals (no 3s, 3p, 2s)
 act=[np.arange(16,72),np.arange(16,72)] #List of active orbitals, spin separated
 nact=[50,50] #Number of active electrons
