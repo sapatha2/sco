@@ -11,6 +11,7 @@ def read_bands(filename):
   nspin=int(spl[6])
   spl=f.readline().split()
   npanel=int(spl[2])
+  print(nkpt,nband,nspin,npanel)
   panels=[]
   for i in range(0,npanel+1):
     spl=f.readline().split()
@@ -39,23 +40,18 @@ for p in panels:
   ax.annotate(p[1],xy=(p[0],0.0),ha='center',fontsize=9)
 ax.axhline(0.0,color='gray',linestyle="--")
 conv=27.2116
-for b in range(65,70):
+for b in range(60,80):
+  if(bands[0][0,b]<0): print(b,"spin up")
+  if(bands[1][0,b]<0): print(b,"spin down")
+  ax.annotate(str(b), xy=(0, conv*bands[0][0,b]),fontsize=14, color='k')
+  ax.annotate(str(b), xy=(120, conv*bands[1][-1,b]),fontsize=14, color='r')
+  #ax.annotate(0, conv*bands[1][0,b], str(b), transform=ax.transAxes, fontsize=14,
+  #        verticalalignment='top', color='r')
   ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='k')
   ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='r')
-  
-  print(conv*bands[0][:,b])
-  
-  '''
-  if(b==66):
-    ax.plot(range(1,nkpt+1),conv*bands[1][:,b],color='m')
-  if(b==67):
-    ax.plot(range(1,nkpt+1),conv*bands[0][:,b],color='b')
-  '''
-'''
 P.ylim([-2,2])
 P.ylabel("Energy (eV) ")
 if len(sys.argv) < 2: 
   P.show()
 else:
   P.savefig(sys.argv[1])
-'''

@@ -9,8 +9,8 @@ Originated at North Carolina State University
 Please cite J. Comp. Phys. v 228 pp 3390-3404 (2009) 
  when publishing results from this program.
 ------------------------------------------------
-Running on golubh3
-Mon Jan 22 09:55:51 2018
+Running on wirelessprv-10-192-69-66.near.illinois.edu
+Wed Dec  5 10:23:14 2018
 
 #############Plot_method#################
 orbs=401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466
@@ -19,5 +19,5 @@ xmin=0 xmax=14.8451
 ymin=0 ymax=14.8451
 zmin=0 zmax=6.48894
 done
-Wall time for this method: 44 seconds.
-Total wall time so far: 46 seconds.
+Wall time for this method: 69 seconds.
+Total wall time so far: 71 seconds.
